@@ -198,6 +198,652 @@
         "url": "https://community-sitcom.fandom.com/wiki/Modern_Warfare",
         "description": "Community Fandom Wiki - Modern Warfare"
       }
+    },
+    {
+      "questionText": "What radio station does Frasier Crane host his show on in Frasier?",
+      "options": [
+        "KACL",
+        "WKRP",
+        "KBBL",
+        "WNYX"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Frasier",
+        "description": "Wikipedia - Frasier"
+      },
+      "funFact": "Kelsey Grammer played Frasier Crane for 20 consecutive years across Cheers, Frasier, and the 2023 revival."
+    },
+    {
+      "questionText": "What is the name of Frasier's brother on Frasier?",
+      "options": [
+        "Niles Crane",
+        "Miles Crane",
+        "Giles Crane",
+        "Nigel Crane"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Frasier",
+        "description": "Wikipedia - Frasier"
+      },
+      "funFact": "David Hyde Pierce was cast as Niles partly because he bore a striking physical resemblance to Kelsey Grammer."
+    },
+    {
+      "questionText": "What is the name of the coffee shop Frasier and Niles frequent?",
+      "options": [
+        "Cafe Nervosa",
+        "Central Perk",
+        "The Mudhouse",
+        "Java the Hut"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Frasier",
+        "description": "Wikipedia - Frasier"
+      },
+      "funFact": "Frasier won 37 Primetime Emmy Awards — a record for scripted series at the time."
+    },
+    {
+      "questionText": "What was Martin Crane's profession before retirement on Frasier?",
+      "options": [
+        "Police officer",
+        "Firefighter",
+        "Construction worker",
+        "Army sergeant"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Frasier",
+        "description": "Wikipedia - Frasier"
+      },
+      "funFact": "John Mahoney (Martin) was actually British-born. His American accent on the show was the performance, not the other way around."
+    },
+    {
+      "questionText": "Who narrates Arrested Development?",
+      "options": [
+        "Ron Howard",
+        "Morgan Freeman",
+        "Alec Baldwin",
+        "Will Arnett"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Arrested_Development_(TV_series)",
+        "description": "Wikipedia - Arrested Development"
+      },
+      "funFact": "Ron Howard also served as executive producer. He occasionally appears on screen as himself in later seasons."
+    },
+    {
+      "questionText": "What does G.O.B. stand for in Arrested Development?",
+      "options": [
+        "George Oscar Bluth",
+        "Great Original Bluth",
+        "Governor Of Business",
+        "George Orwell Bluth"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Arrested_Development_(TV_series)",
+        "description": "Wikipedia - Arrested Development"
+      },
+      "funFact": "Will Arnett based G.O.B.'s failed magic acts on real amateur magicians he'd observed at children's birthday parties."
+    },
+    {
+      "questionText": "What condition does Tobias Funke suffer from in Arrested Development?",
+      "options": [
+        "He's a never-nude",
+        "He can't stop crying",
+        "He's color blind",
+        "He sleepwalks"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Arrested_Development_(TV_series)",
+        "description": "Wikipedia - Arrested Development"
+      },
+      "funFact": "A never-nude always wears cutoff jean shorts under their clothes. David Cross wore them in every scene, even ones where they weren't visible."
+    },
+    {
+      "questionText": "What recurring catchphrase do multiple Bluth family members say in Arrested Development?",
+      "options": [
+        "I've made a huge mistake",
+        "There's money in the stand",
+        "No touching!",
+        "Come on!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Arrested_Development_(TV_series)",
+        "description": "Wikipedia - Arrested Development"
+      },
+      "funFact": "The phrase was first said by G.O.B. but eventually almost every Bluth family member says it — a deliberate running gag about hereditary poor judgment."
+    },
+    {
+      "questionText": "What political office does Selina Meyer hold at the start of Veep?",
+      "options": [
+        "Vice President",
+        "President",
+        "Senator",
+        "Secretary of State"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Veep",
+        "description": "Wikipedia - Veep"
+      },
+      "funFact": "Julia Louis-Dreyfus won 6 consecutive Emmy Awards for Veep — the most ever by a single performer for the same role."
+    },
+    {
+      "questionText": "What is Gary Walsh's role to Selina Meyer on Veep?",
+      "options": [
+        "Her personal aide/body man",
+        "Her chief of staff",
+        "Her speechwriter",
+        "Her press secretary"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Veep",
+        "description": "Wikipedia - Veep"
+      },
+      "funFact": "Tony Hale won 2 Emmys for playing Gary. He also played Buster Bluth on Arrested Development — two iconic sycophantic sidekicks."
+    },
+    {
+      "questionText": "Who created Veep?",
+      "options": [
+        "Armando Iannucci",
+        "Tina Fey",
+        "Larry David",
+        "Mike Judge"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Veep",
+        "description": "Wikipedia - Veep"
+      },
+      "funFact": "Iannucci previously created The Thick of It, a similar British political satire. Veep was his American reimagining of the concept."
+    },
+    {
+      "questionText": "What sketch show does Liz Lemon run on 30 Rock?",
+      "options": [
+        "TGS with Tracy Jordan",
+        "The Girlie Show",
+        "Saturday Night Live",
+        "The Tracy Jordan Experience"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/30_Rock",
+        "description": "Wikipedia - 30 Rock"
+      },
+      "funFact": "30 Rock was based on Tina Fey's real experience as head writer of Saturday Night Live. The original show name was 'The Girlie Show' before Tracy joined."
+    },
+    {
+      "questionText": "What is Kenneth Parcell's job at NBC on 30 Rock?",
+      "options": [
+        "NBC page",
+        "Intern",
+        "Mail clerk",
+        "Security guard"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/30_Rock",
+        "description": "Wikipedia - 30 Rock"
+      },
+      "funFact": "The show repeatedly hints that Kenneth may be immortal. In the finale, he's still a page decades later while everyone else has aged."
+    },
+    {
+      "questionText": "Who plays the NBC executive Jack Donaghy on 30 Rock?",
+      "options": [
+        "Alec Baldwin",
+        "Will Ferrell",
+        "Steve Martin",
+        "Martin Short"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/30_Rock",
+        "description": "Wikipedia - 30 Rock"
+      },
+      "funFact": "The role was written specifically for Baldwin. He won two Emmys and was nominated every single season the show aired."
+    },
+    {
+      "questionText": "What is Archer's most frequently used catchphrase?",
+      "options": [
+        "Danger zone!",
+        "Phrasing!",
+        "Lana... LANA!",
+        "Sploosh"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Archer_(TV_series)",
+        "description": "Wikipedia - Archer"
+      },
+      "funFact": "'Danger zone!' references the Kenny Loggins song. Archer uses it specifically to annoy Lana, which makes it funnier each time."
+    },
+    {
+      "questionText": "Who voices Sterling Archer?",
+      "options": [
+        "H. Jon Benjamin",
+        "Seth MacFarlane",
+        "Bob Odenkirk",
+        "Will Arnett"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Archer_(TV_series)",
+        "description": "Wikipedia - Archer"
+      },
+      "funFact": "H. Jon Benjamin also voices Bob Belcher on Bob's Burgers. There's even a crossover episode where Archer wakes up as Bob."
+    },
+    {
+      "questionText": "What was the original name of Archer's spy agency before it was changed?",
+      "options": [
+        "ISIS",
+        "SHIELD",
+        "SPECTRE",
+        "CONTROL"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Archer_(TV_series)",
+        "description": "Wikipedia - Archer"
+      },
+      "funFact": "The name ISIS (International Secret Intelligence Service) was dropped due to real-world associations with the jihadist group."
+    },
+    {
+      "questionText": "What fictional Connecticut town is Gilmore Girls set in?",
+      "options": [
+        "Stars Hollow",
+        "Hartford",
+        "Mystic Falls",
+        "Storybrooke"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Gilmore_Girls",
+        "description": "Wikipedia - Gilmore Girls"
+      },
+      "funFact": "Stars Hollow was inspired by the real town of Washington Depot, Connecticut, which Amy Sherman-Palladino visited and fell in love with."
+    },
+    {
+      "questionText": "What is the name of Luke's establishment in Gilmore Girls?",
+      "options": [
+        "Luke's Diner",
+        "Luke's Tavern",
+        "Luke's Coffee Shop",
+        "The Hollow Bean"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Gilmore_Girls",
+        "description": "Wikipedia - Gilmore Girls"
+      },
+      "funFact": "Luke Danes was originally written as a female character named Daisy. The switch to a male love interest happened during rewrites."
+    },
+    {
+      "questionText": "What Ivy League university does Rory Gilmore attend?",
+      "options": [
+        "Yale",
+        "Harvard",
+        "Princeton",
+        "Columbia"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Gilmore_Girls",
+        "description": "Wikipedia - Gilmore Girls"
+      },
+      "funFact": "Rory originally wanted Harvard, but Amy Sherman-Palladino chose Yale because it was closer to Connecticut and easier to write into the story."
+    },
+    {
+      "questionText": "Which actress from Gilmore Girls later became a major movie star as Sookie St. James?",
+      "options": [
+        "Melissa McCarthy",
+        "Amy Adams",
+        "Anna Kendrick",
+        "Rebel Wilson"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Gilmore_Girls",
+        "description": "Wikipedia - Gilmore Girls"
+      },
+      "funFact": "Melissa McCarthy was a relative unknown during Gilmore Girls. Her Oscar-nominated role in Bridesmaids came 7 years after the show premiered."
+    },
+    {
+      "questionText": "What is the major Season 1 twist in The Good Place?",
+      "options": [
+        "The neighborhood is actually the Bad Place",
+        "Eleanor is already dead",
+        "Michael is human",
+        "Janet is the judge"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Good_Place",
+        "description": "Wikipedia - The Good Place"
+      },
+      "funFact": "The twist was so closely guarded that most of the cast didn't know until they read the finale script for Season 1."
+    },
+    {
+      "questionText": "What replaces profanity in The Good Place's censored afterlife?",
+      "options": [
+        "Fork, shirt, and bench",
+        "Fudge, shoot, and darn",
+        "Flip, sugar, and blast",
+        "Frick, shuck, and bull"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Good_Place",
+        "description": "Wikipedia - The Good Place"
+      },
+      "funFact": "The fake swearing was Michael Schur's way of getting around network TV language rules while making the censorship itself a joke."
+    },
+    {
+      "questionText": "What does Janet always clarify she is not on The Good Place?",
+      "options": [
+        "Not a robot and not a girl",
+        "Not an angel",
+        "Not a computer",
+        "Not human"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Good_Place",
+        "description": "Wikipedia - The Good Place"
+      },
+      "funFact": "D'Arcy Carden played every version of Janet — Good Janet, Bad Janet, Neutral Janet, and even Disco Janet."
+    },
+    {
+      "questionText": "What is Alexis Rose's signature catchphrase on Schitt's Creek?",
+      "options": [
+        "Ew, David!",
+        "Love that journey for me",
+        "A little bit Alexis",
+        "Bébé!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Schitt%27s_Creek",
+        "description": "Wikipedia - Schitt's Creek"
+      },
+      "funFact": "Annie Murphy almost quit acting before being cast as Alexis. She was down to her last $3 when she got the call."
+    },
+    {
+      "questionText": "What is the name of the store David Rose opens in Schitt's Creek?",
+      "options": [
+        "Rose Apothecary",
+        "David's General Store",
+        "The Rose Boutique",
+        "Schitt's Gifts"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Schitt%27s_Creek",
+        "description": "Wikipedia - Schitt's Creek"
+      },
+      "funFact": "Rose Apothecary was inspired by Brooklyn artisanal shops. Dan Levy wanted David's growth to be reflected in building something from nothing."
+    },
+    {
+      "questionText": "What unprecedented feat did Schitt's Creek accomplish at the 72nd Emmy Awards?",
+      "options": [
+        "Swept all four acting categories",
+        "Won Best Comedy for all 6 seasons",
+        "Every cast member was nominated",
+        "Won more Emmys than any comedy in history"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Schitt%27s_Creek",
+        "description": "Wikipedia - Schitt's Creek"
+      },
+      "funFact": "Schitt's Creek won all seven major comedy Emmy Awards that night — a sweep never accomplished before or since."
+    },
+    {
+      "questionText": "What is Moira Rose's beloved collection that she calls her 'bébés' on Schitt's Creek?",
+      "options": [
+        "Her wigs",
+        "Her shoes",
+        "Her jewels",
+        "Her handbags"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Schitt%27s_Creek",
+        "description": "Wikipedia - Schitt's Creek"
+      },
+      "funFact": "Catherine O'Hara wore over 100 different wigs throughout the series. Each one had its own name and she helped select them all."
+    },
+    {
+      "questionText": "What hidden object appears in every episode of Psych as an Easter egg?",
+      "options": [
+        "A pineapple",
+        "A rubber duck",
+        "A red balloon",
+        "A toy dinosaur"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Psych",
+        "description": "Wikipedia - Psych"
+      },
+      "funFact": "The pineapple Easter egg became so beloved that fans created online guides tracking its location in every single episode."
+    },
+    {
+      "questionText": "What does Shawn Spencer do every time he introduces Gus on Psych?",
+      "options": [
+        "Gives him a different fake name",
+        "Calls him his brother",
+        "Pretends not to know him",
+        "Introduces him as a doctor"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Psych",
+        "description": "Wikipedia - Psych"
+      },
+      "funFact": "Gus's fake names include Ovaltine Jenkins, Lavender Gooms, Gus T.T. Showbiz, and Methuselah Honeysuckle — over 170 across the series."
+    },
+    {
+      "questionText": "What is Shawn's go-to response when someone corrects his pronunciation on Psych?",
+      "options": [
+        "I've heard it both ways",
+        "That's what I said",
+        "Potato, potahto",
+        "Close enough"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Psych",
+        "description": "Wikipedia - Psych"
+      },
+      "funFact": "Dulé Hill's standard response as Gus — 'No, you haven't' — was often improvised and became just as iconic as Shawn's line."
+    },
+    {
+      "questionText": "During what historical period is Derry Girls set?",
+      "options": [
+        "The Troubles in 1990s Northern Ireland",
+        "World War II",
+        "1960s Ireland",
+        "The 2008 recession"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Derry_Girls",
+        "description": "Wikipedia - Derry Girls"
+      },
+      "funFact": "Creator Lisa McGee based the show on her own experiences growing up in Derry during The Troubles. Most storylines are semi-autobiographical."
+    },
+    {
+      "questionText": "Why is James Maguire sent to the girls' school in Derry Girls?",
+      "options": [
+        "He's English and the boys' school would kill him",
+        "His mother works there",
+        "He failed the entrance exam",
+        "He was expelled from the boys' school"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Derry_Girls",
+        "description": "Wikipedia - Derry Girls"
+      },
+      "funFact": "James being English in a Northern Irish Catholic school during The Troubles is played for laughs, but it's rooted in real sectarian tensions."
+    },
+    {
+      "questionText": "Who is the acid-tongued headmistress at the school in Derry Girls?",
+      "options": [
+        "Sister Michael",
+        "Sister Mary",
+        "Mother Superior",
+        "Sister Catherine"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Derry_Girls",
+        "description": "Wikipedia - Derry Girls"
+      },
+      "funFact": "Sister Michael became a breakout character. Siobhán McSweeney said she based her deadpan delivery on nuns she actually knew growing up."
+    },
+    {
+      "questionText": "What is Wayne's signature opening catchphrase on Letterkenny?",
+      "options": [
+        "Pitter patter, let's get at 'er",
+        "That's what I appreciates about you",
+        "Figure it out",
+        "Hard no"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Letterkenny_(TV_series)",
+        "description": "Wikipedia - Letterkenny"
+      },
+      "funFact": "The show's rapid-fire slang comes from creator Jared Keeso's real experience playing competitive hockey in small-town Ontario."
+    },
+    {
+      "questionText": "What are the three main social groups in the town of Letterkenny?",
+      "options": [
+        "Hicks, Skids, and Hockey Players",
+        "Farmers, Punks, and Jocks",
+        "Rednecks, Goths, and Athletes",
+        "Cowboys, Nerds, and Bros"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Letterkenny_(TV_series)",
+        "description": "Wikipedia - Letterkenny"
+      },
+      "funFact": "The Hicks vs. Skids vs. Hockey Players dynamic mirrors real small-town Canadian social hierarchies that Keeso grew up with."
+    },
+    {
+      "questionText": "What is the population of Letterkenny according to the show's opening?",
+      "options": [
+        "5,000",
+        "2,500",
+        "10,000",
+        "500"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Letterkenny_(TV_series)",
+        "description": "Wikipedia - Letterkenny"
+      },
+      "funFact": "The opening — 'There are 5,000 people in Letterkenny. These are their problems.' — parodies the serious tone of Law & Order's opening."
+    },
+    {
+      "questionText": "What spin-off show features the hockey player character Shoresy from Letterkenny?",
+      "options": [
+        "Shoresy",
+        "The Rink",
+        "Letterkenny Hockey",
+        "Puck Off"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Letterkenny_(TV_series)",
+        "description": "Wikipedia - Letterkenny"
+      },
+      "funFact": "Shoresy was only ever heard, never seen, in Letterkenny — always just his voice from a locker room. Jared Keeso plays both Wayne and Shoresy."
     }
   ]
 }

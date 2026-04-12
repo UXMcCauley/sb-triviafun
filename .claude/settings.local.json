@@ -33,7 +33,17 @@
       "Bash(node scripts/add-fun-facts.mjs)",
       "Bash(node -e \"const d = require\\('./data/packs/the-family-shows.json'\\); console.log\\(d.description.length, d.description\\);\")",
       "Bash(node -e 'const d = require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.description.length, d.name, '\\\\''|'\\\\'', d.description\\);')",
-      "Bash(node -e 'const d = require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.description.length, d.name\\);')"
+      "Bash(node -e 'const d = require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.description.length, d.name\\);')",
+      "Bash(node -e \"const d = require\\('./data/packs/the-family-shows.json'\\); console.log\\('Total:', d.questions.length\\); d.questions.forEach\\(\\(q,i\\) => console.log\\(i + ': ' + q.questionText.substring\\(0,80\\)\\)\\);\")",
+      "Bash(node -e \"const d = require\\('./data/packs/the-family-shows.json'\\); const last = d.questions[d.questions.length-1]; console.log\\(last.questionText.substring\\(0,60\\)\\);\")",
+      "Bash(node scripts/add-family-questions.mjs)",
+      "Bash(node -e \"const d = require\\('./data/packs/the-hangout-shows.json'\\); console.log\\('Total:', d.questions.length\\); d.questions.forEach\\(\\(q,i\\) => console.log\\(i + ': ' + q.questionText.substring\\(0,70\\)\\)\\);\")",
+      "Bash(node scripts/add-hangout-questions.mjs)",
+      "Bash(node scripts/add-smartass-questions.mjs)",
+      "Bash(rm scripts/add-hangout-questions.mjs scripts/add-smartass-questions.mjs)",
+      "Bash(node -e \"const d = require\\('./data/packs/the-workplace-shows.json'\\); console.log\\('Total:', d.questions.length\\); d.questions.forEach\\(\\(q,i\\) => console.log\\(i + ': ' + q.questionText.substring\\(0,70\\)\\)\\);\")",
+      "Bash(node scripts/add-workplace-questions.mjs)",
+      "Bash(rm scripts/add-workplace-questions.mjs)"
     ]
   }
 }

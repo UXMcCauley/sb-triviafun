@@ -198,6 +198,703 @@
         "url": "https://how-i-met-your-mother.fandom.com/wiki/Hot/Crazy_Scale",
         "description": "HIMYM Fandom Wiki - Hot/Crazy Scale"
       }
+    },
+    {
+      "questionText": "How much did each Friends cast member earn per episode in the final two seasons?",
+      "options": [
+        "$1 million",
+        "$750,000",
+        "$500,000",
+        "$2 million"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Friends",
+        "description": "Wikipedia - Friends"
+      },
+      "funFact": "The cast collectively negotiated their salaries together, refusing to let the network pay anyone more than the others."
+    },
+    {
+      "questionText": "What address is the Friends apartment building exterior located at in Greenwich Village?",
+      "options": [
+        "90 Bedford Street",
+        "121 Bleecker Street",
+        "42 Grove Street",
+        "55 Perry Street"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Friends",
+        "description": "Wikipedia - Friends"
+      },
+      "funFact": "The building at 90 Bedford Street became such a tourist attraction that the owners had to put up barriers to keep fans away."
+    },
+    {
+      "questionText": "How many viewers watched the Friends series finale?",
+      "options": [
+        "52.5 million",
+        "35 million",
+        "76 million",
+        "44 million"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Friends",
+        "description": "Wikipedia - Friends"
+      },
+      "funFact": "Stage 24 at Warner Bros. Studios was renamed 'The Friends Stage' after filming wrapped."
+    },
+    {
+      "questionText": "What is Joey Tribbiani's signature pickup line on Friends?",
+      "options": [
+        "How you doin'?",
+        "Did it hurt when you fell from heaven?",
+        "Come here often?",
+        "What's your sign?"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Friends",
+        "description": "Wikipedia - Friends"
+      },
+      "funFact": "Matt LeBlanc improvised 'How you doin'?' in an early episode. The writers loved it so much they made it Joey's permanent catchphrase."
+    },
+    {
+      "questionText": "What is the theme song of Cheers called?",
+      "options": [
+        "Where Everybody Knows Your Name",
+        "Cheers to You",
+        "A Place Called Home",
+        "The Bar Song"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Cheers",
+        "description": "Wikipedia - Cheers"
+      },
+      "funFact": "Gary Portnoy wrote the song. It became so iconic that the real Bull & Finch Pub in Boston renamed itself 'Cheers' to capitalize on tourism."
+    },
+    {
+      "questionText": "What do the bar patrons yell every time Norm Peterson walks into Cheers?",
+      "options": [
+        "NORM!",
+        "HEY!",
+        "CHEERS!",
+        "HERE HE IS!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Cheers",
+        "description": "Wikipedia - Cheers"
+      },
+      "funFact": "George Wendt improvised a different one-liner response each time, creating over 200 unique 'Norm entrances' across the series."
+    },
+    {
+      "questionText": "Which Cheers character got their own spin-off series set in Seattle?",
+      "options": [
+        "Frasier Crane",
+        "Sam Malone",
+        "Woody Boyd",
+        "Cliff Clavin"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Cheers",
+        "description": "Wikipedia - Cheers"
+      },
+      "funFact": "Frasier ran for 11 seasons — the same length as Cheers. Kelsey Grammer played the character for 20 years across both shows."
+    },
+    {
+      "questionText": "How many Primetime Emmy Awards did Cheers win during its run?",
+      "options": [
+        "28",
+        "15",
+        "37",
+        "22"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Cheers",
+        "description": "Wikipedia - Cheers"
+      },
+      "funFact": "Cheers was nearly canceled after its first season when it ranked 74th out of 96 shows. It went on to become one of TV's most awarded series."
+    },
+    {
+      "questionText": "What was Mark Cooper's career before becoming a teacher in Hangin' with Mr. Cooper?",
+      "options": [
+        "NBA basketball player",
+        "NFL football player",
+        "Professional boxer",
+        "College basketball coach"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Hangin%27_with_Mr._Cooper",
+        "description": "Wikipedia - Hangin' with Mr. Cooper"
+      },
+      "funFact": "In a basketball episode, Mark Curry actually played in a real Golden State Warriors preseason game against the Phoenix Suns."
+    },
+    {
+      "questionText": "In what city is Hangin' with Mr. Cooper set?",
+      "options": [
+        "Oakland, California",
+        "Los Angeles",
+        "Chicago",
+        "Atlanta"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Hangin%27_with_Mr._Cooper",
+        "description": "Wikipedia - Hangin' with Mr. Cooper"
+      },
+      "funFact": "The pilot recycled the Seaver family house set from Growing Pains. Alan Thicke even cameoed as Jason Seaver finding Mark Curry on his couch."
+    },
+    {
+      "questionText": "Who created both Hangin' with Mr. Cooper and Full House?",
+      "options": [
+        "Jeff Franklin",
+        "Chuck Lorre",
+        "Gary David Goldberg",
+        "Michael Patrick King"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Hangin%27_with_Mr._Cooper",
+        "description": "Wikipedia - Hangin' with Mr. Cooper"
+      },
+      "funFact": "Jeff Franklin specialized in family-friendly sitcoms. Both shows aired on ABC's TGIF lineup during the same era."
+    },
+    {
+      "questionText": "Which child actress joined the cast of Hangin' with Mr. Cooper in Season 2?",
+      "options": [
+        "Raven-Symoné",
+        "Keke Palmer",
+        "Brandy Norwood",
+        "Tatyana Ali"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Hangin%27_with_Mr._Cooper",
+        "description": "Wikipedia - Hangin' with Mr. Cooper"
+      },
+      "funFact": "Raven-Symoné was already famous from The Cosby Show. She joined when the show shifted to a more family-oriented format."
+    },
+    {
+      "questionText": "What is the name of the community college in Community?",
+      "options": [
+        "Greendale Community College",
+        "Riverside Community College",
+        "Valley Community College",
+        "Hawthorne Community College"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Community_(TV_series)",
+        "description": "Wikipedia - Community"
+      },
+      "funFact": "Dan Harmon based the show on his own experience attending Glendale Community College in California."
+    },
+    {
+      "questionText": "What is the fan slogan that became Community's rallying cry?",
+      "options": [
+        "Six seasons and a movie",
+        "Streets ahead",
+        "Cool cool cool",
+        "Pop pop"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Community_(TV_series)",
+        "description": "Wikipedia - Community"
+      },
+      "funFact": "'Six seasons and a movie' started as an Abed joke. A Community movie was eventually greenlit for Peacock, making the prophecy real."
+    },
+    {
+      "questionText": "What recurring event causes campus-wide chaos in Community?",
+      "options": [
+        "Paintball battles",
+        "Dodgeball tournaments",
+        "Pie eating contests",
+        "Laser tag wars"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Community_(TV_series)",
+        "description": "Wikipedia - Community"
+      },
+      "funFact": "The paintball episodes became so popular they turned into annual events. 'Modern Warfare' (Season 1) is consistently rated the show's best episode."
+    },
+    {
+      "questionText": "Which actor plays the eccentric Dean Pelton on Community?",
+      "options": [
+        "Jim Rash",
+        "Ken Jeong",
+        "Joel McHale",
+        "Danny Pudi"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Community_(TV_series)",
+        "description": "Wikipedia - Community"
+      },
+      "funFact": "Jim Rash won an Academy Award for co-writing The Descendants while still filming Community. He showed up to set with his Oscar."
+    },
+    {
+      "questionText": "What is the name of the high school in Saved by the Bell?",
+      "options": [
+        "Bayside High",
+        "Valley High",
+        "Pacific High",
+        "Westside High"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Saved_by_the_Bell",
+        "description": "Wikipedia - Saved by the Bell"
+      },
+      "funFact": "Saved by the Bell started as a completely different show called Good Morning, Miss Bliss on the Disney Channel before being retooled for NBC."
+    },
+    {
+      "questionText": "What is Zack Morris's signature fourth-wall-breaking move on Saved by the Bell?",
+      "options": [
+        "Calling 'Time out!' to freeze the scene",
+        "Winking at the camera",
+        "Writing in his diary",
+        "Talking into a tape recorder"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Saved_by_the_Bell",
+        "description": "Wikipedia - Saved by the Bell"
+      },
+      "funFact": "The 'Time out!' freeze was inspired by Ferris Bueller's Day Off. Mark-Paul Gosselaar was only 15 when the show premiered."
+    },
+    {
+      "questionText": "What is Principal Belding's name a pun on in Saved by the Bell?",
+      "options": [
+        "Bell ding",
+        "Building",
+        "Balding",
+        "Belonging"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Saved_by_the_Bell",
+        "description": "Wikipedia - Saved by the Bell"
+      },
+      "funFact": "Dennis Haskins played Belding so convincingly that fans would approach him at events calling him 'Mr. Belding' for decades after the show ended."
+    },
+    {
+      "questionText": "Who provides the voiceover narration as Future Ted in How I Met Your Mother?",
+      "options": [
+        "Bob Saget",
+        "Josh Radnor",
+        "Jason Segel",
+        "Neil Patrick Harris"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/How_I_Met_Your_Mother",
+        "description": "Wikipedia - HIMYM"
+      },
+      "funFact": "Bob Saget never appeared on screen. The child actors' reaction shots were filmed in 2006 before they aged, then reused for all 9 seasons."
+    },
+    {
+      "questionText": "What is Robin Scherbatsky's embarrassing Canadian pop star alter ego in HIMYM?",
+      "options": [
+        "Robin Sparkles",
+        "Robin Daggers",
+        "Robin Glitter",
+        "Robin Star"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/How_I_Met_Your_Mother",
+        "description": "Wikipedia - HIMYM"
+      },
+      "funFact": "The Robin Sparkles music video for 'Let's Go to the Mall' was filmed as a real 1990s-style Canadian pop video and became a viral hit."
+    },
+    {
+      "questionText": "What is the name of the recurring punishment bet between Marshall and Barney in HIMYM?",
+      "options": [
+        "The Slap Bet",
+        "The Dare Pact",
+        "The Pain Game",
+        "The Wager"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/How_I_Met_Your_Mother",
+        "description": "Wikipedia - HIMYM"
+      },
+      "funFact": "Marshall earned the right to slap Barney across the face at any time. The slaps were spread across multiple seasons for maximum comedic impact."
+    },
+    {
+      "questionText": "What is the name of the fictional drinking game the roommates play on New Girl?",
+      "options": [
+        "True American",
+        "Loft Olympics",
+        "Floor Is Lava",
+        "Drunken Risk"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/New_Girl",
+        "description": "Wikipedia - New Girl"
+      },
+      "funFact": "True American's rules were intentionally never fully explained on the show. Fans have attempted to create real playable versions with mixed results."
+    },
+    {
+      "questionText": "What is Jess Day's profession on New Girl?",
+      "options": [
+        "Elementary school teacher",
+        "Nurse",
+        "Graphic designer",
+        "Social worker"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/New_Girl",
+        "description": "Wikipedia - New Girl"
+      },
+      "funFact": "The pilot drew 10.28 million viewers — the highest-rated Fox scripted fall debut since 2001."
+    },
+    {
+      "questionText": "What must Schmidt put money into every time he says something douchey on New Girl?",
+      "options": [
+        "The Douchebag Jar",
+        "The Bro Fund",
+        "The Shame Box",
+        "The Douche Bank"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/New_Girl",
+        "description": "Wikipedia - New Girl"
+      },
+      "funFact": "Max Greenfield was originally cast as a guest star for the pilot. His chemistry with the cast was so strong they made Schmidt a series regular."
+    },
+    {
+      "questionText": "In what fictional Wisconsin town is That '70s Show set?",
+      "options": [
+        "Point Place",
+        "Kenosha",
+        "Green Bay",
+        "Fond du Lac"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/That_%2770s_Show",
+        "description": "Wikipedia - That '70s Show"
+      },
+      "funFact": "Point Place doesn't exist, but the show's creators based it on several small Wisconsin towns they'd visited."
+    },
+    {
+      "questionText": "What is Red Forman's signature threat to Eric on That '70s Show?",
+      "options": [
+        "My foot in your ass",
+        "You're grounded for life",
+        "I'll send you to military school",
+        "Wait till your mother hears this"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/That_%2770s_Show",
+        "description": "Wikipedia - That '70s Show"
+      },
+      "funFact": "Kurtwood Smith improvised many variations of the 'foot in your ass' threat. The writers kept a running tally — he said it over 60 times."
+    },
+    {
+      "questionText": "What does 'The Circle' in the Formans' basement represent on That '70s Show?",
+      "options": [
+        "The characters smoking marijuana together",
+        "A study group",
+        "A séance",
+        "A poker game"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/That_%2770s_Show",
+        "description": "Wikipedia - That '70s Show"
+      },
+      "funFact": "The show never explicitly showed marijuana. The Circle used smoke effects and wide-angle lenses to imply what was happening."
+    },
+    {
+      "questionText": "How old was Mila Kunis when she was cast as Jackie on That '70s Show?",
+      "options": [
+        "14",
+        "16",
+        "18",
+        "15"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/That_%2770s_Show",
+        "description": "Wikipedia - That '70s Show"
+      },
+      "funFact": "Mila Kunis lied about her age at the audition, saying she'd be 18. The producers didn't find out her real age until after she was cast."
+    },
+    {
+      "questionText": "What radio station does Martin Payne work at in Martin?",
+      "options": [
+        "WZUP",
+        "WKRP",
+        "WBBN",
+        "WJAM"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Martin_(TV_series)",
+        "description": "Wikipedia - Martin"
+      },
+      "funFact": "Martin Lawrence based the radio DJ character on real Detroit radio personalities he'd listened to growing up."
+    },
+    {
+      "questionText": "What female character does Martin Lawrence play in drag on Martin?",
+      "options": [
+        "Sheneneh Jenkins",
+        "Mama Payne",
+        "Big Shirley",
+        "Keylolo"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Martin_(TV_series)",
+        "description": "Wikipedia - Martin"
+      },
+      "funFact": "Martin played multiple characters including Sheneneh, Mama Payne, Jerome, Otis, and Dragonfly Jones — often appearing in scenes with his own characters."
+    },
+    {
+      "questionText": "In what city is Martin set?",
+      "options": [
+        "Detroit",
+        "Chicago",
+        "Atlanta",
+        "Philadelphia"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Martin_(TV_series)",
+        "description": "Wikipedia - Martin"
+      },
+      "funFact": "The show helped popularize phrases like 'You go girl!', 'Talk to the hand', and 'Wazzup' in mainstream American culture."
+    },
+    {
+      "questionText": "What recurring character enters Martin's apartment uninvited through the window?",
+      "options": [
+        "Bruh Man",
+        "Jerome",
+        "Cole",
+        "Tommy"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Martin_(TV_series)",
+        "description": "Wikipedia - Martin"
+      },
+      "funFact": "Bruh Man always claimed to live 'on the fifth floor' of Martin's building — which clearly didn't have five floors."
+    },
+    {
+      "questionText": "What is the name of the hospital in Scrubs?",
+      "options": [
+        "Sacred Heart Hospital",
+        "St. Mary's Hospital",
+        "General Hospital",
+        "County General"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Scrubs_(TV_series)",
+        "description": "Wikipedia - Scrubs"
+      },
+      "funFact": "Scrubs was filmed at a real abandoned hospital — North Hollywood Medical Center — giving it an authenticity most sitcoms lack."
+    },
+    {
+      "questionText": "What unique pattern do almost all Scrubs episode titles in seasons 1-8 follow?",
+      "options": [
+        "They all start with 'My...'",
+        "They're all one word",
+        "They all end with a question mark",
+        "They're all song titles"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Scrubs_(TV_series)",
+        "description": "Wikipedia - Scrubs"
+      },
+      "funFact": "The 'My...' format reflects J.D.'s narration — every episode is told from his personal perspective."
+    },
+    {
+      "questionText": "What is the Scrubs theme song?",
+      "options": [
+        "Superman by Lazlo Bane",
+        "Scrubs by TLC",
+        "I'm No Superman by Lazlo Bane",
+        "Doctor My Eyes by Jackson Browne"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Scrubs_(TV_series)",
+        "description": "Wikipedia - Scrubs"
+      },
+      "funFact": "Creator Bill Lawrence based the show on the real residency experiences of his college friend Dr. Jonathan Doris at Brown Medical School."
+    },
+    {
+      "questionText": "What is the Janitor's real name, finally revealed late in Scrubs?",
+      "options": [
+        "Glenn Matthews",
+        "Neil Flynn",
+        "Frank Miller",
+        "Bill Johnson"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Scrubs_(TV_series)",
+        "description": "Wikipedia - Scrubs"
+      },
+      "funFact": "Neil Flynn improvised most of the Janitor's dialogue. The character was originally supposed to be a figment of J.D.'s imagination."
+    },
+    {
+      "questionText": "What university do the main characters work at in The Big Bang Theory?",
+      "options": [
+        "Caltech",
+        "MIT",
+        "Stanford",
+        "UCLA"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Big_Bang_Theory",
+        "description": "Wikipedia - The Big Bang Theory"
+      },
+      "funFact": "UCLA physicist David Saltzberg served as science consultant. Every equation on the whiteboards is real and scientifically accurate."
+    },
+    {
+      "questionText": "What band performed The Big Bang Theory theme song?",
+      "options": [
+        "Barenaked Ladies",
+        "They Might Be Giants",
+        "Weezer",
+        "OK Go"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Big_Bang_Theory",
+        "description": "Wikipedia - The Big Bang Theory"
+      },
+      "funFact": "The full theme song covers the entire history of the universe in under a minute. Most viewers only hear the shortened TV version."
+    },
+    {
+      "questionText": "What is perpetually broken in the apartment building on The Big Bang Theory?",
+      "options": [
+        "The elevator",
+        "The front door lock",
+        "The mailboxes",
+        "The intercom"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Big_Bang_Theory",
+        "description": "Wikipedia - The Big Bang Theory"
+      },
+      "funFact": "The broken elevator is explained in a flashback — it broke when a rocket fuel experiment by Howard went wrong. It wasn't fixed until the series finale."
+    },
+    {
+      "questionText": "What lullaby does Sheldon request when he's sick on The Big Bang Theory?",
+      "options": [
+        "Soft Kitty",
+        "Twinkle Twinkle",
+        "Rock-a-Bye Baby",
+        "Hush Little Baby"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Big_Bang_Theory",
+        "description": "Wikipedia - The Big Bang Theory"
+      },
+      "funFact": "'Soft Kitty' became so popular that CBS sold official merchandise. A lawsuit was filed over the lyrics' origin from a 1930s children's song."
     }
   ]
 }

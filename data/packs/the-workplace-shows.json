@@ -198,6 +198,635 @@
         "url": "https://abbottelementary.fandom.com/wiki/Ava_Coleman",
         "description": "Abbott Elementary Fandom Wiki - Ava Coleman"
       }
+    },
+    {
+      "questionText": "What is Dwight Schrute's official job title that he insists on using in The Office?",
+      "options": [
+        "Assistant to the Regional Manager",
+        "Assistant Regional Manager",
+        "Sales Associate",
+        "Deputy Manager"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Office_(American_TV_series)",
+        "description": "Wikipedia - The Office"
+      },
+      "funFact": "The 'assistant TO the regional manager' vs 'assistant regional manager' distinction is corrected dozens of times throughout the series."
+    },
+    {
+      "questionText": "What is the name of Dwight's family farm in The Office?",
+      "options": [
+        "Schrute Farms",
+        "Schrute Acres",
+        "Schrute Ranch",
+        "Schrute Homestead"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Office_(American_TV_series)",
+        "description": "Wikipedia - The Office"
+      },
+      "funFact": "Schrute Farms doubles as a bed & breakfast. Rainn Wilson said filming farm scenes was his favorite part of the show."
+    },
+    {
+      "questionText": "What are both of Ron Swanson's ex-wives named in Parks and Recreation?",
+      "options": [
+        "Tammy",
+        "Karen",
+        "Susan",
+        "Diane"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Parks_and_Recreation",
+        "description": "Wikipedia - Parks and Recreation"
+      },
+      "funFact": "Tammy 2 is played by Megan Mullally, who is Nick Offerman's real-life wife. Their on-screen hatred is the opposite of their real relationship."
+    },
+    {
+      "questionText": "What is the name of Andy Dwyer's band in Parks and Recreation?",
+      "options": [
+        "Mouse Rat",
+        "Scarecrow Boat",
+        "Rat Mouse",
+        "Nothing Rhymes with Orange"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Parks_and_Recreation",
+        "description": "Wikipedia - Parks and Recreation"
+      },
+      "funFact": "The band changed names constantly — Scarecrow Boat, Punch Face Champions, Ninja Dick — but always settled back on Mouse Rat."
+    },
+    {
+      "questionText": "What annual tradition do Tom and Donna celebrate in Parks and Recreation?",
+      "options": [
+        "Treat Yo' Self",
+        "Fun Day",
+        "Splurge Saturday",
+        "Me Time Monday"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Parks_and_Recreation",
+        "description": "Wikipedia - Parks and Recreation"
+      },
+      "funFact": "'Treat Yo' Self' became a real cultural phenomenon. October 13th is now celebrated as Treat Yo' Self Day by fans."
+    },
+    {
+      "questionText": "What phrase does Chris Traeger enthusiastically say while pointing finger-guns in Parks and Rec?",
+      "options": [
+        "Ann Perkins!",
+        "Leslie Knope!",
+        "Literally!",
+        "Champion!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Parks_and_Recreation",
+        "description": "Wikipedia - Parks and Recreation"
+      },
+      "funFact": "Rob Lowe was originally signed for a six-episode arc. His chemistry with the cast was so strong they made him a series regular."
+    },
+    {
+      "questionText": "What was Chris Pratt's character Andy Dwyer originally meant to be on Parks and Rec?",
+      "options": [
+        "A temporary guest character",
+        "The lead role",
+        "A villain",
+        "A one-episode cameo"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Parks_and_Recreation",
+        "description": "Wikipedia - Parks and Recreation"
+      },
+      "funFact": "Pratt was only supposed to appear in Season 1. His improvised goofiness was so beloved they made Andy a permanent cast member."
+    },
+    {
+      "questionText": "What is the fictional Indiana town where Parks and Recreation is set?",
+      "options": [
+        "Pawnee",
+        "Eagleton",
+        "Muncie",
+        "Bloomington"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Parks_and_Recreation",
+        "description": "Wikipedia - Parks and Recreation"
+      },
+      "funFact": "Pawnee's rival city Eagleton is a running gag — it's the wealthy, snobbish town next door that Pawnee constantly feuds with."
+    },
+    {
+      "questionText": "What is Liz Lemon's favorite snack food on 30 Rock?",
+      "options": [
+        "Night cheese",
+        "Pizza bagels",
+        "Sabor de Soledad chips",
+        "Ham"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/30_Rock",
+        "description": "Wikipedia - 30 Rock"
+      },
+      "funFact": "Tina Fey sang 'Working on my night cheese' to the tune of 'Night Moves.' It became one of the show's most quotable moments."
+    },
+    {
+      "questionText": "Where is Kenneth Parcell originally from on 30 Rock?",
+      "options": [
+        "Stone Mountain, Georgia",
+        "Baton Rouge, Louisiana",
+        "Nashville, Tennessee",
+        "Macon, Georgia"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/30_Rock",
+        "description": "Wikipedia - 30 Rock"
+      },
+      "funFact": "The show repeatedly hints Kenneth may be immortal. In the finale, he's running NBC decades later while everyone else has aged."
+    },
+    {
+      "questionText": "What does Dr. Cox call J.D. instead of his real name on Scrubs?",
+      "options": [
+        "Girls' names like Carol, Barbara, Sally",
+        "Nicknames like Champ, Sport, Kid",
+        "Doctor Dorian every time",
+        "Random food names"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Scrubs_(TV_series)",
+        "description": "Wikipedia - Scrubs"
+      },
+      "funFact": "John C. McGinley kept a running list of every female name he called J.D. He used over 100 different names across the series."
+    },
+    {
+      "questionText": "What is the name of J.D. and Turk's bromantic relationship term on Scrubs?",
+      "options": [
+        "Guy Love",
+        "Bro Code",
+        "Man Crush",
+        "Dude Bond"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Scrubs_(TV_series)",
+        "description": "Wikipedia - Scrubs"
+      },
+      "funFact": "Zach Braff and Donald Faison are best friends in real life. Their on-screen chemistry was entirely genuine."
+    },
+    {
+      "questionText": "What is Jake Peralta's rapid-fire catchphrase on Brooklyn Nine-Nine?",
+      "options": [
+        "Cool cool cool cool cool no doubt no doubt",
+        "Noice, toight",
+        "Title of your sex tape",
+        "Smort"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Brooklyn_Nine-Nine",
+        "description": "Wikipedia - Brooklyn Nine-Nine"
+      },
+      "funFact": "Andy Samberg improvised the rapid 'cool cool cool' delivery. The writers started writing it into scripts after he kept doing it."
+    },
+    {
+      "questionText": "What is Captain Holt's husband's name on Brooklyn Nine-Nine?",
+      "options": [
+        "Kevin Cozner",
+        "Kevin Cooper",
+        "Kevin Crawford",
+        "Kevin Carter"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Brooklyn_Nine-Nine",
+        "description": "Wikipedia - Brooklyn Nine-Nine"
+      },
+      "funFact": "Kevin is a classics professor. The deadpan romantic scenes between Holt and Kevin became fan favorites for their emotional sincerity."
+    },
+    {
+      "questionText": "What event did Jake use the Halloween Heist to do in Brooklyn Nine-Nine Season 5?",
+      "options": [
+        "Propose to Amy Santiago",
+        "Get promoted to sergeant",
+        "Prank Captain Holt",
+        "Win a bet with Rosa"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Brooklyn_Nine-Nine",
+        "description": "Wikipedia - Brooklyn Nine-Nine"
+      },
+      "funFact": "The Halloween Heist episodes became an annual tradition. Each one has increasingly elaborate and absurd heist plans."
+    },
+    {
+      "questionText": "Which network saved Brooklyn Nine-Nine after Fox cancelled it?",
+      "options": [
+        "NBC",
+        "CBS",
+        "Hulu",
+        "Amazon"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Brooklyn_Nine-Nine",
+        "description": "Wikipedia - Brooklyn Nine-Nine"
+      },
+      "funFact": "When Fox cancelled it, the fan outcry was so massive that NBC picked it up within 31 hours — one of the fastest rescues in TV history."
+    },
+    {
+      "questionText": "What is the name of the big-box store manager who has worked there since 1989 in Superstore?",
+      "options": [
+        "Glenn Sturgis",
+        "Jonah Simms",
+        "Marcus White",
+        "Bo Thompson"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Superstore_(TV_series)",
+        "description": "Wikipedia - Superstore"
+      },
+      "funFact": "Mark McKinney, who plays Glenn, is a former Kids in the Hall member. He brought improv skills that shaped Glenn's earnest awkwardness."
+    },
+    {
+      "questionText": "What major real-world issue becomes a storyline for Mateo in Superstore?",
+      "options": [
+        "He is an undocumented immigrant",
+        "He is wrongfully fired",
+        "He faces a health crisis",
+        "He is falsely accused of theft"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Superstore_(TV_series)",
+        "description": "Wikipedia - Superstore"
+      },
+      "funFact": "Superstore was one of the first network sitcoms to feature an undocumented immigrant as a main character with a sustained storyline."
+    },
+    {
+      "questionText": "What type of radio station is WNYX in NewsRadio?",
+      "options": [
+        "AM all-news station",
+        "FM rock station",
+        "Talk radio",
+        "Sports radio"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/NewsRadio",
+        "description": "Wikipedia - NewsRadio"
+      },
+      "funFact": "NewsRadio's time slot was changed 11 times during its run — one of the most schedule-shuffled shows in NBC history."
+    },
+    {
+      "questionText": "Which comedian played Bill McNeal on NewsRadio before his tragic death?",
+      "options": [
+        "Phil Hartman",
+        "Chris Farley",
+        "John Ritter",
+        "Norm MacDonald"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/NewsRadio",
+        "description": "Wikipedia - NewsRadio"
+      },
+      "funFact": "After Hartman's death in 1998, Jon Lovitz joined the cast out of real friendship with Hartman. The Season 5 premiere addressed the loss directly."
+    },
+    {
+      "questionText": "Which podcast host played the station electrician Joe Garrelli on NewsRadio?",
+      "options": [
+        "Joe Rogan",
+        "Marc Maron",
+        "Adam Carolla",
+        "Bill Burr"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/NewsRadio",
+        "description": "Wikipedia - NewsRadio"
+      },
+      "funFact": "Joe Rogan was a relatively unknown stand-up comedian during NewsRadio. Ray Romano was also considered for his role."
+    },
+    {
+      "questionText": "Who plays the eccentric billionaire station owner Jimmy James on NewsRadio?",
+      "options": [
+        "Stephen Root",
+        "Dave Foley",
+        "Andy Dick",
+        "Phil Hartman"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/NewsRadio",
+        "description": "Wikipedia - NewsRadio"
+      },
+      "funFact": "Stephen Root later became famous as Milton Waddams in Office Space and Bill Dauterive on King of the Hill."
+    },
+    {
+      "questionText": "What real person is Abbott Elementary School named after?",
+      "options": [
+        "Quinta Brunson's sixth-grade teacher",
+        "A Philadelphia mayor",
+        "A civil rights leader",
+        "Quinta Brunson's mother"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Abbott_Elementary",
+        "description": "Wikipedia - Abbott Elementary"
+      },
+      "funFact": "Joyce Abbott was Brunson's teacher at Andrew Hamilton Elementary in Philly. Brunson's mother's 40-year teaching career inspired the show's concept."
+    },
+    {
+      "questionText": "What went viral about Sheryl Lee Ralph's Emmy acceptance speech for Abbott Elementary?",
+      "options": [
+        "She sang 'Endangered Species'",
+        "She did a dance",
+        "She brought her students on stage",
+        "She forgot to thank the producers"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Abbott_Elementary",
+        "description": "Wikipedia - Abbott Elementary"
+      },
+      "funFact": "Ralph hadn't prepared a speech because she didn't expect to win. The spontaneous singing moment became one of the most celebrated Emmy moments ever."
+    },
+    {
+      "questionText": "What show did Abbott Elementary do a crossover episode with in Season 4?",
+      "options": [
+        "It's Always Sunny in Philadelphia",
+        "The Office",
+        "Brooklyn Nine-Nine",
+        "Scrubs"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Abbott_Elementary",
+        "description": "Wikipedia - Abbott Elementary"
+      },
+      "funFact": "Both shows are set in Philadelphia. The Always Sunny gang causing chaos at the school was a fan-requested crossover for years."
+    },
+    {
+      "questionText": "What kind of company do the guys work at in Workaholics?",
+      "options": [
+        "A telemarketing company",
+        "An insurance firm",
+        "A tech startup",
+        "A paper supply company"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Workaholics",
+        "description": "Wikipedia - Workaholics"
+      },
+      "funFact": "The show's three stars — Blake, Adam, and Anders — actually lived together in the house used for filming during early seasons."
+    },
+    {
+      "questionText": "What sketch comedy group did the Workaholics creators come from?",
+      "options": [
+        "Mail Order Comedy",
+        "The Groundlings",
+        "Upright Citizens Brigade",
+        "Second City"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Workaholics",
+        "description": "Wikipedia - Workaholics"
+      },
+      "funFact": "Comedy Central discovered them through YouTube videos from Mail Order Comedy. Their lo-fi sketch style translated directly to the show."
+    },
+    {
+      "questionText": "What is the Workaholics catchphrase meaning 'good' or 'cool'?",
+      "options": [
+        "Tight butthole",
+        "Loose vibes",
+        "Fresh sauce",
+        "Chill zone"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Workaholics",
+        "description": "Wikipedia - Workaholics"
+      },
+      "funFact": "The phrase became so associated with the show that fans would yell it at the actors in public, much to their amusement."
+    },
+    {
+      "questionText": "What is the name of the soulless corporation in Better Off Ted?",
+      "options": [
+        "Veridian Dynamics",
+        "Initech",
+        "Globex Corporation",
+        "Massive Dynamic"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Better_Off_Ted",
+        "description": "Wikipedia - Better Off Ted"
+      },
+      "funFact": "The fake Veridian Dynamics commercials that aired during episodes became so popular that some viewers thought they were real corporate ads."
+    },
+    {
+      "questionText": "Who plays Ted's ruthless boss Veronica Palmer on Better Off Ted?",
+      "options": [
+        "Portia de Rossi",
+        "Jane Lynch",
+        "Christina Applegate",
+        "Jenna Fischer"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Better_Off_Ted",
+        "description": "Wikipedia - Better Off Ted"
+      },
+      "funFact": "Better Off Ted was critically adored but lasted only 2 seasons. It's considered one of TV's greatest overlooked comedies."
+    },
+    {
+      "questionText": "What is Roy's go-to tech support response on The IT Crowd?",
+      "options": [
+        "Have you tried turning it off and on again?",
+        "Did you check the cables?",
+        "Is it plugged in?",
+        "Have you updated the software?"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_IT_Crowd",
+        "description": "Wikipedia - The IT Crowd"
+      },
+      "funFact": "The phrase became so famous that real IT departments made it into posters. It's essentially the universal IT helpdesk experience."
+    },
+    {
+      "questionText": "Where is the IT department located in The IT Crowd?",
+      "options": [
+        "The basement",
+        "The top floor",
+        "A broom closet",
+        "A separate building"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_IT_Crowd",
+        "description": "Wikipedia - The IT Crowd"
+      },
+      "funFact": "The dingy basement setting was a deliberate contrast to the sleek corporate floors above — a metaphor for how companies treat IT."
+    },
+    {
+      "questionText": "What is Jen Barber's ironic qualification for heading the IT department in The IT Crowd?",
+      "options": [
+        "She knows nothing about computers",
+        "She has a fake degree",
+        "She's the CEO's niece",
+        "She won a bet"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_IT_Crowd",
+        "description": "Wikipedia - The IT Crowd"
+      },
+      "funFact": "Three separate US remakes of The IT Crowd were attempted. All failed — including one with Joel McHale that never aired."
+    },
+    {
+      "questionText": "Who is the goth character who lives in the server room on The IT Crowd?",
+      "options": [
+        "Richmond",
+        "Denholm",
+        "Douglas",
+        "Colin"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_IT_Crowd",
+        "description": "Wikipedia - The IT Crowd"
+      },
+      "funFact": "Richmond is played by Noel Fielding, who later became a host of The Great British Bake Off — a very different vibe."
+    },
+    {
+      "questionText": "What is the name of the terrible sitcom Andy Millman creates in Extras?",
+      "options": [
+        "When the Whistle Blows",
+        "The Extra Mile",
+        "Background Players",
+        "Standing Around"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Extras_(TV_series)",
+        "description": "Wikipedia - Extras"
+      },
+      "funFact": "The show-within-a-show 'When the Whistle Blows' was a deliberate satire of lowest-common-denominator British sitcoms."
+    },
+    {
+      "questionText": "What is the forced catchphrase from Andy's sitcom within Extras?",
+      "options": [
+        "Are you having a laugh?",
+        "Is it me?",
+        "What's all this then?",
+        "You're having me on!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Extras_(TV_series)",
+        "description": "Wikipedia - Extras"
+      },
+      "funFact": "Andy hates the catchphrase but the producer forces it into every episode — mirroring Gervais's real frustrations with network TV."
+    },
+    {
+      "questionText": "Which celebrity tells Andy they only do movies for the money in Extras?",
+      "options": [
+        "Patrick Stewart",
+        "Ben Stiller",
+        "Samuel L. Jackson",
+        "Kate Winslet"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Extras_(TV_series)",
+        "description": "Wikipedia - Extras"
+      },
+      "funFact": "Patrick Stewart's scene — pitching a screenplay where women's clothes fall off using his mind — is considered one of the funniest TV cameos ever."
     }
   ]
 }

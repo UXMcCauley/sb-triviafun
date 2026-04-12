@@ -61,7 +61,7 @@ export default function DisplayPage() {
   const [seriesHistory, setSeriesHistory] = useState<SeriesGame[]>([]);
   const [packs, setPacks] = useState<PackInfo[]>([]);
   const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
-  const [musicVolume, setMusicVolume] = useState(0.5);
+  const [musicVolume, setMusicVolume] = useState(0.2);
   const [testMode, setTestMode] = useState(false);
   const [packScrollIndex, setPackScrollIndex] = useState(0);
   const packCarouselRef = useRef<HTMLDivElement>(null);
@@ -318,7 +318,7 @@ export default function DisplayPage() {
 
       {/* ROOM CODE — always visible */}
       {phase !== 'create' && gameCode && (
-        <div className="fixed top-4 right-4 z-50 bg-black/50 border border-white/15 rounded-xl px-4 py-2 backdrop-blur-sm flex items-center gap-2">
+        <div className="fixed bottom-4 left-4 z-50 bg-black/50 border border-white/15 rounded-xl px-4 py-2 backdrop-blur-sm flex items-center gap-2">
           <span className="text-white/50 text-sm font-medium">Room</span>
           <span className="font-mono text-lg font-bold tracking-widest text-yellow-400">{gameCode}</span>
         </div>
@@ -473,39 +473,52 @@ export default function DisplayPage() {
 
       {/* LOBBY */}
       {phase === 'lobby' && (
-        <div className="flex items-center justify-center h-screen overflow-hidden">
-          <div className="text-center space-y-8 max-w-4xl mx-auto px-8">
-            <h1 className="text-5xl font-black">
+        <div className="flex h-screen overflow-hidden">
+          {/* Left half — Room code, QR, URL */}
+          <div className="flex-1 flex flex-col items-center justify-center border-r border-white/10 px-8 py-6">
+            <h1 className="text-4xl font-black shrink-0">
               <span className="text-yellow-400">Game Code:</span>{' '}
-              <span className="font-mono text-6xl tracking-widest">{gameCode}</span>
+              <span className="font-mono text-5xl tracking-widest">{gameCode}</span>
             </h1>
 
-            {seriesHistory.length === 0 && (
-              <>
-                <p className="text-xl text-white/60">Scan the QR code or go to this URL to join</p>
-                <GameQRCode gameCode={gameCode} size={250} />
-              </>
-            )}
+            <p className="text-lg text-white/50 mt-4">Scan to join</p>
+
+            <div className="mt-4">
+              <GameQRCode gameCode={gameCode} size={220} />
+            </div>
 
             {seriesHistory.length > 0 && (
-              <div className="mt-4">
-                <h3 className="text-xl font-bold text-white/60 mb-3">Series Standings</h3>
+              <div className="mt-6 w-full max-w-md">
+                <h3 className="text-lg font-bold text-white/60 mb-2 text-center">Series Standings</h3>
                 <SeriesTable history={seriesHistory} players={players} />
               </div>
             )}
+          </div>
 
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold mb-4">Players ({players.length}/8)</h2>
-              <div className="flex flex-wrap justify-center gap-3">
-                {players.map((p) => (
-                  <span key={p.id} className="bg-white/10 border border-white/20 px-4 py-2 rounded-full text-lg animate-fadeIn">{p.name}</span>
+          {/* Right half — Players + Start */}
+          <div className="flex-1 flex flex-col items-center justify-between px-8 py-10">
+            <div className="text-center w-full">
+              <h2 className="text-3xl font-bold">
+                {players.length === 0 ? 'Waiting for Players' : `Players (${players.length}/8)`}
+              </h2>
+              <div className="mt-6 space-y-3">
+                {players.map((p, i) => (
+                  <div
+                    key={p.id}
+                    className="bg-white/10 border border-white/20 px-5 py-3 rounded-xl text-xl font-semibold animate-fadeIn"
+                    style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'both' }}
+                  >
+                    {p.name}
+                  </div>
                 ))}
-                {players.length === 0 && <span className="text-white/40 text-lg">Waiting for players...</span>}
+                {players.length === 0 && (
+                  <p className="text-white/30 text-lg mt-8">No players yet...</p>
+                )}
               </div>
             </div>
 
             {players.length > 0 && (
-              <button onClick={handleStartGame} className="mt-8 bg-green-500 hover:bg-green-400 text-black font-bold text-2xl px-12 py-4 rounded-2xl transition-all active:scale-95">
+              <button onClick={handleStartGame} className="shrink-0 bg-green-500 hover:bg-green-400 text-black font-bold text-2xl px-12 py-4 rounded-2xl transition-all active:scale-95">
                 Start Game
               </button>
             )}

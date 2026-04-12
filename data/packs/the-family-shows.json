@@ -198,6 +198,1043 @@
         "url": "https://en.wikipedia.org/wiki/The_Goldbergs_(2013_TV_series)",
         "description": "Wikipedia - The Goldbergs"
       }
+    },
+    {
+      "questionText": "What is Steve Urkel's catchphrase when he breaks something in Family Matters?",
+      "options": [
+        "Did I do that?",
+        "Oops, my bad!",
+        "Not again!",
+        "How'd that happen?"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Steve_Urkel",
+        "description": "Wikipedia - Steve Urkel"
+      },
+      "funFact": "Jaleel White was only supposed to appear in one episode. The audience reaction was so positive that Steve Urkel became the show's main character."
+    },
+    {
+      "questionText": "What is Carl Winslow's occupation in Family Matters?",
+      "options": [
+        "Chicago police officer",
+        "Firefighter",
+        "Lawyer",
+        "School principal"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Family_Matters",
+        "description": "Wikipedia - Family Matters"
+      },
+      "funFact": "Reginald VelJohnson also played a cop in Die Hard. He's one of the few actors typecast as law enforcement across multiple iconic roles."
+    },
+    {
+      "questionText": "What is the name of Steve Urkel's suave alter-ego in Family Matters?",
+      "options": [
+        "Stefan Urquelle",
+        "Steven Smooth",
+        "Stephan Cool",
+        "Sergio Urkel"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Steve_Urkel",
+        "description": "Wikipedia - Steve Urkel"
+      },
+      "funFact": "Jaleel White played three different characters on the show: Steve Urkel, Stefan Urquelle, and Steve's female cousin Myrtle Urkel."
+    },
+    {
+      "questionText": "What kind of car does Steve Urkel drive in Family Matters?",
+      "options": [
+        "A BMW Isetta",
+        "A Volkswagen Beetle",
+        "A Ford Pinto",
+        "A Fiat 500"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://familymatters.fandom.com/wiki/Steve_Urkel",
+        "description": "Family Matters Wiki - Steve Urkel"
+      },
+      "funFact": "The BMW Isetta was a 1950s 'bubble car' with a single front-opening door. It became as iconic to the show as Urkel's suspenders."
+    },
+    {
+      "questionText": "In what city is Family Matters set?",
+      "options": [
+        "Chicago",
+        "Detroit",
+        "Philadelphia",
+        "New York"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Family_Matters",
+        "description": "Wikipedia - Family Matters"
+      },
+      "funFact": "Family Matters was a spin-off of Perfect Strangers. Harriette Winslow was originally an elevator operator on that show."
+    },
+    {
+      "questionText": "What happened to the youngest Winslow daughter Judy in Family Matters?",
+      "options": [
+        "She was quietly written out after season 4",
+        "She went to boarding school",
+        "She moved to live with relatives",
+        "The actress was recast"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Family_Matters",
+        "description": "Wikipedia - Family Matters"
+      },
+      "funFact": "Judy Winslow simply vanished from the show with no explanation. Fans jokingly say she 'went upstairs and never came back down.'"
+    },
+    {
+      "questionText": "In Step by Step, where do Frank and Carol meet and impulsively get married?",
+      "options": [
+        "Jamaica",
+        "Las Vegas",
+        "Hawaii",
+        "Mexico"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Step_by_Step_(TV_series)",
+        "description": "Wikipedia - Step by Step"
+      },
+      "funFact": "The whirlwind Jamaica wedding was the show's entire premise — two strangers marry on vacation, then discover they each have three kids."
+    },
+    {
+      "questionText": "What is Frank Lambert's occupation in Step by Step?",
+      "options": [
+        "Contractor",
+        "Mechanic",
+        "Plumber",
+        "Electrician"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Step_by_Step_(TV_series)",
+        "description": "Wikipedia - Step by Step"
+      },
+      "funFact": "Patrick Duffy was best known as Bobby Ewing on Dallas before playing Frank. Step by Step was a major career shift from primetime drama to family comedy."
+    },
+    {
+      "questionText": "Who is the laid-back, van-dwelling nephew in Step by Step?",
+      "options": [
+        "Cody Lambert",
+        "J.T. Lambert",
+        "Mark Foster",
+        "Brendan Lambert"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Step_by_Step_(TV_series)",
+        "description": "Wikipedia - Step by Step"
+      },
+      "funFact": "Cody lived in a van in the Lamberts' driveway and became the show's breakout character, much like Urkel did on Family Matters."
+    },
+    {
+      "questionText": "In what state is Step by Step set?",
+      "options": [
+        "Wisconsin",
+        "Minnesota",
+        "Michigan",
+        "Illinois"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Step_by_Step_(TV_series)",
+        "description": "Wikipedia - Step by Step"
+      },
+      "funFact": "The show is set in Port Washington, Wisconsin, but the opening credits were filmed at Six Flags Magic Mountain in California."
+    },
+    {
+      "questionText": "Who played Carol Foster-Lambert on Step by Step?",
+      "options": [
+        "Suzanne Somers",
+        "Shelley Long",
+        "Meredith Baxter",
+        "Jane Curtin"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Step_by_Step_(TV_series)",
+        "description": "Wikipedia - Step by Step"
+      },
+      "funFact": "Suzanne Somers was already famous from Three's Company. Step by Step gave her a second major sitcom run over a decade later."
+    },
+    {
+      "questionText": "What ABC programming block did Step by Step originally air on?",
+      "options": [
+        "TGIF",
+        "Must See TV",
+        "Saturday Morning",
+        "Wonderful World"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Step_by_Step_(TV_series)",
+        "description": "Wikipedia - Step by Step"
+      },
+      "funFact": "TGIF was ABC's legendary Friday night lineup that also included Full House, Family Matters, and Boy Meets World."
+    },
+    {
+      "questionText": "What is Reverend Eric Camden's profession in 7th Heaven?",
+      "options": [
+        "Protestant minister",
+        "Catholic priest",
+        "School counselor",
+        "Social worker"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/7th_Heaven_(TV_series)",
+        "description": "Wikipedia - 7th Heaven"
+      },
+      "funFact": "Stephen Collins was offered the role just two days before the pilot was filmed. He never even auditioned for it."
+    },
+    {
+      "questionText": "How many children do Eric and Annie Camden have in 7th Heaven?",
+      "options": [
+        "Seven",
+        "Five",
+        "Six",
+        "Eight"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/7th_Heaven_(TV_series)",
+        "description": "Wikipedia - 7th Heaven"
+      },
+      "funFact": "The show's title '7th Heaven' is a play on the seven Camden children. The twins Sam and David weren't introduced until season 4."
+    },
+    {
+      "questionText": "What is the name of the Camden family dog in 7th Heaven?",
+      "options": [
+        "Happy",
+        "Lucky",
+        "Buddy",
+        "Max"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/7th_Heaven_(TV_series)",
+        "description": "Wikipedia - 7th Heaven"
+      },
+      "funFact": "Happy the dog was credited as 'playing herself' throughout the series — one of TV's most famous animal cast members."
+    },
+    {
+      "questionText": "In what fictional California town is 7th Heaven set?",
+      "options": [
+        "Glen Oak",
+        "Angel Grove",
+        "Sunnydale",
+        "Tree Hill"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/7th_Heaven_(TV_series)",
+        "description": "Wikipedia - 7th Heaven"
+      },
+      "funFact": "7th Heaven ran for 11 seasons, making it the longest-running series ever produced by Aaron Spelling."
+    },
+    {
+      "questionText": "Which Camden daughter was played by Jessica Biel in 7th Heaven?",
+      "options": [
+        "Mary",
+        "Lucy",
+        "Ruthie",
+        "Sarah"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/7th_Heaven_(TV_series)",
+        "description": "Wikipedia - 7th Heaven"
+      },
+      "funFact": "Jessica Biel wanted off the show so badly to pursue a film career that she posed in a magazine shoot hoping to get fired. It didn't work."
+    },
+    {
+      "questionText": "Which Camden child followed in their father's footsteps and became a minister?",
+      "options": [
+        "Lucy",
+        "Matt",
+        "Mary",
+        "Simon"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/7th_Heaven_(TV_series)",
+        "description": "Wikipedia - 7th Heaven"
+      },
+      "funFact": "Lucy married Kevin Kinkirk and had a daughter named Savannah while serving as associate pastor at her father's church."
+    },
+    {
+      "questionText": "What is the name of the restaurant Roseanne and Jackie open together?",
+      "options": [
+        "The Lanford Lunch Box",
+        "Conner's Diner",
+        "The Blue Plate",
+        "Jackie's Kitchen"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "The Lanford Lunch Box's specialty was 'loose-meat sandwiches' — a real Midwest dish also known as a Maid-Rite."
+    },
+    {
+      "questionText": "In what fictional Illinois town do the Conners live in Roseanne?",
+      "options": [
+        "Lanford",
+        "Springfield",
+        "Shelbyville",
+        "Rockford"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "Lanford was based on the real city of Elgin, Illinois. The Conners' address was 714 Delaware Street."
+    },
+    {
+      "questionText": "Who plays Dan Conner on Roseanne?",
+      "options": [
+        "John Goodman",
+        "Dan Aykroyd",
+        "John Candy",
+        "Tom Arnold"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "John Goodman has said Dan Conner is his favorite role of his entire career, including all his film work."
+    },
+    {
+      "questionText": "What is Dan Conner's primary occupation in Roseanne?",
+      "options": [
+        "Drywall contractor",
+        "Auto mechanic",
+        "Factory worker",
+        "Truck driver"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "Dan's sporadic employment was a deliberate choice to portray realistic blue-collar life. He also briefly ran a motorcycle shop that failed."
+    },
+    {
+      "questionText": "What was Roseanne's first job at the start of the series?",
+      "options": [
+        "Line worker at Wellman Plastics",
+        "Waitress at a diner",
+        "Hair salon worker",
+        "Telemarketer"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "Roseanne cycled through more jobs than almost any sitcom character — factory worker, telemarketer, bartender, fast-food cashier, and diner owner."
+    },
+    {
+      "questionText": "Which Conner daughter was played by Sara Gilbert on Roseanne?",
+      "options": [
+        "Darlene",
+        "Becky",
+        "Crystal",
+        "Jackie"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "Sara Gilbert later created and hosted The Talk on CBS. She was only 13 when Roseanne premiered."
+    },
+    {
+      "questionText": "What was Jackie Harris's career before becoming a trucker on Roseanne?",
+      "options": [
+        "Police officer",
+        "Nurse",
+        "Teacher",
+        "Firefighter"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "Laurie Metcalf appeared in 219 of the show's 222 episodes. She won three consecutive Emmys for playing Jackie."
+    },
+    {
+      "questionText": "What was the original working title of Roseanne before it aired?",
+      "options": [
+        "Life and Stuff",
+        "The Conners",
+        "Blue Collar Blues",
+        "Working Class"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Roseanne",
+        "description": "Wikipedia - Roseanne"
+      },
+      "funFact": "The show was almost called 'Life and Stuff.' The network changed it to 'Roseanne' to capitalize on Roseanne Barr's stand-up fame."
+    },
+    {
+      "questionText": "What is Malcolm's IQ in Malcolm in the Middle?",
+      "options": [
+        "165",
+        "140",
+        "180",
+        "150"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Malcolm_in_the_Middle",
+        "description": "Wikipedia - Malcolm in the Middle"
+      },
+      "funFact": "Despite his genius IQ, Malcolm's family is so chaotic that his intelligence is constantly undermined by his environment."
+    },
+    {
+      "questionText": "Who plays the father Hal in Malcolm in the Middle?",
+      "options": [
+        "Bryan Cranston",
+        "Jason Lee",
+        "Kevin James",
+        "Ray Romano"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Malcolm_in_the_Middle",
+        "description": "Wikipedia - Malcolm in the Middle"
+      },
+      "funFact": "Bryan Cranston went straight from playing the goofy Hal to playing Walter White on Breaking Bad — one of TV's most dramatic career pivots."
+    },
+    {
+      "questionText": "What is unique about how Malcolm addresses the audience in Malcolm in the Middle?",
+      "options": [
+        "He breaks the fourth wall and talks directly to the camera",
+        "He narrates in voiceover",
+        "He writes in a journal shown on screen",
+        "He talks to an imaginary friend"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Malcolm_in_the_Middle",
+        "description": "Wikipedia - Malcolm in the Middle"
+      },
+      "funFact": "The fourth-wall breaks were inspired by Ferris Bueller's Day Off. Frankie Muniz was only 13 when the show premiered."
+    },
+    {
+      "questionText": "What is the name of the oldest brother who is away at military school in Malcolm in the Middle?",
+      "options": [
+        "Francis",
+        "Reese",
+        "Dewey",
+        "Jamie"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Malcolm_in_the_Middle",
+        "description": "Wikipedia - Malcolm in the Middle"
+      },
+      "funFact": "Francis was sent to military school before the series began. His storylines there ran as a parallel show-within-the-show."
+    },
+    {
+      "questionText": "What is the family's last name in Malcolm in the Middle?",
+      "options": [
+        "It was intentionally kept a mystery",
+        "Wilkerson",
+        "Williams",
+        "Wilson"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Malcolm_in_the_Middle",
+        "description": "Wikipedia - Malcolm in the Middle"
+      },
+      "funFact": "The name 'Wilkerson' appeared on Francis's nametag in the pilot but was never used again. The creator removed it to avoid any ethnic labeling."
+    },
+    {
+      "questionText": "Who plays the domineering mother Lois in Malcolm in the Middle?",
+      "options": [
+        "Jane Kaczmarek",
+        "Patricia Heaton",
+        "Katey Sagal",
+        "Megan Mullally"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Malcolm_in_the_Middle",
+        "description": "Wikipedia - Malcolm in the Middle"
+      },
+      "funFact": "Jane Kaczmarek was nominated for seven consecutive Emmy Awards for playing Lois but never won — one of TV's longest losing streaks."
+    },
+    {
+      "questionText": "What city did Will Smith move from to live with his aunt and uncle in Fresh Prince?",
+      "options": [
+        "West Philadelphia",
+        "Baltimore",
+        "New York",
+        "Atlanta"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Fresh_Prince_of_Bel-Air",
+        "description": "Wikipedia - Fresh Prince of Bel-Air"
+      },
+      "funFact": "The theme song was co-written by Will Smith and DJ Jazzy Jeff. It became one of the most recognizable TV intros of all time."
+    },
+    {
+      "questionText": "What song does Carlton Banks famously dance to in Fresh Prince of Bel-Air?",
+      "options": [
+        "It's Not Unusual by Tom Jones",
+        "Stayin' Alive by Bee Gees",
+        "Jump Around by House of Pain",
+        "Twist and Shout by The Beatles"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Carlton_Banks",
+        "description": "Wikipedia - Carlton Banks"
+      },
+      "funFact": "Alfonso Ribeiro based 'The Carlton' on Courteney Cox dancing in Bruce Springsteen's 'Dancing in the Dark' video and Eddie Murphy's comedy."
+    },
+    {
+      "questionText": "What is the name of the Banks family butler in Fresh Prince of Bel-Air?",
+      "options": [
+        "Geoffrey",
+        "Reginald",
+        "Winston",
+        "Alfred"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Fresh_Prince_of_Bel-Air",
+        "description": "Wikipedia - Fresh Prince of Bel-Air"
+      },
+      "funFact": "Geoffrey's dry sarcasm made him a fan favorite. Joseph Marcell improvised many of his best one-liners."
+    },
+    {
+      "questionText": "What is Uncle Phil's profession in Fresh Prince of Bel-Air?",
+      "options": [
+        "Lawyer and later judge",
+        "Doctor",
+        "Business executive",
+        "Professor"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Fresh_Prince_of_Bel-Air",
+        "description": "Wikipedia - Fresh Prince of Bel-Air"
+      },
+      "funFact": "James Avery brought such gravitas to Uncle Phil that his pool-hall scene — revealing he grew up in the same rough neighborhood as Will — is considered the show's best dramatic moment."
+    },
+    {
+      "questionText": "Who drove the cab in the Fresh Prince of Bel-Air opening credits?",
+      "options": [
+        "Quincy Jones",
+        "DJ Jazzy Jeff",
+        "Will Smith's father",
+        "Alfonso Ribeiro"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Fresh_Prince_of_Bel-Air",
+        "description": "Wikipedia - Fresh Prince of Bel-Air"
+      },
+      "funFact": "Quincy Jones was an executive producer on the show. His brief cameo as the cab driver went unnoticed by most viewers for years."
+    },
+    {
+      "questionText": "Why was Aunt Vivian recast after season 3 of Fresh Prince?",
+      "options": [
+        "Janet Hubert left due to conflicts with the show",
+        "The actress retired",
+        "She got a movie deal",
+        "Contract negotiations failed"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Fresh_Prince_of_Bel-Air",
+        "description": "Wikipedia - Fresh Prince of Bel-Air"
+      },
+      "funFact": "The feud between Janet Hubert and Will Smith lasted nearly 30 years. They finally reconciled on camera during the 2020 reunion special."
+    },
+    {
+      "questionText": "What is Ray Barone's job in Everybody Loves Raymond?",
+      "options": [
+        "Sportswriter for Newsday",
+        "Sports anchor on TV",
+        "High school coach",
+        "Radio host"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      },
+      "funFact": "The show was based on Ray Romano's real life. His actual brother is a police officer, just like Robert Barone on the show."
+    },
+    {
+      "questionText": "What is the relationship between Ray and Robert Barone in Everybody Loves Raymond?",
+      "options": [
+        "Brothers",
+        "Cousins",
+        "Best friends",
+        "In-laws"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      },
+      "funFact": "On the show Robert is 4 years older than Ray, but in real life Ray Romano is actually older than Brad Garrett."
+    },
+    {
+      "questionText": "Where do Frank and Marie Barone live in relation to Ray in Everybody Loves Raymond?",
+      "options": [
+        "Directly across the street",
+        "Next door",
+        "In the basement",
+        "Two blocks away"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      },
+      "funFact": "The across-the-street setup was based on Ray Romano's real life — his parents actually lived that close to him on Long Island."
+    },
+    {
+      "questionText": "What is Robert Barone's occupation in Everybody Loves Raymond?",
+      "options": [
+        "Police officer",
+        "Firefighter",
+        "Accountant",
+        "Teacher"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      },
+      "funFact": "Brad Garrett is 6'8\" tall. The height difference between him and Ray Romano became a recurring visual gag throughout the series."
+    },
+    {
+      "questionText": "What did Ray Romano want to change about Everybody Loves Raymond?",
+      "options": [
+        "The title of the show",
+        "The theme song",
+        "The laugh track",
+        "The time slot"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      },
+      "funFact": "Romano hated the title so much that producers promised to change it if it reached the Top 10. When it did, they refused."
+    },
+    {
+      "questionText": "In what Long Island town do the Barones live in Everybody Loves Raymond?",
+      "options": [
+        "Lynbrook",
+        "Hempstead",
+        "Freeport",
+        "Massapequa"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      },
+      "funFact": "Lynbrook, New York is a real town. After the show aired, locals reported tourists driving by trying to find the Barone house."
+    },
+    {
+      "questionText": "Who plays the overbearing mother Marie Barone in Everybody Loves Raymond?",
+      "options": [
+        "Doris Roberts",
+        "Estelle Harris",
+        "Betty White",
+        "Jean Stapleton"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      },
+      "funFact": "Doris Roberts won four Emmy Awards for playing Marie. She once said fans would approach her in grocery stores to complain about her character."
+    },
+    {
+      "questionText": "What delivery company does Doug Heffernan work for in King of Queens?",
+      "options": [
+        "IPS (International Parcel Service)",
+        "UPS",
+        "FedEx",
+        "DHL"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_King_of_Queens",
+        "description": "Wikipedia - King of Queens"
+      },
+      "funFact": "IPS was a fictional stand-in for UPS. Kevin James actually rode along with real UPS drivers to prepare for the role."
+    },
+    {
+      "questionText": "Why does Arthur Spooner move in with Doug and Carrie in King of Queens?",
+      "options": [
+        "He accidentally burned down his house",
+        "His wife passed away",
+        "He was evicted",
+        "He retired and couldn't afford rent"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_King_of_Queens",
+        "description": "Wikipedia - King of Queens"
+      },
+      "funFact": "Arthur burned down his own uninsured home in the pilot episode. Jerry Stiller played him with the same manic energy as Frank Costanza on Seinfeld."
+    },
+    {
+      "questionText": "In what New York City borough do the Heffernans live in King of Queens?",
+      "options": [
+        "Queens",
+        "Brooklyn",
+        "The Bronx",
+        "Staten Island"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_King_of_Queens",
+        "description": "Wikipedia - King of Queens"
+      },
+      "funFact": "The show is set in Rego Park, Queens, but was filmed entirely at Sony Pictures Studios in Culver City, California."
+    },
+    {
+      "questionText": "Who plays Arthur Spooner on King of Queens?",
+      "options": [
+        "Jerry Stiller",
+        "Peter Boyle",
+        "Danny DeVito",
+        "Carl Reiner"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_King_of_Queens",
+        "description": "Wikipedia - King of Queens"
+      },
+      "funFact": "Jerry Stiller played Arthur Spooner concurrently with occasional appearances as Frank Costanza on Seinfeld — two iconic TV fathers at once."
+    },
+    {
+      "questionText": "What is Carrie Heffernan's job in King of Queens?",
+      "options": [
+        "Legal secretary",
+        "Real estate agent",
+        "Nurse",
+        "Teacher"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_King_of_Queens",
+        "description": "Wikipedia - King of Queens"
+      },
+      "funFact": "Leah Remini and Kevin James became close friends during filming. Their real chemistry is why the Doug-Carrie dynamic felt so authentic."
+    },
+    {
+      "questionText": "Which comedian plays Doug's friend Spence Olchin on King of Queens?",
+      "options": [
+        "Patton Oswalt",
+        "Brian Posehn",
+        "Zach Galifianakis",
+        "Nick Swardson"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_King_of_Queens",
+        "description": "Wikipedia - King of Queens"
+      },
+      "funFact": "Patton Oswalt was a working stand-up comedian throughout the show's run. He'd often perform at comedy clubs on nights they weren't filming."
+    },
+    {
+      "questionText": "What real-life relationship do Kevin James and Gary Valentine (who plays Danny) share on King of Queens?",
+      "options": [
+        "They are real-life brothers",
+        "They are cousins",
+        "They are childhood friends",
+        "They are former roommates"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_King_of_Queens",
+        "description": "Wikipedia - King of Queens"
+      },
+      "funFact": "Gary Valentine is Kevin James's older brother by 4 years. On the show, Danny is Doug's cousin — they downplayed the real sibling connection."
+    },
+    {
+      "questionText": "In what city is Full House set?",
+      "options": [
+        "San Francisco",
+        "Los Angeles",
+        "Seattle",
+        "Portland"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "The iconic painted ladies Victorian houses shown in the opening credits are real San Francisco landmarks on Steiner Street."
+    },
+    {
+      "questionText": "What is Danny Tanner's job on Full House?",
+      "options": [
+        "Co-host of Wake Up, San Francisco",
+        "Newspaper reporter",
+        "Radio DJ",
+        "School teacher"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "Danny started as a sports anchor before becoming co-host. Bob Saget's real personality was famously the polar opposite of the squeaky-clean Danny."
+    },
+    {
+      "questionText": "What is Uncle Jesse's last name in Full House?",
+      "options": [
+        "Katsopolis",
+        "Cochran",
+        "Stamos",
+        "Papadopoulos"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "Jesse's last name was originally 'Cochran' in the pilot. It was changed to 'Katsopolis' to match John Stamos's Greek heritage."
+    },
+    {
+      "questionText": "Which twins played Michelle Tanner on Full House?",
+      "options": [
+        "Mary-Kate and Ashley Olsen",
+        "Tia and Tamera Mowry",
+        "Dylan and Cole Sprouse",
+        "Identical twins from open casting"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "Producers credited them as 'Mary Kate Ashley Olsen' (one name) so audiences wouldn't know Michelle was played by twins."
+    },
+    {
+      "questionText": "What catchphrase is Stephanie Tanner known for on Full House?",
+      "options": [
+        "How rude!",
+        "Oh my lanta!",
+        "You got it, dude!",
+        "Have mercy!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "'How rude!' first appeared in season 1, episode 8. Jodie Sweetin was only 5 years old and delivered it so perfectly it stuck for the whole series."
+    },
+    {
+      "questionText": "What is Joey Gladstone's dream career on Full House?",
+      "options": [
+        "Stand-up comedian",
+        "Rock musician",
+        "Actor",
+        "TV host"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "Dave Coulier was a real stand-up comedian before Full House. Alanis Morissette's 'You Oughta Know' is rumored to be about their real relationship."
+    },
+    {
+      "questionText": "What is the name of the Full House sequel series that premiered on Netflix?",
+      "options": [
+        "Fuller House",
+        "Full House: The Next Generation",
+        "Our Full House",
+        "Full House Returns"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "Fuller House ran for 5 seasons on Netflix. Mary-Kate and Ashley Olsen were the only original cast members who didn't return."
+    },
+    {
+      "questionText": "What is Uncle Jesse's catchphrase on Full House?",
+      "options": [
+        "Have mercy!",
+        "How rude!",
+        "Cut it out!",
+        "You got it, dude!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "John Stamos ad-libbed 'Have mercy!' during an early taping. The audience loved it so much the writers made it Jesse's permanent catchphrase."
+    },
+    {
+      "questionText": "What is Jesse Katsopolis's relationship to the Tanner family in Full House?",
+      "options": [
+        "Danny's brother-in-law (his late wife's brother)",
+        "Danny's childhood friend",
+        "Danny's actual brother",
+        "Danny's college roommate"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Full_House",
+        "description": "Wikipedia - Full House"
+      },
+      "funFact": "Jesse is the brother of Danny's deceased wife Pam. He moved in to help raise the girls, making him both uncle and surrogate parent."
     }
   ]
 }
