@@ -15,7 +15,8 @@ import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 
-type Phase = 'create' | 'lobby' | 'question' | 'reveal' | 'scoreboard' | 'getready' | 'finished';
+// Flow: question → reveal (8s) → scoreboard (8s) → leaderboard (5s) → next question
+type Phase = 'create' | 'lobby' | 'question' | 'reveal' | 'scoreboard' | 'leaderboard' | 'finished';
 
 interface PlayerInfo {
   id: string;
@@ -39,7 +40,6 @@ export default function DisplayPage() {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
 
-  // Keep ref in sync
   useEffect(() => { pausedRef.current = paused; }, [paused]);
 
   const clearTimers = () => {
@@ -80,7 +80,7 @@ export default function DisplayPage() {
     }
   };
 
-  // Reveal answer for current question
+  // Call API to reveal answer (scores the question server-side, sends answer-reveal event)
   const handleRevealAnswer = useCallback(async () => {
     try {
       const res = await fetch('/api/game/next', {
@@ -95,7 +95,7 @@ export default function DisplayPage() {
     }
   }, [gameCode]);
 
-  // Advance to the next question
+  // Call API to send next question
   const handleAdvance = useCallback(async () => {
     try {
       await fetch('/api/game/next', {
@@ -122,32 +122,21 @@ export default function DisplayPage() {
     }
   };
 
-  // Phase transitions with pause awareness
+  // Pause-aware delayed transition
   const scheduleTransition = useCallback((callback: () => void, delayMs: number) => {
     clearTimers();
-    const startTime = Date.now();
-    let remaining = delayMs;
+    const endTime = Date.now() + delayMs;
 
     const tick = () => {
       if (pausedRef.current) {
-        // Check again in 200ms
         timerRef.current = setTimeout(tick, 200);
         return;
       }
-      const elapsed = Date.now() - startTime;
-      remaining = delayMs - elapsed;
+      const remaining = endTime - Date.now();
       if (remaining <= 0) {
         callback();
       } else {
-        // Simplified: just wait remaining time, pause checks happen via interval
-        timerRef.current = setTimeout(() => {
-          if (!pausedRef.current) {
-            callback();
-          } else {
-            // Re-schedule if paused at the moment
-            tick();
-          }
-        }, Math.min(remaining, 500));
+        timerRef.current = setTimeout(tick, Math.min(remaining, 300));
       }
     };
 
@@ -197,31 +186,29 @@ export default function DisplayPage() {
     };
   }, [gameCode]);
 
-  // Phase-driven auto-transitions
+  // Auto phase transitions
   useEffect(() => {
     if (phase === 'reveal') {
-      // Show correct answer for 5 seconds, then move to scoreboard
-      scheduleTransition(() => setPhase('scoreboard'), 5000);
+      // Show correct answer for 8 seconds → then show per-question scoreboard
+      scheduleTransition(() => setPhase('scoreboard'), 8000);
     } else if (phase === 'scoreboard') {
-      // Show scoreboard for 8 seconds, then either finish or get ready
+      // Show per-question results for 8 seconds → then show cumulative leaderboard
+      scheduleTransition(() => setPhase('leaderboard'), 8000);
+    } else if (phase === 'leaderboard') {
+      // Show cumulative rankings for 5 seconds → then advance
       scheduleTransition(() => {
         if (isLastQuestion) {
-          handleAdvance(); // triggers game-finished
+          handleAdvance(); // triggers game-finished event
         } else {
-          setPhase('getready');
+          handleAdvance(); // triggers new-question event
         }
-      }, 8000);
-    } else if (phase === 'getready') {
-      // 5 second countdown before next question
-      scheduleTransition(() => {
-        handleAdvance();
       }, 5000);
     }
 
     return () => clearTimers();
   }, [phase, isLastQuestion, scheduleTransition, handleAdvance]);
 
-  // Auto-reveal when question timer expires
+  // When question timer expires, auto-reveal
   const handleTimerExpire = useCallback(() => {
     setTimeout(() => handleRevealAnswer(), 500);
   }, [handleRevealAnswer]);
@@ -239,7 +226,7 @@ export default function DisplayPage() {
         </div>
       )}
 
-      {/* PAUSE BUTTON — always visible during active game */}
+      {/* PAUSE BUTTON */}
       {phase !== 'create' && phase !== 'lobby' && phase !== 'finished' && (
         <button
           onClick={handleTogglePause}
@@ -371,7 +358,7 @@ export default function DisplayPage() {
         </div>
       )}
 
-      {/* REVEAL PHASE — show correct answer for 5 seconds */}
+      {/* REVEAL PHASE — show correct answer for 8 seconds */}
       {phase === 'reveal' && currentQuestion && (
         <div className="flex min-h-screen">
           <div className="flex-1 flex flex-col justify-center px-12 py-8">
@@ -387,24 +374,23 @@ export default function DisplayPage() {
               disabled
             />
           </div>
-          <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col items-center">
-            <div className="w-32 h-32 flex items-center justify-center">
-              <div className="text-6xl animate-bounce">✅</div>
-            </div>
-            <p className="text-lg text-white/50 mt-2 mb-6">Correct Answer!</p>
-            <h3 className="text-lg font-bold text-white/60 mb-4 uppercase tracking-wider w-full">Leaderboard</h3>
-            <Leaderboard players={players} />
+          <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col items-center justify-center">
+            <div className="text-6xl mb-4">✅</div>
+            <p className="text-2xl font-bold text-green-400">
+              {currentQuestion.options[correctAnswer!]}
+            </p>
           </div>
         </div>
       )}
 
-      {/* SCOREBOARD PHASE — show who answered correctly, in order, for 8 seconds */}
+      {/* SCOREBOARD PHASE — per-question results for 8 seconds */}
       {phase === 'scoreboard' && (
         <div className="flex items-center justify-center min-h-screen">
-          <div className="w-full max-w-3xl px-8 space-y-8">
-            <h2 className="text-4xl font-black text-center text-yellow-400">Results</h2>
+          <div className="w-full max-w-3xl px-8 space-y-6">
+            <h2 className="text-4xl font-black text-center">
+              Question {currentQuestion ? currentQuestion.questionIndex + 1 : ''} Results
+            </h2>
 
-            {/* Player results — who got it right */}
             <div className="space-y-3">
               {playerResults.map((pr, i) => (
                 <div
@@ -417,9 +403,9 @@ export default function DisplayPage() {
                   style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}
                 >
                   <div className="flex items-center gap-4">
-                    <span className="text-2xl">{pr.correct ? '✅' : '❌'}</span>
+                    <span className="text-3xl">{pr.correct ? '✅' : '❌'}</span>
                     <div>
-                      <span className="text-xl font-semibold">{pr.name}</span>
+                      <span className="text-2xl font-semibold">{pr.name}</span>
                       {pr.correct && (
                         <span className="text-sm text-white/40 ml-3">
                           {pr.timeToAnswer.toFixed(1)}s
@@ -427,7 +413,7 @@ export default function DisplayPage() {
                       )}
                     </div>
                   </div>
-                  <span className={`text-xl font-mono font-bold ${
+                  <span className={`text-2xl font-mono font-bold ${
                     pr.correct ? 'text-green-400' : 'text-red-400'
                   }`}>
                     {pr.correct ? `+${pr.pointsEarned.toLocaleString()}` : '+0'}
@@ -435,23 +421,16 @@ export default function DisplayPage() {
                 </div>
               ))}
             </div>
-
-            {/* Overall leaderboard */}
-            <div className="mt-6">
-              <h3 className="text-lg font-bold text-white/60 mb-3 uppercase tracking-wider">Overall Standings</h3>
-              <Leaderboard players={players} />
-            </div>
           </div>
         </div>
       )}
 
-      {/* GET READY PHASE — 5 second countdown before next question */}
-      {phase === 'getready' && (
+      {/* LEADERBOARD PHASE — cumulative rankings for 5 seconds */}
+      {phase === 'leaderboard' && (
         <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center space-y-6">
-            <h2 className="text-4xl font-bold text-white/60">Next Question In...</h2>
-            <GetReadyCountdown duration={5} />
-            <p className="text-lg text-white/30">Get ready!</p>
+          <div className="w-full max-w-2xl px-8 space-y-8">
+            <h2 className="text-4xl font-black text-center text-yellow-400">Standings</h2>
+            <Leaderboard players={players} />
           </div>
         </div>
       )}
@@ -494,31 +473,6 @@ export default function DisplayPage() {
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-// Simple countdown number for the "get ready" phase
-function GetReadyCountdown({ duration }: { duration: number }) {
-  const [count, setCount] = useState(duration);
-
-  useEffect(() => {
-    setCount(duration);
-    const interval = setInterval(() => {
-      setCount((c) => {
-        if (c <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return c - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [duration]);
-
-  return (
-    <div className="text-9xl font-black text-yellow-400 tabular-nums animate-pulse">
-      {count}
     </div>
   );
 }
