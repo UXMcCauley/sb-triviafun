@@ -95,7 +95,7 @@ export default function QuestionCard({
                 !disabled && !isRevealed ? 'cursor-pointer active:scale-95' : 'cursor-default'
               }`}
             >
-              <span className={`${isDisplay ? 'w-10 h-10 text-lg' : 'w-8 h-8 text-sm'} bg-white/20 rounded-lg flex items-center justify-center font-bold flex-shrink-0`}>
+              <span className={`${isDisplay ? 'w-10 h-10 text-lg' : 'w-8 h-8 text-sm'} bg-white/20 rounded-lg flex items-center justify-center font-bold shrink-0`}>
                 {optionLabels[i]}
               </span>
               <span>{option}</span>
