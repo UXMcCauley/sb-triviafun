@@ -4,21 +4,24 @@
     "options": ["Cosmo", "Kevin", "Bob", "Larry"],
     "correctAnswerIndex": 0,
     "category": "Characters",
-    "difficulty": "easy"
+    "difficulty": "easy",
+    "funFact": "Kramer's first name wasn't revealed until Season 6, Episode 14 'The Switch'."
   },
   {
     "questionText": "What is George Costanza's fake architect alias?",
     "options": ["Art Vandelay", "Kel Varnsen", "H.E. Pennypacker", "Buck Naked"],
     "correctAnswerIndex": 0,
     "category": "Characters",
-    "difficulty": "easy"
+    "difficulty": "easy",
+    "funFact": "Art Vandelay appeared as George's go-to alias throughout the entire series, used in at least 7 different episodes."
   },
   {
     "questionText": "What candy bar does Kramer drop into a patient during surgery?",
     "options": ["Junior Mint", "Tic Tac", "M&M", "Skittle"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "easy"
+    "difficulty": "easy",
+    "funFact": "The Junior Mint episode was inspired by a real incident where a York Peppermint Pattie fell into a patient during surgery."
   },
   {
     "questionText": "What is the name of Jerry's neighbor across the hall?",
@@ -32,14 +35,16 @@
     "options": ["Monk's Cafe", "Tom's Restaurant", "Pop's Diner", "The Soup Nazi's"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "easy"
+    "difficulty": "easy",
+    "funFact": "The exterior shots of Monk's Cafe are actually Tom's Restaurant on Broadway and 112th Street in Manhattan."
   },
   {
     "questionText": "What is the name of the soup vendor who refuses to serve customers?",
-    "options": ["The Soup Nazi", "Soup Man", "Al's Soup Kitchen", "Soup Master"],
+    "options": ["The Soup Nazi", "Soup Man", "Al's Soups", "Soup Master"],
     "correctAnswerIndex": 0,
     "category": "Characters",
-    "difficulty": "easy"
+    "difficulty": "easy",
+    "funFact": "The Soup Nazi was based on a real NYC soup vendor named Al Yeganeh, who was not happy about the nickname."
   },
   {
     "questionText": "What was George's fiancée's name?",
@@ -74,35 +79,32 @@
     "options": ["The little kicks", "The macarena", "The robot", "The twist"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "funFact": "Julia Louis-Dreyfus choreographed the 'little kicks' dance herself and it took several takes because the crew kept laughing."
   },
   {
     "questionText": "What is the contest about in 'The Contest'?",
     "options": ["Who can go longest without self-gratification", "Who can eat the most", "Who can stay awake longest", "Who can hold their breath longest"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "funFact": "'The Contest' won Larry David an Emmy for Outstanding Individual Achievement in Writing. The word 'masturbation' is never actually said in the episode."
   },
   {
     "questionText": "What is the name of George's employer at the New York Yankees?",
     "options": ["George Steinbrenner", "Mr. Wilhelm", "Mr. Kruger", "Mr. Lippman"],
     "correctAnswerIndex": 0,
     "category": "Characters",
-    "difficulty": "medium"
-  },
-  {
-    "questionText": "What does Kramer install in his apartment that Jerry mocks?",
-    "options": ["A screen door", "A hot tub", "A chandelier", "A fireplace"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "funFact": "Larry David provided the voice for George Steinbrenner on the show, though you never see his face."
   },
   {
     "questionText": "In 'The Marine Biologist,' what does George pull out of the whale?",
     "options": ["A golf ball", "A tennis ball", "A frisbee", "A shoe"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "funFact": "Jason Alexander's monologue about the whale was filmed in one continuous take and the audience's laughter was entirely genuine."
   },
   {
     "questionText": "Who hit the golf ball into the whale's blowhole?",
@@ -112,18 +114,12 @@
     "difficulty": "medium"
   },
   {
-    "questionText": "What is the name of Jerry's car that gets terrible body odor?",
-    "options": ["The smelly car", "Jerry's BMW", "The death car", "Kramer's taxi"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "medium"
-  },
-  {
     "questionText": "What is Festivus?",
     "options": ["A holiday created by Frank Costanza", "A Jewish holiday", "An Italian festival", "A made-up Kramer holiday"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "easy"
+    "difficulty": "easy",
+    "funFact": "Festivus was based on a real holiday that writer Dan O'Keefe's father created for his family in 1966."
   },
   {
     "questionText": "What replaces a Christmas tree during Festivus?",
@@ -154,18 +150,12 @@
     "difficulty": "easy"
   },
   {
-    "questionText": "What does Kramer's Coffee Table Book about coffee tables feature?",
-    "options": ["It folds out into a coffee table", "Pop-up pictures", "Scratch and sniff pages", "A built-in coaster"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "medium"
-  },
-  {
     "questionText": "What TV show do Jerry and George pitch to NBC?",
     "options": ["A show about nothing", "The Butler", "Jerry!", "New York Stories"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "easy"
+    "difficulty": "easy",
+    "funFact": "The 'show about nothing' plot mirrored how Seinfeld itself was pitched to NBC — Larry David and Jerry Seinfeld literally pitched a show about nothing."
   },
   {
     "questionText": "Who is Jerry's nemesis who works at the post office?",
@@ -175,13 +165,6 @@
     "difficulty": "easy"
   },
   {
-    "questionText": "What is the name of the episode where the group waits for a table at a Chinese restaurant?",
-    "options": ["The Chinese Restaurant", "The Wait", "The Table", "The Reservation"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "medium"
-  },
-  {
     "questionText": "What is Puddy's first name?",
     "options": ["David", "Steve", "Patrick", "Mike"],
     "correctAnswerIndex": 0,
@@ -189,18 +172,12 @@
     "difficulty": "hard"
   },
   {
-    "questionText": "What is the name of J. Peterman's catalog company?",
-    "options": ["J. Peterman", "Peterman Catalog", "Urban Sombrero", "Peterman & Co."],
-    "correctAnswerIndex": 0,
-    "category": "Characters",
-    "difficulty": "medium"
-  },
-  {
     "questionText": "What does Elaine's boss Mr. Pitt eat a Snickers bar with?",
     "options": ["A knife and fork", "Chopsticks", "A spoon", "A napkin"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "hard"
+    "difficulty": "hard",
+    "funFact": "After this episode aired, restaurants reported an increase in people eating candy bars with utensils."
   },
   {
     "questionText": "What is George's ATM code that he reveals?",
@@ -210,32 +187,12 @@
     "difficulty": "hard"
   },
   {
-    "questionText": "What type of car does Kramer test drive and refuses to stop for gas?",
-    "options": ["Saab", "BMW", "Volvo", "Cadillac"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
     "questionText": "How does Susan Ross die?",
     "options": ["Licking toxic wedding invitation envelopes", "Car accident", "Food poisoning", "Heart attack"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "medium"
-  },
-  {
-    "questionText": "What business does Kramer start with Newman involving a mail truck?",
-    "options": ["A bottle deposit recycling scheme", "A delivery service", "A food truck", "A taxi service"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
-    "questionText": "What is the name of the parking garage where the group gets lost?",
-    "options": ["The mall parking garage", "JFK Airport garage", "Yankee Stadium garage", "Central Park garage"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "funFact": "The decision to kill Susan was made because Jason Alexander found it difficult to act with Heidi Swedberg, who played Susan."
   },
   {
     "questionText": "What sport does George become assistant to the traveling secretary for?",
@@ -249,11 +206,12 @@
     "options": ["Frank Costanza's anger management technique", "Kramer's meditation class", "Jerry's yoga retreat", "George's therapy sessions"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "funFact": "Jerry Stiller ad-libbed 'Serenity now!' so intensely that the crew had to muffle their laughter during filming."
   },
   {
     "questionText": "What does Kramer do with the set of the old Merv Griffin Show?",
-    "options": ["Rebuilds it in his apartment", "Donates it to a museum", "Sells it on eBay", "Uses it as a bed"],
+    "options": ["Rebuilds it in his apartment", "Donates it to a museum", "Sells it", "Uses it as a bed"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
     "difficulty": "medium"
@@ -273,53 +231,12 @@
     "difficulty": "medium"
   },
   {
-    "questionText": "What does George do at Yankee Stadium with the World Series trophy?",
-    "options": ["Drags it behind his car", "Drops it in the river", "Hides it in his apartment", "Gives it to Steinbrenner"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
-    "questionText": "What does Elaine's boyfriend call her that she hates?",
-    "options": ["Nip", "Lainey", "Benes", "El"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
-    "questionText": "What phrase does Frank Costanza yell during Festivus?",
-    "options": ["I got a lot of problems with you people!", "Serenity now!", "Festivus for the rest of us!", "Hoochie mama!"],
-    "correctAnswerIndex": 0,
-    "category": "Quotes",
-    "difficulty": "hard"
-  },
-  {
-    "questionText": "What is the name of Elaine's on-again off-again boyfriend played by Patrick Warburton?",
-    "options": ["David Puddy", "Jake Jarmel", "Keith Hernandez", "Joel Rifkin"],
-    "correctAnswerIndex": 0,
-    "category": "Characters",
-    "difficulty": "medium"
-  },
-  {
-    "questionText": "What does Kramer accidentally set on fire with a cigar store Indian?",
-    "options": ["A cabin in the woods", "Jerry's apartment", "A Christmas tree", "A couch"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
-    "questionText": "What illegal cable hook-up does Jerry get in Season 1?",
-    "options": ["Free cable from Kramer's connection", "A satellite dish", "A pirated box", "Newman's antenna"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
     "questionText": "What city does the series finale take place in?",
     "options": ["Latham, Massachusetts", "New York City", "Los Angeles", "Boston"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "hard"
+    "difficulty": "hard",
+    "funFact": "The series finale drew 76 million viewers, making it the 4th most-watched series finale in TV history."
   },
   {
     "questionText": "What are the group convicted of in the series finale?",
@@ -336,46 +253,20 @@
     "difficulty": "medium"
   },
   {
-    "questionText": "What does Elaine do that gets her banned from her favorite nail salon?",
-    "options": ["Suspects they are talking about her in Korean", "Steals nail polish", "Argues about the price", "Brings her own tools"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
-    "questionText": "What is the name of Jerry's uncle who is always adjusting things?",
+    "questionText": "What is the name of Jerry's uncle?",
     "options": ["Uncle Leo", "Uncle Max", "Uncle Frank", "Uncle Herman"],
     "correctAnswerIndex": 0,
     "category": "Characters",
-    "difficulty": "medium"
-  },
-  {
-    "questionText": "What does George do when he thinks he's going to be fired?",
-    "options": ["Shows up to work like nothing happened", "Quits first", "Hides in the bathroom", "Goes on vacation"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "funFact": "Uncle Leo's catchphrase 'Jerry! Hello!' was ad-libbed by actor Len Lesser in his very first appearance."
   },
   {
     "questionText": "What is shrinkage?",
     "options": ["What happens to George after swimming in cold water", "Kramer's dry cleaning disaster", "Jerry's wool sweater problem", "Newman's weight loss trick"],
     "correctAnswerIndex": 0,
     "category": "Plotlines",
-    "difficulty": "easy"
-  },
-  {
-    "questionText": "What is the name of the episode where Jerry and Elaine try to define their relationship?",
-    "options": ["The Deal", "The Label Maker", "The Pact", "The Agreement"],
-    "correctAnswerIndex": 0,
-    "category": "Plotlines",
-    "difficulty": "hard"
-  },
-  {
-    "questionText": "In which season did Seinfeld premiere?",
-    "options": ["Season 1 (1989)", "Season 1 (1990)", "Season 1 (1988)", "Season 1 (1991)"],
-    "correctAnswerIndex": 0,
-    "category": "Characters",
-    "difficulty": "hard"
+    "difficulty": "easy",
+    "funFact": "The word 'shrinkage' entered popular culture because of this episode and is now commonly understood as a reference to it."
   },
   {
     "questionText": "Who co-created Seinfeld with Jerry Seinfeld?",
@@ -385,10 +276,818 @@
     "difficulty": "easy"
   },
   {
-    "questionText": "What floor does Jerry live on?",
-    "options": ["5th floor", "3rd floor", "4th floor", "2nd floor"],
+    "questionText": "What is Kramer's coffee table book about?",
+    "options": ["Coffee tables", "Coffee shops", "New York diners", "Celebrity homes"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The gimmick of the coffee table book is that it folds out into an actual coffee table."
+  },
+  {
+    "questionText": "What does Kramer install in his shower?",
+    "options": ["A garbage disposal", "A radio", "A TV", "A phone"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of the episode where the entire plot takes place while waiting for a table?",
+    "options": ["The Chinese Restaurant", "The Wait", "The Table", "The Reservation"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "NBC executives initially rejected 'The Chinese Restaurant' because nothing happens. It's now considered one of the best episodes."
+  },
+  {
+    "questionText": "What does George do when he finds a marble rye bread?",
+    "options": ["Steals it from an old woman", "Bakes one himself", "Orders it online", "Buys it from a bakery"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "How does Kramer get the marble rye to the Rosses' apartment?",
+    "options": ["Ties it to a fishing line from the street", "Throws it through the window", "Delivers it by hand", "Sends it via Newman"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Jerry's girlfriend not do that disturbs him?",
+    "options": ["She never laughs", "She never blinks", "She never eats", "She never sits down"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is Elaine's IQ compared to in 'The Cafe'?",
+    "options": ["George takes her IQ test for her", "She competes with Jerry", "She bets against Kramer", "She challenges Newman"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What name does Jerry use when he pretends to be a different person?",
+    "options": ["Kel Varnsen", "Art Vandelay", "H.E. Pennypacker", "Dr. Van Nostrand"],
     "correctAnswerIndex": 0,
     "category": "Characters",
     "difficulty": "hard"
+  },
+  {
+    "questionText": "What business does Kramer start selling his stories to?",
+    "options": ["The J. Peterman catalog", "A publishing house", "A newspaper", "A TV network"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Elaine stuff in her bra to look bigger?",
+    "options": ["Padding from a couch cushion", "Tissues", "Socks", "Cotton balls"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What appliance does Kramer try to install in his car?",
+    "options": ["A clothes dryer (uses the engine heat)", "A microwave", "A dishwasher", "A blender"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of the man with the beautiful hands that Jerry admires?",
+    "options": ["Man Hands (Gillian)", "Beautiful George", "Hand Model Mike", "Pretty Boy Floyd"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is Puddy's trademark?",
+    "options": ["Face paint for the Devils", "A leather jacket", "Cowboy boots", "A gold chain"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium",
+    "funFact": "Patrick Warburton painted his own face for the scene — the makeup department wasn't involved."
+  },
+  {
+    "questionText": "What does Kramer rename himself when he gets a new phone number?",
+    "options": ["He doesn't — people call thinking he's Moviefone", "Dr. Martin Van Nostrand", "Peter Van Nostrund", "The K-Man"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Jerry refuse to do that makes him a 'bad breaker-upper'?",
+    "options": ["Break up face-to-face", "Return calls", "Give back gifts", "Apologize"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does George do when his boss Mr. Kruger doesn't care about anything?",
+    "options": ["Takes complete advantage and does nothing", "Quits", "Works harder", "Reports him"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "In 'The Opposite,' what does George do differently?",
+    "options": ["The opposite of every instinct", "Tells only the truth", "Agrees with everyone", "Says no to everything"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "In this episode, every decision George makes by going against his instincts works perfectly — mirroring the concept that George is Larry David's neuroses personified."
+  },
+  {
+    "questionText": "What is the name of Jerry's girlfriend who has 'man hands'?",
+    "options": ["Gillian", "Sandra", "Donna", "Patricia"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What sport does Kramer dominate against children?",
+    "options": ["Karate", "Swimming", "Tennis", "Basketball"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Elaine's boyfriend refuse to use when talking?",
+    "options": ["Exclamation points", "Question marks", "Commas", "Capital letters"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What food does Kramer try to cook in his hot tub?",
+    "options": ["Lobster", "Pasta", "Hot dogs", "Eggs"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does George drape himself in when he wants to be irresistible?",
+    "options": ["Velvet", "Silk", "Satin", "Cashmere"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "George's obsession with velvet was a running gag that appeared in multiple episodes across different seasons."
+  },
+  {
+    "questionText": "What is the name of Elaine's dancing boyfriend?",
+    "options": ["She's the bad dancer, not a boyfriend", "Crazy Joe Davola", "Tony", "David Puddy"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Kramer start a business selling after his apartment is robbed?",
+    "options": ["His own stories to Peterman", "Security systems", "Baseball cards", "Vintage clothes"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What magazine does George pretend to work for?",
+    "options": ["Vandelay Industries", "Pendant Publishing", "The New Yorker", "Cosmo"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What word does Jerry's girlfriend whisper that he can't hear?",
+    "options": ["Mulva (her name is Dolores)", "Her phone number", "I love you", "A secret"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard",
+    "funFact": "The studio audience was let in on the joke before filming. When Jerry finally yells 'Dolores!', the laughter was so long they had to edit it down."
+  },
+  {
+    "questionText": "What actor plays J. Peterman?",
+    "options": ["John O'Hurley", "Patrick Stewart", "Bryan Cranston", "Bob Odenkirk"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Frank Costanza scream instead of 'Serenity Now'?",
+    "options": ["Hoochie mama!", "Festivus!", "Stop short!", "You want a piece of me?!"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is George's ideal job?",
+    "options": ["Sleeping under his desk at the Yankees", "Professional sleeper", "Park bench sitter", "Mattress tester"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the Penske file?",
+    "options": ["A file George never opens or works on", "A lawsuit against Jerry", "Kramer's business plan", "Newman's retirement fund"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Elaine win in a contest at work?",
+    "options": ["A submarine sandwich", "A vacation", "An office", "A raise"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What type of underwear does Kramer switch to?",
+    "options": ["Boxer shorts (affecting his fertility)", "Briefs", "Silk boxers", "No underwear"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Newman and Kramer try to bring back from Michigan?",
+    "options": ["Cans and bottles for the deposit", "Furniture", "A car", "Lottery tickets"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The bottle deposit scheme was based on a real mathematical problem about whether the gas costs make it unprofitable."
+  },
+  {
+    "questionText": "How many seasons did Seinfeld run?",
+    "options": ["9", "10", "8", "7"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What year did the final episode air?",
+    "options": ["1998", "1999", "1997", "2000"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium",
+    "funFact": "The finale aired on May 14, 1998. An estimated 76 million viewers tuned in."
+  },
+  {
+    "questionText": "What does George call his suggested baby name?",
+    "options": ["Seven", "Soda", "Mug", "Bosco"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "After this episode aired, the name 'Seven' saw a brief uptick in baby naming registries."
+  },
+  {
+    "questionText": "What does Elaine discover about her favorite contraceptive?",
+    "options": ["The sponge is discontinued", "Her pills are expired", "Her brand was recalled", "It was a placebo"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "After 'The Sponge' aired, the Today Sponge saw a massive surge in demand and secondary market sales."
+  },
+  {
+    "questionText": "What phrase does Elaine use to judge if a man is worthy of her limited sponge supply?",
+    "options": ["Sponge-worthy", "Sponge-approved", "Sponge-qualified", "Worth the sponge"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What does Jerry's apartment never have in it?",
+    "options": ["Superman is always visible somewhere", "A TV remote", "Dirty dishes", "Books"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium",
+    "funFact": "A Superman figure or reference appears in virtually every episode — on the shelf, as a magnet, or as a reference in dialogue."
+  },
+  {
+    "questionText": "What makes Jerry's girlfriend 'two-face'?",
+    "options": ["She looks different in different lighting", "She has mood swings", "She lies constantly", "She has a twin"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What toy does George get caught deflating at a child's party?",
+    "options": ["A bubble boy's bubble", "A bouncy castle", "Pool toys", "Balloons"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What board game does George play aggressively with the Bubble Boy?",
+    "options": ["Trivial Pursuit", "Monopoly", "Scrabble", "Risk"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The Bubble Boy's answer of 'Moops' instead of 'Moors' has become one of the most quoted moments in the series."
+  },
+  {
+    "questionText": "What does the Bubble Boy insist is the answer on the Trivial Pursuit card?",
+    "options": ["The Moops", "The Moors", "The Mongols", "The Monks"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What car does Jerry accidentally destroy that belongs to Keith Hernandez?",
+    "options": ["It's not a car — he spits on them", "A Corvette", "A Mercedes", "A Porsche"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Kramer accidentally do with Jerry's girlfriend's fur coat?",
+    "options": ["Gets it covered in cigar smell", "Loses it in a fire", "Gives it to a horse", "Leaves it on the subway"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What kind of car does Jerry get that has terrible B.O.?",
+    "options": ["A rental/loaner BMW", "A used Volvo", "A new sedan", "A vintage convertible"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does George do at Play Now that impresses his boss?",
+    "options": ["Looks annoyed/busy while doing nothing", "Actually works hard", "Brings donuts daily", "Organizes the office"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the name of the charity George donates to fraudulently?",
+    "options": ["The Human Fund", "Feed the Children", "The Costanza Foundation", "George's Charity"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The Human Fund's tagline 'Money for People' has been printed on real novelty checks and holiday cards."
+  },
+  {
+    "questionText": "What does Jerry call breaking up with someone using a phone?",
+    "options": ["He calls it cowardly — but does it anyway", "Smart", "Efficient", "The right thing"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of Elaine's on-again off-again boyfriend played by Patrick Warburton?",
+    "options": ["David Puddy", "Jake Jarmel", "Keith Hernandez", "Joel Rifkin"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Puddy say to Elaine repeatedly during their flight?",
+    "options": ["Yeah, that's right", "Whatever", "High five", "You got a problem?"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of the woman whose name Jerry can't remember — it rhymes with a female body part?",
+    "options": ["Dolores", "Mulva", "Regina", "Aretha"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is George's mother's name?",
+    "options": ["Estelle", "Dorothy", "Helen", "Ruth"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Jerry refuse to wear that upsets his puffy-shirt-wearing girlfriend?",
+    "options": ["He DOES wear the puffy shirt on TV", "A beret", "Leather pants", "A cape"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The actual puffy shirt from the episode is on permanent display at the Smithsonian National Museum of American History."
+  },
+  {
+    "questionText": "What is the name of Jerry's low-talking girlfriend?",
+    "options": ["Leslie (the low talker)", "Patty", "Donna", "Susan"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Kramer accidentally vomit on?",
+    "options": ["A model of a new development", "Jerry's couch", "A painting", "Newman"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "Who does Elaine date that turns out to be the inspiration for the Batman villain?",
+    "options": ["Crazy Joe Davola", "Todd Gack", "The Wiz", "Jimmy"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What sport does George claim to have invented a move in?",
+    "options": ["Pool/billiards (the 'Costanza')", "Bowling", "Golf", "Darts"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Kramer do that accidentally makes a Junior Mint save a patient's life?",
+    "options": ["The mint's antibiotic properties heal an infection", "It falls perfectly on the wound", "It gives the patient energy", "The sugar stabilizes him"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What part of a muffin does Elaine think is the only good part?",
+    "options": ["The top", "The bottom", "The center", "The crust"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy",
+    "funFact": "After this episode, several real bakeries started selling 'muffin tops' only. A chain called 'Top of the Muffin to You!' briefly existed."
+  },
+  {
+    "questionText": "What business does Elaine propose that only sells muffin tops?",
+    "options": ["Top of the Muffin to You!", "Muffin Madness", "The Top Shop", "Best of the Batch"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What pretzel makes Elaine extremely thirsty?",
+    "options": ["A free pretzel from a street vendor", "A movie theater pretzel", "A mall pretzel", "A ballpark pretzel"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The famous line 'These pretzels are making me thirsty' was one of Kramer's, but each character delivers their own version throughout the episode."
+  },
+  {
+    "questionText": "Who says 'These pretzels are making me thirsty' as a line in a movie?",
+    "options": ["Kramer", "Jerry", "George", "Elaine"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the occupation of Elaine's boyfriend who won't use exclamation points?",
+    "options": ["A writer/journalist", "A lawyer", "A doctor", "A teacher"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does George's voicemail answering machine message parody?",
+    "options": ["The theme to 'Believe It Or Not' (Greatest American Hero)", "The Godfather", "Star Wars", "Rocky"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "Jason Alexander actually sang the full parody song. It became so popular that fans requested a full recording."
+  },
+  {
+    "questionText": "What does Jerry's girlfriend look like in the right lighting versus bad lighting?",
+    "options": ["Beautiful vs. hideous (two-face)", "Tall vs. short", "Young vs. old", "Happy vs. sad"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What do Jerry and George argue about regarding Superman?",
+    "options": ["Whether Superman would be circumcised", "Whether he's faster than Flash", "Whether he could beat Batman", "Whether his cape is practical"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What game show does Kramer appear on?",
+    "options": ["Jeopardy! (in a dream)", "Wheel of Fortune", "The Price Is Right", "Family Feud"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of the famous racing horse Kramer bets on?",
+    "options": ["Papaya King", "Thunder Road", "Seabiscuit Jr.", "Manhattan Express"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What brand of shoes does Elaine's boyfriend wear that Kramer also owns?",
+    "options": ["The Urban Sombrero isn't shoes — it's a hat", "Nike", "Timberland", "Doc Martens"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Newman hoard that becomes a health hazard?",
+    "options": ["Mail", "Food", "Newspapers", "Cats"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Elaine do when she learns her boyfriend is anti-abortion?",
+    "options": ["Tries to change his mind, then breaks up", "Agrees with him", "Ignores it", "Debates him on TV"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What's the minimum amount of money for a gift that George considers 'acceptable'?",
+    "options": ["He tries to give $20 donations in people's names", "He sets no minimum", "$100", "$50"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Jerry clean obsessively?",
+    "options": ["Everything — he's a neat freak", "Only his kitchen", "Only his car", "Only his shoes"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What occupation does Kramer pretend to have at a company?",
+    "options": ["He just shows up and starts working (at Brandt/Leland)", "Doctor", "Lawyer", "Architect"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The scene where Kramer just starts working at a company without being hired was based on a real incident involving a man at a tech company."
+  },
+  {
+    "questionText": "What is the nickname for Jerry's girlfriend who never changes her outfit?",
+    "options": ["She always wears the same dress", "One-Outfit Wonder", "The Uniform", "Plain Jane"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "In what year did Seinfeld first premiere?",
+    "options": ["1989", "1990", "1988", "1991"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium",
+    "funFact": "The pilot episode was called 'The Seinfeld Chronicles' and had a completely different character in place of Elaine."
+  },
+  {
+    "questionText": "What does George pretend happened to get out of attending an event?",
+    "options": ["He uses a dead relative excuse repeatedly", "He claims he's sick", "He says he moved", "He pretends to be on vacation"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Kramer feed to a horse that makes it extremely gassy?",
+    "options": ["Beefaroni/Beef-a-Reeno", "Tacos", "Beans", "Garlic bread"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Jerry do that makes him unable to remember a comedian's joke?",
+    "options": ["Makes out during Schindler's List", "Falls asleep", "Gets too drunk", "Talks too much"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "This episode drew criticism from some viewers, but it was actually about the selfishness of the characters, not making light of the Holocaust."
+  },
+  {
+    "questionText": "What is the name of the Seinfeld episode that takes place entirely in a parking garage?",
+    "options": ["The Parking Garage", "The Lost Car", "The Search", "The Lot"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Kramer bring back from a trip to the beach?",
+    "options": ["A giant ball of oil/tar on his head", "A surfboard", "A lobster", "Sand sculptures"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What type of jacket does Jerry refuse to take back after giving it to Elaine?",
+    "options": ["A leather jacket (it's actually suede)", "A puffy coat", "A windbreaker", "A blazer"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What disability does George fake to get a handicapped bathroom?",
+    "options": ["A mobility impairment (uses a scooter)", "Blindness", "Deafness", "A broken arm"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Frank Costanza call his bra invention?",
+    "options": ["The Bro (or Manssiere)", "The Man Bra", "The Chest Support", "The Brosiere"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does George claim his heritage to be when it benefits him?",
+    "options": ["Whatever suits the situation", "Always Italian", "Always Jewish", "Always Irish"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What snack does Kramer smuggle into a movie theater?",
+    "options": ["A full lobster dinner (in 'The Butter Shave')", "Pizza", "Chinese food", "A sub sandwich"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "Which character has been described as the show's most selfish?",
+    "options": ["All four are equally selfish (it's the point)", "Jerry", "George", "Elaine"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does George do when he realizes his life would be better doing the opposite of his instincts?",
+    "options": ["Gets a girlfriend, a job, and an apartment", "Moves away", "Goes to therapy", "Writes a book"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What word does Jerry's girlfriend always say?",
+    "options": ["That's so funny (without laughing)", "Literally", "Amazing", "Basically"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What do Jerry and Kramer switch for a week?",
+    "options": ["Apartments", "Jobs", "Clothes", "Girlfriends"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What's Elaine's favorite type of birth control?",
+    "options": ["The sponge", "The pill", "The patch", "The ring"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What does Kramer famously slide through?",
+    "options": ["Jerry's door (his entrance)", "A car wash", "A bowling alley", "A library"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy",
+    "funFact": "Michael Richards never entered the same way twice. His entrances were almost always improvised, which is why the audience reaction was always genuine."
+  },
+  {
+    "questionText": "What does Newman describe himself as?",
+    "options": ["A man of the people (also calls himself a 'cool guy')", "A genius", "A saint", "A hero"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What breed is the dog that barks and keeps Elaine awake?",
+    "options": ["It's never specified — just 'that dog'", "A poodle", "A chihuahua", "A beagle"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Jerry's car smell like that he can never get rid of?",
+    "options": ["Terrible B.O. from a valet", "Fish", "Smoke", "Garbage"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium",
+    "funFact": "The B.O. car episode was based on a real experience Larry David had with a valet in Los Angeles."
+  },
+  {
+    "questionText": "What does George do when he gets access to a private bathroom at work?",
+    "options": ["Treats it like a personal retreat", "Redecorates it", "Locks everyone else out", "Naps in it"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What makes Elaine's new boyfriend seem perfect until she discovers his secret?",
+    "options": ["He's a 'bad breaker-upper' who fakes it", "He's married", "He's broke", "He's a criminal"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Kramer fill his apartment with that creates a fire hazard?",
+    "options": ["Wooden drawers (a chest of drawers wall)", "Newspapers", "Candles", "Books"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What tagline does the Human Fund use?",
+    "options": ["Money for People", "Helping Humanity", "A Fund for All", "People Helping People"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What's the name of the move Frank Costanza uses to protect a passenger in a car?",
+    "options": ["The Stop Short", "The Arm Bar", "The Costanza Shield", "The Emergency Grab"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What actor appeared as himself and dated Elaine?",
+    "options": ["Keith Hernandez", "Derek Jeter", "David Letterman", "Regis Philbin"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the name of Elaine's boss at Pendant Publishing?",
+    "options": ["Mr. Lippman", "Mr. Kruger", "Mr. Pitt", "Mr. Peterman"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What breakfast item does Kramer try to make that goes wrong?",
+    "options": ["He installs a garbage disposal in his shower for food prep", "Pancakes", "Eggs Benedict", "Waffles"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What did Jerry steal as a kid that haunts him?",
+    "options": ["A book from the library (Tropic of Cancer)", "A candy bar", "A baseball card", "A toy"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of the library cop investigating Jerry?",
+    "options": ["Lt. Bookman", "Officer Dewey", "Detective Shelves", "Inspector Pages"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium",
+    "funFact": "Philip Baker Hall's performance as Lt. Bookman was filmed in one take. His intense monologue about library justice is considered one of the show's best guest performances."
+  },
+  {
+    "questionText": "Which real-life baseball player does Kramer promise a kid he'll hit two home runs for him?",
+    "options": ["Paul O'Neill", "Bernie Williams", "Derek Jeter", "Don Mattingly"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the 'vault' in Jerry and George's friendship?",
+    "options": ["Where they keep each other's secrets", "A safety deposit box", "George's storage unit", "Jerry's closet"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Jerry say about his relationships?",
+    "options": ["He always finds a reason to break up", "He commits too quickly", "He never dates", "He always gets dumped"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What does George do with a photograph of himself in a bathing suit?",
+    "options": ["Gives it as a gift (the timeless art of seduction)", "Throws it away", "Frames it", "Posts it at work"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard",
+    "funFact": "The boudoir photo of George was Jason Alexander's idea. He insisted on doing the pose himself rather than using a body double."
+  },
+  {
+    "questionText": "What does Kramer build in his apartment from lumber?",
+    "options": ["Levels (like a set of bleachers)", "A boat", "A tree house", "A bar"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Newman eat that is normally considered a crime to waste?",
+    "options": ["Muffin stumps (the bottoms)", "Day-old bread", "Expired food", "Leftovers from restaurants"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of George's boss at the Yankees who only communicates in monologues?",
+    "options": ["George Steinbrenner", "Buck Showalter", "Joe Torre", "Mr. Morgan"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
   }
 ]

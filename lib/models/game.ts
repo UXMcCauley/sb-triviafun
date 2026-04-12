@@ -25,6 +25,7 @@ const QuestionSchema = new Schema({
   correctAnswerIndex: { type: Number, required: true },
   category: { type: String },
   difficulty: { type: String, enum: ['easy', 'medium', 'hard'], required: true },
+  funFact: { type: String },
 }, { _id: false });
 
 const GameSchema = new Schema({

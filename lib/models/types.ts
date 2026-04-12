@@ -18,6 +18,7 @@ export interface Question {
   correctAnswerIndex: number;
   category?: string;
   difficulty: 'easy' | 'medium' | 'hard';
+  funFact?: string;
 }
 
 export type GameStatus = 'lobby' | 'active' | 'finished';
@@ -64,6 +65,7 @@ export interface AnswerRevealEvent {
   correctAnswerIndex: number;
   playerResults: PlayerResult[]; // sorted by speed (fastest correct first)
   players: { id: string; name: string; score: number }[];
+  funFact?: string;
 }
 
 export interface GamePausedEvent {

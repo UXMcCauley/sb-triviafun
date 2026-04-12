@@ -15,8 +15,8 @@ import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 
-// Flow: question → reveal (8s) → scoreboard (8s) → leaderboard (5s) → next question
-type Phase = 'create' | 'lobby' | 'question' | 'reveal' | 'scoreboard' | 'leaderboard' | 'finished';
+// Flow: question → reveal (8s) → scoreboard (8s) → leaderboard (5s) → [funfact (6s)] → next question
+type Phase = 'create' | 'lobby' | 'question' | 'reveal' | 'scoreboard' | 'leaderboard' | 'funfact' | 'finished';
 
 interface PlayerInfo {
   id: string;
@@ -37,6 +37,7 @@ export default function DisplayPage() {
   const [loading, setLoading] = useState(false);
   const [paused, setPaused] = useState(false);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
+  const [funFact, setFunFact] = useState<string | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
 
@@ -165,6 +166,7 @@ export default function DisplayPage() {
       setCorrectAnswer(data.correctAnswerIndex);
       setPlayerResults(data.playerResults);
       setPlayers(data.players);
+      setFunFact(data.funFact || null);
       setPhase('reveal');
     });
 
@@ -195,18 +197,23 @@ export default function DisplayPage() {
       // Show per-question results for 8 seconds → then show cumulative leaderboard
       scheduleTransition(() => setPhase('leaderboard'), 8000);
     } else if (phase === 'leaderboard') {
-      // Show cumulative rankings for 5 seconds → then advance
+      // Show cumulative rankings for 5 seconds → then fun fact or advance
       scheduleTransition(() => {
         if (isLastQuestion) {
-          handleAdvance(); // triggers game-finished event
+          handleAdvance();
+        } else if (funFact) {
+          setPhase('funfact');
         } else {
-          handleAdvance(); // triggers new-question event
+          handleAdvance();
         }
       }, 5000);
+    } else if (phase === 'funfact') {
+      // Show fun fact for 6 seconds → then advance
+      scheduleTransition(() => handleAdvance(), 6000);
     }
 
     return () => clearTimers();
-  }, [phase, isLastQuestion, scheduleTransition, handleAdvance]);
+  }, [phase, isLastQuestion, funFact, scheduleTransition, handleAdvance]);
 
   // When question timer expires, auto-reveal
   const handleTimerExpire = useCallback(() => {
@@ -343,8 +350,8 @@ export default function DisplayPage() {
               disabled
             />
           </div>
-          <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col">
-            <div className="flex justify-center mb-8">
+          <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col overflow-hidden">
+            <div className="flex justify-center mb-6 flex-shrink-0">
               <Countdown
                 startedAt={currentQuestion.startedAt}
                 duration={currentQuestion.timerDuration}
@@ -352,8 +359,10 @@ export default function DisplayPage() {
                 size="lg"
               />
             </div>
-            <h3 className="text-lg font-bold text-white/60 mb-4 uppercase tracking-wider">Leaderboard</h3>
-            <Leaderboard players={players} />
+            <h3 className="text-sm font-bold text-white/60 mb-3 uppercase tracking-wider flex-shrink-0">Leaderboard</h3>
+            <div className="flex-1 overflow-y-auto min-h-0">
+              <Leaderboard players={players} compact maxVisible={10} />
+            </div>
           </div>
         </div>
       )}
@@ -385,35 +394,33 @@ export default function DisplayPage() {
 
       {/* SCOREBOARD PHASE — per-question results for 8 seconds */}
       {phase === 'scoreboard' && (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="w-full max-w-3xl px-8 space-y-6">
+        <div className="flex items-center justify-center min-h-screen p-8">
+          <div className="w-full max-w-3xl space-y-6">
             <h2 className="text-4xl font-black text-center">
               Question {currentQuestion ? currentQuestion.questionIndex + 1 : ''} Results
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2 max-h-[65vh] overflow-y-auto">
               {playerResults.map((pr, i) => (
                 <div
                   key={pr.id}
-                  className={`flex items-center justify-between px-6 py-4 rounded-xl animate-fadeIn ${
+                  className={`flex items-center justify-between px-5 py-3 rounded-xl animate-fadeIn ${
                     pr.correct
                       ? 'bg-green-500/15 border border-green-500/30'
                       : 'bg-red-500/10 border border-red-500/20'
                   }`}
-                  style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'both' }}
+                  style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'both' }}
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="text-3xl">{pr.correct ? '✅' : '❌'}</span>
-                    <div>
-                      <span className="text-2xl font-semibold">{pr.name}</span>
-                      {pr.correct && (
-                        <span className="text-sm text-white/40 ml-3">
-                          {pr.timeToAnswer.toFixed(1)}s
-                        </span>
-                      )}
-                    </div>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-2xl flex-shrink-0">{pr.correct ? '✅' : '❌'}</span>
+                    <span className="text-xl font-semibold truncate">{pr.name}</span>
+                    {pr.correct && (
+                      <span className="text-sm text-white/40 flex-shrink-0">
+                        {pr.timeToAnswer.toFixed(1)}s
+                      </span>
+                    )}
                   </div>
-                  <span className={`text-2xl font-mono font-bold ${
+                  <span className={`text-xl font-mono font-bold flex-shrink-0 ml-3 ${
                     pr.correct ? 'text-green-400' : 'text-red-400'
                   }`}>
                     {pr.correct ? `+${pr.pointsEarned.toLocaleString()}` : '+0'}
@@ -431,6 +438,19 @@ export default function DisplayPage() {
           <div className="w-full max-w-2xl px-8 space-y-8">
             <h2 className="text-4xl font-black text-center text-yellow-400">Standings</h2>
             <Leaderboard players={players} />
+          </div>
+        </div>
+      )}
+
+      {/* FUN FACT PHASE */}
+      {phase === 'funfact' && funFact && (
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="w-full max-w-3xl px-8 text-center space-y-8">
+            <div className="text-6xl">🎬</div>
+            <h2 className="text-3xl font-black text-yellow-400 uppercase tracking-wider">Did You Know?</h2>
+            <p className="text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+              {funFact}
+            </p>
           </div>
         </div>
       )}
@@ -465,6 +485,7 @@ export default function DisplayPage() {
                 setWinner(null);
                 setPaused(false);
                 setIsLastQuestion(false);
+                setFunFact(null);
               }}
               className="mt-8 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl px-8 py-3 rounded-xl transition-all active:scale-95"
             >

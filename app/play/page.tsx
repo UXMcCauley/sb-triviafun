@@ -323,28 +323,140 @@ function PlayContent() {
 
       {/* FINISHED PHASE */}
       {phase === 'finished' && (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4 space-y-6">
-          <h1 className="text-4xl font-black text-yellow-400">Game Over!</h1>
+        <FinishedScreen
+          winner={winner}
+          myScore={myScore}
+          myRank={myRank}
+          players={players}
+          playerId={playerId}
+          gameCode={gameCode}
+        />
+      )}
+    </div>
+  );
+}
 
-          {winner && (
-            <div className="text-center space-y-1">
-              <p className="text-white/60">Winner</p>
-              <p className="text-3xl font-bold">{winner.name} 🏆</p>
-            </div>
-          )}
+// Finished screen with optional phone number save
+function FinishedScreen({
+  winner, myScore, myRank, players, playerId, gameCode,
+}: {
+  winner: { id: string; name: string; score: number } | null;
+  myScore: number;
+  myRank: number;
+  players: { id: string; name: string; score: number }[];
+  playerId: string;
+  gameCode: string;
+}) {
+  const [phone, setPhone] = useState('');
+  const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [stats, setStats] = useState<{ gamesPlayed: number; gamesWon: number; bestScore: number } | null>(null);
 
-          <div className="bg-white/10 rounded-xl px-6 py-4 text-center">
-            <p className="text-white/60 text-sm">Your final score</p>
-            <p className="text-3xl font-mono font-bold text-yellow-300">{myScore.toLocaleString()}</p>
-            <p className="text-white/60">Rank #{myRank} of {players.length}</p>
-          </div>
+  const handleSave = async () => {
+    if (!phone.trim()) return;
+    setSaving(true);
 
-          <div className="w-full max-w-sm">
-            <h3 className="text-lg font-bold text-white/60 mb-3">Final Standings</h3>
-            <Leaderboard players={players} highlightId={playerId} compact />
-          </div>
+    const myPlayer = players.find((p) => p.id === playerId);
+    const won = winner?.id === playerId;
+    const correctCount = 0; // simplified — server could track this
+
+    try {
+      // Register/update player
+      await fetch('/api/player/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, displayName: myPlayer?.name || 'Player' }),
+      });
+
+      // Record game result
+      await fetch('/api/player/stats', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone,
+          score: myScore,
+          correctAnswers: correctCount,
+          totalAnswers: 0,
+          won,
+        }),
+      });
+
+      // Fetch updated stats
+      const res = await fetch(`/api/player/stats?phone=${encodeURIComponent(phone)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setStats(data);
+      }
+
+      setSaved(true);
+    } catch (err) {
+      console.error('Failed to save:', err);
+    }
+    setSaving(false);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 space-y-6">
+      <h1 className="text-4xl font-black text-yellow-400">Game Over!</h1>
+
+      {winner && (
+        <div className="text-center space-y-1">
+          <p className="text-white/60">Winner</p>
+          <p className="text-3xl font-bold">{winner.name} 🏆</p>
         </div>
       )}
+
+      <div className="bg-white/10 rounded-xl px-6 py-4 text-center">
+        <p className="text-white/60 text-sm">Your final score</p>
+        <p className="text-3xl font-mono font-bold text-yellow-300">{myScore.toLocaleString()}</p>
+        <p className="text-white/60">Rank #{myRank} of {players.length}</p>
+      </div>
+
+      {/* Save stats with phone */}
+      {!saved ? (
+        <div className="w-full max-w-sm space-y-3">
+          <p className="text-sm text-white/50 text-center">Save your stats to track wins/losses</p>
+          <div className="flex gap-2">
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Phone number"
+              className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm placeholder:text-white/30 focus:outline-none focus:border-yellow-500"
+            />
+            <button
+              onClick={handleSave}
+              disabled={saving || !phone.trim()}
+              className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg text-sm disabled:opacity-50"
+            >
+              {saving ? '...' : 'Save'}
+            </button>
+          </div>
+        </div>
+      ) : stats ? (
+        <div className="w-full max-w-sm bg-white/5 border border-white/10 rounded-xl p-4 space-y-2">
+          <p className="text-sm text-white/50 text-center">Your all-time stats</p>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p className="text-xl font-bold text-yellow-300">{stats.gamesPlayed}</p>
+              <p className="text-xs text-white/40">Played</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-green-400">{stats.gamesWon}</p>
+              <p className="text-xs text-white/40">Won</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-blue-400">{stats.bestScore.toLocaleString()}</p>
+              <p className="text-xs text-white/40">Best</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      <div className="w-full max-w-sm">
+        <h3 className="text-lg font-bold text-white/60 mb-3">Final Standings</h3>
+        <Leaderboard players={players} highlightId={playerId} compact />
+      </div>
     </div>
   );
 }
