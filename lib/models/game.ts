@@ -42,6 +42,8 @@ const GameSchema = new Schema({
   players: { type: [PlayerSchema], default: [] },
   questionStartedAt: { type: Number, default: null },
   timerDuration: { type: Number, default: 15 },
+  seriesId: { type: String, index: true }, // groups games played in the same session
+  seriesIndex: { type: Number, default: 0 }, // which game # in the series
 }, { timestamps: true });
 
 export const GameModel = mongoose.models.Game as mongoose.Model<GameDocument> ||

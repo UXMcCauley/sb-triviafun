@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { v4 as uuidv4 } from 'uuid';
 import connectDB from '@/lib/mongodb';
 import { GameModel } from '@/lib/models/game';
 import { QuestionModel } from '@/lib/models/question';
@@ -87,6 +88,7 @@ export async function POST(request: Request) {
       exists = await GameModel.findOne({ gameCode, status: { $ne: 'finished' } });
     }
 
+    const seriesId = uuidv4();
     const game = await GameModel.create({
       gameCode,
       status: 'lobby',
@@ -95,9 +97,11 @@ export async function POST(request: Request) {
       players: [],
       questionStartedAt: null,
       timerDuration,
+      seriesId,
+      seriesIndex: 0,
     });
 
-    return NextResponse.json({ gameCode: game.gameCode, timerDuration });
+    return NextResponse.json({ gameCode: game.gameCode, timerDuration, seriesId });
   } catch (error) {
     console.error('Create game error:', error);
     return NextResponse.json({ error: 'Failed to create game' }, { status: 500 });

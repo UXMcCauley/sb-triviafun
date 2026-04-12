@@ -21,25 +21,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Need at least one player' }, { status: 400 });
     }
 
-    const now = Date.now();
     game.status = 'active';
-    game.currentQuestionIndex = 0;
-    game.questionStartedAt = now;
+    game.currentQuestionIndex = -1; // will be set to 0 when first question is advanced
     await game.save();
 
-    const question = game.questions[0];
     const pusher = getPusherServer();
-
-    await pusher.trigger(`game-${game.gameCode}`, 'game-started', {});
-    await pusher.trigger(`game-${game.gameCode}`, 'new-question', {
-      questionIndex: 0,
-      questionText: question.questionText,
-      options: question.options,
-      category: question.category,
-      difficulty: question.difficulty,
+    await pusher.trigger(`game-${game.gameCode}`, 'game-started', {
       totalQuestions: game.questions.length,
-      startedAt: now,
-      timerDuration: game.timerDuration,
     });
 
     return NextResponse.json({ success: true });

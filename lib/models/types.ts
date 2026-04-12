@@ -39,6 +39,8 @@ export interface Game {
   players: Player[];
   questionStartedAt: number | null;
   timerDuration: number;
+  seriesId?: string;
+  seriesIndex?: number;
   createdAt: Date;
 }
 
