@@ -30,7 +30,10 @@
       "Bash(node -e \"const d = require\\('./data/packs/the-nothing-shows.json'\\); console.log\\('Total questions:', d.questions.length\\); const shows = {}; d.questions.forEach\\(\\(q,i\\) => { const src = q.source?.description || ''; let show = 'Other'; if \\(src.includes\\('Seinfeld'\\)\\) show = 'Seinfeld'; else if \\(src.includes\\('Sunny'\\) || src.includes\\('IASIP'\\)\\) show = 'Always Sunny'; else if \\(src.includes\\('Married'\\) || src.includes\\('Al Bundy'\\)\\) show = 'Married w/ Children'; else if \\(src.includes\\('Office'\\)\\) show = 'The Office'; shows[show] = \\(shows[show]||0\\)+1; }\\); console.log\\('By show:', shows\\);\")",
       "Bash(npx ts-node:*)",
       "Bash(node -e \"const d = require\\('./data/packs/the-nothing-shows.json'\\); d.questions.forEach\\(\\(q,i\\) => console.log\\(i + ': ' + q.questionText.substring\\(0,80\\)\\)\\); console.log\\('Total:', d.questions.length\\);\")",
-      "Bash(node scripts/add-fun-facts.mjs)"
+      "Bash(node scripts/add-fun-facts.mjs)",
+      "Bash(node -e \"const d = require\\('./data/packs/the-family-shows.json'\\); console.log\\(d.description.length, d.description\\);\")",
+      "Bash(node -e 'const d = require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.description.length, d.name, '\\\\''|'\\\\'', d.description\\);')",
+      "Bash(node -e 'const d = require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.description.length, d.name\\);')"
     ]
   }
 }

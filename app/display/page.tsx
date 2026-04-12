@@ -352,15 +352,15 @@ export default function DisplayPage() {
             Test
           </button>
 
-          <div className="text-center max-w-5xl mx-auto w-full">
+          <div className="text-center space-y-6 max-w-5xl mx-auto w-full">
             <h1 className="text-6xl font-black tracking-tight">
               <span className="text-yellow-400">Sitcom</span> Trivia
             </h1>
-            <p className="text-xl text-white/60 mt-1">The game about nothing... and everything.</p>
+            <p className="text-xl text-white/60">The game about nothing... and everything.</p>
 
             {/* Pack Carousel */}
             {packs.length > 0 && (
-              <div className="mt-6">
+              <div className="mt-4">
                 <h3 className="text-lg font-semibold text-white/60 mb-3">
                   Choose Packs
                   {selectedPackIds.length > 0 && (
@@ -406,7 +406,7 @@ export default function DisplayPage() {
                           key={pack.id}
                           onClick={() => !isEmpty && togglePack(pack.id)}
                           disabled={isEmpty}
-                          className={`shrink-0 w-60 snap-start text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-start ${
+                          className={`shrink-0 w-60 text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-start ${
                             isEmpty
                               ? 'border-white/5 bg-white/2 opacity-40 cursor-not-allowed'
                               : isSelected
@@ -418,7 +418,7 @@ export default function DisplayPage() {
                           <p className="text-xs text-white/30">{isEmpty ? 'No questions yet' : `${pack.questionCount} questions`}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-xl">{pack.icon}</span>
-                            <span className="font-bold text-base">{pack.name}</span>
+                            <span className="font-bold text-base whitespace-nowrap">{pack.name}</span>
                             {isEmpty && <span className="text-[10px] uppercase tracking-wider text-white/30 bg-white/5 px-1.5 py-0.5 rounded-full ml-auto">Soon</span>}
                           </div>
                           <p className="text-xs text-white/50 mt-1 leading-relaxed">{pack.description}</p>
@@ -432,11 +432,7 @@ export default function DisplayPage() {
                     onClick={() => {
                       const el = packCarouselRef.current;
                       if (!el) return;
-                      const cardWidth = 252;
-                      const currentCard = Math.round(el.scrollLeft / cardWidth);
-                      const maxScroll = el.scrollWidth - el.clientWidth;
-                      const target = Math.min(maxScroll, (currentCard + 1) * cardWidth);
-                      el.scrollTo({ left: target, behavior: 'smooth' });
+                      el.scrollTo({ left: el.scrollLeft + 260, behavior: 'smooth' });
                     }}
                     className="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all ml-3 disabled:opacity-20 disabled:cursor-default"
                     disabled={packCarouselRef.current ? packCarouselRef.current.scrollLeft + packCarouselRef.current.clientWidth >= packCarouselRef.current.scrollWidth - 10 : false}
@@ -467,7 +463,7 @@ export default function DisplayPage() {
             </div>
 
             {/* Volume below controls */}
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-3 mt-4">
               <label className="text-sm text-white/40">Music Vol</label>
               <input type="range" min={0} max={1} step={0.05} value={musicVolume} onChange={(e) => setMusicVolume(Number(e.target.value))} className="w-32 accent-yellow-400" />
             </div>
