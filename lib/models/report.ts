@@ -1,21 +1,17 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ReportDocument extends Document {
-  questionText: string;
-  options: string[];
-  correctAnswerIndex: number;
-  reportedBy: string; // player name
+  questionId: mongoose.Types.ObjectId;
+  reportedBy: string;
   gameCode: string;
   reason?: string;
   createdAt: Date;
 }
 
 const ReportSchema = new Schema({
-  questionText: { type: String, required: true },
-  options: { type: [String], required: true },
-  correctAnswerIndex: { type: Number, required: true },
+  questionId: { type: Schema.Types.ObjectId, ref: 'Question', required: true, index: true },
   reportedBy: { type: String, required: true },
-  gameCode: { type: String, required: true },
+  gameCode: { type: String, required: true, index: true },
   reason: { type: String },
 }, { timestamps: true });
 

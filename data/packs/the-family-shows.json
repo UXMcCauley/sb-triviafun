@@ -6,5 +6,198 @@
   "themeColor": "#F97316",
   "icon": "🏠",
   "isDefault": false,
-  "questions": []
+  "questions": [
+    {
+      "questionText": "On Modern Family, what type of business does Jay Pritchett own?",
+      "options": [
+        "A car dealership",
+        "A closet company (Pritchett's Closets & Blinds)",
+        "A real estate firm",
+        "A restaurant chain"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://modernfamily.fandom.com/wiki/Jay_Pritchett",
+        "description": "Modern Family Fandom Wiki - Jay Pritchett"
+      }
+    },
+    {
+      "questionText": "In The Fresh Prince of Bel-Air, what city did Will Smith move FROM to live with his aunt and uncle?",
+      "options": [
+        "Baltimore",
+        "New York",
+        "Detroit",
+        "West Philadelphia"
+      ],
+      "correctAnswerIndex": 3,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://freshprince.fandom.com/wiki/Will_Smith_(character)",
+        "description": "Fresh Prince Fandom Wiki - Will Smith"
+      }
+    },
+    {
+      "questionText": "On Malcolm in the Middle, what is the name of the eldest brother who is away at military school?",
+      "options": [
+        "Reese",
+        "Dewey",
+        "Francis",
+        "Jamie"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://malcom-in-the-middle.fandom.com/wiki/Francis_Wilkerson",
+        "description": "Malcolm in the Middle Fandom Wiki - Francis"
+      }
+    },
+    {
+      "questionText": "In Everybody Loves Raymond, what is the relationship between Raymond and Frank?",
+      "options": [
+        "Brothers",
+        "Father and son",
+        "Uncle and nephew",
+        "Neighbors"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Everybody_Loves_Raymond",
+        "description": "Wikipedia - Everybody Loves Raymond"
+      }
+    },
+    {
+      "questionText": "On The Goldbergs, what decade is the show primarily set in?",
+      "options": [
+        "The 1970s",
+        "The 1980s",
+        "The 1990s",
+        "The 2000s"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Goldbergs_(2013_TV_series)",
+        "description": "Wikipedia - The Goldbergs"
+      }
+    },
+    {
+      "questionText": "In Black-ish, what is Andre 'Dre' Johnson's profession?",
+      "options": [
+        "Lawyer",
+        "Doctor",
+        "Advertising executive",
+        "Architect"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://blackish.fandom.com/wiki/Andre_Johnson",
+        "description": "Black-ish Fandom Wiki - Andre Johnson"
+      }
+    },
+    {
+      "questionText": "On Arrested Development, what is the name of the Bluth family's banana stand?",
+      "options": [
+        "Bluth's Original Banana Stand",
+        "Big Yellow Joint",
+        "Banana Shack",
+        "The Bluth Banana Cabana"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://arresteddevelopment.fandom.com/wiki/Bluth%27s_Original_Frozen_Banana_Stand",
+        "description": "Arrested Development Fandom Wiki - Banana Stand"
+      }
+    },
+    {
+      "questionText": "In Malcolm in the Middle, what is unusual about the way Malcolm addresses the audience?",
+      "options": [
+        "He writes in a diary that is read aloud",
+        "He breaks the fourth wall and speaks directly to the camera",
+        "His inner thoughts appear as subtitles",
+        "A narrator speaks for him"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Malcolm_in_the_Middle",
+        "description": "Wikipedia - Malcolm in the Middle"
+      }
+    },
+    {
+      "questionText": "On Modern Family, which character is known for misusing English words and phrases, called 'Gloria-isms'?",
+      "options": [
+        "Haley Dunphy",
+        "Cameron Tucker",
+        "Gloria Pritchett",
+        "Phil Dunphy"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://modernfamily.fandom.com/wiki/Gloria_Pritchett",
+        "description": "Modern Family Fandom Wiki - Gloria Pritchett"
+      }
+    },
+    {
+      "questionText": "In The Fresh Prince of Bel-Air, what is Geoffrey's role in the Banks household?",
+      "options": [
+        "Gardener",
+        "Chauffeur",
+        "Chef",
+        "Butler"
+      ],
+      "correctAnswerIndex": 3,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://freshprince.fandom.com/wiki/Geoffrey_Butler",
+        "description": "Fresh Prince Fandom Wiki - Geoffrey"
+      }
+    },
+    {
+      "questionText": "On Arrested Development, what is George Michael Bluth's uncomfortable secret crush?",
+      "options": [
+        "His teacher",
+        "His cousin Maeby",
+        "His father's secretary",
+        "Ann Veal"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://arresteddevelopment.fandom.com/wiki/George_Michael_Bluth",
+        "description": "Arrested Development Fandom Wiki - George Michael"
+      }
+    },
+    {
+      "questionText": "In The Goldbergs, what is Beverly Goldberg's signature parenting style often described as?",
+      "options": [
+        "Free-range parenting",
+        "Smother (smothering mother)",
+        "Tiger mom",
+        "Cool mom"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Goldbergs_(2013_TV_series)",
+        "description": "Wikipedia - The Goldbergs"
+      }
+    }
+  ]
 }

@@ -6,5 +6,198 @@
   "themeColor": "#10B981",
   "icon": "💼",
   "isDefault": false,
-  "questions": []
+  "questions": [
+    {
+      "questionText": "In The Office, what does Michael Scott declare after hitting Meredith with his car?",
+      "options": [
+        "That's what she said!",
+        "I am the worst boss ever!",
+        "Everybody stay calm!",
+        "It is a privilege to fight for your life."
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Quotes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://theoffice.fandom.com/wiki/Fun_Run",
+        "description": "The Office Fandom Wiki - Fun Run"
+      }
+    },
+    {
+      "questionText": "On Parks and Recreation, what is the name of the department where Leslie Knope works?",
+      "options": [
+        "Department of Public Works",
+        "City Planning Office",
+        "Pawnee Beautification Committee",
+        "Parks and Recreation Department"
+      ],
+      "correctAnswerIndex": 3,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://parksandrecreation.fandom.com/wiki/Pawnee_Parks_and_Recreation_Department",
+        "description": "Parks and Rec Fandom Wiki - Parks Department"
+      }
+    },
+    {
+      "questionText": "In Brooklyn Nine-Nine, what is the name of Jake Peralta's nemesis, a sophisticated criminal played by guest stars?",
+      "options": [
+        "The Vulture",
+        "Caleb the Cannibal",
+        "Doug Judy, the Pontiac Bandit",
+        "Figgis"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://brooklyn99.fandom.com/wiki/Doug_Judy",
+        "description": "Brooklyn Nine-Nine Fandom Wiki - Doug Judy"
+      }
+    },
+    {
+      "questionText": "On Scrubs, what does J.D. frequently do to escape reality during conversations?",
+      "options": [
+        "Talks to a journal",
+        "Has elaborate fantasy daydreams",
+        "Calls his mother",
+        "Hides in a supply closet"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://scrubs.fandom.com/wiki/J.D.%27s_fantasies",
+        "description": "Scrubs Fandom Wiki - J.D.'s Fantasies"
+      }
+    },
+    {
+      "questionText": "In 30 Rock, what is the name of the fictional sketch comedy show that Liz Lemon produces?",
+      "options": [
+        "The Girlie Show with Tracy Jordan (TGS)",
+        "Late Night with Tracy Jordan",
+        "Friday Night Bits",
+        "NBC Comedy Hour"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://30rock.fandom.com/wiki/TGS_with_Tracy_Jordan",
+        "description": "30 Rock Fandom Wiki - TGS"
+      }
+    },
+    {
+      "questionText": "On The Office, what brand of paper does the Dunder Mifflin Scranton branch sell?",
+      "options": [
+        "Hammermill",
+        "Dunder Mifflin brand paper",
+        "Boise Cascade",
+        "Georgia-Pacific"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://theoffice.fandom.com/wiki/Dunder_Mifflin_Paper_Company",
+        "description": "The Office Fandom Wiki - Dunder Mifflin"
+      }
+    },
+    {
+      "questionText": "In Superstore, what is the name of the big-box retail store where the characters work?",
+      "options": [
+        "Megamart",
+        "Value Shop",
+        "Cloud 9",
+        "Super Save"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://superstore-nbc.fandom.com/wiki/Cloud_9",
+        "description": "Superstore Fandom Wiki - Cloud 9"
+      }
+    },
+    {
+      "questionText": "On Abbott Elementary, what subject does Janine Teagues teach?",
+      "options": [
+        "Math",
+        "Science",
+        "Second grade (general)",
+        "English"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://abbottelementary.fandom.com/wiki/Janine_Teagues",
+        "description": "Abbott Elementary Fandom Wiki - Janine Teagues"
+      }
+    },
+    {
+      "questionText": "In Parks and Recreation, what is Ron Swanson's secret identity as a jazz saxophone player?",
+      "options": [
+        "Ron Jameson",
+        "Duke Silver",
+        "Rex Steele",
+        "Jack Brass"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://parksandrecreation.fandom.com/wiki/Duke_Silver",
+        "description": "Parks and Rec Fandom Wiki - Duke Silver"
+      }
+    },
+    {
+      "questionText": "On Scrubs, what is the name of the hospital where the show is primarily set?",
+      "options": [
+        "County General",
+        "Princeton-Plainsboro",
+        "Seattle Grace",
+        "Sacred Heart Hospital"
+      ],
+      "correctAnswerIndex": 3,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://scrubs.fandom.com/wiki/Sacred_Heart_Hospital",
+        "description": "Scrubs Fandom Wiki - Sacred Heart Hospital"
+      }
+    },
+    {
+      "questionText": "In Brooklyn Nine-Nine, what Halloween event becomes a recurring annual competition?",
+      "options": [
+        "Costume contest",
+        "Pumpkin carving battle",
+        "The Halloween Heist",
+        "Haunted house prank war"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://brooklyn99.fandom.com/wiki/Halloween_Heist",
+        "description": "Brooklyn Nine-Nine Fandom Wiki - Halloween Heist"
+      }
+    },
+    {
+      "questionText": "On Abbott Elementary, what is Principal Ava Coleman known for spending school funds on?",
+      "options": [
+        "Personal office renovations and designer items",
+        "Staff parties and catering",
+        "A school mascot costume",
+        "Field trips for herself"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://abbottelementary.fandom.com/wiki/Ava_Coleman",
+        "description": "Abbott Elementary Fandom Wiki - Ava Coleman"
+      }
+    }
+  ]
 }

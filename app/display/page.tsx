@@ -298,25 +298,30 @@ export default function DisplayPage() {
               <div className="mt-8">
                 <h3 className="text-lg font-semibold text-white/60 mb-4">Select Packs</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {packs.filter((p) => p.questionCount > 0).map((pack) => {
+                  {packs.map((pack) => {
+                    const isEmpty = pack.questionCount === 0;
                     const isSelected = selectedPackIds.includes(pack.id);
                     return (
                       <button
                         key={pack.id}
-                        onClick={() => togglePack(pack.id)}
+                        onClick={() => !isEmpty && togglePack(pack.id)}
+                        disabled={isEmpty}
                         className={`text-left p-4 rounded-xl border-2 transition-all ${
-                          isSelected
-                            ? 'border-white/40 bg-white/10'
-                            : 'border-white/10 bg-white/5 opacity-60 hover:opacity-80'
+                          isEmpty
+                            ? 'border-white/5 bg-white/2 opacity-40 cursor-not-allowed'
+                            : isSelected
+                              ? 'border-white/40 bg-white/10'
+                              : 'border-white/10 bg-white/5 opacity-60 hover:opacity-80'
                         }`}
-                        style={isSelected ? { borderColor: pack.themeColor + '80' } : undefined}
+                        style={isSelected && !isEmpty ? { borderColor: pack.themeColor + '80' } : undefined}
                       >
                         <div className="flex items-center gap-3 mb-1">
                           <span className="text-2xl">{pack.icon}</span>
                           <span className="font-bold text-lg">{pack.name}</span>
+                          {isEmpty && <span className="text-[10px] uppercase tracking-wider text-white/30 bg-white/5 px-2 py-0.5 rounded-full ml-auto">Coming Soon</span>}
                         </div>
                         <p className="text-sm text-white/50">{pack.tagline}</p>
-                        <p className="text-xs text-white/30 mt-1">{pack.questionCount} questions</p>
+                        <p className="text-xs text-white/30 mt-1">{isEmpty ? 'No questions yet' : `${pack.questionCount} questions`}</p>
                       </button>
                     );
                   })}
@@ -416,10 +421,10 @@ export default function DisplayPage() {
             />
           </div>
           <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col overflow-hidden">
-            <div className="flex justify-center mb-6 flex-shrink-0">
+            <div className="flex justify-center mb-6 shrink-0">
               <Countdown startedAt={currentQuestion.startedAt} duration={currentQuestion.timerDuration} onExpire={handleTimerExpire} size="lg" />
             </div>
-            <h3 className="text-sm font-bold text-white/60 mb-3 uppercase tracking-wider flex-shrink-0">Leaderboard</h3>
+            <h3 className="text-sm font-bold text-white/60 mb-3 uppercase tracking-wider shrink-0">Leaderboard</h3>
             <div className="flex-1 overflow-y-auto min-h-0">
               <Leaderboard players={players} compact maxVisible={10} />
             </div>
@@ -467,11 +472,11 @@ export default function DisplayPage() {
               {playerResults.map((pr, i) => (
                 <div key={pr.id} className={`flex items-center justify-between px-5 py-3 rounded-xl animate-fadeIn ${pr.correct ? 'bg-green-500/15 border border-green-500/30' : 'bg-red-500/10 border border-red-500/20'}`} style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'both' }}>
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-2xl flex-shrink-0">{pr.correct ? '✅' : '❌'}</span>
+                    <span className="text-2xl shrink-0">{pr.correct ? '✅' : '❌'}</span>
                     <span className="text-xl font-semibold truncate">{pr.name}</span>
-                    {pr.correct && <span className="text-sm text-white/40 flex-shrink-0">{pr.timeToAnswer.toFixed(1)}s</span>}
+                    {pr.correct && <span className="text-sm text-white/40 shrink-0">{pr.timeToAnswer.toFixed(1)}s</span>}
                   </div>
-                  <span className={`text-xl font-mono font-bold flex-shrink-0 ml-3 ${pr.correct ? 'text-green-400' : 'text-red-400'}`}>
+                  <span className={`text-xl font-mono font-bold shrink-0 ml-3 ${pr.correct ? 'text-green-400' : 'text-red-400'}`}>
                     {pr.correct ? `+${pr.pointsEarned.toLocaleString()}` : '+0'}
                   </span>
                 </div>

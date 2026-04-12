@@ -6,5 +6,198 @@
   "themeColor": "#8B5CF6",
   "icon": "🎭",
   "isDefault": false,
-  "questions": []
+  "questions": [
+    {
+      "questionText": "On Arrested Development, what is the Bluth family's recurring catchphrase when doing a magic trick?",
+      "options": [
+        "Abracadabra!",
+        "It's an illusion, Michael!",
+        "Ta-da!",
+        "Magic!"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Quotes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://arresteddevelopment.fandom.com/wiki/Tricks",
+        "description": "Arrested Development Fandom Wiki - Tricks"
+      }
+    },
+    {
+      "questionText": "In Community, what is the name of the fictional college where the show takes place?",
+      "options": [
+        "City College",
+        "Greendale Community College",
+        "Riverside Community College",
+        "Harmon College"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://community-sitcom.fandom.com/wiki/Greendale_Community_College",
+        "description": "Community Fandom Wiki - Greendale"
+      }
+    },
+    {
+      "questionText": "On 30 Rock, what is Tracy Jordan's ridiculous film project that Liz helps him with?",
+      "options": [
+        "Hard to Watch",
+        "Who Dat Ninja",
+        "Fat Bitch",
+        "All of the above are Tracy Jordan films"
+      ],
+      "correctAnswerIndex": 3,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://30rock.fandom.com/wiki/Tracy_Jordan",
+        "description": "30 Rock Fandom Wiki - Tracy Jordan"
+      }
+    },
+    {
+      "questionText": "In Frasier, what is the name of Frasier Crane's radio show?",
+      "options": [
+        "The Frasier Crane Show",
+        "Good Afternoon, Seattle",
+        "Mind Matters with Frasier",
+        "The Dr. Crane Show"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://frasier.fandom.com/wiki/The_Frasier_Crane_Show",
+        "description": "Frasier Fandom Wiki - The Frasier Crane Show"
+      }
+    },
+    {
+      "questionText": "On Veep, what political office does Selina Meyer hold at the start of the series?",
+      "options": [
+        "Secretary of State",
+        "Senator",
+        "Vice President",
+        "President"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://veep.fandom.com/wiki/Selina_Meyer",
+        "description": "Veep Fandom Wiki - Selina Meyer"
+      }
+    },
+    {
+      "questionText": "In It's Always Sunny in Philadelphia, what is the name of the bar the gang owns?",
+      "options": [
+        "McPoyle's Tavern",
+        "The Waitress's Bar",
+        "Paddy's Pub",
+        "Dee's Place"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://itsalwayssunny.fandom.com/wiki/Paddy%27s_Pub",
+        "description": "Always Sunny Fandom Wiki - Paddy's Pub"
+      }
+    },
+    {
+      "questionText": "On Archer, what is the name of the spy agency Sterling Archer works for in the early seasons?",
+      "options": [
+        "ODIN",
+        "The Figgis Agency",
+        "ISIS",
+        "SHIELD"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://archer.fandom.com/wiki/ISIS",
+        "description": "Archer Fandom Wiki - ISIS"
+      }
+    },
+    {
+      "questionText": "In Community, what phrase does Abed Nadir frequently use to express approval?",
+      "options": [
+        "Cool cool cool",
+        "That's so meta",
+        "Classic Winger",
+        "Pop pop!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://community-sitcom.fandom.com/wiki/Abed_Nadir",
+        "description": "Community Fandom Wiki - Abed Nadir"
+      }
+    },
+    {
+      "questionText": "On It's Always Sunny in Philadelphia, what does Charlie Kelly's conspiracy-explaining setup involve?",
+      "options": [
+        "A PowerPoint presentation",
+        "A chalkboard full of scrawled connections (Pepe Silvia)",
+        "A puppet show",
+        "A series of index cards"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://itsalwayssunny.fandom.com/wiki/Sweet_Dee_Has_a_Heart_Attack",
+        "description": "Always Sunny Fandom Wiki - Pepe Silvia"
+      }
+    },
+    {
+      "questionText": "In Frasier, what breed of dog is Eddie, Martin Crane's pet?",
+      "options": [
+        "Beagle",
+        "Pug",
+        "Jack Russell Terrier",
+        "Dachshund"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://frasier.fandom.com/wiki/Eddie",
+        "description": "Frasier Fandom Wiki - Eddie"
+      }
+    },
+    {
+      "questionText": "On Archer, what is Sterling Archer's biggest fear?",
+      "options": [
+        "Snakes",
+        "Crocodiles/alligators (brain aneurysms)",
+        "Heights",
+        "Cyborgs"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://archer.fandom.com/wiki/Sterling_Archer",
+        "description": "Archer Fandom Wiki - Sterling Archer"
+      }
+    },
+    {
+      "questionText": "In Community, what is the name of the paintball episode that parodies action movies and became a fan-favorite?",
+      "options": [
+        "Epidemiology",
+        "Remedial Chaos Theory",
+        "Modern Warfare",
+        "Cooperative Calligraphy"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://community-sitcom.fandom.com/wiki/Modern_Warfare",
+        "description": "Community Fandom Wiki - Modern Warfare"
+      }
+    }
+  ]
 }

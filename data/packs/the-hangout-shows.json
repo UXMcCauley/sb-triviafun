@@ -6,5 +6,198 @@
   "themeColor": "#3B82F6",
   "icon": "☕",
   "isDefault": false,
-  "questions": []
+  "questions": [
+    {
+      "questionText": "What is the name of the coffee shop where the Friends gang hangs out?",
+      "options": [
+        "Central Park Cafe",
+        "Central Perk",
+        "The Coffee House",
+        "Java Junction"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://friends.fandom.com/wiki/Central_Perk",
+        "description": "Friends Fandom Wiki - Central Perk"
+      }
+    },
+    {
+      "questionText": "In Cheers, what is Sam Malone's former profession before he became a bar owner?",
+      "options": [
+        "Football player",
+        "Hockey player",
+        "Baseball pitcher",
+        "Boxing coach"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Characters",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://cheers.fandom.com/wiki/Sam_Malone",
+        "description": "Cheers Fandom Wiki - Sam Malone"
+      }
+    },
+    {
+      "questionText": "In How I Met Your Mother, what is the name of the bar where the group regularly meets?",
+      "options": [
+        "Puzzles",
+        "The Alibi",
+        "MacLaren's Pub",
+        "Paddy's Pub"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://how-i-met-your-mother.fandom.com/wiki/MacLaren%27s_Pub",
+        "description": "HIMYM Fandom Wiki - MacLaren's Pub"
+      }
+    },
+    {
+      "questionText": "On Friends, Ross says the wrong name at his wedding to Emily. Whose name does he say?",
+      "options": [
+        "Monica",
+        "Carol",
+        "Rachel",
+        "Julie"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://friends.fandom.com/wiki/The_One_With_Ross%27s_Wedding,_Part_2",
+        "description": "Friends Fandom Wiki - Ross's Wedding"
+      }
+    },
+    {
+      "questionText": "What is Barney Stinson's catchphrase in How I Met Your Mother?",
+      "options": [
+        "That's what she said!",
+        "Suit up!",
+        "Cool cool cool!",
+        "Legendary!"
+      ],
+      "correctAnswerIndex": 3,
+      "category": "Quotes",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://how-i-met-your-mother.fandom.com/wiki/Barney%27s_Get_Psyched_Mix",
+        "description": "HIMYM Fandom Wiki - Barney Stinson"
+      }
+    },
+    {
+      "questionText": "In New Girl, what is the name of the bar that Nick Miller works at?",
+      "options": [
+        "The Griffin",
+        "Clyde's",
+        "O'Malley's",
+        "The Dirty Robber"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://newgirl.fandom.com/wiki/The_Griffin",
+        "description": "New Girl Fandom Wiki - The Griffin"
+      }
+    },
+    {
+      "questionText": "On The Big Bang Theory, what game do Sheldon and his friends frequently play at their apartment?",
+      "options": [
+        "Settlers of Catan",
+        "Risk",
+        "Dungeons & Dragons",
+        "3D Chess"
+      ],
+      "correctAnswerIndex": 3,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://bigbangtheory.fandom.com/wiki/Three_Person_Chess",
+        "description": "Big Bang Theory Fandom Wiki - 3D Chess"
+      }
+    },
+    {
+      "questionText": "In Living Single, what magazine does Khadijah James run?",
+      "options": [
+        "Nubian",
+        "Flavor",
+        "Vibe",
+        "Essence"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Characters",
+      "difficulty": "hard",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Living_Single",
+        "description": "Wikipedia - Living Single"
+      }
+    },
+    {
+      "questionText": "On Cheers, what is Cliff Clavin's occupation?",
+      "options": [
+        "Accountant",
+        "Mailman",
+        "Bus driver",
+        "Insurance salesman"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Characters",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://cheers.fandom.com/wiki/Cliff_Clavin",
+        "description": "Cheers Fandom Wiki - Cliff Clavin"
+      }
+    },
+    {
+      "questionText": "In Happy Endings, what event in the pilot episode sets the entire series in motion?",
+      "options": [
+        "A house fire",
+        "A runaway bride leaving Dave at the altar",
+        "A job layoff",
+        "A car accident"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Happy_Endings_(TV_series)",
+        "description": "Wikipedia - Happy Endings"
+      }
+    },
+    {
+      "questionText": "What does Sheldon Cooper knock three times and say on The Big Bang Theory when visiting a neighbor?",
+      "options": [
+        "Open up!",
+        "Penny, Penny, Penny",
+        "Anybody home?",
+        "Hello, hello, hello"
+      ],
+      "correctAnswerIndex": 1,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "source": {
+        "url": "https://bigbangtheory.fandom.com/wiki/Sheldon%27s_Knock",
+        "description": "Big Bang Theory Fandom Wiki - Sheldon's Knock"
+      }
+    },
+    {
+      "questionText": "In How I Met Your Mother, what elaborate theory does Barney use to pick up women, involving a visual aid?",
+      "options": [
+        "The Lemon Law",
+        "The Mermaid Theory",
+        "The Hot/Crazy Scale",
+        "The Platinum Rule"
+      ],
+      "correctAnswerIndex": 2,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "source": {
+        "url": "https://how-i-met-your-mother.fandom.com/wiki/Hot/Crazy_Scale",
+        "description": "HIMYM Fandom Wiki - Hot/Crazy Scale"
+      }
+    }
+  ]
 }

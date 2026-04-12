@@ -6,7 +6,13 @@
       "Bash(npx next:*)",
       "mcp__fdbca629-9d23-4430-b832-9a7d632d6ec8__get_runtime_logs",
       "Bash(MONGODB_URI=\"mongodb+srv://performpro:pass333222@goferret.e2cc6t.mongodb.net/seinfeld?retryWrites=true&w=majority\" npx tsx scripts/seed-questions.ts)",
-      "Bash(node -e ':*)"
+      "Bash(node -e ':*)",
+      "Bash(npx tsx:*)",
+      "Bash(python -c 'import json; print\\(len\\(json.load\\(open\\('\\\\''__TRACKED_VAR__'\\\\''\\)\\)['\\\\''questions'\\\\'']\\)\\)')",
+      "Bash(node -e \"const f=require\\('./data/packs/the-hangout-shows.json'\\); console.log\\(f.questions.length\\)\")",
+      "Bash(node -e 'const d=require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.questions.length + '\\\\'' questions, correctAnswerIndex distribution: '\\\\'' + JSON.stringify\\([0,1,2,3].map\\(i=>d.questions.filter\\(q=>q.correctAnswerIndex===i\\).length\\)\\)\\)')",
+      "Bash(node -e 'console.log\\(JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf-8'\\\\''\\)\\).name\\)')",
+      "Bash(node -e 'console.log\\(JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf-8'\\\\''\\)\\).questions.length\\)')"
     ]
   }
 }

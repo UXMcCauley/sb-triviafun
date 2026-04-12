@@ -137,11 +137,9 @@ function PlayContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          questionText: currentQuestion.questionText,
-          options: currentQuestion.options,
-          correctAnswerIndex: correctAnswer,
-          reportedBy: playerName,
           gameCode,
+          questionIndex: currentQuestion.questionIndex,
+          reportedBy: playerName,
         }),
       });
     } catch (err) { console.error('Report failed:', err); }
