@@ -61,6 +61,7 @@ export default function DisplayPage() {
   const [packs, setPacks] = useState<PackInfo[]>([]);
   const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
   const [musicVolume, setMusicVolume] = useState(0.5);
+  const [testMode, setTestMode] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
   const countdownAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -134,7 +135,7 @@ export default function DisplayPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          numQuestions,
+          numQuestions: testMode ? 1 : numQuestions,
           timerDuration,
           packIds: selectedPackIds,
         }),
@@ -332,7 +333,21 @@ export default function DisplayPage() {
 
       {/* CREATE */}
       {phase === 'create' && (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-screen relative">
+          {/* Test Mode Toggle */}
+          <button
+            onClick={() => setTestMode((v) => !v)}
+            className={`absolute top-4 right-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+              testMode
+                ? 'bg-orange-500/20 border-orange-500/50 text-orange-400'
+                : 'bg-white/5 border-white/10 text-white/30 hover:text-white/50'
+            }`}
+          >
+            <div className={`w-7 h-4 rounded-full relative transition-colors ${testMode ? 'bg-orange-500' : 'bg-white/20'}`}>
+              <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-all ${testMode ? 'left-3.5' : 'left-0.5'}`} />
+            </div>
+            Test
+          </button>
           <div className="text-center space-y-8 max-w-4xl mx-auto px-8">
             <h1 className="text-7xl font-black tracking-tight">
               <span className="text-yellow-400">Sitcom</span> Trivia
