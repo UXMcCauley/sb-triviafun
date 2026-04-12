@@ -212,7 +212,7 @@ function PlayContent() {
   const myScore = players.find((p) => p.id === playerId)?.score || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white">
+    <div className="min-h-screen bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white">
       {/* PAUSE OVERLAY */}
       {paused && phase !== 'login' && phase !== 'join' && phase !== 'lobby' && phase !== 'finished' && (
         <div className="absolute inset-0 bg-black/80 z-40 flex items-center justify-center">
@@ -395,7 +395,7 @@ function PlayContent() {
 
 export default function PlayPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white flex items-center justify-center"><div className="animate-pulse text-2xl">Loading...</div></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white flex items-center justify-center"><div className="animate-pulse text-2xl">Loading...</div></div>}>
       <PlayContent />
     </Suspense>
   );

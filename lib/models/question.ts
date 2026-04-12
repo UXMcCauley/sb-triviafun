@@ -4,11 +4,11 @@ export interface QuestionDocument extends Document {
   questionText: string;
   options: string[];
   correctAnswerIndex: number;
+  packIds: mongoose.Types.ObjectId[];
   category?: string;
   difficulty: 'easy' | 'medium' | 'hard';
   season?: number;
   episode?: string;
-  funFact?: string;
   source: {
     url: string;
     description: string;
@@ -19,11 +19,11 @@ const QuestionSchema = new Schema({
   questionText: { type: String, required: true, unique: true },
   options: { type: [String], required: true },
   correctAnswerIndex: { type: Number, required: true },
+  packIds: [{ type: Schema.Types.ObjectId, ref: 'Pack', index: true }],
   category: { type: String },
   difficulty: { type: String, enum: ['easy', 'medium', 'hard'], required: true },
   season: { type: Number },
   episode: { type: String },
-  funFact: { type: String },
   source: {
     url: { type: String, required: true },
     description: { type: String, required: true },

@@ -19,31 +19,23 @@ const PlayerSchema = new Schema({
   answers: { type: [PlayerAnswerSchema], default: [] },
 }, { _id: false });
 
-const QuestionSchema = new Schema({
-  questionText: { type: String, required: true },
-  options: { type: [String], required: true },
-  correctAnswerIndex: { type: Number, required: true },
-  category: { type: String },
-  difficulty: { type: String, enum: ['easy', 'medium', 'hard'], required: true },
-  season: { type: Number },
-  episode: { type: String },
-  funFact: { type: String },
-  source: {
-    url: { type: String },
-    description: { type: String },
-  },
-}, { _id: false });
-
 const GameSchema = new Schema({
   gameCode: { type: String, required: true, unique: true, index: true },
   status: { type: String, enum: ['lobby', 'active', 'finished'], default: 'lobby' },
-  questions: { type: [QuestionSchema], required: true },
+  packIds: [{ type: Schema.Types.ObjectId, ref: 'Pack' }],
+  questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
+  // Parallel arrays for per-game option shuffling
+  shuffledOptionOrders: { type: [[Number]], default: [] },
+  shuffledCorrectAnswers: { type: [Number], default: [] },
   currentQuestionIndex: { type: Number, default: 0 },
   players: { type: [PlayerSchema], default: [] },
   questionStartedAt: { type: Number, default: null },
-  timerDuration: { type: Number, default: 15 },
-  seriesId: { type: String, index: true }, // groups games played in the same session
-  seriesIndex: { type: Number, default: 0 }, // which game # in the series
+  settings: {
+    timerSeconds: { type: Number, default: 15 },
+    questionCount: { type: Number, default: 15 },
+  },
+  seriesId: { type: String, index: true },
+  seriesIndex: { type: Number, default: 0 },
 }, { timestamps: true });
 
 export const GameModel = mongoose.models.Game as mongoose.Model<GameDocument> ||

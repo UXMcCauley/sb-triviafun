@@ -21,24 +21,43 @@ export interface Question {
   questionText: string;
   options: [string, string, string, string];
   correctAnswerIndex: number;
+  packIds: string[];
   category?: string;
   difficulty: 'easy' | 'medium' | 'hard';
   season?: number;
   episode?: string;
-  funFact?: string;
   source: QuestionSource;
+}
+
+export interface Pack {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  themeColor: string;
+  icon: string;
+  isDefault: boolean;
+  questionCount: number;
 }
 
 export type GameStatus = 'lobby' | 'active' | 'finished';
 
+export interface GameSettings {
+  timerSeconds: number;
+  questionCount: number;
+}
+
 export interface Game {
   gameCode: string;
   status: GameStatus;
-  questions: Question[];
+  packIds: string[];
+  questions: string[]; // ObjectId references as strings
+  shuffledOptionOrders: number[][];
+  shuffledCorrectAnswers: number[];
   currentQuestionIndex: number;
   players: Player[];
   questionStartedAt: number | null;
-  timerDuration: number;
+  settings: GameSettings;
   seriesId?: string;
   seriesIndex?: number;
   createdAt: Date;
@@ -71,11 +90,11 @@ export interface PlayerResult {
 }
 
 export interface AnswerRevealEvent {
+  funFact: null;
   questionIndex: number;
   correctAnswerIndex: number;
   playerResults: PlayerResult[];
   players: { id: string; name: string; score: number }[];
-  funFact?: string | null;
   source?: QuestionSource | null;
 }
 
