@@ -13,6 +13,7 @@ export interface QuestionDocument extends Document {
     url: string;
     description: string;
   };
+  funFact?: string;
 }
 
 const QuestionSchema = new Schema({
@@ -28,6 +29,7 @@ const QuestionSchema = new Schema({
     url: { type: String, required: true },
     description: { type: String, required: true },
   },
+  funFact: { type: String },
 }, { timestamps: true });
 
 export const QuestionModel = mongoose.models.Question as mongoose.Model<QuestionDocument> ||

@@ -84,8 +84,9 @@ export async function POST(request: Request) {
     const questionId = game.questions[qIdx];
     const currentQuestion = await QuestionModel.findById(questionId);
 
-    // Get source from the shuffled question
+    // Get source and fun fact from the question
     const source = currentQuestion?.source || null;
+    const funFact = currentQuestion?.funFact || null;
 
     // Build per-player results sorted by speed (fastest correct first, then incorrect)
     const playerResults: PlayerResult[] = game.players.map((p) => {
@@ -134,6 +135,7 @@ export async function POST(request: Request) {
       playerResults,
       players: sortedPlayers,
       source,
+      funFact,
     });
 
     const isLastQuestion = game.currentQuestionIndex + 1 >= game.questions.length;

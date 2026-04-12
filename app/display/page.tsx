@@ -56,6 +56,7 @@ export default function DisplayPage() {
   const [paused, setPaused] = useState(false);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [questionSource, setQuestionSource] = useState<QuestionSource | null>(null);
+  const [funFact, setFunFact] = useState<string | null>(null);
   const [seriesHistory, setSeriesHistory] = useState<SeriesGame[]>([]);
   const [packs, setPacks] = useState<PackInfo[]>([]);
   const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
@@ -240,6 +241,7 @@ export default function DisplayPage() {
       setPlayerResults(data.playerResults);
       setPlayers(data.players);
       setQuestionSource(data.source || null);
+      setFunFact(data.funFact || null);
       setPhase('reveal');
     });
 
@@ -279,7 +281,7 @@ export default function DisplayPage() {
     if (phase === 'pregame') {
       scheduleTransition(() => handleAdvance(), 5000);
     } else if (phase === 'reveal') {
-      scheduleTransition(() => setPhase('scoreboard'), 5000);
+      scheduleTransition(() => setPhase('scoreboard'), 10000);
     } else if (phase === 'scoreboard') {
       scheduleTransition(() => setPhase('leaderboard'), 5000);
     } else if (phase === 'leaderboard') {
@@ -495,8 +497,18 @@ export default function DisplayPage() {
             )}
           </div>
           <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col items-center justify-center">
-            <div className="text-6xl mb-4">✅</div>
-            <p className="text-2xl font-bold text-green-400 text-center">{currentQuestion.options[correctAnswer!]}</p>
+            {funFact ? (
+              <>
+                <div className="text-4xl mb-4">💡</div>
+                <p className="text-lg font-semibold text-yellow-300 text-center mb-2">Fun Fact</p>
+                <p className="text-base text-white/80 text-center leading-relaxed">{funFact}</p>
+              </>
+            ) : (
+              <>
+                <div className="text-6xl mb-4">✅</div>
+                <p className="text-2xl font-bold text-green-400 text-center">{currentQuestion.options[correctAnswer!]}</p>
+              </>
+            )}
           </div>
         </div>
       )}

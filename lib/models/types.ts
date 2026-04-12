@@ -95,6 +95,7 @@ export interface AnswerRevealEvent {
   playerResults: PlayerResult[];
   players: { id: string; name: string; score: number }[];
   source?: QuestionSource | null;
+  funFact?: string | null;
 }
 
 export interface GamePausedEvent {

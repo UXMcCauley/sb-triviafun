@@ -50,6 +50,7 @@ const QuestionSchema = new mongoose.Schema({
     url: { type: String, required: true },
     description: { type: String, required: true },
   },
+  funFact: { type: String },
 }, { timestamps: true });
 
 const Pack = mongoose.models.Pack || mongoose.model('Pack', PackSchema);
@@ -64,6 +65,7 @@ interface PackFileQuestion {
   season?: number;
   episode?: string;
   source: { url: string; description: string };
+  funFact?: string;
 }
 
 interface PackFile {
@@ -131,6 +133,7 @@ async function seed() {
               season: q.season,
               episode: q.episode,
               source: q.source,
+              funFact: q.funFact,
             },
             $addToSet: { packIds: pack._id },
           },
