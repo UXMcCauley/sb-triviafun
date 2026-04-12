@@ -12,7 +12,23 @@
       "Bash(node -e \"const f=require\\('./data/packs/the-hangout-shows.json'\\); console.log\\(f.questions.length\\)\")",
       "Bash(node -e 'const d=require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.questions.length + '\\\\'' questions, correctAnswerIndex distribution: '\\\\'' + JSON.stringify\\([0,1,2,3].map\\(i=>d.questions.filter\\(q=>q.correctAnswerIndex===i\\).length\\)\\)\\)')",
       "Bash(node -e 'console.log\\(JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf-8'\\\\''\\)\\).name\\)')",
-      "Bash(node -e 'console.log\\(JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf-8'\\\\''\\)\\).questions.length\\)')"
+      "Bash(node -e 'console.log\\(JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf-8'\\\\''\\)\\).questions.length\\)')",
+      "Bash(node -e \"const d = require\\('./data/packs/the-nothing-shows.json'\\); console.log\\('Total questions:', d.questions.length\\); const shows = {}; d.questions.forEach\\(q => { const cat = q.category || 'unknown'; shows[cat] = \\(shows[cat]||0\\)+1; }\\); console.log\\('By category:', shows\\);\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('data/packs/the-nothing-shows.json'\\)\\); print\\('Total:', len\\(d['questions']\\)\\); cats={}; [cats.update\\({q.get\\('category','?'\\): cats.get\\(q.get\\('category','?'\\),0\\)+1}\\) for q in d['questions']]; print\\('Categories:', cats\\)\")",
+      "Bash(node -e \"const d = require\\('./data/packs/the-nothing-shows.json'\\); const shows = new Set\\(\\); d.questions.forEach\\(q => { const src = q.source?.description || ''; if \\(src.includes\\('Seinfeld'\\)\\) shows.add\\('Seinfeld'\\); if \\(src.includes\\('Sunny'\\) || src.includes\\('IASIP'\\)\\) shows.add\\('IASIP'\\); if \\(src.includes\\('Married'\\)\\) shows.add\\('Married'\\); if \\(src.includes\\('Office'\\)\\) shows.add\\('Office'\\); if \\(src.includes\\('Curb'\\)\\) shows.add\\('Curb'\\); }\\); console.log\\('Shows present:', [...shows]\\);\")",
+      "WebSearch",
+      "WebFetch(domain:www.funtrivia.com)",
+      "WebFetch(domain:thoughtcatalog.com)",
+      "WebFetch(domain:triviacreator.com)",
+      "WebFetch(domain:www.absurdtrivia.com)",
+      "WebFetch(domain:www.buzzfeed.com)",
+      "WebFetch(domain:www.trivianerd.com)",
+      "WebFetch(domain:www.imdb.com)",
+      "WebFetch(domain:marriedwithchildren.fandom.com)",
+      "WebFetch(domain:parade.com)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(node -e \"const d = require\\('./data/packs/the-nothing-shows.json'\\); console.log\\('Total questions:', d.questions.length\\); const shows = {}; d.questions.forEach\\(\\(q,i\\) => { const src = q.source?.description || ''; let show = 'Other'; if \\(src.includes\\('Seinfeld'\\)\\) show = 'Seinfeld'; else if \\(src.includes\\('Sunny'\\) || src.includes\\('IASIP'\\)\\) show = 'Always Sunny'; else if \\(src.includes\\('Married'\\) || src.includes\\('Al Bundy'\\)\\) show = 'Married w/ Children'; else if \\(src.includes\\('Office'\\)\\) show = 'The Office'; shows[show] = \\(shows[show]||0\\)+1; }\\); console.log\\('By show:', shows\\);\")",
+      "Bash(npx ts-node:*)"
     ]
   }
 }
