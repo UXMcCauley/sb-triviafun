@@ -21,6 +21,17 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
+// Randomize option order while tracking the correct answer
+function randomizeOptions(q: typeof questions[0]) {
+  const indexed = q.options.map((opt, i) => ({ opt, isCorrect: i === q.correctAnswerIndex }));
+  const shuffled = shuffleArray(indexed);
+  return {
+    ...q,
+    options: shuffled.map((s) => s.opt),
+    correctAnswerIndex: shuffled.findIndex((s) => s.isCorrect),
+  };
+}
+
 export async function POST(request: Request) {
   try {
     await connectDB();
@@ -29,8 +40,10 @@ export async function POST(request: Request) {
     const numQuestions = Math.min(body.numQuestions || 15, questions.length);
     const timerDuration = body.timerDuration || 15;
 
-    // Pick random questions
-    const selectedQuestions = shuffleArray(questions).slice(0, numQuestions);
+    // Pick random questions and randomize answer order
+    const selectedQuestions = shuffleArray(questions)
+      .slice(0, numQuestions)
+      .map(randomizeOptions);
 
     // Generate unique game code
     let gameCode = generateGameCode();
