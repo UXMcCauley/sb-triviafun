@@ -352,15 +352,15 @@ export default function DisplayPage() {
             Test
           </button>
 
-          <div className="text-center space-y-6 max-w-5xl mx-auto w-full">
+          <div className="text-center max-w-5xl mx-auto w-full">
             <h1 className="text-6xl font-black tracking-tight">
               <span className="text-yellow-400">Sitcom</span> Trivia
             </h1>
-            <p className="text-xl text-white/60">The game about nothing... and everything.</p>
+            <p className="text-xl text-white/60 mt-1">The game about nothing... and everything.</p>
 
             {/* Pack Carousel */}
             {packs.length > 0 && (
-              <div className="mt-4">
+              <div className="mt-6">
                 <h3 className="text-lg font-semibold text-white/60 mb-3">
                   Choose Packs
                   {selectedPackIds.length > 0 && (
