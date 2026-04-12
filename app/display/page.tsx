@@ -36,6 +36,7 @@ interface PackInfo {
   slug: string;
   name: string;
   tagline: string;
+  description: string;
   themeColor: string;
   icon: string;
   isDefault: boolean;
@@ -62,6 +63,8 @@ export default function DisplayPage() {
   const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [testMode, setTestMode] = useState(false);
+  const [packScrollIndex, setPackScrollIndex] = useState(0);
+  const packCarouselRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
   const countdownAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -260,8 +263,8 @@ export default function DisplayPage() {
       setPhase('finished');
     });
 
-    channel.bind('game-replay', (data: { gameCode?: string; newGameCode?: string; players: { id: string; name: string }[]; seriesHistory?: SeriesGame[] }) => {
-      if (data.seriesHistory) setSeriesHistory(data.seriesHistory);
+    channel.bind('game-replay', (data: { gameCode?: string; newGameCode?: string; players: { id: string; name: string }[] }) => {
+      // seriesHistory is already correct from game-finished events — don't override
       setPlayers(data.players.map((p) => ({ ...p, score: 0 })));
       setCurrentQuestion(null);
       setCorrectAnswer(null);
@@ -301,7 +304,7 @@ export default function DisplayPage() {
   }, [handleRevealAnswer]);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white relative">
+    <div className="h-screen overflow-hidden bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white relative">
       {/* PAUSE OVERLAY */}
       {paused && phase !== 'create' && phase !== 'lobby' && phase !== 'finished' && (
         <div className="absolute inset-0 bg-black/80 z-40 flex items-center justify-center">
@@ -333,7 +336,7 @@ export default function DisplayPage() {
 
       {/* CREATE */}
       {phase === 'create' && (
-        <div className="flex items-center justify-center min-h-screen relative">
+        <div className="flex flex-col justify-center h-screen overflow-hidden relative px-8">
           {/* Test Mode Toggle */}
           <button
             onClick={() => setTestMode((v) => !v)}
@@ -348,70 +351,125 @@ export default function DisplayPage() {
             </div>
             Test
           </button>
-          <div className="text-center space-y-8 max-w-4xl mx-auto px-8">
-            <h1 className="text-7xl font-black tracking-tight">
+
+          <div className="text-center space-y-6 max-w-5xl mx-auto w-full">
+            <h1 className="text-6xl font-black tracking-tight">
               <span className="text-yellow-400">Sitcom</span> Trivia
             </h1>
-            <p className="text-2xl text-white/60">The game about nothing... and everything.</p>
+            <p className="text-xl text-white/60">The game about nothing... and everything.</p>
 
-            {/* Pack Selection */}
+            {/* Pack Carousel */}
             {packs.length > 0 && (
-              <div className="mt-8">
-                <h3 className="text-lg font-semibold text-white/60 mb-4">Select Packs</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {packs.map((pack) => {
-                    const isEmpty = pack.questionCount === 0;
-                    const isSelected = selectedPackIds.includes(pack.id);
-                    return (
-                      <button
-                        key={pack.id}
-                        onClick={() => !isEmpty && togglePack(pack.id)}
-                        disabled={isEmpty}
-                        className={`text-left p-4 rounded-xl border-2 transition-all ${
-                          isEmpty
-                            ? 'border-white/5 bg-white/2 opacity-40 cursor-not-allowed'
-                            : isSelected
-                              ? 'border-white/40 bg-white/10'
-                              : 'border-white/10 bg-white/5 opacity-60 hover:opacity-80'
-                        }`}
-                        style={isSelected && !isEmpty ? { borderColor: pack.themeColor + '80' } : undefined}
-                      >
-                        <div className="flex items-center gap-3 mb-1">
-                          <span className="text-2xl">{pack.icon}</span>
-                          <span className="font-bold text-lg">{pack.name}</span>
-                          {isEmpty && <span className="text-[10px] uppercase tracking-wider text-white/30 bg-white/5 px-2 py-0.5 rounded-full ml-auto">Coming Soon</span>}
-                        </div>
-                        <p className="text-sm text-white/50">{pack.tagline}</p>
-                        <p className="text-xs text-white/30 mt-1">{isEmpty ? 'No questions yet' : `${pack.questionCount} questions`}</p>
-                      </button>
-                    );
-                  })}
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold text-white/60 mb-3">
+                  Choose Packs
+                  {selectedPackIds.length > 0 && (
+                    <span className="ml-2 text-yellow-400">
+                      — {selectedPackIds.length === 1
+                        ? packs.find((p) => p.id === selectedPackIds[0])?.name || '1 pack'
+                        : `${selectedPackIds.length} packs`}
+                    </span>
+                  )}
+                </h3>
+                <div className="relative flex items-center">
+                  {/* Left Arrow */}
+                  <button
+                    onClick={() => {
+                      const el = packCarouselRef.current;
+                      if (!el) return;
+                      const cardWidth = 252; // w-60 (240) + gap-3 (12)
+                      const currentCard = Math.round(el.scrollLeft / cardWidth);
+                      const target = Math.max(0, currentCard - 1) * cardWidth;
+                      el.scrollTo({ left: target, behavior: 'smooth' });
+                    }}
+                    className="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all mr-3 disabled:opacity-20 disabled:cursor-default"
+                    disabled={packScrollIndex === 0}
+                  >
+                    ◀
+                  </button>
+
+                  {/* Scrollable Pack Strip */}
+                  <div
+                    ref={packCarouselRef}
+                    className="flex-1 min-w-0 flex items-stretch gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    onScroll={(e) => {
+                      const el = e.currentTarget;
+                      setPackScrollIndex(Math.round(el.scrollLeft / 252));
+                    }}
+                  >
+                    {packs.map((pack) => {
+                      const isEmpty = pack.questionCount === 0;
+                      const isSelected = selectedPackIds.includes(pack.id);
+                      return (
+                        <button
+                          key={pack.id}
+                          onClick={() => !isEmpty && togglePack(pack.id)}
+                          disabled={isEmpty}
+                          className={`shrink-0 w-60 snap-start text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-start ${
+                            isEmpty
+                              ? 'border-white/5 bg-white/2 opacity-40 cursor-not-allowed'
+                              : isSelected
+                                ? 'border-white/40 bg-white/10'
+                                : 'border-white/10 bg-white/5 opacity-60 hover:opacity-80'
+                          }`}
+                          style={isSelected && !isEmpty ? { borderColor: pack.themeColor + '80' } : undefined}
+                        >
+                          <p className="text-xs text-white/30">{isEmpty ? 'No questions yet' : `${pack.questionCount} questions`}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-xl">{pack.icon}</span>
+                            <span className="font-bold text-base">{pack.name}</span>
+                            {isEmpty && <span className="text-[10px] uppercase tracking-wider text-white/30 bg-white/5 px-1.5 py-0.5 rounded-full ml-auto">Soon</span>}
+                          </div>
+                          <p className="text-xs text-white/50 mt-1 leading-relaxed">{pack.description}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Right Arrow */}
+                  <button
+                    onClick={() => {
+                      const el = packCarouselRef.current;
+                      if (!el) return;
+                      const cardWidth = 252;
+                      const currentCard = Math.round(el.scrollLeft / cardWidth);
+                      const maxScroll = el.scrollWidth - el.clientWidth;
+                      const target = Math.min(maxScroll, (currentCard + 1) * cardWidth);
+                      el.scrollTo({ left: target, behavior: 'smooth' });
+                    }}
+                    className="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all ml-3 disabled:opacity-20 disabled:cursor-default"
+                    disabled={packCarouselRef.current ? packCarouselRef.current.scrollLeft + packCarouselRef.current.clientWidth >= packCarouselRef.current.scrollWidth - 10 : false}
+                  >
+                    ▶
+                  </button>
                 </div>
               </div>
             )}
 
-            <div className="flex flex-col items-center gap-4 mt-8">
-              <div className="flex gap-8 items-end">
-                <div className="text-left">
-                  <label className="text-sm text-white/50 block mb-1">Questions</label>
-                  <select value={numQuestions} onChange={(e) => setNumQuestions(Number(e.target.value))} className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
-                    {[10, 15, 20, 25, 30].map((n) => <option key={n} value={n} className="bg-gray-900">{n}</option>)}
-                  </select>
-                </div>
-                <div className="text-left">
-                  <label className="text-sm text-white/50 block mb-1">Timer (sec)</label>
-                  <select value={timerDuration} onChange={(e) => setTimerDuration(Number(e.target.value))} className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
-                    {[10, 15, 20, 30].map((n) => <option key={n} value={n} className="bg-gray-900">{n}</option>)}
-                  </select>
-                </div>
-                <div className="text-left">
-                  <label className="text-sm text-white/50 block mb-1">Music Vol</label>
-                  <input type="range" min={0} max={1} step={0.05} value={musicVolume} onChange={(e) => setMusicVolume(Number(e.target.value))} className="w-24 accent-yellow-400" />
-                </div>
+            {/* Controls: Questions + Timer + Create in one row */}
+            <div className="flex items-end justify-center gap-6 mt-6">
+              <div className="text-left">
+                <label className="text-sm text-white/50 block mb-1">Questions</label>
+                <select value={numQuestions} onChange={(e) => setNumQuestions(Number(e.target.value))} className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
+                  {[10, 15, 20, 25, 30].map((n) => <option key={n} value={n} className="bg-gray-900">{n}</option>)}
+                </select>
               </div>
-              <button onClick={handleCreateGame} disabled={loading || selectedPackIds.length === 0} className="mt-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-2xl px-12 py-4 rounded-2xl transition-all active:scale-95 disabled:opacity-50">
+              <div className="text-left">
+                <label className="text-sm text-white/50 block mb-1">Timer (sec)</label>
+                <select value={timerDuration} onChange={(e) => setTimerDuration(Number(e.target.value))} className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
+                  {[10, 15, 20, 30].map((n) => <option key={n} value={n} className="bg-gray-900">{n}</option>)}
+                </select>
+              </div>
+              <button onClick={handleCreateGame} disabled={loading || selectedPackIds.length === 0} className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl px-10 py-2 rounded-xl transition-all active:scale-95 disabled:opacity-50">
                 {loading ? 'Creating...' : 'Create Game'}
               </button>
+            </div>
+
+            {/* Volume below controls */}
+            <div className="flex items-center justify-center gap-3">
+              <label className="text-sm text-white/40">Music Vol</label>
+              <input type="range" min={0} max={1} step={0.05} value={musicVolume} onChange={(e) => setMusicVolume(Number(e.target.value))} className="w-32 accent-yellow-400" />
             </div>
           </div>
         </div>
@@ -419,7 +477,7 @@ export default function DisplayPage() {
 
       {/* LOBBY */}
       {phase === 'lobby' && (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center h-screen overflow-hidden">
           <div className="text-center space-y-8 max-w-4xl mx-auto px-8">
             <h1 className="text-5xl font-black">
               <span className="text-yellow-400">Game Code:</span>{' '}
@@ -461,7 +519,7 @@ export default function DisplayPage() {
 
       {/* PRE-GAME COUNTDOWN */}
       {phase === 'pregame' && (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center h-screen overflow-hidden">
           <div className="text-center space-y-6">
             <h2 className="text-4xl font-bold text-white/60">Get Ready!</h2>
             <PhaseClock duration={5} />
@@ -472,7 +530,7 @@ export default function DisplayPage() {
 
       {/* QUESTION */}
       {phase === 'question' && currentQuestion && (
-        <div className="flex min-h-screen">
+        <div className="flex h-screen overflow-hidden">
           <div className="flex-1 flex flex-col justify-center px-12 py-8">
             <QuestionCard
               questionText={currentQuestion.questionText}
@@ -499,7 +557,7 @@ export default function DisplayPage() {
 
       {/* REVEAL — correct answer (5s) */}
       {phase === 'reveal' && currentQuestion && (
-        <div className="flex min-h-screen">
+        <div className="flex h-screen overflow-hidden">
           <div className="flex-1 flex flex-col justify-center px-12 py-8">
             <QuestionCard
               questionText={currentQuestion.questionText}
@@ -538,7 +596,7 @@ export default function DisplayPage() {
 
       {/* SCOREBOARD — player points this round (5s) */}
       {phase === 'scoreboard' && (
-        <div className="flex items-center justify-center min-h-screen p-8">
+        <div className="flex items-center justify-center h-screen overflow-hidden p-8">
           <div className="w-full max-w-3xl space-y-6">
             <h2 className="text-4xl font-black text-center">
               Question {currentQuestion ? currentQuestion.questionIndex + 1 : ''} Results
@@ -563,7 +621,7 @@ export default function DisplayPage() {
 
       {/* LEADERBOARD — cumulative rankings (5s) */}
       {phase === 'leaderboard' && (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center h-screen overflow-hidden">
           <div className="w-full max-w-2xl px-8 space-y-8">
             <h2 className="text-4xl font-black text-center text-yellow-400">Standings</h2>
             <Leaderboard players={players} />
@@ -573,7 +631,7 @@ export default function DisplayPage() {
 
       {/* NEXT QUESTION COUNTDOWN (5s) */}
       {phase === 'nextcountdown' && (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center h-screen overflow-hidden">
           <div className="text-center space-y-6">
             <h2 className="text-4xl font-bold text-white/60">Next Question In...</h2>
             <PhaseClock duration={5} />
@@ -584,28 +642,30 @@ export default function DisplayPage() {
 
       {/* FINISHED */}
       {phase === 'finished' && (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center space-y-8 max-w-3xl mx-auto px-8">
-            <h1 className="text-6xl font-black text-yellow-400 animate-bounce">Game Over!</h1>
+        <div className="flex items-center justify-center h-screen overflow-hidden p-8">
+          <div className="text-center space-y-4 max-w-4xl mx-auto w-full">
+            <h1 className="text-5xl font-black text-yellow-400 animate-bounce">Game Over!</h1>
             {winner && (
-              <div className="space-y-2">
-                <p className="text-3xl text-white/60">Winner</p>
-                <p className="text-5xl font-bold">{winner.name}</p>
-                <p className="text-3xl font-mono text-yellow-300">{winner.score.toLocaleString()} pts</p>
+              <div className="space-y-1">
+                <p className="text-2xl text-white/60">Winner</p>
+                <p className="text-4xl font-bold">{winner.name}</p>
+                <p className="text-2xl font-mono text-yellow-300">{winner.score.toLocaleString()} pts</p>
               </div>
             )}
-            <div className="mt-8">
-              <Leaderboard players={players} />
+
+            <div className="flex gap-6 justify-center items-start mt-2">
+              <div className="flex-1 min-w-0">
+                <Leaderboard players={players} />
+              </div>
+              {seriesHistory.length > 0 && (
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg font-bold text-white/60 mb-2">Series History</h3>
+                  <SeriesTable history={seriesHistory} players={players} />
+                </div>
+              )}
             </div>
 
-            {seriesHistory.length > 0 && (
-              <div className="mt-6">
-                <h3 className="text-xl font-bold text-white/60 mb-3">Series History</h3>
-                <SeriesTable history={seriesHistory} players={players} />
-              </div>
-            )}
-
-            <div className="flex gap-4 justify-center mt-8">
+            <div className="flex gap-4 justify-center mt-4">
               <button onClick={handlePlayAgain} className="bg-green-500 hover:bg-green-400 text-black font-bold text-xl px-8 py-4 rounded-xl transition-all active:scale-95">
                 Play Again
               </button>
