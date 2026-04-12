@@ -59,10 +59,31 @@ export default function DisplayPage() {
   const [seriesHistory, setSeriesHistory] = useState<SeriesGame[]>([]);
   const [packs, setPacks] = useState<PackInfo[]>([]);
   const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
+  const [musicVolume, setMusicVolume] = useState(0.5);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
+  const countdownAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => { pausedRef.current = paused; }, [paused]);
+
+  // Countdown music: play during question phase, stop on reveal/pause
+  useEffect(() => {
+    if (!countdownAudioRef.current) {
+      countdownAudioRef.current = new Audio('/Final Question Countdown (Edit).mp3');
+      countdownAudioRef.current.loop = true;
+    }
+    const audio = countdownAudioRef.current;
+    audio.volume = musicVolume;
+
+    if (phase === 'question' && !paused) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+
+    return () => { audio.pause(); };
+  }, [phase, paused, musicVolume]);
 
   // Fetch available packs on mount
   useEffect(() => {
@@ -330,7 +351,7 @@ export default function DisplayPage() {
             )}
 
             <div className="flex flex-col items-center gap-4 mt-8">
-              <div className="flex gap-8">
+              <div className="flex gap-8 items-end">
                 <div className="text-left">
                   <label className="text-sm text-white/50 block mb-1">Questions</label>
                   <select value={numQuestions} onChange={(e) => setNumQuestions(Number(e.target.value))} className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
@@ -342,6 +363,10 @@ export default function DisplayPage() {
                   <select value={timerDuration} onChange={(e) => setTimerDuration(Number(e.target.value))} className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white">
                     {[10, 15, 20, 30].map((n) => <option key={n} value={n} className="bg-gray-900">{n}</option>)}
                   </select>
+                </div>
+                <div className="text-left">
+                  <label className="text-sm text-white/50 block mb-1">Music Vol</label>
+                  <input type="range" min={0} max={1} step={0.05} value={musicVolume} onChange={(e) => setMusicVolume(Number(e.target.value))} className="w-24 accent-yellow-400" />
                 </div>
               </div>
               <button onClick={handleCreateGame} disabled={loading || selectedPackIds.length === 0} className="mt-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-2xl px-12 py-4 rounded-2xl transition-all active:scale-95 disabled:opacity-50">
