@@ -1,7 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import type { Game } from './types';
 
-export interface GameDocument extends Omit<Game, 'createdAt'>, Document {
+export interface GameDocument extends Omit<Game, 'createdAt' | 'packIds' | 'questions'>, Document {
+  packIds: mongoose.Types.ObjectId[];
+  questions: mongoose.Types.ObjectId[];
   createdAt: Date;
 }
 
