@@ -7,7 +7,7 @@ import { getPusherServer } from '@/lib/pusher';
 export async function POST(request: Request) {
   try {
     await connectDB();
-    const { gameCode, playerName } = await request.json();
+    const { gameCode, playerName, rejoinId } = await request.json();
 
     if (!gameCode || !playerName) {
       return NextResponse.json({ error: 'Game code and player name required' }, { status: 400 });
@@ -18,8 +18,37 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
 
+    // Allow rejoin by ID (returning player)
+    if (rejoinId) {
+      const existingPlayer = game.players.find((p: { id: string }) => p.id === rejoinId);
+      if (existingPlayer) {
+        return NextResponse.json({
+          playerId: existingPlayer.id,
+          playerName: existingPlayer.name,
+          gameCode: game.gameCode,
+          rejoined: true,
+          status: game.status,
+        });
+      }
+    }
+
+    // Allow rejoin by name (same name = same player returning)
+    const existingByName = game.players.find(
+      (p: { name: string }) => p.name.toLowerCase() === playerName.trim().toLowerCase()
+    );
+    if (existingByName) {
+      return NextResponse.json({
+        playerId: existingByName.id,
+        playerName: existingByName.name,
+        gameCode: game.gameCode,
+        rejoined: true,
+        status: game.status,
+      });
+    }
+
+    // New player joining
     if (game.status === 'active') {
-      return NextResponse.json({ error: 'Game already in progress' }, { status: 400 });
+      return NextResponse.json({ error: 'Game already in progress. Try rejoining with your original name.' }, { status: 400 });
     }
 
     if (game.status === 'finished') {
@@ -61,6 +90,8 @@ export async function POST(request: Request) {
       playerId: player.id,
       playerName: finalName,
       gameCode: game.gameCode,
+      rejoined: false,
+      status: game.status,
     });
   } catch (error) {
     console.error('Join game error:', error);

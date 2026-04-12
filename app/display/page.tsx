@@ -16,8 +16,8 @@ import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 
-// Flow: pregame (5s) → question → reveal (5s) → scoreboard (5s) → leaderboard (5s) → [funfact (7s)] → question...
-type Phase = 'create' | 'lobby' | 'pregame' | 'question' | 'reveal' | 'scoreboard' | 'leaderboard' | 'funfact' | 'finished';
+// Flow: pregame (5s) → question → reveal (5s) → scoreboard (5s) → leaderboard (5s) → [funfact (7s)] → nextcountdown (5s) → question...
+type Phase = 'create' | 'lobby' | 'pregame' | 'question' | 'reveal' | 'scoreboard' | 'leaderboard' | 'funfact' | 'nextcountdown' | 'finished';
 
 interface PlayerInfo {
   id: string;
@@ -177,6 +177,12 @@ export default function DisplayPage() {
       clearTimers();
       setPlayers(data.players);
       setWinner(data.winner);
+      // Add this game to series history locally
+      setSeriesHistory((prev) => [...prev, {
+        gameIndex: prev.length,
+        gameCode,
+        results: data.players.map((p, i) => ({ ...p, rank: i + 1 })),
+      }]);
       setPhase('finished');
     });
 
@@ -210,10 +216,12 @@ export default function DisplayPage() {
       scheduleTransition(() => {
         if (isLastQuestion) { handleAdvance(); }
         else if (funFact) { setPhase('funfact'); }
-        else { handleAdvance(); }
+        else { setPhase('nextcountdown'); }
       }, 5000);
     } else if (phase === 'funfact') {
-      scheduleTransition(() => handleAdvance(), 7000);
+      scheduleTransition(() => setPhase('nextcountdown'), 7000);
+    } else if (phase === 'nextcountdown') {
+      scheduleTransition(() => handleAdvance(), 5000);
     }
     return () => clearTimers();
   }, [phase, isLastQuestion, funFact, scheduleTransition, handleAdvance]);
@@ -433,6 +441,17 @@ export default function DisplayPage() {
         </div>
       )}
 
+      {/* NEXT QUESTION COUNTDOWN (5s) */}
+      {phase === 'nextcountdown' && (
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center space-y-6">
+            <h2 className="text-4xl font-bold text-white/60">Next Question In...</h2>
+            <PhaseClock duration={5} />
+            <p className="text-xl text-white/40">Get ready!</p>
+          </div>
+        </div>
+      )}
+
       {/* FINISHED */}
       {phase === 'finished' && (
         <div className="flex items-center justify-center min-h-screen">
@@ -547,9 +566,10 @@ function SeriesTable({ history, players }: { history: SeriesGame[]; players: Pla
                 return (
                   <td key={g.gameCode} className="text-center py-2 px-2">
                     {result ? (
-                      <span className={result.rank === 1 ? 'text-yellow-400 font-bold' : 'text-white/60'}>
-                        #{result.rank}
-                      </span>
+                      <div className={result.rank === 1 ? 'text-yellow-400 font-bold' : 'text-white/60'}>
+                        <span>#{result.rank}</span>
+                        <span className="block text-xs text-white/30">{result.score.toLocaleString()}</span>
+                      </div>
                     ) : <span className="text-white/20">—</span>}
                   </td>
                 );
