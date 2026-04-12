@@ -137,6 +137,19 @@ function PlayContent() {
       setPhase('finished');
     });
 
+    channel.bind('game-replay', (data: { newGameCode: string; players: { id: string; name: string }[] }) => {
+      // Auto-join the new game — switch channel
+      setGameCode(data.newGameCode);
+      setPlayers(data.players.map((p) => ({ ...p, score: 0 })));
+      setCurrentQuestion(null);
+      setSelectedAnswer(null);
+      selectedAnswerRef.current = null;
+      setCorrectAnswer(null);
+      setWasCorrect(null);
+      setWinner(null);
+      setPhase('lobby');
+    });
+
     return () => {
       channel.unbind_all();
       pusher.unsubscribe(`game-${gameCode}`);

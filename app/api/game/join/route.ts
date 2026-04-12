@@ -26,6 +26,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Game has ended' }, { status: 400 });
     }
 
+    if (game.players.length >= 8) {
+      return NextResponse.json({ error: 'Game is full (max 8 players). You can watch at /watch' }, { status: 400 });
+    }
+
     // Handle duplicate names
     let finalName = playerName.trim();
     const existingNames = game.players.map((p: { name: string }) => p.name);

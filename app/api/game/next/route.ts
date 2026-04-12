@@ -115,7 +115,7 @@ export async function POST(request: Request) {
       correctAnswerIndex: currentQuestion.correctAnswerIndex,
       playerResults,
       players: sortedPlayers,
-      funFact: currentQuestion.funFact || undefined,
+      funFact: currentQuestion.funFact || null,
     });
 
     const isLastQuestion = game.currentQuestionIndex + 1 >= game.questions.length;

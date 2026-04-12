@@ -181,6 +181,20 @@ export default function DisplayPage() {
       setPhase('finished');
     });
 
+    channel.bind('game-replay', (data: { newGameCode: string; players: { id: string; name: string }[] }) => {
+      // Switch to new game
+      setGameCode(data.newGameCode);
+      setPlayers(data.players.map((p) => ({ ...p, score: 0 })));
+      setCurrentQuestion(null);
+      setCorrectAnswer(null);
+      setPlayerResults([]);
+      setWinner(null);
+      setFunFact(null);
+      setIsLastQuestion(false);
+      setPaused(false);
+      setPhase('lobby');
+    });
+
     return () => {
       channel.unbind_all();
       pusher.unsubscribe(`game-${gameCode}`);
@@ -474,23 +488,42 @@ export default function DisplayPage() {
             <div className="mt-8">
               <Leaderboard players={players} />
             </div>
-            <button
-              onClick={() => {
-                setPhase('create');
-                setGameCode('');
-                setPlayers([]);
-                setCurrentQuestion(null);
-                setCorrectAnswer(null);
-                setPlayerResults([]);
-                setWinner(null);
-                setPaused(false);
-                setIsLastQuestion(false);
-                setFunFact(null);
-              }}
-              className="mt-8 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl px-8 py-3 rounded-xl transition-all active:scale-95"
-            >
-              New Game
-            </button>
+            <div className="flex gap-4 justify-center mt-8">
+              <button
+                onClick={async () => {
+                  try {
+                    await fetch('/api/game/replay', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ gameCode }),
+                    });
+                    // game-replay event will handle the state transition
+                  } catch (err) {
+                    console.error('Replay failed:', err);
+                  }
+                }}
+                className="bg-green-500 hover:bg-green-400 text-black font-bold text-xl px-8 py-4 rounded-xl transition-all active:scale-95"
+              >
+                Play Again
+              </button>
+              <button
+                onClick={() => {
+                  setPhase('create');
+                  setGameCode('');
+                  setPlayers([]);
+                  setCurrentQuestion(null);
+                  setCorrectAnswer(null);
+                  setPlayerResults([]);
+                  setWinner(null);
+                  setPaused(false);
+                  setIsLastQuestion(false);
+                  setFunFact(null);
+                }}
+                className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xl px-8 py-4 rounded-xl transition-all active:scale-95"
+              >
+                New Game
+              </button>
+            </div>
           </div>
         </div>
       )}
