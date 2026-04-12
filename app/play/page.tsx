@@ -189,8 +189,7 @@ function PlayContent() {
       }
     });
 
-    channel.bind('game-replay', (data: { newGameCode: string; players: { id: string; name: string }[] }) => {
-      setGameCode(data.newGameCode);
+    channel.bind('game-replay', (data: { gameCode?: string; newGameCode?: string; players: { id: string; name: string }[] }) => {
       setPlayers(data.players.map((p) => ({ ...p, score: 0 })));
       setCurrentQuestion(null);
       setSelectedAnswer(null);

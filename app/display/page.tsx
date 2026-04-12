@@ -259,15 +259,15 @@ export default function DisplayPage() {
       setPhase('finished');
     });
 
-    channel.bind('game-replay', (data: { newGameCode: string; players: { id: string; name: string }[]; seriesHistory?: SeriesGame[] }) => {
+    channel.bind('game-replay', (data: { gameCode?: string; newGameCode?: string; players: { id: string; name: string }[]; seriesHistory?: SeriesGame[] }) => {
       if (data.seriesHistory) setSeriesHistory(data.seriesHistory);
-      setGameCode(data.newGameCode);
       setPlayers(data.players.map((p) => ({ ...p, score: 0 })));
       setCurrentQuestion(null);
       setCorrectAnswer(null);
       setPlayerResults([]);
       setWinner(null);
       setQuestionSource(null);
+      setFunFact(null);
       setIsLastQuestion(false);
       setPaused(false);
       setPhase('lobby');
@@ -309,6 +309,14 @@ export default function DisplayPage() {
             <h2 className="text-5xl font-black text-yellow-400">Game Paused</h2>
             <p className="text-xl text-white/60">Click resume to continue</p>
           </div>
+        </div>
+      )}
+
+      {/* ROOM CODE — always visible */}
+      {phase !== 'create' && gameCode && (
+        <div className="fixed top-4 right-4 z-50 bg-black/50 border border-white/15 rounded-xl px-4 py-2 backdrop-blur-sm flex items-center gap-2">
+          <span className="text-white/50 text-sm font-medium">Room</span>
+          <span className="font-mono text-lg font-bold tracking-widest text-yellow-400">{gameCode}</span>
         </div>
       )}
 
