@@ -103,7 +103,7 @@ function WatchContent() {
   }, [gameCode, phase === 'join']);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-gray-900 text-white relative">
+    <div className="min-h-screen bg-linear-to-br from-gray-900 via-purple-950 to-gray-900 text-white relative">
       {/* Audience badge */}
       <div className="fixed top-4 right-4 z-50 bg-purple-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 text-sm text-purple-300 font-semibold">
         👀 Watching
@@ -264,7 +264,7 @@ function WatchContent() {
 export default function WatchPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-gray-900 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-gray-900 via-purple-950 to-gray-900 text-white flex items-center justify-center">
         <div className="animate-pulse text-2xl">Loading...</div>
       </div>
     }>
