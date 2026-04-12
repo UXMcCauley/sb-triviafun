@@ -35,23 +35,25 @@ export async function POST(request: Request) {
 
     // Calculate time and score
     const now = Date.now();
+    const timerSeconds = game.settings.timerSeconds;
     const timeToAnswer = game.questionStartedAt
       ? (now - game.questionStartedAt) / 1000
-      : game.timerDuration;
+      : timerSeconds;
 
     // Check if within time limit
-    if (timeToAnswer > game.timerDuration + 1) {
+    if (timeToAnswer > timerSeconds + 1) {
       return NextResponse.json({ error: 'Time expired' }, { status: 400 });
     }
 
-    const question = game.questions[questionIndex];
-    const correct = selectedAnswer === question.correctAnswerIndex;
+    // Use shuffled correct answer from the game's parallel array
+    const correctAnswerIndex = game.shuffledCorrectAnswers[questionIndex];
+    const correct = selectedAnswer === correctAnswerIndex;
 
     // Score: 1000 base + up to 500 speed bonus
     let points = 0;
     if (correct) {
-      const timeRemaining = Math.max(0, game.timerDuration - timeToAnswer);
-      points = 1000 + Math.round((timeRemaining / game.timerDuration) * 500);
+      const timeRemaining = Math.max(0, timerSeconds - timeToAnswer);
+      points = 1000 + Math.round((timeRemaining / timerSeconds) * 500);
     }
 
     player.answers.push({

@@ -5,7 +5,8 @@
       "Bash(npm install:*)",
       "Bash(npx next:*)",
       "mcp__fdbca629-9d23-4430-b832-9a7d632d6ec8__get_runtime_logs",
-      "Bash(MONGODB_URI=\"mongodb+srv://performpro:pass333222@goferret.e2cc6t.mongodb.net/seinfeld?retryWrites=true&w=majority\" npx tsx scripts/seed-questions.ts)"
+      "Bash(MONGODB_URI=\"mongodb+srv://performpro:pass333222@goferret.e2cc6t.mongodb.net/seinfeld?retryWrites=true&w=majority\" npx tsx scripts/seed-questions.ts)",
+      "Bash(node -e ':*)"
     ]
   }
 }

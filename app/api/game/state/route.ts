@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import { GameModel } from '@/lib/models/game';
+import { QuestionModel } from '@/lib/models/question';
+import { getShuffledQuestion } from '@/lib/game-helpers';
 
 export async function GET(request: Request) {
   try {
@@ -17,17 +19,35 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
 
-    // Sanitize: don't send correct answers for active games
-    const sanitizedQuestions = game.questions.map((q, i) => ({
-      questionText: q.questionText,
-      options: q.options,
-      category: q.category,
-      difficulty: q.difficulty,
-      // Only reveal correct answer for past questions
-      ...(game.status === 'finished' || i < game.currentQuestionIndex
-        ? { correctAnswerIndex: q.correctAnswerIndex }
-        : {}),
-    }));
+    // Populate all questions to build sanitized list
+    const questionDocs = await QuestionModel.find({
+      _id: { $in: game.questions },
+    });
+
+    // Create a map for quick lookup preserving order
+    const questionMap = new Map(
+      questionDocs.map((q) => [q._id.toString(), q])
+    );
+
+    // Sanitize: don't send correct answers for active games (future questions)
+    const sanitizedQuestions = game.questions.map((qId, i) => {
+      const q = questionMap.get(qId.toString());
+      if (!q) return null;
+
+      const optionOrder = game.shuffledOptionOrders[i];
+      const shuffled = getShuffledQuestion(q, optionOrder);
+
+      return {
+        questionText: shuffled.questionText,
+        options: shuffled.options,
+        category: shuffled.category,
+        difficulty: shuffled.difficulty,
+        // Only reveal correct answer for past questions
+        ...(game.status === 'finished' || i < game.currentQuestionIndex
+          ? { correctAnswerIndex: game.shuffledCorrectAnswers[i] }
+          : {}),
+      };
+    }).filter(Boolean);
 
     return NextResponse.json({
       gameCode: game.gameCode,
@@ -41,7 +61,7 @@ export async function GET(request: Request) {
         score: p.score,
       })),
       questionStartedAt: game.questionStartedAt,
-      timerDuration: game.timerDuration,
+      timerDuration: game.settings.timerSeconds,
     });
   } catch (error) {
     console.error('Get game state error:', error);

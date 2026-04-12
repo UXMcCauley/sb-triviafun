@@ -1,38 +1,12 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import { GameModel } from '@/lib/models/game';
-import { QuestionModel } from '@/lib/models/question';
 import { getPusherServer } from '@/lib/pusher';
-import questionsJson from '@/data/questions.json';
-
-function generateGameCode(): string {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = '';
-  for (let i = 0; i < 4; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return code;
-}
-
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function randomizeOptions(q: any) {
-  const indexed: { opt: string; isCorrect: boolean }[] = q.options.map((opt: string, i: number) => ({ opt, isCorrect: i === q.correctAnswerIndex }));
-  const shuffled = shuffleArray(indexed);
-  return {
-    ...q,
-    options: shuffled.map((s) => s.opt),
-    correctAnswerIndex: shuffled.findIndex((s) => s.isCorrect),
-  };
-}
+import {
+  generateGameCode,
+  selectQuestionsForGame,
+  generateShuffleMappings,
+} from '@/lib/game-helpers';
 
 export async function POST(request: Request) {
   try {
@@ -45,33 +19,18 @@ export async function POST(request: Request) {
     }
 
     const numQuestions = oldGame.questions.length;
-    const timerDuration = oldGame.timerDuration;
+    const timerSeconds = oldGame.settings.timerSeconds;
     const seriesId = oldGame.seriesId;
     const seriesIndex = (oldGame.seriesIndex || 0) + 1;
 
-    // Pull questions from DB or fallback to JSON
-    let rawQuestions: Array<Record<string, unknown>>;
-    const dbCount = await QuestionModel.countDocuments();
-    if (dbCount > 0) {
-      const sampled = await QuestionModel.aggregate([
-        { $sample: { size: Math.min(numQuestions, dbCount) } },
-      ]);
-      rawQuestions = sampled.map((q) => ({
-        questionText: q.questionText,
-        options: q.options,
-        correctAnswerIndex: q.correctAnswerIndex,
-        category: q.category,
-        difficulty: q.difficulty,
-        season: q.season,
-        episode: q.episode,
-        funFact: q.funFact,
-        source: q.source,
-      }));
-    } else {
-      rawQuestions = shuffleArray([...questionsJson]).slice(0, Math.min(numQuestions, questionsJson.length));
+    // Pull questions from the same packs as the original game
+    const questions = await selectQuestionsForGame(oldGame.packIds, numQuestions);
+
+    if (questions.length === 0) {
+      return NextResponse.json({ error: 'No questions available' }, { status: 400 });
     }
 
-    const selectedQuestions = rawQuestions.map(randomizeOptions);
+    const { shuffledOptionOrders, shuffledCorrectAnswers } = generateShuffleMappings(questions);
 
     // Generate new game code
     let newGameCode = generateGameCode();
@@ -92,11 +51,17 @@ export async function POST(request: Request) {
     await GameModel.create({
       gameCode: newGameCode,
       status: 'lobby',
-      questions: selectedQuestions,
+      packIds: oldGame.packIds,
+      questions: questions.map((q) => q._id),
+      shuffledOptionOrders,
+      shuffledCorrectAnswers,
       currentQuestionIndex: 0,
       players: newPlayers,
       questionStartedAt: null,
-      timerDuration,
+      settings: {
+        timerSeconds,
+        questionCount: numQuestions,
+      },
       seriesId,
       seriesIndex,
     });
@@ -123,7 +88,7 @@ export async function POST(request: Request) {
       seriesHistory,
     });
 
-    return NextResponse.json({ newGameCode, timerDuration, seriesHistory });
+    return NextResponse.json({ newGameCode, timerDuration: timerSeconds, seriesHistory });
   } catch (error) {
     console.error('Replay error:', error);
     return NextResponse.json({ error: 'Failed to create replay' }, { status: 500 });

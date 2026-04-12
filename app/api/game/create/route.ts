@@ -2,37 +2,12 @@ import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import connectDB from '@/lib/mongodb';
 import { GameModel } from '@/lib/models/game';
-import { QuestionModel } from '@/lib/models/question';
-import questionsJson from '@/data/questions.json';
-
-function generateGameCode(): string {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = '';
-  for (let i = 0; i < 4; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return code;
-}
-
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
-// Randomize option order while tracking the correct answer
-function randomizeOptions(q: { options: string[]; correctAnswerIndex: number; [key: string]: unknown }) {
-  const indexed = q.options.map((opt: string, i: number) => ({ opt, isCorrect: i === q.correctAnswerIndex }));
-  const shuffled = shuffleArray(indexed);
-  return {
-    ...q,
-    options: shuffled.map((s) => s.opt),
-    correctAnswerIndex: shuffled.findIndex((s) => s.isCorrect),
-  };
-}
+import {
+  generateGameCode,
+  selectQuestionsForGame,
+  generateShuffleMappings,
+  resolvePackIds,
+} from '@/lib/game-helpers';
 
 export async function POST(request: Request) {
   try {
@@ -41,44 +16,22 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => ({}));
     const numQuestions = body.numQuestions || 15;
     const timerDuration = body.timerDuration || 15;
+    const rawPackIds: string[] | undefined = body.packIds;
 
-    // Try to pull from Question collection first
-    let rawQuestions: Array<{
-      questionText: string;
-      options: string[];
-      correctAnswerIndex: number;
-      category?: string;
-      difficulty: string;
-      season?: number;
-      episode?: string;
-      funFact?: string;
-      source?: { url: string; description: string };
-    }>;
+    // Resolve pack IDs (from slugs or ObjectId strings)
+    const packIds = rawPackIds && rawPackIds.length > 0
+      ? await resolvePackIds(rawPackIds)
+      : undefined;
 
-    const dbCount = await QuestionModel.countDocuments();
-    if (dbCount > 0) {
-      // Use MongoDB $sample for random selection
-      const sampled = await QuestionModel.aggregate([
-        { $sample: { size: Math.min(numQuestions, dbCount) } },
-      ]);
-      rawQuestions = sampled.map((q) => ({
-        questionText: q.questionText,
-        options: q.options,
-        correctAnswerIndex: q.correctAnswerIndex,
-        category: q.category,
-        difficulty: q.difficulty,
-        season: q.season,
-        episode: q.episode,
-        funFact: q.funFact,
-        source: q.source,
-      }));
-    } else {
-      // Fallback to JSON file
-      rawQuestions = shuffleArray([...questionsJson]).slice(0, Math.min(numQuestions, questionsJson.length));
+    // Select random questions from the specified packs
+    const questions = await selectQuestionsForGame(packIds, numQuestions);
+
+    if (questions.length === 0) {
+      return NextResponse.json({ error: 'No questions available for selected packs' }, { status: 400 });
     }
 
-    // Randomize answer order
-    const selectedQuestions = rawQuestions.map(randomizeOptions);
+    // Generate per-game shuffle mappings
+    const { shuffledOptionOrders, shuffledCorrectAnswers } = generateShuffleMappings(questions);
 
     // Generate unique game code
     let gameCode = generateGameCode();
@@ -92,16 +45,26 @@ export async function POST(request: Request) {
     const game = await GameModel.create({
       gameCode,
       status: 'lobby',
-      questions: selectedQuestions,
+      packIds: packIds || [],
+      questions: questions.map((q) => q._id),
+      shuffledOptionOrders,
+      shuffledCorrectAnswers,
       currentQuestionIndex: 0,
       players: [],
       questionStartedAt: null,
-      timerDuration,
+      settings: {
+        timerSeconds: timerDuration,
+        questionCount: numQuestions,
+      },
       seriesId,
       seriesIndex: 0,
     });
 
-    return NextResponse.json({ gameCode: game.gameCode, timerDuration, seriesId });
+    return NextResponse.json({
+      gameCode: game.gameCode,
+      timerDuration,
+      seriesId,
+    });
   } catch (error) {
     console.error('Create game error:', error);
     return NextResponse.json({ error: 'Failed to create game' }, { status: 500 });

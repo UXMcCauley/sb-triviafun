@@ -16,8 +16,8 @@ import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 
-// Flow: pregame (5s) → question → reveal (5s) → scoreboard (5s) → leaderboard (5s) → [funfact (7s)] → nextcountdown (5s) → question...
-type Phase = 'create' | 'lobby' | 'pregame' | 'question' | 'reveal' | 'scoreboard' | 'leaderboard' | 'funfact' | 'nextcountdown' | 'finished';
+// Flow: pregame (5s) → question → reveal (5s) → scoreboard (5s) → leaderboard (5s) → nextcountdown (5s) → question...
+type Phase = 'create' | 'lobby' | 'pregame' | 'question' | 'reveal' | 'scoreboard' | 'leaderboard' | 'nextcountdown' | 'finished';
 
 interface PlayerInfo {
   id: string;
@@ -29,6 +29,17 @@ interface SeriesGame {
   gameIndex: number;
   gameCode: string;
   results: { id: string; name: string; score: number; rank: number }[];
+}
+
+interface PackInfo {
+  id: string;
+  slug: string;
+  name: string;
+  tagline: string;
+  themeColor: string;
+  icon: string;
+  isDefault: boolean;
+  questionCount: number;
 }
 
 export default function DisplayPage() {
@@ -44,16 +55,39 @@ export default function DisplayPage() {
   const [loading, setLoading] = useState(false);
   const [paused, setPaused] = useState(false);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
-  const [funFact, setFunFact] = useState<string | null>(null);
   const [questionSource, setQuestionSource] = useState<QuestionSource | null>(null);
   const [seriesHistory, setSeriesHistory] = useState<SeriesGame[]>([]);
+  const [packs, setPacks] = useState<PackInfo[]>([]);
+  const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
 
   useEffect(() => { pausedRef.current = paused; }, [paused]);
 
+  // Fetch available packs on mount
+  useEffect(() => {
+    fetch('/api/packs')
+      .then((r) => r.ok ? r.json() : [])
+      .then((data: PackInfo[]) => {
+        setPacks(data);
+        const defaults = data.filter((p: PackInfo) => p.isDefault).map((p: PackInfo) => p.id);
+        setSelectedPackIds(defaults);
+      })
+      .catch(() => {});
+  }, []);
+
   const clearTimers = () => {
     if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; }
+  };
+
+  const togglePack = (packId: string) => {
+    setSelectedPackIds((prev) => {
+      if (prev.includes(packId)) {
+        if (prev.length <= 1) return prev;
+        return prev.filter((id) => id !== packId);
+      }
+      return [...prev, packId];
+    });
   };
 
   const handleCreateGame = async () => {
@@ -62,7 +96,11 @@ export default function DisplayPage() {
       const res = await fetch('/api/game/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ numQuestions, timerDuration }),
+        body: JSON.stringify({
+          numQuestions,
+          timerDuration,
+          packIds: selectedPackIds,
+        }),
       });
       const data = await res.json();
       if (data.gameCode) {
@@ -128,7 +166,6 @@ export default function DisplayPage() {
     } catch (err) { console.error('Replay failed:', err); }
   };
 
-  // Pause-aware delayed transition
   const scheduleTransition = useCallback((callback: () => void, delayMs: number) => {
     clearTimers();
     const endTime = Date.now() + delayMs;
@@ -166,7 +203,6 @@ export default function DisplayPage() {
       setCorrectAnswer(data.correctAnswerIndex);
       setPlayerResults(data.playerResults);
       setPlayers(data.players);
-      setFunFact(data.funFact || null);
       setQuestionSource(data.source || null);
       setPhase('reveal');
     });
@@ -177,7 +213,6 @@ export default function DisplayPage() {
       clearTimers();
       setPlayers(data.players);
       setWinner(data.winner);
-      // Add this game to series history locally
       setSeriesHistory((prev) => [...prev, {
         gameIndex: prev.length,
         gameCode,
@@ -194,7 +229,6 @@ export default function DisplayPage() {
       setCorrectAnswer(null);
       setPlayerResults([]);
       setWinner(null);
-      setFunFact(null);
       setQuestionSource(null);
       setIsLastQuestion(false);
       setPaused(false);
@@ -215,16 +249,13 @@ export default function DisplayPage() {
     } else if (phase === 'leaderboard') {
       scheduleTransition(() => {
         if (isLastQuestion) { handleAdvance(); }
-        else if (funFact) { setPhase('funfact'); }
         else { setPhase('nextcountdown'); }
       }, 5000);
-    } else if (phase === 'funfact') {
-      scheduleTransition(() => setPhase('nextcountdown'), 7000);
     } else if (phase === 'nextcountdown') {
       scheduleTransition(() => handleAdvance(), 5000);
     }
     return () => clearTimers();
-  }, [phase, isLastQuestion, funFact, scheduleTransition, handleAdvance]);
+  }, [phase, isLastQuestion, scheduleTransition, handleAdvance]);
 
   const handleTimerExpire = useCallback(() => {
     setTimeout(() => handleRevealAnswer(), 500);
@@ -256,11 +287,43 @@ export default function DisplayPage() {
       {/* CREATE */}
       {phase === 'create' && (
         <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center space-y-8">
+          <div className="text-center space-y-8 max-w-4xl mx-auto px-8">
             <h1 className="text-7xl font-black tracking-tight">
-              <span className="text-yellow-400">Seinfeld</span> Trivia
+              <span className="text-yellow-400">Sitcom</span> Trivia
             </h1>
             <p className="text-2xl text-white/60">The game about nothing... and everything.</p>
+
+            {/* Pack Selection */}
+            {packs.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold text-white/60 mb-4">Select Packs</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {packs.filter((p) => p.questionCount > 0).map((pack) => {
+                    const isSelected = selectedPackIds.includes(pack.id);
+                    return (
+                      <button
+                        key={pack.id}
+                        onClick={() => togglePack(pack.id)}
+                        className={`text-left p-4 rounded-xl border-2 transition-all ${
+                          isSelected
+                            ? 'border-white/40 bg-white/10'
+                            : 'border-white/10 bg-white/5 opacity-60 hover:opacity-80'
+                        }`}
+                        style={isSelected ? { borderColor: pack.themeColor + '80' } : undefined}
+                      >
+                        <div className="flex items-center gap-3 mb-1">
+                          <span className="text-2xl">{pack.icon}</span>
+                          <span className="font-bold text-lg">{pack.name}</span>
+                        </div>
+                        <p className="text-sm text-white/50">{pack.tagline}</p>
+                        <p className="text-xs text-white/30 mt-1">{pack.questionCount} questions</p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             <div className="flex flex-col items-center gap-4 mt-8">
               <div className="flex gap-8">
                 <div className="text-left">
@@ -276,7 +339,7 @@ export default function DisplayPage() {
                   </select>
                 </div>
               </div>
-              <button onClick={handleCreateGame} disabled={loading} className="mt-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-2xl px-12 py-4 rounded-2xl transition-all active:scale-95 disabled:opacity-50">
+              <button onClick={handleCreateGame} disabled={loading || selectedPackIds.length === 0} className="mt-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-2xl px-12 py-4 rounded-2xl transition-all active:scale-95 disabled:opacity-50">
                 {loading ? 'Creating...' : 'Create Game'}
               </button>
             </div>
@@ -293,7 +356,6 @@ export default function DisplayPage() {
               <span className="font-mono text-6xl tracking-widest">{gameCode}</span>
             </h1>
 
-            {/* Only show QR if this is first game in series (no history) */}
             {seriesHistory.length === 0 && (
               <>
                 <p className="text-xl text-white/60">Scan the QR code or go to this URL to join</p>
@@ -301,7 +363,6 @@ export default function DisplayPage() {
               </>
             )}
 
-            {/* Series history table */}
             {seriesHistory.length > 0 && (
               <div className="mt-4">
                 <h3 className="text-xl font-bold text-white/60 mb-3">Series Standings</h3>
@@ -355,10 +416,10 @@ export default function DisplayPage() {
             />
           </div>
           <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col overflow-hidden">
-            <div className="flex justify-center mb-6 shrink-0">
+            <div className="flex justify-center mb-6 flex-shrink-0">
               <Countdown startedAt={currentQuestion.startedAt} duration={currentQuestion.timerDuration} onExpire={handleTimerExpire} size="lg" />
             </div>
-            <h3 className="text-sm font-bold text-white/60 mb-3 uppercase tracking-wider shrink-0">Leaderboard</h3>
+            <h3 className="text-sm font-bold text-white/60 mb-3 uppercase tracking-wider flex-shrink-0">Leaderboard</h3>
             <div className="flex-1 overflow-y-auto min-h-0">
               <Leaderboard players={players} compact maxVisible={10} />
             </div>
@@ -406,11 +467,11 @@ export default function DisplayPage() {
               {playerResults.map((pr, i) => (
                 <div key={pr.id} className={`flex items-center justify-between px-5 py-3 rounded-xl animate-fadeIn ${pr.correct ? 'bg-green-500/15 border border-green-500/30' : 'bg-red-500/10 border border-red-500/20'}`} style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'both' }}>
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-2xl shrink-0">{pr.correct ? '✅' : '❌'}</span>
+                    <span className="text-2xl flex-shrink-0">{pr.correct ? '✅' : '❌'}</span>
                     <span className="text-xl font-semibold truncate">{pr.name}</span>
-                    {pr.correct && <span className="text-sm text-white/40 shrink-0">{pr.timeToAnswer.toFixed(1)}s</span>}
+                    {pr.correct && <span className="text-sm text-white/40 flex-shrink-0">{pr.timeToAnswer.toFixed(1)}s</span>}
                   </div>
-                  <span className={`text-xl font-mono font-bold shrink-0 ml-3 ${pr.correct ? 'text-green-400' : 'text-red-400'}`}>
+                  <span className={`text-xl font-mono font-bold flex-shrink-0 ml-3 ${pr.correct ? 'text-green-400' : 'text-red-400'}`}>
                     {pr.correct ? `+${pr.pointsEarned.toLocaleString()}` : '+0'}
                   </span>
                 </div>
@@ -426,17 +487,6 @@ export default function DisplayPage() {
           <div className="w-full max-w-2xl px-8 space-y-8">
             <h2 className="text-4xl font-black text-center text-yellow-400">Standings</h2>
             <Leaderboard players={players} />
-          </div>
-        </div>
-      )}
-
-      {/* FUN FACT (7s) */}
-      {phase === 'funfact' && funFact && (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="w-full max-w-3xl px-8 text-center space-y-8">
-            <div className="text-6xl">🎬</div>
-            <h2 className="text-3xl font-black text-yellow-400 uppercase tracking-wider">Did You Know?</h2>
-            <p className="text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">{funFact}</p>
           </div>
         </div>
       )}
@@ -468,7 +518,6 @@ export default function DisplayPage() {
               <Leaderboard players={players} />
             </div>
 
-            {/* Series history */}
             {seriesHistory.length > 0 && (
               <div className="mt-6">
                 <h3 className="text-xl font-bold text-white/60 mb-3">Series History</h3>
@@ -491,7 +540,6 @@ export default function DisplayPage() {
                   setWinner(null);
                   setPaused(false);
                   setIsLastQuestion(false);
-                  setFunFact(null);
                   setQuestionSource(null);
                   setSeriesHistory([]);
                 }}
@@ -507,7 +555,6 @@ export default function DisplayPage() {
   );
 }
 
-// 5-second visual countdown
 function PhaseClock({ duration }: { duration: number }) {
   const [count, setCount] = useState(duration);
   useEffect(() => {
@@ -520,21 +567,17 @@ function PhaseClock({ duration }: { duration: number }) {
   return <div className="text-9xl font-black text-yellow-400 tabular-nums animate-pulse">{count}</div>;
 }
 
-// Series standings table
 function SeriesTable({ history, players }: { history: SeriesGame[]; players: PlayerInfo[] }) {
-  // Get all unique player names from series
   const allPlayerIds = new Set<string>();
   history.forEach((g) => g.results.forEach((r) => allPlayerIds.add(r.id)));
   players.forEach((p) => allPlayerIds.add(p.id));
 
-  // Build player map
   const playerMap = new Map<string, string>();
   history.forEach((g) => g.results.forEach((r) => playerMap.set(r.id, r.name)));
   players.forEach((p) => playerMap.set(p.id, p.name));
 
   const playerIds = Array.from(allPlayerIds);
 
-  // Calculate total wins
   const winsMap = new Map<string, number>();
   history.forEach((g) => {
     if (g.results.length > 0 && g.results[0]) {
@@ -542,7 +585,6 @@ function SeriesTable({ history, players }: { history: SeriesGame[]; players: Pla
     }
   });
 
-  // Sort by wins desc
   playerIds.sort((a, b) => (winsMap.get(b) || 0) - (winsMap.get(a) || 0));
 
   return (

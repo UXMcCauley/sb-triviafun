@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import { GameModel } from '@/lib/models/game';
+import { QuestionModel } from '@/lib/models/question';
 import { getPusherServer } from '@/lib/pusher';
+import { getShuffledQuestion } from '@/lib/game-helpers';
 import type { PlayerResult } from '@/lib/models/types';
 
 export async function POST(request: Request) {
@@ -19,6 +21,7 @@ export async function POST(request: Request) {
     }
 
     const pusher = getPusherServer();
+    const timerSeconds = game.settings.timerSeconds;
 
     // action: 'reveal' — reveal the current answer and show who got it right
     // action: 'advance' (or undefined for backward compat) — send the next question
@@ -44,30 +47,45 @@ export async function POST(request: Request) {
         return NextResponse.json({ finished: true, winner });
       }
 
-      // Advance to next question
+      // Advance to next question — need to populate the question
+      const questionId = game.questions[nextIndex];
+      const question = await QuestionModel.findById(questionId);
+      if (!question) {
+        return NextResponse.json({ error: 'Question not found' }, { status: 500 });
+      }
+
       const now = Date.now();
       game.currentQuestionIndex = nextIndex;
       game.questionStartedAt = now;
       await game.save();
 
-      const nextQuestion = game.questions[nextIndex];
+      const optionOrder = game.shuffledOptionOrders[nextIndex];
+      const shuffled = getShuffledQuestion(question, optionOrder);
+
       await pusher.trigger(`game-${game.gameCode}`, 'new-question', {
         questionIndex: nextIndex,
-        questionText: nextQuestion.questionText,
-        options: nextQuestion.options,
-        category: nextQuestion.category,
-        difficulty: nextQuestion.difficulty,
+        questionText: shuffled.questionText,
+        options: shuffled.options,
+        category: shuffled.category,
+        difficulty: shuffled.difficulty,
         totalQuestions: game.questions.length,
         startedAt: now,
-        timerDuration: game.timerDuration,
+        timerDuration: timerSeconds,
       });
 
       return NextResponse.json({ finished: false, nextIndex });
     }
 
     // Default: reveal answer
-    const currentQuestion = game.questions[game.currentQuestionIndex];
     const qIdx = game.currentQuestionIndex;
+    const correctAnswerIndex = game.shuffledCorrectAnswers[qIdx];
+
+    // Populate the question for source info
+    const questionId = game.questions[qIdx];
+    const currentQuestion = await QuestionModel.findById(questionId);
+
+    // Get source from the shuffled question
+    const source = currentQuestion?.source || null;
 
     // Build per-player results sorted by speed (fastest correct first, then incorrect)
     const playerResults: PlayerResult[] = game.players.map((p) => {
@@ -79,14 +97,14 @@ export async function POST(request: Request) {
           id: p.id,
           name: p.name,
           correct: false,
-          timeToAnswer: game.timerDuration,
+          timeToAnswer: timerSeconds,
           pointsEarned: 0,
           totalScore: p.score,
         };
       }
-      const timeRemaining = Math.max(0, game.timerDuration - answer.timeToAnswer);
+      const timeRemaining = Math.max(0, timerSeconds - answer.timeToAnswer);
       const pointsEarned = answer.correct
-        ? 1000 + Math.round((timeRemaining / game.timerDuration) * 500)
+        ? 1000 + Math.round((timeRemaining / timerSeconds) * 500)
         : 0;
       return {
         id: p.id,
@@ -112,11 +130,10 @@ export async function POST(request: Request) {
 
     await pusher.trigger(`game-${game.gameCode}`, 'answer-reveal', {
       questionIndex: qIdx,
-      correctAnswerIndex: currentQuestion.correctAnswerIndex,
+      correctAnswerIndex,
       playerResults,
       players: sortedPlayers,
-      funFact: currentQuestion.funFact || null,
-      source: currentQuestion.source || null,
+      source,
     });
 
     const isLastQuestion = game.currentQuestionIndex + 1 >= game.questions.length;

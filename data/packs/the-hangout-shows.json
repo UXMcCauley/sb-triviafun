@@ -1,0 +1,10 @@
+{
+  "slug": "the-hangout-shows",
+  "name": "The Hangout Shows",
+  "tagline": "Where everybody knows your name... or at least your coffee order.",
+  "description": "Ensemble casts anchored to a central gathering spot — the bar, the couch, the booth. Friendship-as-family dynamics. The location is almost a character itself.",
+  "themeColor": "#3B82F6",
+  "icon": "☕",
+  "isDefault": false,
+  "questions": []
+}

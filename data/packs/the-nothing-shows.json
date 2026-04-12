@@ -1,0 +1,1379 @@
+{
+  "slug": "the-nothing-shows",
+  "name": "The Nothing Shows",
+  "tagline": "Shows about nothing where everything matters.",
+  "description": "Shows built around mundane observation, anti-sentimentality, and the comedy of social friction. Characters don't grow — they orbit. The humor comes from overthinking the trivial and under-reacting to the significant.",
+  "themeColor": "#EAB308",
+  "icon": "🍿",
+  "isDefault": true,
+  "questions": [
+    {
+      "questionText": "What is the name of the fictional candy bar George finds on a hospital patient's body during 'The Frogger'?",
+      "options": [
+        "Twix",
+        "Oh Henry!",
+        "Clark Bar",
+        "5th Avenue"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Frogger",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Frogger",
+        "description": "Seinfeld Fandom Wiki - The Frogger"
+      }
+    },
+    {
+      "questionText": "What contest do the four main characters participate in during 'The Contest'?",
+      "options": [
+        "A contest to see who can go the longest without masturbating",
+        "A contest to see who can hold their breath longest",
+        "A contest to see who can stay awake the longest",
+        "A contest to avoid saying a specific word"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 4,
+      "episode": "The Contest",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Contest",
+        "description": "Seinfeld Fandom Wiki - The Contest"
+      }
+    },
+    {
+      "questionText": "What is the name of Elaine's boss at Pendant Publishing who gets deported?",
+      "options": [
+        "Mr. Lippman",
+        "Mr. Pitt",
+        "Mr. Peterman",
+        "Mr. Kruger"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "season": 5,
+      "episode": "The Opposite",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Justin_Lippman",
+        "description": "Seinfeld Fandom Wiki - Justin Lippman"
+      }
+    },
+    {
+      "questionText": "What is the name of the woman Jerry dates who has 'man hands'?",
+      "options": [
+        "Gillian",
+        "Sandra",
+        "Donna",
+        "Claire"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "season": 8,
+      "episode": "The Bizarro Jerry",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Bizarro_Jerry",
+        "description": "Seinfeld Fandom Wiki - The Bizarro Jerry"
+      }
+    },
+    {
+      "questionText": "What does George want his nickname at the office to be?",
+      "options": [
+        "T-Bone",
+        "Koko",
+        "Gammy",
+        "G-Man"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Maid",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Maid",
+        "description": "Seinfeld Fandom Wiki - The Maid"
+      }
+    },
+    {
+      "questionText": "What is the name of the soup vendor who refuses to serve customers who don't follow his ordering protocol?",
+      "options": [
+        "The Soup Nazi",
+        "The Soup Man",
+        "The Soup King",
+        "The Broth Master"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "season": 7,
+      "episode": "The Soup Nazi",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Soup_Nazi_(episode)",
+        "description": "Seinfeld Fandom Wiki - The Soup Nazi"
+      }
+    },
+    {
+      "questionText": "What game does Jerry play to determine whether he should break up with his girlfriend in 'The Label Maker'?",
+      "options": [
+        "Risk",
+        "Monopoly",
+        "Chess",
+        "Stratego"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Label Maker",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Label_Maker",
+        "description": "Seinfeld Fandom Wiki - The Label Maker"
+      }
+    },
+    {
+      "questionText": "What is Kramer's first name, which is not revealed until Season 6?",
+      "options": [
+        "Cosmo",
+        "Cornelius",
+        "Conrad",
+        "Curtis"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "season": 6,
+      "episode": "The Switch",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Cosmo_Kramer",
+        "description": "Seinfeld Fandom Wiki - Cosmo Kramer"
+      }
+    },
+    {
+      "questionText": "What does George's father Frank invent as an alternative to Christmas?",
+      "options": [
+        "Festivus",
+        "Christmukkah",
+        "Winterval",
+        "Frankmas"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "season": 9,
+      "episode": "The Strike",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Strike",
+        "description": "Seinfeld Fandom Wiki - The Strike"
+      }
+    },
+    {
+      "questionText": "What is the phrase Elaine's boyfriend David Puddy repeatedly says that drives her crazy?",
+      "options": [
+        "Yeah, that's right",
+        "You got a problem with that?",
+        "It's all good",
+        "Whatever you say"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Burning",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/David_Puddy",
+        "description": "Seinfeld Fandom Wiki - David Puddy"
+      }
+    },
+    {
+      "questionText": "What marine mammal does George claim to have saved by pulling a golf ball from its blowhole?",
+      "options": [
+        "A whale",
+        "A dolphin",
+        "A seal",
+        "A manatee"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 5,
+      "episode": "The Marine Biologist",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Marine_Biologist",
+        "description": "Seinfeld Fandom Wiki - The Marine Biologist"
+      }
+    },
+    {
+      "questionText": "What is the name of the Seinfeld episode that was deliberately shot as a backwards narrative?",
+      "options": [
+        "The Betrayal",
+        "The Opposite",
+        "The Abstinence",
+        "The Reverse Peephole"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Betrayal",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Betrayal",
+        "description": "Seinfeld Fandom Wiki - The Betrayal"
+      }
+    },
+    {
+      "questionText": "What real-life comedian is Kramer's character partly based on?",
+      "options": [
+        "Kenny Kramer",
+        "Andy Kaufman",
+        "Richard Lewis",
+        "Larry Miller"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Kenny_Kramer",
+        "description": "Wikipedia - Kenny Kramer"
+      }
+    },
+    {
+      "questionText": "What is the name of Jerry's neighbor who works as a postal carrier?",
+      "options": [
+        "Newman",
+        "Lomez",
+        "Bob Sacamano",
+        "Lyle"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "easy",
+      "season": 3,
+      "episode": "The Suicide",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Newman",
+        "description": "Seinfeld Fandom Wiki - Newman"
+      }
+    },
+    {
+      "questionText": "What architecture-related job does George pretend to have at Vandelay Industries?",
+      "options": [
+        "Importer/Exporter",
+        "Architect",
+        "Marine Biologist",
+        "City Planner"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "season": 4,
+      "episode": "The Boyfriend",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Vandelay_Industries",
+        "description": "Seinfeld Fandom Wiki - Vandelay Industries"
+      }
+    },
+    {
+      "questionText": "In 'The Chinese Restaurant,' what name does Elaine give the hostess to hold a table?",
+      "options": [
+        "Cartwright",
+        "Costanza",
+        "Benes",
+        "Seinfeld"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 2,
+      "episode": "The Chinese Restaurant",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Chinese_Restaurant",
+        "description": "Seinfeld Fandom Wiki - The Chinese Restaurant"
+      }
+    },
+    {
+      "questionText": "What does Elaine think the exclamation point her boyfriend fails to use after she tells him she had a baby means?",
+      "options": [
+        "He's not excited",
+        "He's angry",
+        "He's confused",
+        "He didn't get the message"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 5,
+      "episode": "The Sniffing Accountant",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Sniffing_Accountant",
+        "description": "Seinfeld Fandom Wiki - The Sniffing Accountant"
+      }
+    },
+    {
+      "questionText": "What is the name of the coffee table book about coffee tables that Kramer pitches?",
+      "options": [
+        "A coffee table book about coffee tables",
+        "Coffee Tables of the Rich and Famous",
+        "The Art of the Coffee Table",
+        "Tables: A History"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 7,
+      "episode": "The Wizard",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Cosmo_Kramer",
+        "description": "Seinfeld Fandom Wiki - Cosmo Kramer"
+      }
+    },
+    {
+      "questionText": "What does George do when he discovers his boss won't let him use the private bathroom?",
+      "options": [
+        "He gets a key made",
+        "He breaks down the door",
+        "He uses the women's restroom",
+        "He goes to a neighboring building"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 5,
+      "episode": "The Gym",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/George_Costanza",
+        "description": "Seinfeld Fandom Wiki - George Costanza"
+      }
+    },
+    {
+      "questionText": "In 'The Opposite,' what happens when George does the opposite of every instinct he has?",
+      "options": [
+        "Everything works out perfectly for him",
+        "He gets arrested",
+        "He loses all his money",
+        "He gets into a fight"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 5,
+      "episode": "The Opposite",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Opposite",
+        "description": "Seinfeld Fandom Wiki - The Opposite"
+      }
+    },
+    {
+      "questionText": "What is the name of the move that Jerry uses to get women to come back to his apartment?",
+      "options": [
+        "The Roommate Switch",
+        "The Move",
+        "The Invite",
+        "The Transition"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 6,
+      "episode": "The Switch",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Switch",
+        "description": "Seinfeld Fandom Wiki - The Switch"
+      }
+    },
+    {
+      "questionText": "What phrase does Jerry use to greet Newman with dripping contempt?",
+      "options": [
+        "Hello, Newman.",
+        "Hey there, Newman.",
+        "Well well, Newman.",
+        "Oh great, Newman."
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "easy",
+      "season": 3,
+      "episode": "The Suicide",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Newman",
+        "description": "Seinfeld Fandom Wiki - Newman"
+      }
+    },
+    {
+      "questionText": "What is the name of the woman Jerry cannot remember but knows her name rhymes with a female body part?",
+      "options": [
+        "Dolores",
+        "Regina",
+        "Aretha",
+        "Celeste"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Junior Mint",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Junior_Mint",
+        "description": "Seinfeld Fandom Wiki - The Junior Mint"
+      }
+    },
+    {
+      "questionText": "What does Kramer accidentally drop into a patient during surgery in 'The Junior Mint'?",
+      "options": [
+        "A Junior Mint",
+        "A Tic Tac",
+        "A penny",
+        "A button"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 4,
+      "episode": "The Junior Mint",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Junior_Mint",
+        "description": "Seinfeld Fandom Wiki - The Junior Mint"
+      }
+    },
+    {
+      "questionText": "What is the occupation of J. Peterman, Elaine's eccentric boss?",
+      "options": [
+        "Catalog company owner",
+        "Travel writer",
+        "Fashion designer",
+        "Magazine publisher"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Understudy",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/J._Peterman",
+        "description": "Seinfeld Fandom Wiki - J. Peterman"
+      }
+    },
+    {
+      "questionText": "What baseball team does George work for after using 'The Opposite' strategy?",
+      "options": [
+        "The New York Yankees",
+        "The New York Mets",
+        "The Boston Red Sox",
+        "The Chicago Cubs"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 5,
+      "episode": "The Opposite",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/George_Costanza",
+        "description": "Seinfeld Fandom Wiki - George Costanza"
+      }
+    },
+    {
+      "questionText": "What is the name of the bra Kramer helps design for men?",
+      "options": [
+        "The Bro (or Manssiere)",
+        "The Man-Bra",
+        "The Chest Harness",
+        "The Male Support"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Doorman",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Doorman",
+        "description": "Seinfeld Fandom Wiki - The Doorman"
+      }
+    },
+    {
+      "questionText": "In 'The Puffy Shirt,' what does Jerry have to wear on the Today Show?",
+      "options": [
+        "A puffy pirate shirt",
+        "A fur coat",
+        "A cape",
+        "Leather pants"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 5,
+      "episode": "The Puffy Shirt",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Puffy_Shirt",
+        "description": "Seinfeld Fandom Wiki - The Puffy Shirt"
+      }
+    },
+    {
+      "questionText": "What is the name of Elaine's dance move that horrifies everyone at a party?",
+      "options": [
+        "The Little Kicks",
+        "The Elaine",
+        "The Shuffle",
+        "The Spasm"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "season": 8,
+      "episode": "The Little Kicks",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Little_Kicks",
+        "description": "Seinfeld Fandom Wiki - The Little Kicks"
+      }
+    },
+    {
+      "questionText": "What kind of car does Kramer test drive and refuses to stop for gas in 'The Dealership'?",
+      "options": [
+        "A Saab",
+        "A BMW",
+        "A Volvo",
+        "A Mercedes"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 9,
+      "episode": "The Dealership",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Dealership",
+        "description": "Seinfeld Fandom Wiki - The Dealership"
+      }
+    },
+    {
+      "questionText": "What is 'shrinkage' referring to in 'The Hamptons'?",
+      "options": [
+        "A penis getting smaller from cold water",
+        "A sweater shrinking in the wash",
+        "George losing weight",
+        "Jerry's apartment getting smaller"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "easy",
+      "season": 5,
+      "episode": "The Hamptons",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Hamptons",
+        "description": "Seinfeld Fandom Wiki - The Hamptons"
+      }
+    },
+    {
+      "questionText": "What does George's answering machine message parody?",
+      "options": [
+        "The Greatest American Hero theme song",
+        "The Seinfeld theme",
+        "Sinatra's 'My Way'",
+        "The Brady Bunch theme"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "season": 4,
+      "episode": "The Susie",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/George_Costanza",
+        "description": "Seinfeld Fandom Wiki - George Costanza"
+      }
+    },
+    {
+      "questionText": "What sport does Puddy paint his face for to support?",
+      "options": [
+        "Hockey (New Jersey Devils)",
+        "Football (New York Giants)",
+        "Basketball (New York Knicks)",
+        "Baseball (New York Yankees)"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Face Painter",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Face_Painter",
+        "description": "Seinfeld Fandom Wiki - The Face Painter"
+      }
+    },
+    {
+      "questionText": "What does the acronym 'ASSMAN' on Kramer's license plate actually stand for (or rather, who was it intended for)?",
+      "options": [
+        "A proctologist",
+        "Kramer himself",
+        "A bodybuilder",
+        "A personal trainer"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Fusilli Jerry",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Fusilli_Jerry",
+        "description": "Seinfeld Fandom Wiki - The Fusilli Jerry"
+      }
+    },
+    {
+      "questionText": "What object made of pasta does Kramer create as a sculpture of Jerry?",
+      "options": [
+        "Fusilli Jerry",
+        "Macaroni Jerry",
+        "Penne Jerry",
+        "Rigatoni Jerry"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 6,
+      "episode": "The Fusilli Jerry",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Fusilli_Jerry",
+        "description": "Seinfeld Fandom Wiki - The Fusilli Jerry"
+      }
+    },
+    {
+      "questionText": "What is the name of the episode where the group waits the entire time for a table at a Chinese restaurant?",
+      "options": [
+        "The Chinese Restaurant",
+        "The Wait",
+        "The Reservation",
+        "The Dinner"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "season": 2,
+      "episode": "The Chinese Restaurant",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Chinese_Restaurant",
+        "description": "Seinfeld Fandom Wiki - The Chinese Restaurant"
+      }
+    },
+    {
+      "questionText": "What is the urban legend Elaine debates about - whether removing which item from a body kills the person?",
+      "options": [
+        "A pencil from the brain",
+        "A knife from the chest",
+        "An arrow from the back",
+        "A nail from the skull"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 9,
+      "episode": "The Slicer",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Slicer",
+        "description": "Seinfeld Fandom Wiki - The Slicer"
+      }
+    },
+    {
+      "questionText": "What catchphrase does Frank Costanza scream when he gets upset?",
+      "options": [
+        "Serenity now!",
+        "Hoochie mama!",
+        "Lord almighty!",
+        "Heaven help us!"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "easy",
+      "season": 9,
+      "episode": "The Serenity Now",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Serenity_Now",
+        "description": "Seinfeld Fandom Wiki - The Serenity Now"
+      }
+    },
+    {
+      "questionText": "What does Newman plan to do with a mail truck full of recycled cans?",
+      "options": [
+        "Drive them to Michigan for the 10-cent deposit",
+        "Sell them to a scrap yard",
+        "Dump them in Jerry's apartment",
+        "Ship them overseas"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 7,
+      "episode": "The Bottle Deposit",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Bottle_Deposit",
+        "description": "Seinfeld Fandom Wiki - The Bottle Deposit"
+      }
+    },
+    {
+      "questionText": "Who wrote the Seinfeld pilot script with Jerry Seinfeld?",
+      "options": [
+        "Larry David",
+        "Larry Charles",
+        "Peter Mehlman",
+        "Andy Robin"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Seinfeld",
+        "description": "Wikipedia - Seinfeld"
+      }
+    },
+    {
+      "questionText": "What is Jerry's apartment number?",
+      "options": [
+        "5A",
+        "4A",
+        "3B",
+        "6C"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Jerry%27s_Apartment",
+        "description": "Seinfeld Fandom Wiki - Jerry's Apartment"
+      }
+    },
+    {
+      "questionText": "What real diner in Manhattan is Monk's Cafe modeled after?",
+      "options": [
+        "Tom's Restaurant",
+        "Jerry's Deli",
+        "The Coffee Shop",
+        "Viand Coffee Shop"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Tom%27s_Restaurant",
+        "description": "Wikipedia - Tom's Restaurant"
+      }
+    },
+    {
+      "questionText": "What is the occupation of the 'close talker' who bothers Jerry's parents?",
+      "options": [
+        "He works in a clothing store",
+        "He's a dentist",
+        "He's an accountant",
+        "He's a teacher"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "season": 5,
+      "episode": "The Raincoats",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Raincoats",
+        "description": "Seinfeld Fandom Wiki - The Raincoats"
+      }
+    },
+    {
+      "questionText": "What event causes the finale to take place in a courtroom?",
+      "options": [
+        "They violate a Good Samaritan law",
+        "George commits fraud",
+        "Kramer causes an accident",
+        "Jerry evades taxes"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Finale",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Finale",
+        "description": "Seinfeld Fandom Wiki - The Finale"
+      }
+    },
+    {
+      "questionText": "What does Elaine buy a $29,000 hat from J. Peterman's collection?",
+      "options": [
+        "JFK's golf clubs",
+        "A sable hat",
+        "Napoleon's hat",
+        "A vintage handbag"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 8,
+      "episode": "The Millennium",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/J._Peterman",
+        "description": "Seinfeld Fandom Wiki - J. Peterman"
+      }
+    },
+    {
+      "questionText": "What is 'double dipping' a chip, according to George's confrontation at a funeral?",
+      "options": [
+        "Dipping a chip, biting it, then dipping again",
+        "Using two different dips",
+        "Taking two chips at once",
+        "Putting the whole chip in the dip"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "easy",
+      "season": 4,
+      "episode": "The Implant",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Implant",
+        "description": "Seinfeld Fandom Wiki - The Implant"
+      }
+    },
+    {
+      "questionText": "What is the name of the fictional sitcom Jerry and George pitch to NBC?",
+      "options": [
+        "Jerry",
+        "Nothing",
+        "The Jerry Show",
+        "Seinfeld"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 4,
+      "episode": "The Pitch",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Pitch",
+        "description": "Seinfeld Fandom Wiki - The Pitch"
+      }
+    },
+    {
+      "questionText": "What does Kramer do for income in 'The Strike' when he returns to work?",
+      "options": [
+        "Works at H&H Bagels",
+        "Drives a cab",
+        "Works at a bookstore",
+        "Sells pretzels"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 9,
+      "episode": "The Strike",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Strike",
+        "description": "Seinfeld Fandom Wiki - The Strike"
+      }
+    },
+    {
+      "questionText": "What does Jerry's girlfriend do that he finds unacceptable, calling her a 'low talker'?",
+      "options": [
+        "She speaks so quietly no one can hear her",
+        "She mumbles constantly",
+        "She whispers everything",
+        "She only mouths words"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "season": 5,
+      "episode": "The Puffy Shirt",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Puffy_Shirt",
+        "description": "Seinfeld Fandom Wiki - The Puffy Shirt"
+      }
+    },
+    {
+      "questionText": "What item does George leave at a woman's apartment as a 'leave behind' so he has an excuse to return?",
+      "options": [
+        "His hat",
+        "His wallet",
+        "His keys",
+        "His jacket"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 5,
+      "episode": "The Lip Reader",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/George_Costanza",
+        "description": "Seinfeld Fandom Wiki - George Costanza"
+      }
+    },
+    {
+      "questionText": "What role does Elaine play in the J. Peterman catalog company when Peterman disappears?",
+      "options": [
+        "She runs the company in his absence",
+        "She becomes head of sales",
+        "She quits",
+        "She gets fired"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 8,
+      "episode": "The Foundation",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Foundation",
+        "description": "Seinfeld Fandom Wiki - The Foundation"
+      }
+    },
+    {
+      "questionText": "What happens to George's fiancee Susan Ross?",
+      "options": [
+        "She dies from licking toxic wedding invitation envelopes",
+        "She leaves him at the altar",
+        "She moves to another country",
+        "She falls ill from food poisoning"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 7,
+      "episode": "The Invitations",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Invitations",
+        "description": "Seinfeld Fandom Wiki - The Invitations"
+      }
+    },
+    {
+      "questionText": "What color marble rye does Jerry steal back from an elderly couple?",
+      "options": [
+        "It's not specified by color - it's a marble rye bread",
+        "Brown",
+        "Black",
+        "Tan"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 7,
+      "episode": "The Rye",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Rye",
+        "description": "Seinfeld Fandom Wiki - The Rye"
+      }
+    },
+    {
+      "questionText": "Who is the actor that plays Frank Costanza?",
+      "options": [
+        "Jerry Stiller",
+        "Jason Alexander",
+        "John O'Hurley",
+        "Wayne Knight"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "season": 4,
+      "episode": "The Handicap Spot",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Jerry_Stiller",
+        "description": "Wikipedia - Jerry Stiller"
+      }
+    },
+    {
+      "questionText": "What object from the apartment does Kramer permanently 'borrow' from Jerry throughout the series?",
+      "options": [
+        "Food from his refrigerator",
+        "His television",
+        "His couch",
+        "His phone"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Cosmo_Kramer",
+        "description": "Seinfeld Fandom Wiki - Cosmo Kramer"
+      }
+    },
+    {
+      "questionText": "What method does Kramer use to enter Jerry's apartment throughout the series?",
+      "options": [
+        "He slides in dramatically without knocking",
+        "He kicks the door open",
+        "He uses a spare key",
+        "He knocks a special pattern"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Cosmo_Kramer",
+        "description": "Seinfeld Fandom Wiki - Cosmo Kramer"
+      }
+    },
+    {
+      "questionText": "What does Elaine's boyfriend Brett play constantly that she hates?",
+      "options": [
+        "The Eagles' 'Desperado'",
+        "Led Zeppelin's 'Stairway to Heaven'",
+        "Pink Floyd's 'Comfortably Numb'",
+        "The Beatles' 'Let It Be'"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 8,
+      "episode": "The Checks",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Checks",
+        "description": "Seinfeld Fandom Wiki - The Checks"
+      }
+    },
+    {
+      "questionText": "What fictional friend of Kramer's is often referenced but never seen on screen?",
+      "options": [
+        "Bob Sacamano",
+        "Lomez",
+        "Jay Riemenschneider",
+        "Len Nicodemo"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "medium",
+      "season": 3,
+      "episode": "The Heart Attack",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Bob_Sacamano",
+        "description": "Seinfeld Fandom Wiki - Bob Sacamano"
+      }
+    },
+    {
+      "questionText": "In the finale, what charge are Jerry, George, Elaine, and Kramer convicted of?",
+      "options": [
+        "Criminal indifference (violating the Good Samaritan law)",
+        "Public nuisance",
+        "Conspiracy",
+        "Theft"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Finale",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Finale",
+        "description": "Seinfeld Fandom Wiki - The Finale"
+      }
+    },
+    {
+      "questionText": "What brand of sneakers does Jerry obsessively keep pristine white?",
+      "options": [
+        "Nike",
+        "Reebok",
+        "Adidas",
+        "New Balance"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "season": 3,
+      "episode": "The Limo",
+      "source": {
+        "url": "https://www.reddit.com/r/seinfeld/",
+        "description": "Reddit r/seinfeld - Jerry's sneakers discussion"
+      }
+    },
+    {
+      "questionText": "What does Elaine eat from Peterman's antique collection that turns out to be a $29,000 piece of cake?",
+      "options": [
+        "A piece of cake from King Edward VIII's wedding",
+        "A slice of Queen Victoria's birthday cake",
+        "Marie Antoinette's last dessert",
+        "A piece of JFK's inaugural cake"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 9,
+      "episode": "The Frogger",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Frogger",
+        "description": "Seinfeld Fandom Wiki - The Frogger"
+      }
+    },
+    {
+      "questionText": "What is the original title of the Seinfeld pilot?",
+      "options": [
+        "The Seinfeld Chronicles",
+        "Nothing",
+        "The Jerry Seinfeld Show",
+        "Stand Up"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "medium",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/The_Seinfeld_Chronicles",
+        "description": "Wikipedia - The Seinfeld Chronicles"
+      }
+    },
+    {
+      "questionText": "What street does Jerry's apartment building supposedly face in Manhattan?",
+      "options": [
+        "West 81st Street",
+        "West 72nd Street",
+        "East 86th Street",
+        "West 96th Street"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "season": 1,
+      "episode": "The Seinfeld Chronicles",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Jerry%27s_Apartment",
+        "description": "Seinfeld Fandom Wiki - Jerry's Apartment"
+      }
+    },
+    {
+      "questionText": "What is the profession George tells a woman he has in 'The Marine Biologist'?",
+      "options": [
+        "Marine biologist",
+        "Architect",
+        "Importer/exporter",
+        "Latex salesman"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 5,
+      "episode": "The Marine Biologist",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Marine_Biologist",
+        "description": "Seinfeld Fandom Wiki - The Marine Biologist"
+      }
+    },
+    {
+      "questionText": "What does Newman confess his dream job would be in 'The Andrea Doria'?",
+      "options": [
+        "Working a route in Hawaii",
+        "Owning a bakery",
+        "Being a pilot",
+        "Running a restaurant"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "hard",
+      "season": 8,
+      "episode": "The Andrea Doria",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Andrea_Doria",
+        "description": "Seinfeld Fandom Wiki - The Andrea Doria"
+      }
+    },
+    {
+      "questionText": "What is the Festivus tradition where you tell people all the ways they've disappointed you?",
+      "options": [
+        "The Airing of Grievances",
+        "The Disappointment Ceremony",
+        "The Annual Complaints",
+        "The Grievance Parade"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Strike",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Festivus",
+        "description": "Seinfeld Fandom Wiki - Festivus"
+      }
+    },
+    {
+      "questionText": "What physical challenge must you perform against the head of household during Festivus?",
+      "options": [
+        "The Feats of Strength",
+        "The Wrestling Match",
+        "The Endurance Test",
+        "The Power Challenge"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Quotes",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Strike",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Festivus",
+        "description": "Seinfeld Fandom Wiki - Festivus"
+      }
+    },
+    {
+      "questionText": "What replaces the Christmas tree as the Festivus decoration?",
+      "options": [
+        "An unadorned aluminum pole",
+        "A bare wooden stick",
+        "A metal coat rack",
+        "A steel beam"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "easy",
+      "season": 9,
+      "episode": "The Strike",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/Festivus",
+        "description": "Seinfeld Fandom Wiki - Festivus"
+      }
+    },
+    {
+      "questionText": "What show does Larry David also create after Seinfeld ends?",
+      "options": [
+        "Curb Your Enthusiasm",
+        "Arrested Development",
+        "It's Always Sunny in Philadelphia",
+        "The Office"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "season": 9,
+      "episode": "The Finale",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Larry_David",
+        "description": "Wikipedia - Larry David"
+      }
+    },
+    {
+      "questionText": "What is the name of George's boss at the Yankees?",
+      "options": [
+        "George Steinbrenner",
+        "Mr. Wilhelm",
+        "Mr. Morgan",
+        "Buck Showalter"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Characters",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Secretary",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/George_Steinbrenner",
+        "description": "Seinfeld Fandom Wiki - George Steinbrenner"
+      }
+    },
+    {
+      "questionText": "What does Kramer install in his apartment that makes it feel like living in a Merv Griffin set?",
+      "options": [
+        "The actual set from The Merv Griffin Show",
+        "A talkshow couch and desk",
+        "Studio lighting",
+        "A stage curtain"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 9,
+      "episode": "The Merv Griffin Show",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Merv_Griffin_Show_(episode)",
+        "description": "Seinfeld Fandom Wiki - The Merv Griffin Show"
+      }
+    },
+    {
+      "questionText": "How many seasons did Seinfeld run on NBC?",
+      "options": [
+        "9 seasons",
+        "8 seasons",
+        "10 seasons",
+        "7 seasons"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Behind the Scenes",
+      "difficulty": "easy",
+      "season": 9,
+      "episode": "The Finale",
+      "source": {
+        "url": "https://en.wikipedia.org/wiki/Seinfeld",
+        "description": "Wikipedia - Seinfeld"
+      }
+    },
+    {
+      "questionText": "What is the name of the episode where Kramer starts a business making his own pasta shapes?",
+      "options": [
+        "The Fusilli Jerry",
+        "The Pasta Factory",
+        "The Noodle Incident",
+        "Kramer's Kitchen"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "medium",
+      "season": 6,
+      "episode": "The Fusilli Jerry",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Fusilli_Jerry",
+        "description": "Seinfeld Fandom Wiki - The Fusilli Jerry"
+      }
+    },
+    {
+      "questionText": "What does Jerry discover about his girlfriend that makes him call her a 'sentence finisher'?",
+      "options": [
+        "She finishes all of his sentences before he can",
+        "She speaks only in complete sentences",
+        "She never finishes her sentences",
+        "She corrects his grammar"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Recurring Bits",
+      "difficulty": "hard",
+      "season": 8,
+      "episode": "The Opposite",
+      "source": {
+        "url": "https://www.reddit.com/r/seinfeld/",
+        "description": "Reddit r/seinfeld - Character quirks discussion"
+      }
+    },
+    {
+      "questionText": "In 'The Parking Garage,' where are the four characters stuck for the entire episode?",
+      "options": [
+        "A shopping mall parking garage",
+        "An airport parking structure",
+        "A hospital garage",
+        "A downtown parking deck"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "easy",
+      "season": 3,
+      "episode": "The Parking Garage",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Parking_Garage",
+        "description": "Seinfeld Fandom Wiki - The Parking Garage"
+      }
+    },
+    {
+      "questionText": "What does George pretend to be when he sneaks into a party at a hospital?",
+      "options": [
+        "A marine biologist",
+        "A surgeon",
+        "A neurologist",
+        "An anesthesiologist"
+      ],
+      "correctAnswerIndex": 0,
+      "category": "Plotlines",
+      "difficulty": "hard",
+      "season": 5,
+      "episode": "The Marine Biologist",
+      "source": {
+        "url": "https://seinfeld.fandom.com/wiki/The_Marine_Biologist",
+        "description": "Seinfeld Fandom Wiki - The Marine Biologist"
+      }
+    }
+  ]
+}

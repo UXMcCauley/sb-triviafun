@@ -1,0 +1,10 @@
+{
+  "slug": "the-family-shows",
+  "name": "The Family Shows",
+  "tagline": "The kitchen table is the war room.",
+  "description": "Domestic sitcoms with a household at the center. Generational conflict, sibling rivalry, parental chaos.",
+  "themeColor": "#F97316",
+  "icon": "🏠",
+  "isDefault": false,
+  "questions": []
+}

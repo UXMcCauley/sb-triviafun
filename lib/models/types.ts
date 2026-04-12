@@ -90,7 +90,6 @@ export interface PlayerResult {
 }
 
 export interface AnswerRevealEvent {
-  funFact: null;
   questionIndex: number;
   correctAnswerIndex: number;
   playerResults: PlayerResult[];
