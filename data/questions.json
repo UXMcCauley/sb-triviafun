@@ -1,0 +1,394 @@
+[
+  {
+    "questionText": "What is Kramer's first name?",
+    "options": ["Cosmo", "Kevin", "Bob", "Larry"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What is George Costanza's fake architect alias?",
+    "options": ["Art Vandelay", "Kel Varnsen", "H.E. Pennypacker", "Buck Naked"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What candy bar does Kramer drop into a patient during surgery?",
+    "options": ["Junior Mint", "Tic Tac", "M&M", "Skittle"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What is the name of Jerry's neighbor across the hall?",
+    "options": ["Kramer", "Newman", "George", "Mickey"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What restaurant do Jerry, George, Elaine, and Kramer frequently visit?",
+    "options": ["Monk's Cafe", "Tom's Restaurant", "Pop's Diner", "The Soup Nazi's"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What is the name of the soup vendor who refuses to serve customers?",
+    "options": ["The Soup Nazi", "Soup Man", "Al's Soup Kitchen", "Soup Master"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What was George's fiancée's name?",
+    "options": ["Susan Ross", "Nina West", "Marisa Tomei", "Jane Smith"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What does Jerry do for a living?",
+    "options": ["Stand-up comedian", "Accountant", "Lawyer", "Writer"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What phrase does the Soup Nazi use to deny customers?",
+    "options": ["No soup for you!", "Get out!", "Next!", "You're done!"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What is Newman's occupation?",
+    "options": ["Postal worker", "Accountant", "Lawyer", "Teacher"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What dance does Elaine perform badly at a company party?",
+    "options": ["The little kicks", "The macarena", "The robot", "The twist"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the contest about in 'The Contest'?",
+    "options": ["Who can go longest without self-gratification", "Who can eat the most", "Who can stay awake longest", "Who can hold their breath longest"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the name of George's employer at the New York Yankees?",
+    "options": ["George Steinbrenner", "Mr. Wilhelm", "Mr. Kruger", "Mr. Lippman"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Kramer install in his apartment that Jerry mocks?",
+    "options": ["A screen door", "A hot tub", "A chandelier", "A fireplace"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "In 'The Marine Biologist,' what does George pull out of the whale?",
+    "options": ["A golf ball", "A tennis ball", "A frisbee", "A shoe"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "Who hit the golf ball into the whale's blowhole?",
+    "options": ["Kramer", "Jerry", "George", "Newman"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the name of Jerry's car that gets terrible body odor?",
+    "options": ["The smelly car", "Jerry's BMW", "The death car", "Kramer's taxi"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is Festivus?",
+    "options": ["A holiday created by Frank Costanza", "A Jewish holiday", "An Italian festival", "A made-up Kramer holiday"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What replaces a Christmas tree during Festivus?",
+    "options": ["An aluminum pole", "A wooden stick", "A cactus", "Nothing"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What Festivus tradition involves physical challenges?",
+    "options": ["Feats of Strength", "The Gauntlet", "Wrestling Match", "The Challenge"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is Elaine's last name?",
+    "options": ["Benes", "Bennett", "Barnes", "Banks"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What does George pretend to be to impress a woman?",
+    "options": ["A marine biologist", "A doctor", "An astronaut", "A pilot"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What does Kramer's Coffee Table Book about coffee tables feature?",
+    "options": ["It folds out into a coffee table", "Pop-up pictures", "Scratch and sniff pages", "A built-in coaster"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What TV show do Jerry and George pitch to NBC?",
+    "options": ["A show about nothing", "The Butler", "Jerry!", "New York Stories"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "Who is Jerry's nemesis who works at the post office?",
+    "options": ["Newman", "Kramer", "George", "Frank"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What is the name of the episode where the group waits for a table at a Chinese restaurant?",
+    "options": ["The Chinese Restaurant", "The Wait", "The Table", "The Reservation"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is Puddy's first name?",
+    "options": ["David", "Steve", "Patrick", "Mike"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of J. Peterman's catalog company?",
+    "options": ["J. Peterman", "Peterman Catalog", "Urban Sombrero", "Peterman & Co."],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Elaine's boss Mr. Pitt eat a Snickers bar with?",
+    "options": ["A knife and fork", "Chopsticks", "A spoon", "A napkin"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is George's ATM code that he reveals?",
+    "options": ["Bosco", "Ovaltine", "Jujyfruit", "Twix"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What type of car does Kramer test drive and refuses to stop for gas?",
+    "options": ["Saab", "BMW", "Volvo", "Cadillac"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "How does Susan Ross die?",
+    "options": ["Licking toxic wedding invitation envelopes", "Car accident", "Food poisoning", "Heart attack"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What business does Kramer start with Newman involving a mail truck?",
+    "options": ["A bottle deposit recycling scheme", "A delivery service", "A food truck", "A taxi service"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of the parking garage where the group gets lost?",
+    "options": ["The mall parking garage", "JFK Airport garage", "Yankee Stadium garage", "Central Park garage"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What sport does George become assistant to the traveling secretary for?",
+    "options": ["Baseball (Yankees)", "Football (Jets)", "Basketball (Knicks)", "Hockey (Rangers)"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is the 'Serenity Now' episode about?",
+    "options": ["Frank Costanza's anger management technique", "Kramer's meditation class", "Jerry's yoga retreat", "George's therapy sessions"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Kramer do with the set of the old Merv Griffin Show?",
+    "options": ["Rebuilds it in his apartment", "Donates it to a museum", "Sells it on eBay", "Uses it as a bed"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is Jerry's apartment number?",
+    "options": ["5A", "4A", "3B", "6C"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "Which actor plays Frank Costanza?",
+    "options": ["Jerry Stiller", "Jason Alexander", "Larry David", "Wayne Knight"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does George do at Yankee Stadium with the World Series trophy?",
+    "options": ["Drags it behind his car", "Drops it in the river", "Hides it in his apartment", "Gives it to Steinbrenner"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What does Elaine's boyfriend call her that she hates?",
+    "options": ["Nip", "Lainey", "Benes", "El"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What phrase does Frank Costanza yell during Festivus?",
+    "options": ["I got a lot of problems with you people!", "Serenity now!", "Festivus for the rest of us!", "Hoochie mama!"],
+    "correctAnswerIndex": 0,
+    "category": "Quotes",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of Elaine's on-again off-again boyfriend played by Patrick Warburton?",
+    "options": ["David Puddy", "Jake Jarmel", "Keith Hernandez", "Joel Rifkin"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Kramer accidentally set on fire with a cigar store Indian?",
+    "options": ["A cabin in the woods", "Jerry's apartment", "A Christmas tree", "A couch"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What illegal cable hook-up does Jerry get in Season 1?",
+    "options": ["Free cable from Kramer's connection", "A satellite dish", "A pirated box", "Newman's antenna"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What city does the series finale take place in?",
+    "options": ["Latham, Massachusetts", "New York City", "Los Angeles", "Boston"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What are the group convicted of in the series finale?",
+    "options": ["Violating the Good Samaritan Law", "Theft", "Fraud", "Trespassing"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does George's father Frank invent?",
+    "options": ["The Manssiere/Bro", "The iToilet", "Man-fur", "The sleeping bag coat"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does Elaine do that gets her banned from her favorite nail salon?",
+    "options": ["Suspects they are talking about her in Korean", "Steals nail polish", "Argues about the price", "Brings her own tools"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "What is the name of Jerry's uncle who is always adjusting things?",
+    "options": ["Uncle Leo", "Uncle Max", "Uncle Frank", "Uncle Herman"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What does George do when he thinks he's going to be fired?",
+    "options": ["Shows up to work like nothing happened", "Quits first", "Hides in the bathroom", "Goes on vacation"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "medium"
+  },
+  {
+    "questionText": "What is shrinkage?",
+    "options": ["What happens to George after swimming in cold water", "Kramer's dry cleaning disaster", "Jerry's wool sweater problem", "Newman's weight loss trick"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What is the name of the episode where Jerry and Elaine try to define their relationship?",
+    "options": ["The Deal", "The Label Maker", "The Pact", "The Agreement"],
+    "correctAnswerIndex": 0,
+    "category": "Plotlines",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "In which season did Seinfeld premiere?",
+    "options": ["Season 1 (1989)", "Season 1 (1990)", "Season 1 (1988)", "Season 1 (1991)"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  },
+  {
+    "questionText": "Who co-created Seinfeld with Jerry Seinfeld?",
+    "options": ["Larry David", "Larry Charles", "Jason Alexander", "Michael Richards"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "easy"
+  },
+  {
+    "questionText": "What floor does Jerry live on?",
+    "options": ["5th floor", "3rd floor", "4th floor", "2nd floor"],
+    "correctAnswerIndex": 0,
+    "category": "Characters",
+    "difficulty": "hard"
+  }
+]
