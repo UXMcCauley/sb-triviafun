@@ -63,26 +63,41 @@ export default function DisplayPage() {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
   const countdownAudioRef = useRef<HTMLAudioElement | null>(null);
+  const themeAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => { pausedRef.current = paused; }, [paused]);
 
-  // Countdown music: play during question phase, stop on reveal/pause
+  // Music management
   useEffect(() => {
     if (!countdownAudioRef.current) {
-      countdownAudioRef.current = new Audio('/Final Question Countdown (Edit).mp3');
+      countdownAudioRef.current = new Audio('/Question Countdown.mp3');
       countdownAudioRef.current.loop = true;
     }
-    const audio = countdownAudioRef.current;
-    audio.volume = musicVolume;
+    if (!themeAudioRef.current) {
+      themeAudioRef.current = new Audio('/Trivia Theme.mp3');
+      themeAudioRef.current.loop = true;
+    }
+    const countdown = countdownAudioRef.current;
+    const theme = themeAudioRef.current;
+    countdown.volume = musicVolume;
+    theme.volume = musicVolume;
 
-    if (phase === 'question' && !paused) {
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
+    const themePhases: Phase[] = ['create', 'lobby', 'scoreboard', 'leaderboard', 'nextcountdown', 'finished'];
+    const countdownPhases: Phase[] = ['question'];
+
+    if (countdownPhases.includes(phase) && !paused) {
+      theme.pause();
+      countdown.currentTime = 0;
+      countdown.play().catch(() => {});
+    } else if (themePhases.includes(phase) && !paused) {
+      countdown.pause();
+      if (theme.paused) theme.play().catch(() => {});
     } else {
-      audio.pause();
+      countdown.pause();
+      theme.pause();
     }
 
-    return () => { audio.pause(); };
+    return () => { countdown.pause(); theme.pause(); };
   }, [phase, paused, musicVolume]);
 
   // Fetch available packs on mount
