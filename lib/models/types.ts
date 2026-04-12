@@ -12,13 +12,21 @@ export interface Player {
   answers: PlayerAnswer[];
 }
 
+export interface QuestionSource {
+  url: string;
+  description: string;
+}
+
 export interface Question {
   questionText: string;
   options: [string, string, string, string];
   correctAnswerIndex: number;
   category?: string;
   difficulty: 'easy' | 'medium' | 'hard';
+  season?: number;
+  episode?: string;
   funFact?: string;
+  source: QuestionSource;
 }
 
 export type GameStatus = 'lobby' | 'active' | 'finished';
@@ -29,8 +37,8 @@ export interface Game {
   questions: Question[];
   currentQuestionIndex: number;
   players: Player[];
-  questionStartedAt: number | null; // timestamp when current question started
-  timerDuration: number; // seconds
+  questionStartedAt: number | null;
+  timerDuration: number;
   createdAt: Date;
 }
 
@@ -63,9 +71,10 @@ export interface PlayerResult {
 export interface AnswerRevealEvent {
   questionIndex: number;
   correctAnswerIndex: number;
-  playerResults: PlayerResult[]; // sorted by speed (fastest correct first)
+  playerResults: PlayerResult[];
   players: { id: string; name: string; score: number }[];
-  funFact?: string;
+  funFact?: string | null;
+  source?: QuestionSource | null;
 }
 
 export interface GamePausedEvent {

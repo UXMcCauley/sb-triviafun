@@ -9,6 +9,7 @@ import type {
   GameFinishedEvent,
   PlayerResult,
   GamePausedEvent,
+  QuestionSource,
 } from '@/lib/models/types';
 import GameQRCode from '@/components/GameQRCode';
 import QuestionCard from '@/components/QuestionCard';
@@ -38,6 +39,7 @@ export default function DisplayPage() {
   const [paused, setPaused] = useState(false);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [funFact, setFunFact] = useState<string | null>(null);
+  const [questionSource, setQuestionSource] = useState<QuestionSource | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pausedRef = useRef(false);
 
@@ -167,6 +169,7 @@ export default function DisplayPage() {
       setPlayerResults(data.playerResults);
       setPlayers(data.players);
       setFunFact(data.funFact || null);
+      setQuestionSource(data.source || null);
       setPhase('reveal');
     });
 
@@ -190,6 +193,7 @@ export default function DisplayPage() {
       setPlayerResults([]);
       setWinner(null);
       setFunFact(null);
+      setQuestionSource(null);
       setIsLastQuestion(false);
       setPaused(false);
       setPhase('lobby');
@@ -396,10 +400,17 @@ export default function DisplayPage() {
               size="display"
               disabled
             />
+            {/* Source citation */}
+            {questionSource && (
+              <div className="mt-6 flex items-center gap-2 text-white/30 text-sm">
+                <span>📖</span>
+                <span>Source: {questionSource.description}</span>
+              </div>
+            )}
           </div>
           <div className="w-80 bg-black/30 border-l border-white/10 p-6 flex flex-col items-center justify-center">
             <div className="text-6xl mb-4">✅</div>
-            <p className="text-2xl font-bold text-green-400">
+            <p className="text-2xl font-bold text-green-400 text-center">
               {currentQuestion.options[correctAnswer!]}
             </p>
           </div>
@@ -518,6 +529,7 @@ export default function DisplayPage() {
                   setPaused(false);
                   setIsLastQuestion(false);
                   setFunFact(null);
+                  setQuestionSource(null);
                 }}
                 className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xl px-8 py-4 rounded-xl transition-all active:scale-95"
               >

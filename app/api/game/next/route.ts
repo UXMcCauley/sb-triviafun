@@ -116,6 +116,7 @@ export async function POST(request: Request) {
       playerResults,
       players: sortedPlayers,
       funFact: currentQuestion.funFact || null,
+      source: currentQuestion.source || null,
     });
 
     const isLastQuestion = game.currentQuestionIndex + 1 >= game.questions.length;

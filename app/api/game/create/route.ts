@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import { GameModel } from '@/lib/models/game';
-import questions from '@/data/questions.json';
+import { QuestionModel } from '@/lib/models/question';
+import questionsJson from '@/data/questions.json';
 
 function generateGameCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -22,8 +23,8 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 // Randomize option order while tracking the correct answer
-function randomizeOptions(q: typeof questions[0]) {
-  const indexed = q.options.map((opt, i) => ({ opt, isCorrect: i === q.correctAnswerIndex }));
+function randomizeOptions(q: { options: string[]; correctAnswerIndex: number; [key: string]: unknown }) {
+  const indexed = q.options.map((opt: string, i: number) => ({ opt, isCorrect: i === q.correctAnswerIndex }));
   const shuffled = shuffleArray(indexed);
   return {
     ...q,
@@ -37,13 +38,46 @@ export async function POST(request: Request) {
     await connectDB();
 
     const body = await request.json().catch(() => ({}));
-    const numQuestions = Math.min(body.numQuestions || 15, questions.length);
+    const numQuestions = body.numQuestions || 15;
     const timerDuration = body.timerDuration || 15;
 
-    // Pick random questions and randomize answer order
-    const selectedQuestions = shuffleArray(questions)
-      .slice(0, numQuestions)
-      .map(randomizeOptions);
+    // Try to pull from Question collection first
+    let rawQuestions: Array<{
+      questionText: string;
+      options: string[];
+      correctAnswerIndex: number;
+      category?: string;
+      difficulty: string;
+      season?: number;
+      episode?: string;
+      funFact?: string;
+      source?: { url: string; description: string };
+    }>;
+
+    const dbCount = await QuestionModel.countDocuments();
+    if (dbCount > 0) {
+      // Use MongoDB $sample for random selection
+      const sampled = await QuestionModel.aggregate([
+        { $sample: { size: Math.min(numQuestions, dbCount) } },
+      ]);
+      rawQuestions = sampled.map((q) => ({
+        questionText: q.questionText,
+        options: q.options,
+        correctAnswerIndex: q.correctAnswerIndex,
+        category: q.category,
+        difficulty: q.difficulty,
+        season: q.season,
+        episode: q.episode,
+        funFact: q.funFact,
+        source: q.source,
+      }));
+    } else {
+      // Fallback to JSON file
+      rawQuestions = shuffleArray([...questionsJson]).slice(0, Math.min(numQuestions, questionsJson.length));
+    }
+
+    // Randomize answer order
+    const selectedQuestions = rawQuestions.map(randomizeOptions);
 
     // Generate unique game code
     let gameCode = generateGameCode();

@@ -25,7 +25,13 @@ const QuestionSchema = new Schema({
   correctAnswerIndex: { type: Number, required: true },
   category: { type: String },
   difficulty: { type: String, enum: ['easy', 'medium', 'hard'], required: true },
+  season: { type: Number },
+  episode: { type: String },
   funFact: { type: String },
+  source: {
+    url: { type: String },
+    description: { type: String },
+  },
 }, { _id: false });
 
 const GameSchema = new Schema({
