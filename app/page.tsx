@@ -25,6 +25,12 @@ export default function Home() {
             Join Game
           </Link>
           <Link
+            href="/watch"
+            className="bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 text-purple-300 font-bold text-xl px-8 py-4 rounded-2xl transition-all active:scale-95"
+          >
+            Watch (Spectator)
+          </Link>
+          <Link
             href="/host"
             className="bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 font-bold text-xl px-8 py-4 rounded-2xl transition-all active:scale-95"
           >

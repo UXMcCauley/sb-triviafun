@@ -50,10 +50,24 @@ export interface NewQuestionEvent {
   timerDuration: number;
 }
 
+export interface PlayerResult {
+  id: string;
+  name: string;
+  correct: boolean;
+  timeToAnswer: number;
+  pointsEarned: number;
+  totalScore: number;
+}
+
 export interface AnswerRevealEvent {
   questionIndex: number;
   correctAnswerIndex: number;
+  playerResults: PlayerResult[]; // sorted by speed (fastest correct first)
   players: { id: string; name: string; score: number }[];
+}
+
+export interface GamePausedEvent {
+  paused: boolean;
 }
 
 export interface GameFinishedEvent {

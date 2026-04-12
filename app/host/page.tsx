@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getPusherClient } from '@/lib/pusher-client';
-import type { PlayerJoinedEvent, AnswerRevealEvent, GameFinishedEvent } from '@/lib/models/types';
+import type { PlayerJoinedEvent, AnswerRevealEvent, GameFinishedEvent, GamePausedEvent } from '@/lib/models/types';
 
 interface PlayerInfo {
   id: string;
@@ -19,6 +19,8 @@ export default function HostPage() {
   const [loading, setLoading] = useState('');
   const [numQuestions, setNumQuestions] = useState(15);
   const [timerDuration, setTimerDuration] = useState(15);
+  const [paused, setPaused] = useState(false);
+  const [revealed, setRevealed] = useState(false);
 
   const createGame = async () => {
     setLoading('create');
@@ -44,14 +46,36 @@ export default function HostPage() {
     setLoading('');
   };
 
-  const nextQuestion = async () => {
-    setLoading('next');
+  const revealAnswer = async () => {
+    setLoading('reveal');
     await fetch('/api/game/next', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ gameCode }),
+      body: JSON.stringify({ gameCode, action: 'reveal' }),
     });
+    setRevealed(true);
     setLoading('');
+  };
+
+  const advanceQuestion = async () => {
+    setLoading('advance');
+    await fetch('/api/game/next', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gameCode, action: 'advance' }),
+    });
+    setRevealed(false);
+    setLoading('');
+  };
+
+  const togglePause = async () => {
+    const newPaused = !paused;
+    setPaused(newPaused);
+    await fetch('/api/game/pause', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gameCode, paused: newPaused }),
+    });
   };
 
   useEffect(() => {
@@ -67,10 +91,16 @@ export default function HostPage() {
     channel.bind('new-question', (data: { questionIndex: number; totalQuestions: number }) => {
       setQuestionIndex(data.questionIndex);
       setTotalQuestions(data.totalQuestions);
+      setRevealed(false);
     });
 
     channel.bind('answer-reveal', (data: AnswerRevealEvent) => {
       setPlayers(data.players);
+      setRevealed(true);
+    });
+
+    channel.bind('game-paused', (data: GamePausedEvent) => {
+      setPaused(data.paused);
     });
 
     channel.bind('game-finished', (data: GameFinishedEvent) => {
@@ -154,18 +184,44 @@ export default function HostPage() {
 
       {status === 'active' && (
         <div className="space-y-6">
-          <div className="bg-white/10 rounded-xl p-4 inline-block">
-            <p className="text-sm text-white/50">Question</p>
-            <p className="text-2xl font-bold">{questionIndex + 1} / {totalQuestions}</p>
+          <div className="flex items-center gap-4">
+            <div className="bg-white/10 rounded-xl p-4 inline-block">
+              <p className="text-sm text-white/50">Question</p>
+              <p className="text-2xl font-bold">{questionIndex + 1} / {totalQuestions}</p>
+            </div>
+            {paused && (
+              <span className="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full text-sm font-bold">PAUSED</span>
+            )}
           </div>
 
-          <div>
+          <div className="flex gap-3 flex-wrap">
+            {!revealed ? (
+              <button
+                onClick={revealAnswer}
+                disabled={loading === 'reveal'}
+                className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-6 py-3 rounded-xl disabled:opacity-50"
+              >
+                {loading === 'reveal' ? 'Revealing...' : 'Reveal Answer'}
+              </button>
+            ) : (
+              <button
+                onClick={advanceQuestion}
+                disabled={loading === 'advance'}
+                className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-3 rounded-xl disabled:opacity-50"
+              >
+                {loading === 'advance' ? 'Advancing...' : 'Next Question'}
+              </button>
+            )}
+
             <button
-              onClick={nextQuestion}
-              disabled={loading === 'next'}
-              className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-3 rounded-xl disabled:opacity-50"
+              onClick={togglePause}
+              className={`font-bold px-6 py-3 rounded-xl ${
+                paused
+                  ? 'bg-green-500 hover:bg-green-400 text-black'
+                  : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+              }`}
             >
-              {loading === 'next' ? 'Advancing...' : 'Reveal Answer & Next'}
+              {paused ? '▶ Resume' : '⏸ Pause'}
             </button>
           </div>
 
@@ -179,6 +235,11 @@ export default function HostPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="text-xs text-white/30 mt-4">
+            <p>Note: Display view auto-advances through reveal → scoreboard → next question.</p>
+            <p>Use these controls to manually trigger if needed.</p>
           </div>
         </div>
       )}
@@ -201,6 +262,8 @@ export default function HostPage() {
               setStatus('idle');
               setGameCode('');
               setPlayers([]);
+              setRevealed(false);
+              setPaused(false);
             }}
             className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-8 py-3 rounded-xl"
           >

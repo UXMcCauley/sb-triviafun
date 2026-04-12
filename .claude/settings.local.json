@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npx create-next-app@latest . --typescript --tailwind --app --eslint --use-npm --no-git)",
       "Bash(npm install:*)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "mcp__fdbca629-9d23-4430-b832-9a7d632d6ec8__get_runtime_logs"
     ]
   }
 }

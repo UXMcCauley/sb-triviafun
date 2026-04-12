@@ -1,18 +1,19 @@
 'use client';
 
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getPusherClient } from '@/lib/pusher-client';
 import type {
   NewQuestionEvent,
   AnswerRevealEvent,
   GameFinishedEvent,
+  GamePausedEvent,
 } from '@/lib/models/types';
 import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 
-type Phase = 'join' | 'lobby' | 'question' | 'answered' | 'reveal' | 'finished';
+type Phase = 'join' | 'lobby' | 'question' | 'answered' | 'reveal' | 'waiting' | 'finished';
 
 interface PlayerInfo {
   id: string;
@@ -30,6 +31,7 @@ function PlayContent() {
   const [playerId, setPlayerId] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   const [currentQuestion, setCurrentQuestion] = useState<NewQuestionEvent | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -37,6 +39,10 @@ function PlayContent() {
   const [wasCorrect, setWasCorrect] = useState<boolean | null>(null);
   const [players, setPlayers] = useState<PlayerInfo[]>([]);
   const [winner, setWinner] = useState<PlayerInfo | null>(null);
+
+  // Use a ref to track selectedAnswer for the Pusher callback
+  const selectedAnswerRef = useRef<number | null>(null);
+  useEffect(() => { selectedAnswerRef.current = selectedAnswer; }, [selectedAnswer]);
 
   const handleJoin = async () => {
     if (!gameCode.trim() || !playerName.trim()) {
@@ -67,8 +73,9 @@ function PlayContent() {
   };
 
   const handleSelectAnswer = useCallback(async (answerIndex: number) => {
-    if (selectedAnswer !== null || !currentQuestion) return;
+    if (selectedAnswerRef.current !== null || !currentQuestion) return;
     setSelectedAnswer(answerIndex);
+    selectedAnswerRef.current = answerIndex;
     setPhase('answered');
 
     try {
@@ -85,7 +92,7 @@ function PlayContent() {
     } catch (err) {
       console.error('Failed to submit answer:', err);
     }
-  }, [selectedAnswer, currentQuestion, gameCode, playerId]);
+  }, [currentQuestion, gameCode, playerId]);
 
   // Subscribe to Pusher
   useEffect(() => {
@@ -94,13 +101,12 @@ function PlayContent() {
     const pusher = getPusherClient();
     const channel = pusher.subscribe(`game-${gameCode}`);
 
-    channel.bind('game-started', () => {
-      // Game is starting — will receive new-question soon
-    });
+    channel.bind('game-started', () => {});
 
     channel.bind('new-question', (data: NewQuestionEvent) => {
       setCurrentQuestion(data);
       setSelectedAnswer(null);
+      selectedAnswerRef.current = null;
       setCorrectAnswer(null);
       setWasCorrect(null);
       setPhase('question');
@@ -109,10 +115,20 @@ function PlayContent() {
     channel.bind('answer-reveal', (data: AnswerRevealEvent) => {
       setCorrectAnswer(data.correctAnswerIndex);
       setPlayers(data.players);
-      if (selectedAnswer !== null) {
-        setWasCorrect(selectedAnswer === data.correctAnswerIndex);
+      const currentSelected = selectedAnswerRef.current;
+      if (currentSelected !== null) {
+        setWasCorrect(currentSelected === data.correctAnswerIndex);
+      } else {
+        setWasCorrect(null); // didn't answer
       }
       setPhase('reveal');
+
+      // After reveal, move to waiting state (until next question arrives)
+      setTimeout(() => setPhase('waiting'), 5000);
+    });
+
+    channel.bind('game-paused', (data: GamePausedEvent) => {
+      setPaused(data.paused);
     });
 
     channel.bind('game-finished', (data: GameFinishedEvent) => {
@@ -133,6 +149,16 @@ function PlayContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-white">
+      {/* PAUSE OVERLAY */}
+      {paused && phase !== 'join' && phase !== 'lobby' && phase !== 'finished' && (
+        <div className="absolute inset-0 bg-black/80 z-40 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="text-6xl">⏸️</div>
+            <h2 className="text-3xl font-black text-yellow-400">Paused</h2>
+          </div>
+        </div>
+      )}
+
       {/* JOIN PHASE */}
       {phase === 'join' && (
         <div className="flex items-center justify-center min-h-screen p-4">
@@ -264,11 +290,31 @@ function PlayContent() {
             <div className="w-full max-w-sm mt-4">
               <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3">
                 <span className="text-white/60">Your rank</span>
-                <span className="font-bold text-xl">#{myRank}</span>
+                <span className="font-bold text-xl">#{myRank || '—'}</span>
               </div>
               <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3 mt-2">
                 <span className="text-white/60">Score</span>
                 <span className="font-mono font-bold text-yellow-300 text-xl">{myScore.toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* WAITING PHASE — between scoreboard and next question */}
+      {phase === 'waiting' && (
+        <div className="min-h-screen flex flex-col items-center justify-center p-4">
+          <div className="text-center space-y-4">
+            <div className="animate-pulse text-5xl">🎬</div>
+            <p className="text-xl text-white/60">Next question coming up...</p>
+            <div className="w-full max-w-sm">
+              <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3">
+                <span className="text-white/60">Rank</span>
+                <span className="font-bold">#{myRank || '—'}</span>
+              </div>
+              <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3 mt-2">
+                <span className="text-white/60">Score</span>
+                <span className="font-mono font-bold text-yellow-300">{myScore.toLocaleString()}</span>
               </div>
             </div>
           </div>
