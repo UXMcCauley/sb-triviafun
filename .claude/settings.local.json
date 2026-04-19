@@ -43,7 +43,8 @@
       "Bash(rm scripts/add-hangout-questions.mjs scripts/add-smartass-questions.mjs)",
       "Bash(node -e \"const d = require\\('./data/packs/the-workplace-shows.json'\\); console.log\\('Total:', d.questions.length\\); d.questions.forEach\\(\\(q,i\\) => console.log\\(i + ': ' + q.questionText.substring\\(0,70\\)\\)\\);\")",
       "Bash(node scripts/add-workplace-questions.mjs)",
-      "Bash(rm scripts/add-workplace-questions.mjs)"
+      "Bash(rm scripts/add-workplace-questions.mjs)",
+      "Bash(node -e 'const d = require\\('\\\\''./__TRACKED_VAR__'\\\\''\\); console.log\\(d.questions.length, d.name\\);')"
     ]
   }
 }
