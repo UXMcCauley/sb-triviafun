@@ -30,6 +30,9 @@ function PlayContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [savedName, setSavedName] = useState('');
   const [playerStats, setPlayerStats] = useState<{ gamesPlayed: number; gamesWon: number; bestScore: number } | null>(null);
+  const [user, setUser] = useState<{ id: string; defaultUsername: string | null; avatarUrl: string | null; email: string | null } | null>(null);
+  const [profileUsername, setProfileUsername] = useState('');
+  const [profileSaving, setProfileSaving] = useState(false);
 
   // Game state
   const [phase, setPhase] = useState<Phase>('login');
@@ -53,6 +56,19 @@ function PlayContent() {
 
   // Check localStorage for saved phone
   useEffect(() => {
+    fetch('/api/auth/me')
+      .then((r) => (r.ok ? r.json() : { user: null }))
+      .then((data: { user: any }) => {
+        if (data?.user) {
+          setUser(data.user);
+          setProfileUsername(data.user.defaultUsername || '');
+          if (data.user.defaultUsername && !localStorage.getItem('seinfeld_name')) {
+            setPlayerName(data.user.defaultUsername);
+          }
+        }
+      })
+      .catch(() => {});
+
     const saved = localStorage.getItem('seinfeld_phone');
     const name = localStorage.getItem('seinfeld_name');
     if (saved && name) {
@@ -67,6 +83,34 @@ function PlayContent() {
         .then((data) => { if (data) setPlayerStats(data); });
     }
   }, []);
+
+  const saveProfile = async () => {
+    if (!user) return;
+    setProfileSaving(true);
+    try {
+      const res = await fetch('/api/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ defaultUsername: profileUsername }),
+      });
+      const data = await res.json();
+      if (data?.user) {
+        setUser(data.user);
+        if (data.user.defaultUsername) setPlayerName(data.user.defaultUsername);
+      }
+    } finally {
+      setProfileSaving(false);
+    }
+  };
+
+  const uploadAvatar = async (file: File) => {
+    if (!user) return;
+    const form = new FormData();
+    form.append('file', file);
+    const res = await fetch('/api/profile/avatar', { method: 'POST', body: form });
+    const data = await res.json();
+    if (data?.user) setUser(data.user);
+  };
 
   const handleLogin = async () => {
     if (!phone.trim() || !playerName.trim()) {
@@ -226,6 +270,12 @@ function PlayContent() {
               <p className="text-white/50 mt-2">Sign in to track your game history</p>
             </div>
             <div className="space-y-4">
+              <a
+                href={`/api/auth/google/start?returnTo=${encodeURIComponent('/play')}`}
+                className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold"
+              >
+                Continue with Google
+              </a>
               <div>
                 <label className="text-sm text-white/60 block mb-1">Phone Number</label>
                 <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(555) 123-4567" className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-lg placeholder:text-white/20 focus:outline-none focus:border-yellow-500" />
@@ -253,6 +303,7 @@ function PlayContent() {
             <div className="text-center">
               <h1 className="text-4xl font-black"><span className="text-yellow-400">Seinfeld</span> Trivia</h1>
               {isLoggedIn && <p className="text-white/50 mt-2">Welcome back, {savedName}!</p>}
+              {user && <p className="text-white/40 mt-1">Signed in as {user.email || 'Google user'}</p>}
               {playerStats && (
                 <div className="flex justify-center gap-4 mt-3">
                   <span className="text-xs text-white/40">{playerStats.gamesPlayed} played</span>
@@ -262,6 +313,58 @@ function PlayContent() {
               )}
             </div>
             <div className="space-y-4">
+              {!user && (
+                <a
+                  href={`/api/auth/google/start?returnTo=${encodeURIComponent('/play')}`}
+                  className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold"
+                >
+                  Link Google (optional)
+                </a>
+              )}
+              {user && (
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-white/10 border border-white/15 overflow-hidden flex items-center justify-center shrink-0">
+                      {user.avatarUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={user.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-white/40 text-xl">👤</span>
+                      )}
+                    </div>
+                    <label className="text-sm text-white/60">
+                      <span className="font-semibold text-white/70">Avatar</span>
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        className="block mt-1 text-xs text-white/40 file:mr-3 file:px-3 file:py-1.5 file:rounded-lg file:border-0 file:bg-white/10 file:text-white/70 hover:file:bg-white/20"
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (f) uploadAvatar(f);
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label className="text-sm text-white/60 block mb-1">Default username</label>
+                    <input
+                      type="text"
+                      value={profileUsername}
+                      onChange={(e) => setProfileUsername(e.target.value)}
+                      maxLength={20}
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-lg placeholder:text-white/20 focus:outline-none focus:border-yellow-500"
+                      placeholder="What people call you"
+                    />
+                  </div>
+                  <button
+                    onClick={saveProfile}
+                    disabled={profileSaving}
+                    className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-3 rounded-xl disabled:opacity-50"
+                  >
+                    {profileSaving ? 'Saving…' : 'Save profile'}
+                  </button>
+                </div>
+              )}
               <div>
                 <label className="text-sm text-white/60 block mb-1">Game Code</label>
                 <input type="text" value={gameCode} onChange={(e) => setGameCode(e.target.value.toUpperCase())} placeholder="ABCD" maxLength={4} className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-2xl text-center font-mono tracking-widest uppercase placeholder:text-white/20 focus:outline-none focus:border-yellow-500" />
@@ -298,7 +401,7 @@ function PlayContent() {
       {(phase === 'question' || phase === 'answered') && currentQuestion && (
         <div className="min-h-screen flex flex-col p-4">
           <div className="flex items-center justify-between mb-4">
-            <Countdown startedAt={currentQuestion.startedAt} duration={currentQuestion.timerDuration} size="sm" />
+            <Countdown startedAt={currentQuestion.startedAt} duration={currentQuestion.timerDuration} size="sm" showPointsBar />
             <div className="text-right">
               <div className="text-sm text-white/50">Score</div>
               <div className="font-mono font-bold text-yellow-300">{myScore.toLocaleString()}</div>

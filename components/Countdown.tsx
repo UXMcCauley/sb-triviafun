@@ -7,10 +7,14 @@ interface CountdownProps {
   duration: number;
   onExpire?: () => void;
   size?: 'sm' | 'lg';
+  showPointsBar?: boolean;
 }
 
-export default function Countdown({ startedAt, duration, onExpire, size = 'lg' }: CountdownProps) {
+import { pointsIfAnsweredNow } from '@/lib/scoring';
+
+export default function Countdown({ startedAt, duration, onExpire, size = 'lg', showPointsBar }: CountdownProps) {
   const [timeLeft, setTimeLeft] = useState(duration);
+  const [pointsNow, setPointsNow] = useState<number | null>(null);
 
   const calculate = useCallback(() => {
     const elapsed = (Date.now() - startedAt) / 1000;
@@ -18,17 +22,19 @@ export default function Countdown({ startedAt, duration, onExpire, size = 'lg' }
   }, [startedAt, duration]);
 
   useEffect(() => {
-    setTimeLeft(calculate());
     const interval = setInterval(() => {
       const remaining = calculate();
       setTimeLeft(remaining);
+      if (showPointsBar) {
+        setPointsNow(pointsIfAnsweredNow({ timerSeconds: duration, startedAtMs: startedAt }));
+      }
       if (remaining <= 0) {
         clearInterval(interval);
         onExpire?.();
       }
     }, 100);
     return () => clearInterval(interval);
-  }, [calculate, onExpire]);
+  }, [calculate, onExpire, showPointsBar, duration, startedAt]);
 
   const seconds = Math.ceil(timeLeft);
   const progress = timeLeft / duration;
@@ -44,7 +50,8 @@ export default function Countdown({ startedAt, duration, onExpire, size = 'lg' }
   const strokeWidth = size === 'lg' ? 8 : 4;
 
   return (
-    <div className={`relative ${sizeClasses} flex items-center justify-center`}>
+    <div className="flex flex-col items-center gap-3">
+      <div className={`relative ${sizeClasses} flex items-center justify-center`}>
       <svg className="absolute inset-0 -rotate-90" viewBox={`0 0 ${svgSize} ${svgSize}`}>
         <circle
           cx={svgSize / 2}
@@ -70,6 +77,21 @@ export default function Countdown({ startedAt, duration, onExpire, size = 'lg' }
       <span className={`font-bold tabular-nums ${isUrgent ? 'text-red-400 animate-pulse' : 'text-white'}`}>
         {seconds}
       </span>
+      </div>
+
+      {showPointsBar && (
+        <div className="w-full max-w-[260px]">
+          <div className="h-[10px] rounded-full bg-white/10 overflow-hidden border border-white/10">
+            <div
+              className="h-full bg-yellow-400/80"
+              style={{ width: `${Math.max(0, Math.min(100, (timeLeft / duration) * 100))}%` }}
+            />
+          </div>
+          <div className="mt-1 text-center text-xs text-white/50 font-mono">
+            {pointsNow !== null ? `${pointsNow.toLocaleString()} pts if locked now` : ''}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

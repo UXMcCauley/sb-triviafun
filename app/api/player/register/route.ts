@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
+import { getSessionUserId } from '@/lib/auth/session';
 
 export async function POST(request: Request) {
   try {
@@ -15,11 +16,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid phone number' }, { status: 400 });
     }
 
+    const userId = await getSessionUserId();
+
     // Upsert — create or update display name
     const rows = (await sql`
-      insert into player_stats (phone, display_name)
-      values (${normalizedPhone}, ${displayName})
-      on conflict (phone) do update set display_name = excluded.display_name
+      insert into player_stats (phone, display_name, user_id, updated_at)
+      values (${normalizedPhone}, ${displayName}, ${userId}::uuid, now())
+      on conflict (phone) do update
+        set display_name = excluded.display_name,
+            user_id = coalesce(excluded.user_id, player_stats.user_id),
+            updated_at = now()
       returning
         phone,
         display_name,
