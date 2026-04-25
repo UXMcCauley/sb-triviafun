@@ -104,6 +104,16 @@ create table if not exists player_stats (
   created_at timestamptz not null default now()
 );
 
+-- Backfill older schemas (idempotent)
+alter table if exists player_stats
+  add column if not exists user_id uuid null;
+alter table if exists player_stats
+  add column if not exists last_played_at timestamptz not null default now();
+alter table if exists player_stats
+  add column if not exists updated_at timestamptz not null default now();
+alter table if exists player_stats
+  add column if not exists created_at timestamptz not null default now();
+
 create index if not exists player_stats_user_id_idx on player_stats(user_id);
 
 -- Emoji reactions (question + player)
