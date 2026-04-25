@@ -1,11 +1,9 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import { PlayerStatsModel } from '@/lib/models/playerStats';
+import { sql } from '@/lib/db';
 
 // GET — fetch stats by phone
 export async function GET(request: Request) {
   try {
-    await connectDB();
     const { searchParams } = new URL(request.url);
     const phone = searchParams.get('phone')?.replace(/\D/g, '');
 
@@ -13,21 +11,44 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Phone required' }, { status: 400 });
     }
 
-    const stats = await PlayerStatsModel.findOne({ phone });
+    const rows = (await sql`
+      select
+        phone,
+        display_name,
+        games_played,
+        games_won,
+        total_score,
+        best_score,
+        correct_answers,
+        total_answers
+      from player_stats
+      where phone = ${phone}
+      limit 1
+    `) as Array<{
+      phone: string;
+      display_name: string;
+      games_played: number;
+      games_won: number;
+      total_score: number;
+      best_score: number;
+      correct_answers: number;
+      total_answers: number;
+    }>;
+    const stats = rows[0];
     if (!stats) {
       return NextResponse.json({ error: 'Player not found' }, { status: 404 });
     }
 
     return NextResponse.json({
       phone: stats.phone,
-      displayName: stats.displayName,
-      gamesPlayed: stats.gamesPlayed,
-      gamesWon: stats.gamesWon,
-      totalScore: stats.totalScore,
-      bestScore: stats.bestScore,
-      correctAnswers: stats.correctAnswers,
-      totalAnswers: stats.totalAnswers,
-      winRate: stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0,
+      displayName: stats.display_name,
+      gamesPlayed: stats.games_played,
+      gamesWon: stats.games_won,
+      totalScore: stats.total_score,
+      bestScore: stats.best_score,
+      correctAnswers: stats.correct_answers,
+      totalAnswers: stats.total_answers,
+      winRate: stats.games_played > 0 ? Math.round((stats.games_won / stats.games_played) * 100) : 0,
     });
   } catch (error) {
     console.error('Stats error:', error);
@@ -38,7 +59,6 @@ export async function GET(request: Request) {
 // POST — record game results
 export async function POST(request: Request) {
   try {
-    await connectDB();
     const { phone, score, correctAnswers, totalAnswers, won } = await request.json();
 
     const normalizedPhone = phone?.replace(/\D/g, '');
@@ -46,26 +66,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Phone required' }, { status: 400 });
     }
 
-    const update: Record<string, unknown> = {
-      $inc: {
-        gamesPlayed: 1,
-        totalScore: score || 0,
-        correctAnswers: correctAnswers || 0,
-        totalAnswers: totalAnswers || 0,
-        ...(won ? { gamesWon: 1 } : {}),
-      },
-      $set: { lastPlayedAt: new Date() },
-    };
-
-    // Update best score if this one is higher
-    const stats = await PlayerStatsModel.findOne({ phone: normalizedPhone });
-    if (stats && score > stats.bestScore) {
-      (update.$set as Record<string, unknown>).bestScore = score;
-    } else if (!stats) {
+    const currentRows = (await sql`
+      select best_score
+      from player_stats
+      where phone = ${normalizedPhone}
+      limit 1
+    `) as Array<{ best_score: number }>;
+    const current = currentRows[0];
+    if (!current) {
       return NextResponse.json({ error: 'Player not registered' }, { status: 404 });
     }
 
-    await PlayerStatsModel.findOneAndUpdate({ phone: normalizedPhone }, update);
+    const newBest = Math.max(current.best_score ?? 0, score || 0);
+
+    await sql`
+      update player_stats
+      set
+        games_played = games_played + 1,
+        games_won = games_won + ${won ? 1 : 0},
+        total_score = total_score + ${score || 0},
+        correct_answers = correct_answers + ${correctAnswers || 0},
+        total_answers = total_answers + ${totalAnswers || 0},
+        best_score = ${newBest},
+        last_played_at = now()
+      where phone = ${normalizedPhone}
+    `;
 
     return NextResponse.json({ success: true });
   } catch (error) {

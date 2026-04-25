@@ -1,6 +1,17 @@
-import { QuestionModel, type QuestionDocument } from './models/question';
-import { PackModel } from './models/pack';
-import mongoose from 'mongoose';
+import { sql } from "./db";
+
+export type DbQuestion = {
+  id: string;
+  question_text: string;
+  options: string[];
+  correct_answer_index: number;
+  category: string | null;
+  difficulty: "easy" | "medium" | "hard";
+  season: number | null;
+  episode: string | null;
+  source: { url: string; description: string } | null;
+  fun_fact: string | null;
+};
 
 /**
  * Shuffle an array using Fisher-Yates algorithm.
@@ -26,42 +37,78 @@ export function generateGameCode(): string {
   return code;
 }
 
+function isUuid(value: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    value
+  );
+}
+
 /**
  * Select random questions for a game from the given packs.
  * If no packIds provided, uses default packs.
  */
 export async function selectQuestionsForGame(
-  packIds: mongoose.Types.ObjectId[] | string[] | undefined,
+  packIds: string[] | undefined,
   count: number
-): Promise<QuestionDocument[]> {
-  let matchFilter: Record<string, unknown>;
+): Promise<DbQuestion[]> {
+  const resolvedPackIds = packIds && packIds.length > 0 ? await resolvePackIds(packIds) : null;
 
-  if (packIds && packIds.length > 0) {
-    const objectIds = packIds.map((id) =>
-      typeof id === 'string' ? new mongoose.Types.ObjectId(id) : id
-    );
-    matchFilter = { packIds: { $in: objectIds } };
+  // No packs selected: use default packs; if none default, sample globally.
+  const basePackIds =
+    resolvedPackIds && resolvedPackIds.length > 0
+      ? resolvedPackIds
+      : ((await sql`
+          select id from packs where is_default = true
+        `) as Array<{ id: string }>)
+          .map((r) => r.id);
+
+  let rows: unknown[];
+  if (basePackIds.length > 0) {
+    rows = await sql`
+      select
+        q.id,
+        q.question_text,
+        q.options,
+        q.correct_answer_index,
+        q.category,
+        q.difficulty,
+        q.season,
+        q.episode,
+        q.source,
+        q.fun_fact
+      from questions q
+      where q.id in (
+        select pq.question_id
+        from pack_questions pq
+        where pq.pack_id = any(${basePackIds}::uuid[])
+      )
+      order by random()
+      limit ${count}
+    `;
   } else {
-    // Use default packs
-    const defaultPacks = await PackModel.find({ isDefault: true }).select('_id');
-    const defaultIds = defaultPacks.map((p) => p._id);
-    if (defaultIds.length > 0) {
-      matchFilter = { packIds: { $in: defaultIds } };
-    } else {
-      matchFilter = {};
-    }
+    rows = await sql`
+      select
+        id,
+        question_text,
+        options,
+        correct_answer_index,
+        category,
+        difficulty,
+        season,
+        episode,
+        source,
+        fun_fact
+      from questions
+      order by random()
+      limit ${count}
+    `;
   }
 
-  const dbCount = await QuestionModel.countDocuments(matchFilter);
-  if (dbCount === 0) return [];
-
-  const sampled = await QuestionModel.aggregate([
-    { $match: matchFilter },
-    { $sample: { size: Math.min(count, dbCount) } },
-  ]);
-
-  // Convert aggregation results back to documents
-  return sampled.map((q) => q as QuestionDocument);
+  return (rows as Array<any>).map((r) => ({
+    ...r,
+    options: Array.isArray(r.options) ? r.options : r.options ?? [],
+    source: r.source ?? null,
+  })) as DbQuestion[];
 }
 
 /**
@@ -95,14 +142,20 @@ export function generateShuffleMappings(
  * Apply shuffle mapping to a question's options to get the display-ready version.
  */
 export function getShuffledQuestion(
-  question: { questionText: string; options: string[]; category?: string; difficulty: string; source?: { url: string; description: string } },
+  question: {
+    questionText: string;
+    options: string[];
+    category?: string | null;
+    difficulty: string;
+    source?: { url: string; description: string } | null;
+  },
   optionOrder: number[]
 ): {
   questionText: string;
   options: string[];
-  category?: string;
+  category?: string | null;
   difficulty: string;
-  source?: { url: string; description: string };
+  source?: { url: string; description: string } | null;
 } {
   return {
     questionText: question.questionText,
@@ -118,23 +171,24 @@ export function getShuffledQuestion(
  */
 export async function resolvePackIds(
   packIdsOrSlugs: string[]
-): Promise<mongoose.Types.ObjectId[]> {
-  // Try to determine if these are ObjectIds or slugs
-  const objectIds: mongoose.Types.ObjectId[] = [];
+): Promise<string[]> {
+  const ids: string[] = [];
   const slugs: string[] = [];
 
   for (const val of packIdsOrSlugs) {
-    if (mongoose.Types.ObjectId.isValid(val) && String(new mongoose.Types.ObjectId(val)) === val) {
-      objectIds.push(new mongoose.Types.ObjectId(val));
+    if (isUuid(val)) {
+      ids.push(val);
     } else {
       slugs.push(val);
     }
   }
 
   if (slugs.length > 0) {
-    const packs = await PackModel.find({ slug: { $in: slugs } }).select('_id');
-    objectIds.push(...packs.map((p) => p._id as mongoose.Types.ObjectId));
+    const packs = (await sql`
+      select id from packs where slug = any(${slugs})
+    `) as Array<{ id: string }>;
+    ids.push(...packs.map((p) => p.id));
   }
 
-  return objectIds;
+  return ids;
 }

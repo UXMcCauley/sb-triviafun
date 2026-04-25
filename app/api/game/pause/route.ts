@@ -1,14 +1,19 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import { GameModel } from '@/lib/models/game';
+import { sql } from '@/lib/db';
 import { getPusherServer } from '@/lib/pusher';
 
 export async function POST(request: Request) {
   try {
-    await connectDB();
     const { gameCode, paused } = await request.json();
 
-    const game = await GameModel.findOne({ gameCode: gameCode.toUpperCase() });
+    const upperCode = gameCode.toUpperCase();
+    const rows = (await sql`
+      select game_code, status
+      from games
+      where game_code = ${upperCode}
+      limit 1
+    `) as Array<{ game_code: string; status: string }>;
+    const game = rows[0];
     if (!game) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
@@ -18,7 +23,7 @@ export async function POST(request: Request) {
     }
 
     const pusher = getPusherServer();
-    await pusher.trigger(`game-${game.gameCode}`, 'game-paused', { paused });
+    await pusher.trigger(`game-${game.game_code}`, 'game-paused', { paused });
 
     return NextResponse.json({ success: true, paused });
   } catch (error) {

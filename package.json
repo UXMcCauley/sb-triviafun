@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:init": "tsx scripts/init-db.ts",
+    "db:seed": "tsx scripts/seed-packs.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",
-    "mongoose": "^9.4.1",
+    "@neondatabase/serverless": "^1.1.0",
     "next": "16.2.3",
     "pusher": "^5.3.3",
     "pusher-js": "^8.5.0",
@@ -25,6 +27,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/uuid": "^10.0.0",
+    "autoprefixer": "^10.5.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
     "tailwindcss": "^4",

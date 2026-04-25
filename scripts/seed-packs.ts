@@ -1,9 +1,12 @@
-import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Load .env.local if environment variable not already set
-if (!process.env.MONGODB_URI) {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env.local if DATABASE_URL not already set
+if (!process.env.DATABASE_URL) {
   const envPath = path.join(__dirname, '..', '.env.local');
   if (fs.existsSync(envPath)) {
     const envContent = fs.readFileSync(envPath, 'utf-8');
@@ -13,48 +16,17 @@ if (!process.env.MONGODB_URI) {
       const eqIndex = trimmed.indexOf('=');
       if (eqIndex === -1) continue;
       const key = trimmed.slice(0, eqIndex).trim();
-      const value = trimmed.slice(eqIndex + 1).trim();
+      let value = trimmed.slice(eqIndex + 1).trim();
+      value = value.replace(/^['"]|['"]$/g, '');
       if (!process.env[key]) process.env[key] = value;
     }
   }
 }
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  console.error('ERROR: Set MONGODB_URI environment variable');
+if (!process.env.DATABASE_URL) {
+  console.error('ERROR: Set DATABASE_URL environment variable');
   process.exit(1);
 }
-
-const PackSchema = new mongoose.Schema({
-  slug: { type: String, required: true, unique: true, index: true },
-  name: { type: String, required: true },
-  tagline: { type: String, required: true },
-  description: { type: String, required: true },
-  themeColor: { type: String, required: true },
-  icon: { type: String, required: true },
-  isDefault: { type: Boolean, default: false },
-  questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
-}, { timestamps: true });
-
-const QuestionSchema = new mongoose.Schema({
-  questionText: { type: String, required: true, unique: true },
-  options: { type: [String], required: true },
-  correctAnswerIndex: { type: Number, required: true },
-  packIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pack', index: true }],
-  category: { type: String },
-  difficulty: { type: String, enum: ['easy', 'medium', 'hard'], required: true },
-  season: { type: Number },
-  episode: { type: String },
-  source: {
-    url: { type: String, required: true },
-    description: { type: String, required: true },
-  },
-  funFact: { type: String },
-}, { timestamps: true });
-
-const Pack = mongoose.models.Pack || mongoose.model('Pack', PackSchema);
-const Question = mongoose.models.Question || mongoose.model('Question', QuestionSchema);
 
 interface PackFileQuestion {
   questionText: string;
@@ -80,10 +52,7 @@ interface PackFile {
 }
 
 async function seed() {
-  console.log('Connecting to MongoDB...');
-  await mongoose.connect(MONGODB_URI!);
-  console.log('Connected.');
-
+  const { sql } = await import('../lib/db');
   const packsDir = path.join(__dirname, '..', 'data', 'packs');
   const packFiles = fs.readdirSync(packsDir).filter((f) => f.endsWith('.json'));
 
@@ -99,66 +68,78 @@ async function seed() {
 
     console.log(`\nProcessing pack: ${packData.name} (${packData.slug})`);
 
-    // Upsert the pack (without questions array first)
-    const pack = await Pack.findOneAndUpdate(
-      { slug: packData.slug },
-      {
-        $set: {
-          name: packData.name,
-          tagline: packData.tagline,
-          description: packData.description,
-          themeColor: packData.themeColor,
-          icon: packData.icon,
-          isDefault: packData.isDefault,
-        },
-      },
-      { upsert: true, new: true }
-    );
+    // Upsert the pack
+    const packRows = await sql`
+      insert into packs (slug, name, tagline, description, theme_color, icon, is_default)
+      values (${packData.slug}, ${packData.name}, ${packData.tagline}, ${packData.description}, ${packData.themeColor}, ${packData.icon}, ${packData.isDefault})
+      on conflict (slug) do update set
+        name = excluded.name,
+        tagline = excluded.tagline,
+        description = excluded.description,
+        theme_color = excluded.theme_color,
+        icon = excluded.icon,
+        is_default = excluded.is_default
+      returning id
+    `;
+    const packId = (packRows[0] as { id: string } | undefined)?.id;
+    if (!packId) throw new Error(`Failed to upsert pack ${packData.slug}`);
 
-    const questionIds: mongoose.Types.ObjectId[] = [];
     let created = 0;
     let updated = 0;
     let errors = 0;
 
     for (const q of packData.questions) {
       try {
-        const result = await Question.findOneAndUpdate(
-          { questionText: q.questionText },
-          {
-            $set: {
-              options: q.options,
-              correctAnswerIndex: q.correctAnswerIndex,
-              category: q.category,
-              difficulty: q.difficulty,
-              season: q.season,
-              episode: q.episode,
-              source: q.source,
-              funFact: q.funFact,
-            },
-            $addToSet: { packIds: pack._id },
-          },
-          { upsert: true, new: true, rawResult: true }
-        );
+        const qRows = await sql`
+          insert into questions (
+            question_text,
+            options,
+            correct_answer_index,
+            category,
+            difficulty,
+            season,
+            episode,
+            source,
+            fun_fact
+          ) values (
+            ${q.questionText},
+            ${JSON.stringify(q.options)}::jsonb,
+            ${q.correctAnswerIndex},
+            ${q.category ?? null},
+            ${q.difficulty},
+            ${q.season ?? null},
+            ${q.episode ?? null},
+            ${JSON.stringify(q.source)}::jsonb,
+            ${q.funFact ?? null}
+          )
+          on conflict (question_text) do update set
+            options = excluded.options,
+            correct_answer_index = excluded.correct_answer_index,
+            category = excluded.category,
+            difficulty = excluded.difficulty,
+            season = excluded.season,
+            episode = excluded.episode,
+            source = excluded.source,
+            fun_fact = excluded.fun_fact
+          returning id, (xmax = 0) as inserted
+        `;
 
-        const questionDoc = await Question.findOne({ questionText: q.questionText });
-        if (questionDoc) {
-          questionIds.push(questionDoc._id as mongoose.Types.ObjectId);
-        }
+        const row = qRows[0] as { id: string; inserted: boolean } | undefined;
+        if (!row?.id) throw new Error("Question upsert returned no id");
+        if (row.inserted) created++;
+        else updated++;
 
-        if (result.lastErrorObject?.updatedExisting) {
-          updated++;
-        } else {
-          created++;
-        }
+        await sql`
+          insert into pack_questions (pack_id, question_id)
+          values (${packId}, ${row.id})
+          on conflict do nothing
+        `;
       } catch (err: unknown) {
         errors++;
         const message = err instanceof Error ? err.message : String(err);
         console.error(`  Error upserting "${q.questionText.slice(0, 50)}...": ${message}`);
       }
     }
-
-    // Update pack with question references
-    await Pack.findByIdAndUpdate(pack._id, { $set: { questions: questionIds } });
 
     console.log(`  Questions - Created: ${created}, Updated: ${updated}, Errors: ${errors}`);
     totalCreated += created;
@@ -170,10 +151,11 @@ async function seed() {
   console.log(`Total questions created: ${totalCreated}`);
   console.log(`Total questions updated: ${totalUpdated}`);
   console.log(`Total errors: ${totalErrors}`);
-  console.log(`Total questions in DB: ${await Question.countDocuments()}`);
-  console.log(`Total packs in DB: ${await Pack.countDocuments()}`);
 
-  await mongoose.disconnect();
+  const [{ count: qCount }] = (await sql`select count(*)::int as count from questions`) as Array<{ count: number }>;
+  const [{ count: pCount }] = (await sql`select count(*)::int as count from packs`) as Array<{ count: number }>;
+  console.log(`Total questions in DB: ${qCount}`);
+  console.log(`Total packs in DB: ${pCount}`);
 }
 
 seed().catch((err) => {

@@ -1,36 +1,35 @@
-import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-if (!MONGODB_URI) {
-  console.error('ERROR: Set MONGODB_URI environment variable');
+if (!process.env.DATABASE_URL) {
+  // Lightweight .env.local loader (mirrors seed-packs.ts)
+  const envPath = path.join(__dirname, '..', '.env.local');
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf-8');
+    for (const line of envContent.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eqIndex = trimmed.indexOf('=');
+      if (eqIndex === -1) continue;
+      const key = trimmed.slice(0, eqIndex).trim();
+      let value = trimmed.slice(eqIndex + 1).trim();
+      value = value.replace(/^['"]|['"]$/g, '');
+      if (!process.env[key]) process.env[key] = value;
+    }
+  }
+}
+
+if (!process.env.DATABASE_URL) {
+  console.error('ERROR: Set DATABASE_URL environment variable');
   process.exit(1);
 }
 
-const QuestionSchema = new mongoose.Schema({
-  questionText: { type: String, required: true, unique: true },
-  options: { type: [String], required: true },
-  correctAnswerIndex: { type: Number, required: true },
-  category: { type: String },
-  difficulty: { type: String, enum: ['easy', 'medium', 'hard'], required: true },
-  season: { type: Number },
-  episode: { type: String },
-  funFact: { type: String },
-  source: {
-    url: { type: String, required: true },
-    description: { type: String, required: true },
-  },
-}, { timestamps: true });
-
-const Question = mongoose.models.Question || mongoose.model('Question', QuestionSchema);
-
 async function seed() {
-  console.log('Connecting to MongoDB...');
-  await mongoose.connect(MONGODB_URI!);
-  console.log('Connected.');
-
+  const { sql } = await import('../lib/db');
   const questionsPath = path.join(__dirname, '..', 'data', 'questions.json');
   const raw = fs.readFileSync(questionsPath, 'utf-8');
   const questions = JSON.parse(raw);
@@ -43,28 +42,42 @@ async function seed() {
 
   for (const q of questions) {
     try {
-      const result = await Question.findOneAndUpdate(
-        { questionText: q.questionText },
-        {
-          $set: {
-            options: q.options,
-            correctAnswerIndex: q.correctAnswerIndex,
-            category: q.category,
-            difficulty: q.difficulty,
-            season: q.season,
-            episode: q.episode,
-            funFact: q.funFact || undefined,
-            source: q.source,
-          },
-        },
-        { upsert: true, new: true, rawResult: true }
-      );
-
-      if (result.lastErrorObject?.updatedExisting) {
-        updated++;
-      } else {
-        created++;
-      }
+      const rows = await sql`
+        insert into questions (
+          question_text,
+          options,
+          correct_answer_index,
+          category,
+          difficulty,
+          season,
+          episode,
+          fun_fact,
+          source
+        ) values (
+          ${q.questionText},
+          ${JSON.stringify(q.options)}::jsonb,
+          ${q.correctAnswerIndex},
+          ${q.category ?? null},
+          ${q.difficulty},
+          ${q.season ?? null},
+          ${q.episode ?? null},
+          ${q.funFact ?? null},
+          ${JSON.stringify(q.source)}::jsonb
+        )
+        on conflict (question_text) do update set
+          options = excluded.options,
+          correct_answer_index = excluded.correct_answer_index,
+          category = excluded.category,
+          difficulty = excluded.difficulty,
+          season = excluded.season,
+          episode = excluded.episode,
+          fun_fact = excluded.fun_fact,
+          source = excluded.source
+        returning (xmax = 0) as inserted
+      `;
+      const inserted = Boolean((rows[0] as { inserted?: boolean } | undefined)?.inserted);
+      if (inserted) created++;
+      else updated++;
     } catch (err: unknown) {
       errors++;
       const message = err instanceof Error ? err.message : String(err);
@@ -73,9 +86,8 @@ async function seed() {
   }
 
   console.log(`\nDone! Created: ${created}, Updated: ${updated}, Errors: ${errors}`);
-  console.log(`Total questions in DB: ${await Question.countDocuments()}`);
-
-  await mongoose.disconnect();
+  const [{ count }] = (await sql`select count(*)::int as count from questions`) as Array<{ count: number }>;
+  console.log(`Total questions in DB: ${count}`);
 }
 
 seed().catch((err) => {

@@ -1,25 +1,45 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import { PackModel } from '@/lib/models/pack';
+import { sql } from '@/lib/db';
 
 export async function GET() {
   try {
-    await connectDB();
+    const rows = (await sql`
+      select
+        p.id,
+        p.slug,
+        p.name,
+        p.tagline,
+        p.description,
+        p.theme_color,
+        p.icon,
+        p.is_default,
+        coalesce(count(pq.question_id), 0)::int as question_count
+      from packs p
+      left join pack_questions pq on pq.pack_id = p.id
+      group by p.id
+      order by p.created_at asc
+    `) as Array<{
+      id: string;
+      slug: string;
+      name: string;
+      tagline: string;
+      description: string;
+      theme_color: string;
+      icon: string;
+      is_default: boolean;
+      question_count: number;
+    }>;
 
-    const packs = await PackModel.find().select(
-      'slug name tagline description themeColor icon isDefault questions'
-    );
-
-    const result = packs.map((p) => ({
-      id: p._id.toString(),
+    const result = rows.map((p) => ({
+      id: p.id,
       slug: p.slug,
       name: p.name,
       tagline: p.tagline,
       description: p.description,
-      themeColor: p.themeColor,
+      themeColor: p.theme_color,
       icon: p.icon,
-      isDefault: p.isDefault,
-      questionCount: p.questions.length,
+      isDefault: p.is_default,
+      questionCount: p.question_count,
     }));
 
     return NextResponse.json(result);

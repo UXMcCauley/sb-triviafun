@@ -1,12 +1,9 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import { GameModel } from '@/lib/models/game';
-import { QuestionModel } from '@/lib/models/question';
+import { sql } from '@/lib/db';
 import { getShuffledQuestion } from '@/lib/game-helpers';
 
 export async function GET(request: Request) {
   try {
-    await connectDB();
     const { searchParams } = new URL(request.url);
     const gameCode = searchParams.get('gameCode')?.toUpperCase();
 
@@ -14,28 +11,69 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Game code required' }, { status: 400 });
     }
 
-    const game = await GameModel.findOne({ gameCode });
+    const gameRows = (await sql`
+      select
+        id,
+        game_code,
+        status,
+        current_question_index,
+        question_ids,
+        shuffled_option_orders,
+        shuffled_correct_answers,
+        question_started_at,
+        settings
+      from games
+      where game_code = ${gameCode}
+      limit 1
+    `) as Array<{
+      id: string;
+      game_code: string;
+      status: string;
+      current_question_index: number;
+      question_ids: string[];
+      shuffled_option_orders: number[][];
+      shuffled_correct_answers: number[];
+      question_started_at: number | null;
+      settings: { timerSeconds?: number } | null;
+    }>;
+    const game = gameRows[0];
     if (!game) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
 
     // Populate all questions to build sanitized list
-    const questionDocs = await QuestionModel.find({
-      _id: { $in: game.questions },
-    });
+    const questionDocs = (await sql`
+      select id, question_text, options, category, difficulty
+      from questions
+      where id = any(${game.question_ids}::uuid[])
+    `) as Array<{
+      id: string;
+      question_text: string;
+      options: string[];
+      category: string | null;
+      difficulty: string;
+    }>;
 
     // Create a map for quick lookup preserving order
     const questionMap = new Map(
-      questionDocs.map((q) => [q._id.toString(), q])
+      questionDocs.map((q) => [q.id, q])
     );
 
     // Sanitize: don't send correct answers for active games (future questions)
-    const sanitizedQuestions = game.questions.map((qId, i) => {
-      const q = questionMap.get(qId.toString());
+    const sanitizedQuestions = game.question_ids.map((qId, i) => {
+      const q = questionMap.get(qId);
       if (!q) return null;
 
-      const optionOrder = game.shuffledOptionOrders[i];
-      const shuffled = getShuffledQuestion(q, optionOrder);
+      const optionOrder = game.shuffled_option_orders[i];
+      const shuffled = getShuffledQuestion(
+        {
+          questionText: q.question_text,
+          options: q.options,
+          category: q.category,
+          difficulty: q.difficulty,
+        },
+        optionOrder
+      );
 
       return {
         questionText: shuffled.questionText,
@@ -43,25 +81,27 @@ export async function GET(request: Request) {
         category: shuffled.category,
         difficulty: shuffled.difficulty,
         // Only reveal correct answer for past questions
-        ...(game.status === 'finished' || i < game.currentQuestionIndex
-          ? { correctAnswerIndex: game.shuffledCorrectAnswers[i] }
+        ...(game.status === 'finished' || i < game.current_question_index
+          ? { correctAnswerIndex: game.shuffled_correct_answers[i] }
           : {}),
       };
     }).filter(Boolean);
 
+    const players = (await sql`
+      select player_id::text as id, name, score
+      from game_players
+      where game_id = ${game.id}::uuid
+    `) as Array<{ id: string; name: string; score: number }>;
+
     return NextResponse.json({
-      gameCode: game.gameCode,
+      gameCode: game.game_code,
       status: game.status,
-      currentQuestionIndex: game.currentQuestionIndex,
-      totalQuestions: game.questions.length,
+      currentQuestionIndex: game.current_question_index,
+      totalQuestions: game.question_ids.length,
       questions: sanitizedQuestions,
-      players: game.players.map((p) => ({
-        id: p.id,
-        name: p.name,
-        score: p.score,
-      })),
-      questionStartedAt: game.questionStartedAt,
-      timerDuration: game.settings.timerSeconds,
+      players,
+      questionStartedAt: game.question_started_at,
+      timerDuration: game.settings?.timerSeconds ?? 15,
     });
   } catch (error) {
     console.error('Get game state error:', error);
