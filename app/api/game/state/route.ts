@@ -108,25 +108,13 @@ export async function GET(request: Request) {
       };
     }).filter(Boolean);
 
+    // NOTE: Local/dev DBs may not include optional auth/profile tables (e.g. `users`).
+    // Keep state reads resilient; enrich with avatar/rank only when the schema supports it.
     const players = (await sql`
-      with ranked as (
-        select
-          ps.display_name,
-          u.avatar_url,
-          rank() over (order by ps.total_score desc) as global_rank
-        from player_stats ps
-        left join users u on u.id = ps.user_id
-      )
-      select
-        gp.player_id::text as id,
-        gp.name,
-        gp.score,
-        r.avatar_url,
-        r.global_rank::int as global_rank
-      from game_players gp
-      left join ranked r on r.display_name = gp.name
-      where gp.game_id = ${game.id}::uuid
-    `) as Array<{ id: string; name: string; score: number; avatar_url: string | null; global_rank: number | null }>;
+      select player_id::text as id, name, score
+      from game_players
+      where game_id = ${game.id}::uuid
+    `) as Array<{ id: string; name: string; score: number }>;
 
     const seriesHistory =
       game.status === 'finished' && game.series_id
@@ -179,8 +167,8 @@ export async function GET(request: Request) {
         id: p.id,
         name: p.name,
         score: p.score,
-        avatarUrl: p.avatar_url,
-        globalRank: p.global_rank,
+        avatarUrl: null,
+        globalRank: null,
       })),
       questionStartedAt: game.question_started_at,
       timerDuration: game.settings?.timerSeconds ?? 15,
