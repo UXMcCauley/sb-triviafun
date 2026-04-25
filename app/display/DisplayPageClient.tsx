@@ -12,6 +12,7 @@ import type {
 } from '@/lib/models/types';
 import QuestionCard from '@/components/QuestionCard';
 import Leaderboard from '@/components/Leaderboard';
+import ShareLinks from '@/components/ShareLinks';
 
 type Phase =
   | 'join'
@@ -369,7 +370,7 @@ export default function DisplayPageClient() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-10">
+    <div className="min-h-screen bg-gray-950 text-white p-10 flex flex-col">
       {/* Header */}
       <div className="flex items-start justify-between gap-6">
         <div className="space-y-2">
@@ -685,6 +686,10 @@ export default function DisplayPageClient() {
             </div>
           </div>
         )}
+      </div>
+
+      <div className="mt-auto pt-8">
+        <ShareLinks gameCode={gameCode} variant="discreet" />
       </div>
     </div>
   );

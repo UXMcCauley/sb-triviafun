@@ -15,6 +15,7 @@ import type {
 import QuestionCard from '@/components/QuestionCard';
 import Leaderboard from '@/components/Leaderboard';
 import ReactionPicker from '@/components/ReactionPicker';
+import ShareLinks from '@/components/ShareLinks';
 
 type Phase = 'join' | 'lobby' | 'question' | 'reveal' | 'scoreboard' | 'finished';
 
@@ -162,7 +163,7 @@ function WatchContent() {
   }, [gameCode, phase === 'join']);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-purple-950 to-gray-900 text-white relative">
+    <div className="min-h-screen bg-linear-to-br from-gray-900 via-purple-950 to-gray-900 text-white relative flex flex-col">
       {/* Audience badge */}
       <div className="fixed top-4 right-4 z-50 bg-purple-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 text-sm text-purple-300 font-semibold">
         👀 Watching
@@ -321,6 +322,10 @@ function WatchContent() {
           <Leaderboard players={players} compact reactionsByPlayerId={reactionsByPlayerId} />
         </div>
       )}
+
+      <div className="mt-auto p-4">
+        <ShareLinks gameCode={gameCode} variant="discreet" />
+      </div>
     </div>
   );
 }

@@ -43,6 +43,18 @@ create table if not exists pack_questions (
 create index if not exists pack_questions_pack_id_idx on pack_questions(pack_id);
 create index if not exists pack_questions_question_id_idx on pack_questions(question_id);
 
+-- Pack favorites (Neon Auth user id)
+create table if not exists pack_favorites (
+  user_id uuid not null,
+  pack_id uuid not null references packs(id) on delete cascade,
+  pinned boolean not null default false,
+  created_at timestamptz not null default now(),
+  primary key (user_id, pack_id)
+);
+
+create index if not exists pack_favorites_user_id_idx on pack_favorites(user_id);
+create index if not exists pack_favorites_pack_id_idx on pack_favorites(pack_id);
+
 -- Games
 create table if not exists games (
   id uuid primary key default gen_random_uuid(),

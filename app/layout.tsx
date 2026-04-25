@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Seinfeld Trivia",
-  description: "Real-time multiplayer Seinfeld trivia game",
+  title: "TriviaFun",
+  description: "Real-time multiplayer trivia you can host in minutes",
 };
 
 export default function RootLayout({

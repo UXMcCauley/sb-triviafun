@@ -15,6 +15,7 @@ import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 import ReactionPicker from '@/components/ReactionPicker';
+import ShareLinks from '@/components/ShareLinks';
 
 type Phase =
   | 'login'
@@ -464,7 +465,7 @@ function PlayContent() {
   const myScore = players.find((p) => p.id === playerId)?.score || 0;
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white">
+    <div className="min-h-screen bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white flex flex-col">
       {/* PAUSE OVERLAY */}
       {paused && phase !== 'login' && phase !== 'join' && phase !== 'lobby' && phase !== 'finished' && (
         <div className="absolute inset-0 bg-black/80 z-40 flex items-center justify-center">
@@ -797,6 +798,11 @@ function PlayContent() {
           <p className="text-white/30 text-sm text-center">Waiting for host to start next round...</p>
         </div>
       )}
+
+      {/* Discreet footer links */}
+      <div className="mt-auto p-4">
+        <ShareLinks gameCode={gameCode} variant="discreet" />
+      </div>
     </div>
   );
 }

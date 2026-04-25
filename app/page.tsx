@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { getPusherClient } from '@/lib/pusher-client';
 import GameQRCode from '@/components/GameQRCode';
 import DisplayPageClient from '@/app/display/DisplayPageClient';
+import ShareLinks from '@/components/ShareLinks';
 
 interface PackInfo {
   id: string;
@@ -45,6 +46,8 @@ export default function Home() {
   const [loadingAction, setLoadingAction] = useState<'create' | 'start' | ''>('');
   const [transitioning, setTransitioning] = useState(false);
   const transitionTimer = useRef<number | null>(null);
+  const [user, setUser] = useState<{ id: string; email: string | null; name: string | null } | null>(null);
+  const [fav, setFav] = useState<Record<string, { pinned: boolean }>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -53,8 +56,8 @@ export default function Home() {
       .then((data: PackInfo[]) => {
         if (cancelled) return;
         setPacks(data);
-        const defaults = data.filter((p) => p.isDefault).map((p) => p.id);
-        setSelectedPackIds(defaults.length ? defaults : data.slice(0, 3).map((p) => p.id));
+        // No default pack selection — user chooses intentionally.
+        setSelectedPackIds([]);
       })
       .catch(() => {})
       .finally(() => {
@@ -65,6 +68,39 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/auth/me')
+      .then((r) => (r.ok ? r.json() : { user: null }))
+      .then((data) => {
+        if (cancelled) return;
+        setUser(data?.user || null);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    fetch('/api/packs/favorites')
+      .then((r) => (r.ok ? r.json() : { favorites: [] }))
+      .then((data) => {
+        if (cancelled) return;
+        const next: Record<string, { pinned: boolean }> = {};
+        for (const f of (data?.favorites || []) as Array<{ packId: string; pinned: boolean }>) {
+          next[f.packId] = { pinned: Boolean(f.pinned) };
+        }
+        setFav(next);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
   const selectedCount = selectedPackIds.length;
   const canCreate = selectedCount > 0;
 
@@ -74,6 +110,47 @@ export default function Home() {
       return [...prev, packId];
     });
   };
+
+  const toggleFavorite = async (packId: string) => {
+    if (!user) return;
+    const isFav = Boolean(fav[packId]);
+    const next = { ...fav };
+    if (isFav) delete next[packId];
+    else next[packId] = { pinned: false };
+    setFav(next);
+    await fetch('/api/packs/favorites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ packId, action: isFav ? 'unfavorite' : 'favorite' }),
+    }).catch(() => {});
+  };
+
+  const togglePin = async (packId: string) => {
+    if (!user) return;
+    if (!fav[packId]) return;
+    const pinned = !fav[packId]?.pinned;
+    setFav((prev) => ({ ...prev, [packId]: { pinned } }));
+    await fetch('/api/packs/favorites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ packId, action: pinned ? 'pin' : 'unpin' }),
+    }).catch(() => {});
+  };
+
+  const sortedPacks = useMemo(() => {
+    const withRank = packs.map((p, idx) => ({
+      p,
+      idx,
+      pinned: Boolean(fav[p.id]?.pinned),
+      favored: Boolean(fav[p.id]),
+    }));
+    withRank.sort((a, b) => {
+      if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+      if (a.favored !== b.favored) return a.favored ? -1 : 1;
+      return a.idx - b.idx;
+    });
+    return withRank.map((x) => x.p);
+  }, [packs, fav]);
 
   const createGame = async () => {
     if (!canCreate) return;
@@ -177,30 +254,16 @@ export default function Home() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight">
-              Pick your <span className="text-yellow-400">trivia themes</span>
+              <span className="text-yellow-400">TriviaFun</span> host setup
             </h1>
-            <p className="text-white/60 max-w-2xl">Material-ish, projector-friendly, and built for quick iteration.</p>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href="/play"
-              className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/70 hover:text-white hover:bg-white/10 transition"
-            >
-              Join game
-            </Link>
-            <Link
-              href="/watch"
-              className="rounded-xl border border-purple-400/20 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 hover:bg-purple-500/20 transition"
-            >
-              Watch
-            </Link>
-            <Link
-              href="/display"
-              className="rounded-xl border border-yellow-400/25 bg-yellow-500/15 px-4 py-2 text-sm font-semibold text-yellow-200 hover:bg-yellow-500/25 transition"
-            >
-              TV display
-            </Link>
+            <p className="text-white/60 max-w-2xl">
+              Pick packs, tune the knobs, and we’ll drop you straight into TV mode.
+            </p>
+            {user ? (
+              <p className="text-white/35 text-sm">
+                Signed in as <span className="text-white/55">{user.email || user.name || 'Account'}</span>
+              </p>
+            ) : null}
           </div>
         </div>
 
@@ -219,24 +282,12 @@ export default function Home() {
           >
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-white/50">
-                  {loading ? 'Loading packs…' : `${packs.length} packs`} · {selectedCount} selected
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setSelectedPackIds(packs.filter((p) => p.isDefault).map((p) => p.id))}
-                  className="text-sm text-white/50 hover:text-white/70 transition"
-                  disabled={loading}
-                >
-                  Reset to defaults
-                </button>
-              </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                {packs.map((pack) => {
+                {sortedPacks.map((pack) => {
                   const isEmpty = pack.questionCount === 0;
                   const isSelected = selectedPackIds.includes(pack.id);
+                  const isFav = Boolean(fav[pack.id]);
+                  const isPinned = Boolean(fav[pack.id]?.pinned);
                   return (
                     <button
                       key={pack.id}
@@ -276,14 +327,54 @@ export default function Home() {
                           <span className="text-xs text-white/35">
                             {isEmpty ? 'No questions yet' : `${pack.questionCount} questions`}
                           </span>
-                          <span
-                            className={cx(
-                              'text-xs font-semibold rounded-full px-2 py-1 border',
-                              isSelected ? 'border-white/20 bg-white/10 text-white/80' : 'border-white/10 bg-white/5 text-white/50',
-                            )}
-                          >
-                            {isSelected ? 'Selected' : 'Select'}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            {user ? (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  toggleFavorite(pack.id);
+                                }}
+                                className={cx(
+                                  'text-xs font-semibold rounded-full px-2 py-1 border transition',
+                                  isFav
+                                    ? 'border-yellow-400/30 bg-yellow-500/15 text-yellow-200 hover:bg-yellow-500/20'
+                                    : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10',
+                                )}
+                                aria-label={isFav ? 'Unfavorite pack' : 'Favorite pack'}
+                              >
+                                {isFav ? '★' : '☆'}
+                              </button>
+                            ) : null}
+                            {user && isFav ? (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  togglePin(pack.id);
+                                }}
+                                className={cx(
+                                  'text-xs font-semibold rounded-full px-2 py-1 border transition',
+                                  isPinned
+                                    ? 'border-purple-400/30 bg-purple-500/15 text-purple-200 hover:bg-purple-500/20'
+                                    : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10',
+                                )}
+                                aria-label={isPinned ? 'Unpin pack' : 'Pin pack'}
+                              >
+                                {isPinned ? 'Pinned' : 'Pin'}
+                              </button>
+                            ) : null}
+                            <span
+                              className={cx(
+                                'text-xs font-semibold rounded-full px-2 py-1 border',
+                                isSelected ? 'border-white/20 bg-white/10 text-white/80' : 'border-white/10 bg-white/5 text-white/50',
+                              )}
+                            >
+                              {isSelected ? 'Selected' : 'Select'}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </button>
@@ -297,6 +388,10 @@ export default function Home() {
                 <div className="space-y-1">
                   <h2 className="text-lg font-extrabold">Game settings</h2>
                   <p className="text-sm text-white/55">Set the basics, then optionally tweak the chaos knobs.</p>
+                  <p className="text-sm text-white/45">
+                    {loading ? 'Loading packs…' : `${packs.length} packs`} ·{' '}
+                    <span className={selectedCount ? 'text-yellow-200 font-semibold' : ''}>{selectedCount} selected</span>
+                  </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -427,9 +522,7 @@ export default function Home() {
                   {loadingAction === 'create' ? 'Creating…' : 'Create game'}
                 </button>
 
-                <p className="text-xs text-white/35 leading-relaxed">
-                  Open <span className="text-white/50">/display</span> on the TV. Players join via <span className="text-white/50">/play</span>.
-                </p>
+                <ShareLinks variant="full" className="mt-2" />
               </div>
             </aside>
           </div>
