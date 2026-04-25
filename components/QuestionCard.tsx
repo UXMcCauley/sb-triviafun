@@ -1,5 +1,7 @@
 'use client';
 
+import ReactionCluster, { type ReactionCounts } from '@/components/ReactionCluster';
+
 interface QuestionCardProps {
   questionText: string;
   options: string[];
@@ -12,6 +14,7 @@ interface QuestionCardProps {
   onSelect?: (index: number) => void;
   disabled?: boolean;
   size?: 'display' | 'player';
+  reactions?: ReactionCounts;
 }
 
 const optionColors = [
@@ -35,6 +38,7 @@ export default function QuestionCard({
   onSelect,
   disabled,
   size = 'display',
+  reactions,
 }: QuestionCardProps) {
   const isDisplay = size === 'display';
   const isRevealed = correctAnswer !== null && correctAnswer !== undefined;
@@ -62,6 +66,10 @@ export default function QuestionCard({
             </span>
           )}
         </div>
+      </div>
+
+      <div className="mb-3 flex justify-end">
+        <ReactionCluster counts={reactions} />
       </div>
 
       {/* Question text */}

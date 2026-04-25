@@ -1,5 +1,7 @@
 'use client';
 
+import ReactionCluster, { type ReactionCounts } from '@/components/ReactionCluster';
+
 interface LeaderboardPlayer {
   id: string;
   name: string;
@@ -11,9 +13,10 @@ interface LeaderboardProps {
   highlightId?: string;
   compact?: boolean;
   maxVisible?: number;
+  reactionsByPlayerId?: Record<string, ReactionCounts>;
 }
 
-export default function Leaderboard({ players, highlightId, compact, maxVisible }: LeaderboardProps) {
+export default function Leaderboard({ players, highlightId, compact, maxVisible, reactionsByPlayerId }: LeaderboardProps) {
   const sorted = [...players].sort((a, b) => b.score - a.score);
   const limit = maxVisible || (compact ? 5 : sorted.length);
   const visible = sorted.slice(0, limit);
@@ -34,7 +37,10 @@ export default function Leaderboard({ players, highlightId, compact, maxVisible 
               <span className="text-white/40 w-4 text-right flex-shrink-0">{i + 1}</span>
               <span className="truncate">{player.name}</span>
             </span>
-            <span className="font-mono font-bold flex-shrink-0 ml-2">{player.score.toLocaleString()}</span>
+            <span className="flex items-center gap-2 flex-shrink-0 ml-2">
+              <ReactionCluster counts={reactionsByPlayerId?.[player.id]} />
+              <span className="font-mono font-bold">{player.score.toLocaleString()}</span>
+            </span>
           </div>
         ))}
       </div>
@@ -64,9 +70,12 @@ export default function Leaderboard({ players, highlightId, compact, maxVisible 
                 {player.name}
               </span>
             </div>
-            <span className="text-xl font-mono font-bold text-yellow-300 flex-shrink-0 ml-3">
-              {player.score.toLocaleString()}
-            </span>
+            <div className="flex items-center gap-3 flex-shrink-0 ml-3">
+              <ReactionCluster counts={reactionsByPlayerId?.[player.id]} />
+              <span className="text-xl font-mono font-bold text-yellow-300">
+                {player.score.toLocaleString()}
+              </span>
+            </div>
           </div>
         );
       })}
