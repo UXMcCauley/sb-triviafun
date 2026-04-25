@@ -81,6 +81,8 @@ export default function DisplayPageClient() {
   const revealRequestedRef = useRef(false);
   const advanceRequestedRef = useRef(false);
 
+  const [starting, setStarting] = useState(false);
+
   const now = Date.now();
   const secondsLeft = phaseEndsAt ? Math.max(0, Math.ceil((phaseEndsAt - now) / 1000)) : null;
 
@@ -116,6 +118,24 @@ export default function DisplayPageClient() {
       timerDuration: number;
       totalQuestions: number;
     };
+  };
+
+  const startGameNow = async () => {
+    if (!gameCode) return;
+    setStarting(true);
+    try {
+      const res = await fetch('/api/game/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameCode }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error((data as { error?: string }).error || 'Failed to start game');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to start game');
+    } finally {
+      setStarting(false);
+    }
   };
 
   const requestAdvance = async () => {
@@ -176,6 +196,22 @@ export default function DisplayPageClient() {
       setError(e instanceof Error ? e.message : 'Failed');
     }
   };
+
+  // Allow embedding with a known gameCode (e.g. from root "Create game" flow).
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const injected = (globalThis as unknown as { __TRIVIAFUN_DISPLAY_CODE__?: string }).__TRIVIAFUN_DISPLAY_CODE__;
+    if (!injected || gameCode) return;
+    const code = String(injected).toUpperCase();
+    setGameCode(code);
+    fetchState(code)
+      .then((data) => {
+        if (data.status === 'lobby') setTimedPhase('intro', 9999);
+        else if (data.status === 'active') setTimedPhase('question-stinger', 3);
+        else setPhase('finished');
+      })
+      .catch((e) => setError(e instanceof Error ? e.message : 'Failed'));
+  }, []);
 
   // Subscribe to realtime events after joining
   useEffect(() => {
@@ -346,6 +382,23 @@ export default function DisplayPageClient() {
           </div>
         ) : null}
       </div>
+
+      {/* Host-only controls (shown while waiting to start / between phases) */}
+      {(phase === 'intro' || phase === 'countdown') && gameCode ? (
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={startGameNow}
+            disabled={starting || players.length === 0 || phase === 'countdown'}
+            className="rounded-2xl bg-green-500 hover:bg-green-400 text-black font-extrabold px-5 py-3 disabled:opacity-50"
+          >
+            {starting ? 'Starting…' : phase === 'countdown' ? 'Starting…' : 'Start game'}
+          </button>
+          <span className="text-sm text-white/45">
+            {players.length === 0 ? 'Waiting for at least one player.' : 'TV will run the full flow once started.'}
+          </span>
+        </div>
+      ) : null}
 
       {/* Main */}
       <div className="mt-10">
@@ -625,4 +678,5 @@ export default function DisplayPageClient() {
     </div>
   );
 }
+
 
