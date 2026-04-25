@@ -10,9 +10,11 @@ import type {
   GameFinishedEvent,
   PlayerResult,
   GamePausedEvent,
+  ReactionAddedEvent,
 } from '@/lib/models/types';
 import QuestionCard from '@/components/QuestionCard';
 import Leaderboard from '@/components/Leaderboard';
+import ReactionPicker from '@/components/ReactionPicker';
 
 type Phase = 'join' | 'lobby' | 'question' | 'reveal' | 'scoreboard' | 'finished';
 
@@ -35,6 +37,36 @@ function WatchContent() {
   const [winner, setWinner] = useState<PlayerInfo | null>(null);
   const [paused, setPaused] = useState(false);
   const [error, setError] = useState('');
+  const [reactionsByTarget, setReactionsByTarget] = useState<Record<string, Record<string, number>>>({});
+
+  const getGuestId = () => {
+    const key = 'seinfeld_guest_id';
+    let id = localStorage.getItem(key);
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem(key, id);
+    }
+    return id;
+  };
+
+  const sendReaction = async (targetType: 'question' | 'player', targetKey: string, emoji: string) => {
+    try {
+      await fetch('/api/game/react', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameCode, targetType, targetKey, emoji, guestId: getGuestId() }),
+      });
+    } catch {}
+  };
+
+  const reactionsForQuestion = currentQuestion
+    ? reactionsByTarget[`question:${currentQuestion.questionIndex}`]
+    : undefined;
+
+  const reactionsByPlayerId = players.reduce<Record<string, Record<string, number>>>((acc, p) => {
+    acc[p.id] = reactionsByTarget[`player:${p.id}`] || {};
+    return acc;
+  }, {});
 
   const handleJoinWatch = async () => {
     if (!gameCode.trim()) {
@@ -65,6 +97,22 @@ function WatchContent() {
     const pusher = getPusherClient();
     const channel = pusher.subscribe(`game-${gameCode.toUpperCase()}`);
 
+    fetch(`/api/game/reactions?gameCode=${encodeURIComponent(gameCode.toUpperCase())}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const rows = data?.reactions as Array<{ target_type: 'question' | 'player'; target_key: string; emoji: string }> | undefined;
+        if (!rows) return;
+        setReactionsByTarget((prev) => {
+          const next = { ...prev };
+          for (const row of rows) {
+            const key = `${row.target_type}:${row.target_key}`;
+            next[key] = { ...(next[key] || {}), [row.emoji]: ((next[key] || {})[row.emoji] || 0) + 1 };
+          }
+          return next;
+        });
+      })
+      .catch(() => {});
+
     channel.bind('player-joined', (data: PlayerJoinedEvent) => {
       setPlayers(data.players.map((p) => ({ ...p, score: 0 })));
     });
@@ -94,6 +142,17 @@ function WatchContent() {
       setPlayers(data.players);
       setWinner(data.winner);
       setPhase('finished');
+    });
+
+    channel.bind('reaction-added', (data: ReactionAddedEvent) => {
+      setReactionsByTarget((prev) => {
+        const key = `${data.targetType}:${data.targetKey}`;
+        const existing = prev[key] || {};
+        return {
+          ...prev,
+          [key]: { ...existing, [data.emoji]: (existing[data.emoji] || 0) + 1 },
+        };
+      });
     });
 
     return () => {
@@ -188,10 +247,15 @@ function WatchContent() {
               difficulty={currentQuestion.difficulty}
               size="player"
               disabled
+              reactions={reactionsForQuestion}
             />
           </div>
+          <div className="max-w-3xl mx-auto w-full mt-4 bg-white/5 border border-white/10 rounded-xl p-3">
+            <p className="text-xs text-white/50 font-bold uppercase tracking-wider mb-2">React</p>
+            <ReactionPicker onPick={(emoji) => sendReaction('question', String(currentQuestion.questionIndex), emoji)} />
+          </div>
           <div className="mt-4">
-            <Leaderboard players={players} compact />
+            <Leaderboard players={players} compact reactionsByPlayerId={reactionsByPlayerId} />
           </div>
         </div>
       )}
@@ -254,7 +318,7 @@ function WatchContent() {
               <p className="font-mono text-yellow-300 text-xl">{winner.score.toLocaleString()} pts</p>
             </div>
           )}
-          <Leaderboard players={players} compact />
+          <Leaderboard players={players} compact reactionsByPlayerId={reactionsByPlayerId} />
         </div>
       )}
     </div>

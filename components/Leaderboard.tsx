@@ -34,10 +34,10 @@ export default function Leaderboard({ players, highlightId, compact, maxVisible,
             }`}
           >
             <span className="flex items-center gap-2 min-w-0">
-              <span className="text-white/40 w-4 text-right flex-shrink-0">{i + 1}</span>
+              <span className="text-white/40 w-4 text-right shrink-0">{i + 1}</span>
               <span className="truncate">{player.name}</span>
             </span>
-            <span className="flex items-center gap-2 flex-shrink-0 ml-2">
+            <span className="flex items-center gap-2 shrink-0 ml-2">
               <ReactionCluster counts={reactionsByPlayerId?.[player.id]} />
               <span className="font-mono font-bold">{player.score.toLocaleString()}</span>
             </span>
@@ -63,14 +63,14 @@ export default function Leaderboard({ players, highlightId, compact, maxVisible,
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
-              <span className="text-xl w-8 text-center flex-shrink-0">
+              <span className="text-xl w-8 text-center shrink-0">
                 {medal || <span className="text-white/40 text-base">{i + 1}</span>}
               </span>
               <span className="text-lg font-semibold text-white truncate">
                 {player.name}
               </span>
             </div>
-            <div className="flex items-center gap-3 flex-shrink-0 ml-3">
+            <div className="flex items-center gap-3 shrink-0 ml-3">
               <ReactionCluster counts={reactionsByPlayerId?.[player.id]} />
               <span className="text-xl font-mono font-bold text-yellow-300">
                 {player.score.toLocaleString()}

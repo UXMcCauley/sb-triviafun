@@ -8,10 +8,12 @@ import type {
   AnswerRevealEvent,
   GameFinishedEvent,
   GamePausedEvent,
+  ReactionAddedEvent,
 } from '@/lib/models/types';
 import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
+import ReactionPicker from '@/components/ReactionPicker';
 
 type Phase = 'login' | 'join' | 'lobby' | 'question' | 'answered' | 'reveal' | 'waiting' | 'finished';
 
@@ -50,6 +52,7 @@ function PlayContent() {
   const [players, setPlayers] = useState<PlayerInfo[]>([]);
   const [winner, setWinner] = useState<PlayerInfo | null>(null);
   const [reported, setReported] = useState(false);
+  const [reactionsByTarget, setReactionsByTarget] = useState<Record<string, Record<string, number>>>({});
 
   const selectedAnswerRef = useRef<number | null>(null);
   useEffect(() => { selectedAnswerRef.current = selectedAnswer; }, [selectedAnswer]);
@@ -111,6 +114,41 @@ function PlayContent() {
     const data = await res.json();
     if (data?.user) setUser(data.user);
   };
+
+  const getGuestId = () => {
+    const key = 'seinfeld_guest_id';
+    let id = localStorage.getItem(key);
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem(key, id);
+    }
+    return id;
+  };
+
+  const sendReaction = async (targetType: 'question' | 'player', targetKey: string, emoji: string) => {
+    try {
+      await fetch('/api/game/react', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          gameCode,
+          targetType,
+          targetKey,
+          emoji,
+          guestId: getGuestId(),
+        }),
+      });
+    } catch {}
+  };
+
+  const reactionsForQuestion = currentQuestion
+    ? reactionsByTarget[`question:${currentQuestion.questionIndex}`]
+    : undefined;
+
+  const reactionsByPlayerId = players.reduce<Record<string, Record<string, number>>>((acc, p) => {
+    acc[p.id] = reactionsByTarget[`player:${p.id}`] || {};
+    return acc;
+  }, {});
 
   const handleLogin = async () => {
     if (!phone.trim() || !playerName.trim()) {
@@ -195,6 +233,22 @@ function PlayContent() {
     const pusher = getPusherClient();
     const channel = pusher.subscribe(`game-${gameCode}`);
 
+    fetch(`/api/game/reactions?gameCode=${encodeURIComponent(gameCode)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const rows = data?.reactions as Array<{ target_type: 'question' | 'player'; target_key: string; emoji: string }> | undefined;
+        if (!rows) return;
+        setReactionsByTarget((prev) => {
+          const next = { ...prev };
+          for (const row of rows) {
+            const key = `${row.target_type}:${row.target_key}`;
+            next[key] = { ...(next[key] || {}), [row.emoji]: ((next[key] || {})[row.emoji] || 0) + 1 };
+          }
+          return next;
+        });
+      })
+      .catch(() => {});
+
     channel.bind('game-started', () => { /* pregame countdown handled by display */ });
 
     channel.bind('new-question', (data: NewQuestionEvent) => {
@@ -231,6 +285,17 @@ function PlayContent() {
           body: JSON.stringify({ phone, score: data.players.find((p) => p.id === playerId)?.score || 0, won, correctAnswers: 0, totalAnswers: 0 }),
         });
       }
+    });
+
+    channel.bind('reaction-added', (data: ReactionAddedEvent) => {
+      setReactionsByTarget((prev) => {
+        const key = `${data.targetType}:${data.targetKey}`;
+        const existing = prev[key] || {};
+        return {
+          ...prev,
+          [key]: { ...existing, [data.emoji]: (existing[data.emoji] || 0) + 1 },
+        };
+      });
     });
 
     channel.bind('game-replay', (data: { gameCode?: string; newGameCode?: string; players: { id: string; name: string }[] }) => {
@@ -419,6 +484,13 @@ function PlayContent() {
               onSelect={handleSelectAnswer}
               disabled={phase === 'answered'}
               size="player"
+              reactions={reactionsForQuestion}
+            />
+          </div>
+          <div className="mt-4 bg-white/5 border border-white/10 rounded-xl p-3">
+            <p className="text-xs text-white/50 font-bold uppercase tracking-wider mb-2">Audience reactions</p>
+            <ReactionPicker
+              onPick={(emoji) => sendReaction('question', String(currentQuestion.questionIndex), emoji)}
             />
           </div>
           {phase === 'answered' && <div className="text-center py-4"><p className="text-white/50">Answer locked in!</p></div>}
@@ -484,7 +556,7 @@ function PlayContent() {
             <p className="text-white/60">Rank #{myRank} of {players.length}</p>
           </div>
           <div className="w-full max-w-sm">
-            <Leaderboard players={players} highlightId={playerId} compact />
+            <Leaderboard players={players} highlightId={playerId} compact reactionsByPlayerId={reactionsByPlayerId} />
           </div>
           <p className="text-white/30 text-sm text-center">Waiting for host to start next round...</p>
         </div>
