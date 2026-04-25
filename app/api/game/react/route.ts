@@ -21,7 +21,10 @@ const allowedEmoji = new Set(['🔥', '😂', '😬', '👏', '💀', '🤯', '�
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
     const gameCode = String(body.gameCode || '').toUpperCase();
     const targetType = body.targetType === 'question' || body.targetType === 'player' ? body.targetType : null;
     const targetKey = typeof body.targetKey === 'string' ? body.targetKey : String(body.targetKey ?? '');
@@ -42,13 +45,19 @@ export async function POST(request: Request) {
     }
 
     const gameRows = (await sql`
-      select id, game_code
+      select
+        id,
+        game_code,
+        coalesce((settings->>'audienceEnabled')::boolean, true) as audience_enabled
       from games
       where game_code = ${gameCode}
       limit 1
-    `) as Array<{ id: string; game_code: string }>;
+    `) as Array<{ id: string; game_code: string; audience_enabled: boolean }>;
     const game = gameRows[0];
     if (!game) return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    if (!game.audience_enabled) {
+      return NextResponse.json({ error: 'Audience reactions are disabled for this game' }, { status: 403 });
+    }
 
     const rows = (await sql`
       insert into reactions (game_id, target_type, target_key, emoji, user_id, guest_id)

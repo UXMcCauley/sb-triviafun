@@ -7,13 +7,17 @@ export async function GET(request: Request) {
   if (!gameCode) return NextResponse.json({ error: 'Missing gameCode' }, { status: 400 });
 
   const gameRows = (await sql`
-    select id, game_code
+    select
+      id,
+      game_code,
+      coalesce((settings->>'audienceEnabled')::boolean, true) as audience_enabled
     from games
     where game_code = ${gameCode}
     limit 1
-  `) as Array<{ id: string; game_code: string }>;
+  `) as Array<{ id: string; game_code: string; audience_enabled: boolean }>;
   const game = gameRows[0];
   if (!game) return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+  if (!game.audience_enabled) return NextResponse.json({ reactions: [] });
 
   const rows = (await sql`
     select target_type, target_key, emoji
