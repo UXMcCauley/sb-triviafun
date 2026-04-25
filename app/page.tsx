@@ -178,12 +178,12 @@ export default function Home() {
       if (!res.ok) throw new Error((data as { error?: string }).error || 'Failed to create game');
       setGameCode(String(data.gameCode || '').toUpperCase());
       setPlayers([]);
-      // Immediately transition into the TV gameplay runtime (intro → countdown once started).
+      // Lets `/display` auto-fill the room code if opened from this browser session.
       (globalThis as unknown as { __TRIVIAFUN_DISPLAY_CODE__?: string }).__TRIVIAFUN_DISPLAY_CODE__ = String(
         data.gameCode || ''
       ).toUpperCase();
       setTransitioning(true);
-      setTimeout(() => setFlow('display'), 180);
+      setTimeout(() => setFlow('lobby'), 180);
     } catch (e) {
       setHostError(e instanceof Error ? e.message : 'Failed to create game');
     } finally {
@@ -203,6 +203,8 @@ export default function Home() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error((data as { error?: string }).error || 'Failed to start game');
+      setTransitioning(true);
+      setFlow('display');
     } catch (e) {
       setHostError(e instanceof Error ? e.message : 'Failed to start game');
     } finally {
@@ -256,7 +258,7 @@ export default function Home() {
               <span className="text-yellow-400">TriviaFun</span>
             </h1>
             <p className="text-white/60 max-w-2xl">
-              Pick packs, tune the knobs, and we’ll drop you straight into TV mode.
+              Pick packs, tune the knobs, and we’ll drop you into the lobby with your room code ready.
             </p>
             {user ? (
               <p className="text-white/35 text-sm">
@@ -556,7 +558,9 @@ export default function Home() {
               </div>
 
               <div className="mt-6 flex-1 min-h-0 overflow-hidden">
-                <DisplayPageClient embedded />
+                {flow === 'display' && gameCode ? (
+                  <DisplayPageClient embedded hostGameCode={gameCode} key={gameCode} />
+                ) : null}
               </div>
             </div>
           </div>
@@ -567,62 +571,80 @@ export default function Home() {
               flow === 'lobby' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none select-none',
             )}
           >
-            <div className="h-dvh w-dvw overflow-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8 bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 items-start">
-            <div className="rounded-3xl border border-white/10 bg-white/4 p-8">
-              <div className="flex items-start justify-between gap-6">
+            <div className="flex h-dvh w-dvw flex-col overflow-hidden bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
+              <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-6 pb-4 sm:px-6 sm:pt-8 lg:px-8">
                 <div>
-                  <h2 className="text-3xl font-black">
-                    Game code{' '}
-                    <span className="font-mono tracking-widest text-yellow-300">{gameCode}</span>
-                  </h2>
-                  <p className="text-white/55 mt-2">Leave this on the host device. TV runs `/display`.</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={resetToSetup}
-                  className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/60"
-                >
-                  New game
-                </button>
-              </div>
-
-              <div className="mt-6 flex flex-col sm:flex-row gap-4 sm:items-center">
-                <button
-                  onClick={startGame}
-                  disabled={players.length === 0 || loadingAction === 'start'}
-                  className="rounded-2xl bg-green-500 hover:bg-green-400 text-black font-extrabold px-6 py-3 disabled:opacity-50"
-                >
-                  {loadingAction === 'start' ? 'Starting…' : 'Start game'}
-                </button>
-                <Link
-                  href={`/display`}
-                  className="rounded-2xl bg-yellow-500/15 hover:bg-yellow-500/25 border border-yellow-400/25 px-6 py-3 font-bold text-yellow-200"
-                >
-                  Open TV display
-                </Link>
-              </div>
-
-              <div className="mt-8">
-                <p className="text-sm text-white/60 mb-2">Players ({players.length})</p>
-                <div className="flex flex-wrap gap-2">
-                  {players.map((p) => (
-                    <span key={p.id} className="bg-white/10 px-3 py-1 rounded-full">
-                      {p.name}
+                  <Link href="/" className="inline-flex items-baseline gap-2 font-black tracking-tight">
+                    <span className="text-2xl sm:text-3xl">
+                      <span className="text-yellow-400">Trivia</span>Fun
                     </span>
-                  ))}
+                  </Link>
+                  <div className="mt-1 text-sm text-white/55">
+                    <span className="font-semibold text-white/70">
+                      {selectedPackIds.length === 1
+                        ? packs.find((p) => p.id === selectedPackIds[0])?.name || 'Trivia'
+                        : `${selectedPackIds.length} packs`}
+                    </span>{' '}
+                    · {numQuestions} rounds · {players.length} players
+                  </div>
                 </div>
-                {players.length === 0 ? (
-                  <p className="mt-3 text-sm text-white/40">Waiting for at least one player to join…</p>
-                ) : null}
-              </div>
-            </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/4 p-8">
-              <h3 className="text-sm font-bold text-white/50 uppercase tracking-wider mb-4">Join from phone</h3>
-              <GameQRCode gameCode={gameCode} size={220} />
-            </div>
-          </div>
+                <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:items-start">
+                  <div className="rounded-3xl border border-white/10 bg-white/4 p-8 min-w-0">
+                    <div className="flex items-start justify-between gap-6 flex-wrap">
+                      <div>
+                        <h2 className="text-2xl font-black">Lobby</h2>
+                        <p className="text-white/55 mt-2">
+                          Start game opens TV mode on this device. For a projector or second machine, use the TV display URL below.
+                        </p>
+                      </div>
+                      <button
+                        onClick={startGame}
+                        disabled={players.length === 0 || loadingAction === 'start'}
+                        className="rounded-2xl bg-green-500 hover:bg-green-400 text-black font-extrabold px-6 py-3 disabled:opacity-50"
+                      >
+                        {loadingAction === 'start' ? 'Starting…' : 'Start game'}
+                      </button>
+                    </div>
+
+                    <div className="mt-8">
+                      <p className="text-sm text-white/60 mb-2">Players ({players.length})</p>
+                      <div className="flex flex-wrap gap-2">
+                        {players.map((p) => (
+                          <span key={p.id} className="bg-white/10 px-3 py-1 rounded-full">
+                            {p.name}
+                          </span>
+                        ))}
+                      </div>
+                      {players.length === 0 ? (
+                        <p className="mt-3 text-sm text-white/40">Waiting for at least one player to join…</p>
+                      ) : null}
+                    </div>
+
+                    <div className="mt-8 flex justify-start">
+                      <button
+                        type="button"
+                        onClick={resetToSetup}
+                        className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/60"
+                      >
+                        New game
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    className="rounded-2xl border border-white/10 bg-white/4 p-3 shrink-0 lg:sticky lg:top-4"
+                    title={`Room ${gameCode}`}
+                  >
+                    <GameQRCode gameCode={gameCode} size={96} />
+                  </div>
+                </div>
+              </div>
+
+              <footer className="shrink-0 w-full border-t border-white/10 bg-white/6 px-4 py-5 sm:px-6 lg:px-8 rounded-t-2xl rounded-b-none">
+                <h3 className="text-sm font-bold text-white/50 uppercase tracking-wider mb-3">Share links</h3>
+                <ShareLinks gameCode={gameCode} variant="lobbyStrip" />
+              </footer>
             </div>
           </div>
         </div>

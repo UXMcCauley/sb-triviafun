@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 type Props = {
   gameCode?: string;
-  variant?: 'full' | 'prominent' | 'discreet';
+  variant?: 'full' | 'prominent' | 'discreet' | 'lobbyStrip';
   className?: string;
 };
 
@@ -29,13 +29,16 @@ export default function ShareLinks({ gameCode, variant = 'discreet', className }
   }, [base, gameCode]);
 
   const isFull = variant === 'full';
-  const isProminent = variant === 'prominent';
+  const isLobbyStrip = variant === 'lobbyStrip';
+  const isProminent = variant === 'prominent' || isLobbyStrip;
 
-  const container = [
-    'rounded-2xl border border-white/10 bg-white/4',
-    isProminent ? 'p-5' : isFull ? 'p-4' : 'px-4 py-3',
-    className || '',
-  ].join(' ');
+  const container = isLobbyStrip
+    ? ['w-full rounded-none border-0 bg-transparent p-0', className || ''].filter(Boolean).join(' ')
+    : [
+        'rounded-2xl border border-white/10 bg-white/4',
+        isProminent ? 'p-5' : isFull ? 'p-4' : 'px-4 py-3',
+        className || '',
+      ].join(' ');
 
   const labelClass = isProminent
     ? 'text-xs font-bold text-white/50 uppercase tracking-wider'

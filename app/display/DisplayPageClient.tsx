@@ -17,6 +17,8 @@ import ShareLinks from '@/components/ShareLinks';
 type Props = {
   /** When true, render as an embedded panel inside another page (no 100vw/100vh sizing). */
   embedded?: boolean;
+  /** When embedded on the host page, join this room (avoids stale one-shot global injection). */
+  hostGameCode?: string;
 };
 
 type Phase =
@@ -66,7 +68,7 @@ function initials(name: string) {
   return parts.map((p) => p[0]?.toUpperCase()).join('') || '?';
 }
 
-export default function DisplayPageClient({ embedded = false }: Props) {
+export default function DisplayPageClient({ embedded = false, hostGameCode }: Props) {
   const [phase, setPhase] = useState<Phase>('join');
   const [phaseEndsAt, setPhaseEndsAt] = useState<number | null>(null);
   const [serverOffsetMs, setServerOffsetMs] = useState(0);
@@ -220,6 +222,33 @@ export default function DisplayPageClient({ embedded = false }: Props) {
   }, []);
 
   useEffect(() => {
+    if (!embedded || !hostGameCode?.trim()) return;
+    const code = hostGameCode.trim().toUpperCase();
+    setError('');
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (!cancelled) setGameCode(code);
+    });
+    fetchState(code)
+      .then((data) => {
+        if (cancelled) return;
+        if (data.status === 'lobby') setTimedPhase('intro', 9999);
+        else if (data.status === 'active') setTimedPhase('question-stinger', 3);
+        else {
+          setPhase('finished');
+          setPhaseEndsAt(null);
+        }
+      })
+      .catch((e) => {
+        if (!cancelled) setError(e instanceof Error ? e.message : 'Failed');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [embedded, hostGameCode]);
+
+  useEffect(() => {
+    if (embedded && hostGameCode?.trim()) return;
     if (!injectedCode || gameCode) return;
     const code = String(injectedCode).toUpperCase();
     // Defer state update to avoid "setState in effect body" lint rule.
@@ -239,7 +268,7 @@ export default function DisplayPageClient({ embedded = false }: Props) {
         else setPhase('finished');
       })
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed'));
-  }, [gameCode, injectedCode, setTimedPhase]);
+  }, [embedded, hostGameCode, gameCode, injectedCode, setTimedPhase]);
 
   // Subscribe to realtime events after joining
   useEffect(() => {
