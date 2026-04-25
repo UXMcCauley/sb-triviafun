@@ -67,9 +67,26 @@ export async function POST(request: Request) {
         `) as Array<{ id: string; name: string; score: number }>;
 
         const winner = sortedPlayers[0] || { id: '', name: 'No one', score: 0 };
+
+        await sql`
+          insert into game_results (game_id, game_code, winner_name, winner_score, finished_at)
+          values (${game.id}::uuid, ${game.game_code}, ${winner.name}, ${winner.score}, now())
+          on conflict (game_id) do update
+            set winner_name = excluded.winner_name,
+                winner_score = excluded.winner_score,
+                finished_at = excluded.finished_at
+        `;
+
         await pusher.trigger(`game-${game.game_code}`, 'game-finished', {
           players: sortedPlayers,
           winner,
+        });
+
+        await pusher.trigger('global-winners', 'recent-winner', {
+          winnerName: winner.name,
+          winnerScore: winner.score,
+          gameCode: game.game_code,
+          finishedAt: new Date().toISOString(),
         });
 
         return NextResponse.json({ finished: true, winner });

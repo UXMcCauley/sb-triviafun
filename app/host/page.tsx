@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getPusherClient } from '@/lib/pusher-client';
 import type { PlayerJoinedEvent, AnswerRevealEvent, GameFinishedEvent, GamePausedEvent } from '@/lib/models/types';
+import WinnersTicker from '@/components/WinnersTicker';
 
 interface PlayerInfo {
   id: string;
@@ -427,6 +428,8 @@ export default function HostPage() {
           </button>
         </div>
       )}
+
+      <WinnersTicker enabled={showWinnersTicker && status !== 'idle'} />
     </div>
   );
 }

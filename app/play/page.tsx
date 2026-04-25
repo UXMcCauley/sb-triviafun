@@ -59,32 +59,37 @@ function PlayContent() {
 
   // Check localStorage for saved phone
   useEffect(() => {
-    fetch('/api/auth/me')
-      .then((r) => (r.ok ? r.json() : { user: null }))
-      .then((data: { user: any }) => {
-        if (data?.user) {
-          setUser(data.user);
-          setProfileUsername(data.user.defaultUsername || '');
-          if (data.user.defaultUsername && !localStorage.getItem('seinfeld_name')) {
-            setPlayerName(data.user.defaultUsername);
+    const run = async () => {
+      try {
+        const meRes = await fetch('/api/auth/me');
+        const meData = (meRes.ok ? await meRes.json() : { user: null }) as {
+          user: { id: string; defaultUsername: string | null; avatarUrl: string | null; email: string | null } | null;
+        };
+        if (meData?.user) {
+          setUser(meData.user);
+          setProfileUsername(meData.user.defaultUsername || '');
+          if (meData.user.defaultUsername && !localStorage.getItem('seinfeld_name')) {
+            setPlayerName(meData.user.defaultUsername);
           }
         }
-      })
-      .catch(() => {});
+      } catch {}
 
-    const saved = localStorage.getItem('seinfeld_phone');
-    const name = localStorage.getItem('seinfeld_name');
-    if (saved && name) {
-      setPhone(saved);
-      setSavedName(name);
-      setPlayerName(name);
-      setIsLoggedIn(true);
-      setPhase('join');
-      // Fetch stats
-      fetch(`/api/player/stats?phone=${encodeURIComponent(saved)}`)
-        .then((r) => r.ok ? r.json() : null)
-        .then((data) => { if (data) setPlayerStats(data); });
-    }
+      const saved = localStorage.getItem('seinfeld_phone');
+      const name = localStorage.getItem('seinfeld_name');
+      if (saved && name) {
+        setPhone(saved);
+        setSavedName(name);
+        setPlayerName(name);
+        setIsLoggedIn(true);
+        setPhase('join');
+        try {
+          const statsRes = await fetch(`/api/player/stats?phone=${encodeURIComponent(saved)}`);
+          const statsData = statsRes.ok ? await statsRes.json() : null;
+          if (statsData) setPlayerStats(statsData);
+        } catch {}
+      }
+    };
+    queueMicrotask(run);
   }, []);
 
   const saveProfile = async () => {
