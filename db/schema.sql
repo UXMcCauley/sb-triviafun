@@ -73,10 +73,24 @@ create table if not exists game_players (
 
 create index if not exists game_players_game_id_idx on game_players(game_id);
 
+-- Users (Google-linked identity + profile)
+create table if not exists users (
+  id uuid primary key default gen_random_uuid(),
+  google_sub text not null unique,
+  email text null,
+  default_username text null,
+  avatar_url text null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists users_email_idx on users(email);
+
 -- Player stats
 create table if not exists player_stats (
   phone text primary key,
   display_name text not null,
+  user_id uuid null references users(id) on delete set null,
   games_played int not null default 0,
   games_won int not null default 0,
   total_score int not null default 0,
@@ -84,8 +98,43 @@ create table if not exists player_stats (
   correct_answers int not null default 0,
   total_answers int not null default 0,
   last_played_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
   created_at timestamptz not null default now()
 );
+
+create index if not exists player_stats_user_id_idx on player_stats(user_id);
+
+-- Emoji reactions (question + player)
+create table if not exists reactions (
+  id uuid primary key default gen_random_uuid(),
+  game_id uuid not null references games(id) on delete cascade,
+  target_type text not null check (target_type in ('question','player')),
+  target_key text not null,
+  emoji text not null,
+  user_id uuid null references users(id) on delete set null,
+  guest_id text null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists reactions_game_target_idx
+  on reactions(game_id, target_type, target_key, created_at);
+create index if not exists reactions_user_id_idx on reactions(user_id);
+
+-- Finished game results for global winners ticker
+create table if not exists game_results (
+  id uuid primary key default gen_random_uuid(),
+  game_id uuid not null unique references games(id) on delete cascade,
+  game_code text not null,
+  winner_name text not null,
+  winner_user_id uuid null references users(id) on delete set null,
+  winner_score int not null,
+  finished_at timestamptz not null default now(),
+  region text null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists game_results_finished_at_idx on game_results(finished_at desc);
+create index if not exists game_results_region_finished_at_idx on game_results(region, finished_at desc);
 
 -- Reports
 create table if not exists reports (
