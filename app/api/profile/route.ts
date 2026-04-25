@@ -12,11 +12,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Username must be 2-20 characters' }, { status: 400 });
   }
 
-  const { data } = await auth.updateUser({
+  const result = (await auth.updateUser({
     name: defaultUsername || undefined,
-  } as any);
+  } as any)) as unknown as { data?: { user?: typeof session.user } };
 
-  const user = data?.user || session.user;
+  const user = result?.data?.user || session.user;
   return NextResponse.json({
     user: user
       ? { id: user.id, email: user.email ?? null, name: user.name ?? null, image: (user as any).image ?? null }

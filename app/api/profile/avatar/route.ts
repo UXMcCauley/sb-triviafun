@@ -40,11 +40,11 @@ export async function POST(request: Request) {
   await fs.writeFile(outPath, Buffer.from(arrayBuffer));
 
   const avatarUrl = `/uploads/${filename}`;
-  const { data } = await auth.updateUser({
+  const result = (await auth.updateUser({
     image: avatarUrl,
-  } as any);
+  } as any)) as unknown as { data?: { user?: typeof session.user } };
 
-  const user = data?.user || session.user;
+  const user = result?.data?.user || session.user;
   return NextResponse.json({
     user: user
       ? { id: user.id, email: user.email ?? null, name: user.name ?? null, image: (user as any).image ?? null }
