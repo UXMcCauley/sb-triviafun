@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { sql } from '@/lib/db';
+import { validateCreateGame } from '@/lib/game-settings';
 import {
   generateGameCode,
   selectQuestionsForGame,
@@ -11,16 +12,14 @@ import {
 export async function POST(request: Request) {
   try {
     const body = await request.json().catch(() => ({}));
-    const numQuestions = body.numQuestions || 15;
-    const timerDuration = body.timerDuration || 15;
-    const rawPackIds: string[] | undefined = body.packIds;
+    const { settings, packIds: rawPackIds } = validateCreateGame(body);
 
     // Resolve pack IDs (from slugs or ObjectId strings)
     const packIds =
       rawPackIds && rawPackIds.length > 0 ? await resolvePackIds(rawPackIds) : undefined;
 
     // Select random questions from the specified packs
-    const questions = await selectQuestionsForGame(packIds, numQuestions);
+    const questions = await selectQuestionsForGame(packIds, settings.questionCount);
 
     if (questions.length === 0) {
       return NextResponse.json({ error: 'No questions available for selected packs' }, { status: 400 });
@@ -35,7 +34,6 @@ export async function POST(request: Request) {
     let gameCode = generateGameCode();
     // Avoid colliding with non-finished games
     // (finished games can be reused if desired, but we keep the original semantics)
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       const exists = (await sql`
         select 1 from games where game_code = ${gameCode} and status <> 'finished' limit 1
@@ -67,7 +65,7 @@ export async function POST(request: Request) {
         ${JSON.stringify(shuffledCorrectAnswers)}::jsonb,
         ${0},
         ${null},
-        ${JSON.stringify({ timerSeconds: timerDuration, questionCount: numQuestions })}::jsonb,
+        ${JSON.stringify(settings)}::jsonb,
         ${seriesId}::uuid,
         ${0}
       )
@@ -75,7 +73,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       gameCode,
-      timerDuration,
+      timerDuration: settings.timerSeconds,
       seriesId,
     });
   } catch (error) {

@@ -43,8 +43,10 @@ export interface Pack {
 export type GameStatus = 'lobby' | 'active' | 'finished';
 
 export interface GameSettings {
+  settingsVersion?: 1;
   timerSeconds: number;
   questionCount: number;
+  showWinnersTicker?: boolean;
 }
 
 export interface Game {

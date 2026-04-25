@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getPusherClient } from '@/lib/pusher-client';
 import type { PlayerJoinedEvent, AnswerRevealEvent, GameFinishedEvent, GamePausedEvent } from '@/lib/models/types';
 
@@ -8,6 +8,18 @@ interface PlayerInfo {
   id: string;
   name: string;
   score: number;
+}
+
+interface PackInfo {
+  id: string;
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  themeColor: string;
+  icon: string;
+  isDefault: boolean;
+  questionCount: number;
 }
 
 export default function HostPage() {
@@ -19,15 +31,65 @@ export default function HostPage() {
   const [loading, setLoading] = useState('');
   const [numQuestions, setNumQuestions] = useState(15);
   const [timerDuration, setTimerDuration] = useState(15);
+  const [showWinnersTicker, setShowWinnersTicker] = useState(false);
   const [paused, setPaused] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [packs, setPacks] = useState<PackInfo[]>([]);
+  const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
+  const [packScrollIndex, setPackScrollIndex] = useState(0);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const packCarouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch('/api/packs')
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: PackInfo[]) => {
+        setPacks(data);
+        const defaults = data.filter((p) => p.isDefault).map((p) => p.id);
+        setSelectedPackIds(defaults);
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const el = packCarouselRef.current;
+    if (!el) return;
+    const update = () => {
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 10);
+    };
+    update();
+    el.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      el.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [packs.length]);
+
+  const togglePack = (packId: string) => {
+    setSelectedPackIds((prev) => {
+      if (prev.includes(packId)) {
+        if (prev.length <= 1) return prev;
+        return prev.filter((id) => id !== packId);
+      }
+      return [...prev, packId];
+    });
+  };
 
   const createGame = async () => {
     setLoading('create');
     const res = await fetch('/api/game/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ numQuestions, timerDuration }),
+      body: JSON.stringify({
+        settings: {
+          settingsVersion: 1,
+          questionCount: numQuestions,
+          timerSeconds: timerDuration,
+          showWinnersTicker,
+        },
+        packIds: selectedPackIds,
+      }),
     });
     const data = await res.json();
     setGameCode(data.gameCode);
@@ -121,38 +183,132 @@ export default function HostPage() {
       </h1>
 
       {status === 'idle' && (
-        <div className="space-y-4 max-w-sm">
-          <div>
-            <label className="text-sm text-white/50 block mb-1">Questions</label>
-            <select
-              value={numQuestions}
-              onChange={(e) => setNumQuestions(Number(e.target.value))}
-              className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
+        <div className="space-y-6 max-w-5xl">
+          {packs.length > 0 && (
+            <div>
+              <h3 className="text-sm font-bold text-white/50 uppercase tracking-wider mb-3">Packs</h3>
+              <div className="relative flex items-center">
+                <button
+                  onClick={() => {
+                    const el = packCarouselRef.current;
+                    if (!el) return;
+                    const cardWidth = 252;
+                    const currentCard = Math.round(el.scrollLeft / cardWidth);
+                    const target = Math.max(0, currentCard - 1) * cardWidth;
+                    el.scrollTo({ left: target, behavior: 'smooth' });
+                  }}
+                  className="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all mr-3 disabled:opacity-20 disabled:cursor-default"
+                  disabled={packScrollIndex === 0}
+                >
+                  ◀
+                </button>
+
+                <div
+                  ref={packCarouselRef}
+                  className="flex-1 min-w-0 flex items-stretch gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                  onScroll={(e) => {
+                    const el = e.currentTarget;
+                    setPackScrollIndex(Math.round(el.scrollLeft / 252));
+                  }}
+                >
+                  {packs.map((pack) => {
+                    const isEmpty = pack.questionCount === 0;
+                    const isSelected = selectedPackIds.includes(pack.id);
+                    return (
+                      <button
+                        key={pack.id}
+                        onClick={() => !isEmpty && togglePack(pack.id)}
+                        disabled={isEmpty}
+                        className={`shrink-0 w-60 text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-start ${
+                          isEmpty
+                            ? 'border-white/5 bg-white/2 opacity-40 cursor-not-allowed'
+                            : isSelected
+                              ? 'border-white/40 bg-white/10'
+                              : 'border-white/10 bg-white/5 opacity-60 hover:opacity-80'
+                        }`}
+                        style={isSelected && !isEmpty ? { borderColor: pack.themeColor + '80' } : undefined}
+                      >
+                        <p className="text-xs text-white/30">{isEmpty ? 'No questions yet' : `${pack.questionCount} questions`}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-xl">{pack.icon}</span>
+                          <span className="font-bold text-base whitespace-nowrap">{pack.name}</span>
+                          {isEmpty && (
+                            <span className="text-[10px] uppercase tracking-wider text-white/30 bg-white/5 px-1.5 py-0.5 rounded-full ml-auto">
+                              Soon
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-white/50 mt-1 leading-relaxed">{pack.description}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button
+                  onClick={() => {
+                    const el = packCarouselRef.current;
+                    if (!el) return;
+                    el.scrollTo({ left: el.scrollLeft + 260, behavior: 'smooth' });
+                  }}
+                  className="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all ml-3 disabled:opacity-20 disabled:cursor-default"
+                  disabled={!canScrollRight}
+                >
+                  ▶
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-end gap-6 flex-wrap">
+            <div>
+              <label className="text-sm text-white/50 block mb-1">Questions</label>
+              <select
+                value={numQuestions}
+                onChange={(e) => setNumQuestions(Number(e.target.value))}
+                className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
+              >
+                {[10, 15, 20, 25, 30].map((n) => (
+                  <option key={n} value={n} className="bg-gray-900">{n}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-sm text-white/50 block mb-1">Timer (seconds)</label>
+              <select
+                value={timerDuration}
+                onChange={(e) => setTimerDuration(Number(e.target.value))}
+                className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
+              >
+                {[10, 15, 20, 30].map((n) => (
+                  <option key={n} value={n} className="bg-gray-900">{n}</option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowWinnersTicker((v) => !v)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-semibold transition-all ${
+                showWinnersTicker
+                  ? 'bg-yellow-500/15 border-yellow-500/40 text-yellow-300'
+                  : 'bg-white/5 border-white/15 text-white/50 hover:text-white/70'
+              }`}
             >
-              {[10, 15, 20, 25, 30].map((n) => (
-                <option key={n} value={n} className="bg-gray-900">{n}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="text-sm text-white/50 block mb-1">Timer (seconds)</label>
-            <select
-              value={timerDuration}
-              onChange={(e) => setTimerDuration(Number(e.target.value))}
-              className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
+              <span className={`w-7 h-4 rounded-full relative transition-colors ${showWinnersTicker ? 'bg-yellow-400' : 'bg-white/20'}`}>
+                <span className={`absolute top-0.5 w-3 h-3 rounded-full bg-black/80 transition-all ${showWinnersTicker ? 'left-3.5' : 'left-0.5'}`} />
+              </span>
+              Winners ticker
+            </button>
+
+            <button
+              onClick={createGame}
+              disabled={loading === 'create' || selectedPackIds.length === 0}
+              className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-8 py-3 rounded-xl disabled:opacity-50"
             >
-              {[10, 15, 20, 30].map((n) => (
-                <option key={n} value={n} className="bg-gray-900">{n}</option>
-              ))}
-            </select>
+              {loading === 'create' ? 'Creating...' : 'Create Game'}
+            </button>
           </div>
-          <button
-            onClick={createGame}
-            disabled={loading === 'create'}
-            className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-8 py-3 rounded-xl"
-          >
-            {loading === 'create' ? 'Creating...' : 'Create Game'}
-          </button>
         </div>
       )}
 
