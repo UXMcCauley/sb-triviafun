@@ -386,9 +386,9 @@ export default function DisplayPageClient() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-10 flex flex-col">
+    <div className="w-screen h-screen bg-gray-950 text-white flex flex-col">
       {/* Header */}
-      <div className="flex items-start justify-between gap-6">
+      <div className="p-6 sm:p-8 flex items-start justify-between gap-6">
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <span className="text-2xl font-black">
@@ -413,7 +413,7 @@ export default function DisplayPageClient() {
 
       {/* Host-only controls (shown while waiting to start / between phases) */}
       {(phase === 'intro' || phase === 'countdown') && gameCode ? (
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className="px-6 sm:px-8 mt-2 flex flex-wrap items-center gap-3">
           <button
             type="button"
             onClick={startGameNow}
@@ -429,7 +429,7 @@ export default function DisplayPageClient() {
       ) : null}
 
       {/* Main */}
-      <div className="mt-10">
+      <div className="flex-1 min-h-0 px-6 sm:px-8 py-6 overflow-auto">
         {(phase === 'intro' || phase === 'countdown') && (
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 items-start">
             <div className="rounded-3xl border border-white/10 bg-white/4 p-8">
@@ -704,7 +704,7 @@ export default function DisplayPageClient() {
         )}
       </div>
 
-      <div className="mt-auto pt-8">
+      <div className="px-6 sm:px-8 pb-6">
         <ShareLinks gameCode={gameCode} variant="discreet" />
       </div>
     </div>

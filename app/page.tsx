@@ -552,7 +552,7 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="rounded-3xl border border-white/10 bg-white/4 overflow-hidden">
+              <div className="w-full h-[calc(100dvh-180px)]">
                 <DisplayPageClient />
               </div>
             </div>
