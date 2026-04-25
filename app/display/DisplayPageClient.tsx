@@ -367,21 +367,7 @@ export default function DisplayPageClient({ embedded = false }: Props) {
             : 'bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex flex-col overflow-x-hidden',
         ].join(' ')}
       >
-        <div className="p-6 sm:p-8">
-          <div className="flex items-end justify-between gap-6 flex-wrap">
-            <div className="space-y-2">
-              <h1 className="text-5xl font-black tracking-tight">
-                <span className="text-yellow-400">TV</span> Display
-              </h1>
-              <p className="text-white/55">
-                Enter a room code. Then keep your hands clean while the game runs itself.
-              </p>
-            </div>
-            <ShareLinks variant="discreet" />
-          </div>
-        </div>
-
-        <div className="flex-1 min-h-0 px-6 sm:px-8 pb-8">
+        <div className="flex-1 min-h-0 px-6 sm:px-8 py-8">
           <div className="rounded-3xl border border-white/10 bg-white/4 p-6 sm:p-8">
             <div className="grid gap-3 sm:grid-cols-[260px_1fr_220px] items-center">
               <input
@@ -403,6 +389,9 @@ export default function DisplayPageClient({ embedded = false }: Props) {
                 Show game
               </button>
             </div>
+          </div>
+          <div className="mt-6">
+            <ShareLinks variant="discreet" />
           </div>
         </div>
       </div>

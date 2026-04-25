@@ -248,12 +248,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
+    <div className="w-dvw min-h-dvh overflow-x-hidden bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
       <div className="w-full px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight">
-              <span className="text-yellow-400">TriviaFun</span> host setup
+              <span className="text-yellow-400">TriviaFun</span>
             </h1>
             <p className="text-white/60 max-w-2xl">
               Pick packs, tune the knobs, and we’ll drop you straight into TV mode.
@@ -529,19 +529,22 @@ export default function Home() {
 
           <div
             className={cx(
-              'absolute inset-0 transition-all duration-500 ease-out',
+              'fixed inset-0 z-40 transition-all duration-500 ease-out',
               flow === 'display'
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 pointer-events-none select-none',
             )}
           >
-            <div className={cx('transition-opacity duration-500', transitioning && 'opacity-100')}>
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-black">
-                    Hosting <span className="text-yellow-300 font-mono tracking-widest">{gameCode}</span>
-                  </h2>
-                  <p className="text-white/55 text-sm">You’re now in TV mode. Players join; then hit Start game in the intro.</p>
+            <div
+              className={cx(
+                'h-dvh w-dvw flex flex-col px-4 py-6 sm:px-6 sm:py-8 lg:px-8',
+                'bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white',
+                transitioning && 'opacity-100',
+              )}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="text-white/70 text-sm font-semibold">
+                  Room <span className="text-yellow-300 font-mono tracking-widest">{gameCode}</span>
                 </div>
                 <button
                   type="button"
@@ -552,7 +555,7 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="w-full h-[calc(100dvh-180px)] overflow-hidden">
+              <div className="mt-6 flex-1 min-h-0 overflow-hidden">
                 <DisplayPageClient embedded />
               </div>
             </div>
@@ -560,11 +563,12 @@ export default function Home() {
 
           <div
             className={cx(
-              'absolute inset-0 transition-all duration-500 ease-out',
+              'fixed inset-0 z-30 transition-all duration-500 ease-out',
               flow === 'lobby' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none select-none',
             )}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 items-start">
+            <div className="h-dvh w-dvw overflow-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8 bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 items-start">
             <div className="rounded-3xl border border-white/10 bg-white/4 p-8">
               <div className="flex items-start justify-between gap-6">
                 <div>
@@ -619,6 +623,7 @@ export default function Home() {
               <GameQRCode gameCode={gameCode} size={220} />
             </div>
           </div>
+            </div>
           </div>
         </div>
       </div>
