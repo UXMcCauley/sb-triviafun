@@ -135,7 +135,12 @@ export async function POST(request: Request) {
       seriesHistory,
     });
 
-    return NextResponse.json({ gameCode: upperCode, timerDuration: timerSeconds, seriesHistory });
+    return NextResponse.json({
+      gameCode: upperCode,
+      timerDuration: timerSeconds,
+      seriesHistory,
+      players: newPlayers,
+    });
   } catch (error) {
     console.error('Replay error:', error);
     return NextResponse.json({ error: 'Failed to create replay' }, { status: 500 });

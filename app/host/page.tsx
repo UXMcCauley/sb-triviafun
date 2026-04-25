@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { getPusherClient } from '@/lib/pusher-client';
 import type { PlayerJoinedEvent, AnswerRevealEvent, GameFinishedEvent, GamePausedEvent } from '@/lib/models/types';
 import WinnersTicker from '@/components/WinnersTicker';
+import GameQRCode from '@/components/GameQRCode';
 
 interface PlayerInfo {
   id: string;
@@ -39,6 +40,7 @@ export default function HostPage() {
   const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
   const [packScrollIndex, setPackScrollIndex] = useState(0);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [hostError, setHostError] = useState('');
   const packCarouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -77,7 +79,11 @@ export default function HostPage() {
     });
   };
 
+  /** When hosting on LAN / phone: set to your deployed origin so the QR opens production, not localhost. */
+  const playUrlBase = process.env.NEXT_PUBLIC_PLAY_BASE_URL?.replace(/\/$/, '');
+
   const createGame = async () => {
+    setHostError('');
     setLoading('create');
     const res = await fetch('/api/game/create', {
       method: 'POST',
@@ -93,8 +99,40 @@ export default function HostPage() {
       }),
     });
     const data = await res.json();
+    if (!res.ok) {
+      setHostError((data as { error?: string }).error || 'Failed to create game');
+      setLoading('');
+      return;
+    }
     setGameCode(data.gameCode);
     setStatus('lobby');
+    setLoading('');
+  };
+
+  const playAgain = async () => {
+    if (!gameCode) return;
+    setHostError('');
+    setLoading('replay');
+    try {
+      const res = await fetch('/api/game/replay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameCode }),
+      });
+      const data = (await res.json()) as { error?: string; players?: { id: string; name: string }[] };
+      if (!res.ok) {
+        setHostError(data.error || 'Could not start another round');
+        setLoading('');
+        return;
+      }
+      setStatus('lobby');
+      setPlayers((data.players ?? []).map((p) => ({ ...p, score: 0 })));
+      setRevealed(false);
+      setPaused(false);
+      setQuestionIndex(0);
+    } catch {
+      setHostError('Could not start another round');
+    }
     setLoading('');
   };
 
@@ -313,11 +351,29 @@ export default function HostPage() {
         </div>
       )}
 
+      {hostError && (
+        <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-2 text-sm text-red-200" role="alert">
+          {hostError}
+        </div>
+      )}
+
       {status === 'lobby' && (
         <div className="space-y-6">
-          <div className="bg-white/10 rounded-xl p-6 inline-block">
-            <p className="text-sm text-white/50">Game Code</p>
-            <p className="text-5xl font-mono font-bold tracking-widest text-yellow-400">{gameCode}</p>
+          <div className="flex flex-col lg:flex-row gap-8 lg:items-start lg:gap-12">
+            <div className="bg-white/10 rounded-xl p-6 inline-block shrink-0">
+              <p className="text-sm text-white/50">Game Code</p>
+              <p className="text-5xl font-mono font-bold tracking-widest text-yellow-400">{gameCode}</p>
+              <p className="text-xs text-white/35 mt-3 max-w-xs">
+                Same code until you finish and tap <span className="text-white/50">Play again</span>. Use{' '}
+                <span className="text-white/50">New game</span> for a new room, link, and QR.
+              </p>
+            </div>
+            {gameCode && (
+              <div className="rounded-xl border border-white/10 bg-white/3 p-6">
+                <p className="text-sm font-bold text-white/50 uppercase tracking-wider mb-4">Join from a phone</p>
+                <GameQRCode gameCode={gameCode} size={192} playUrlOverride={playUrlBase} />
+              </div>
+            )}
           </div>
 
           <div>
@@ -331,7 +387,7 @@ export default function HostPage() {
 
           <button
             onClick={startGame}
-            disabled={players.length === 0 || loading === 'start'}
+            disabled={players.length === 0 || loading === 'start' || loading === 'replay'}
             className="bg-green-500 hover:bg-green-400 text-black font-bold px-8 py-3 rounded-xl disabled:opacity-50"
           >
             {loading === 'start' ? 'Starting...' : 'Start Game'}
@@ -414,18 +470,34 @@ export default function HostPage() {
               </div>
             ))}
           </div>
-          <button
-            onClick={() => {
-              setStatus('idle');
-              setGameCode('');
-              setPlayers([]);
-              setRevealed(false);
-              setPaused(false);
-            }}
-            className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-8 py-3 rounded-xl"
-          >
-            New Game
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+            <button
+              onClick={playAgain}
+              disabled={loading === 'replay' || !gameCode}
+              className="bg-green-500 hover:bg-green-400 text-black font-bold px-8 py-3 rounded-xl disabled:opacity-50"
+            >
+              {loading === 'replay' ? 'Setting up...' : 'Play again'}
+            </button>
+            <button
+              onClick={() => {
+                setStatus('idle');
+                setGameCode('');
+                setPlayers([]);
+                setRevealed(false);
+                setPaused(false);
+                setHostError('');
+                setQuestionIndex(0);
+                setTotalQuestions(0);
+              }}
+              className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-8 py-3 rounded-xl"
+            >
+              New game
+            </button>
+          </div>
+          <p className="text-sm text-white/40 max-w-md">
+            <span className="text-white/60">Play again</span> keeps this room and code (same people).{' '}
+            <span className="text-white/60">New game</span> returns to setup and issues a new code, QR, and link.
+          </p>
         </div>
       )}
 
