@@ -45,7 +45,6 @@ export default function Home() {
   const [hostError, setHostError] = useState('');
   const [loadingAction, setLoadingAction] = useState<'create' | 'start' | ''>('');
   const [transitioning, setTransitioning] = useState(false);
-  const transitionTimer = useRef<number | null>(null);
   const [user, setUser] = useState<{ id: string; email: string | null; name: string | null } | null>(null);
   const [fav, setFav] = useState<Record<string, { pinned: boolean }>>({});
 

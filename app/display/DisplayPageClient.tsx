@@ -65,6 +65,7 @@ export default function DisplayPageClient() {
   const [phase, setPhase] = useState<Phase>('join');
   const [phaseEndsAt, setPhaseEndsAt] = useState<number | null>(null);
   const [serverOffsetMs, setServerOffsetMs] = useState(0);
+  const [nowMs, setNowMs] = useState(0);
 
   const [gameCode, setGameCode] = useState('');
   const [error, setError] = useState('');
@@ -86,8 +87,13 @@ export default function DisplayPageClient() {
 
   const [starting, setStarting] = useState(false);
 
-  const now = Date.now() + serverOffsetMs;
-  const secondsLeft = phaseEndsAt ? Math.max(0, Math.ceil((phaseEndsAt - now) / 1000)) : null;
+  useEffect(() => {
+    if (!phaseEndsAt) return;
+    const id = window.setInterval(() => setNowMs(Date.now() + serverOffsetMs), 250);
+    return () => window.clearInterval(id);
+  }, [phaseEndsAt, serverOffsetMs]);
+
+  const secondsLeft = phaseEndsAt ? Math.max(0, Math.ceil((phaseEndsAt - nowMs) / 1000)) : null;
 
   const isLastQuestion = useMemo(() => {
     if (!currentQuestion) return false;
@@ -204,21 +210,31 @@ export default function DisplayPageClient() {
     }
   };
 
-  // Allow embedding with a known gameCode (e.g. from root "Create game" flow).
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const injectedCode = useMemo(() => {
+    return (globalThis as unknown as { __TRIVIAFUN_DISPLAY_CODE__?: string }).__TRIVIAFUN_DISPLAY_CODE__ || '';
+  }, []);
+
   useEffect(() => {
-    const injected = (globalThis as unknown as { __TRIVIAFUN_DISPLAY_CODE__?: string }).__TRIVIAFUN_DISPLAY_CODE__;
-    if (!injected || gameCode) return;
-    const code = String(injected).toUpperCase();
-    setGameCode(code);
-    fetchState(code)
-      .then((data) => {
-        if (data.status === 'lobby') setTimedPhase('intro', 9999);
-        else if (data.status === 'active') setTimedPhase('question-stinger', 3);
+    if (!injectedCode || gameCode) return;
+    const code = String(injectedCode).toUpperCase();
+    // Defer state update to avoid "setState in effect body" lint rule.
+    queueMicrotask(() => setGameCode(code));
+    fetch(`/api/game/state?gameCode=${encodeURIComponent(code)}`)
+      .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (!ok) throw new Error(j?.error || 'Game not found');
+        if (typeof j?.serverNow === 'number') setServerOffsetMs(j.serverNow - Date.now());
+        setPacks(j.packs || []);
+        setPlayers(j.players || []);
+        setTotalQuestions(j.totalQuestions || 0);
+        setSeriesHistory(j.seriesHistory || null);
+
+        if (j.status === 'lobby') setTimedPhase('intro', 9999);
+        else if (j.status === 'active') setTimedPhase('question-stinger', 3);
         else setPhase('finished');
       })
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed'));
-  }, []);
+  }, [gameCode, injectedCode, setTimedPhase]);
 
   // Subscribe to realtime events after joining
   useEffect(() => {

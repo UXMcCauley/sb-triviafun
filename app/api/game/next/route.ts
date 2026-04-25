@@ -140,7 +140,7 @@ export async function POST(request: Request) {
       await pusher.trigger(`game-${game.game_code}`, 'new-question', {
         questionIndex: nextIndex,
         questionText: shuffled.questionText,
-        options: shuffled.options as any,
+        options: shuffled.options,
         category: shuffled.category,
         difficulty: shuffled.difficulty,
         totalQuestions: game.question_ids.length,
@@ -162,7 +162,7 @@ export async function POST(request: Request) {
       from questions
       where id = ${questionId}::uuid
       limit 1
-    `) as Array<{ source: any; fun_fact: string | null }>;
+    `) as Array<{ source: unknown; fun_fact: string | null }>;
     const currentQuestion = currentQuestionRows[0];
 
     // Get source and fun fact from the question
@@ -174,7 +174,7 @@ export async function POST(request: Request) {
       select player_id::text as id, name, score, answers
       from game_players
       where game_id = ${game.id}::uuid
-    `) as Array<{ id: string; name: string; score: number; answers: any }>;
+    `) as Array<{ id: string; name: string; score: number; answers: unknown }>;
 
     const playerResults: PlayerResult[] = playerRows.map((p) => {
       const answers: Array<{ questionIndex: number; timeToAnswer: number; correct: boolean }> =

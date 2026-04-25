@@ -6,6 +6,9 @@ import { auth } from '@/lib/auth/server';
 
 export const runtime = 'nodejs';
 
+type UserUpdateInput = { name?: string; image?: string };
+type UpdateResult = { data?: { user?: { id: string; email?: string | null; name?: string | null; image?: string | null } } };
+
 const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
 
 function isImage(mime: string) {
@@ -42,12 +45,12 @@ export async function POST(request: Request) {
   const avatarUrl = `/uploads/${filename}`;
   const result = (await auth.updateUser({
     image: avatarUrl,
-  } as any)) as unknown as { data?: { user?: typeof session.user } };
+  } as UserUpdateInput)) as unknown as UpdateResult;
 
   const user = result?.data?.user || session.user;
   return NextResponse.json({
     user: user
-      ? { id: user.id, email: user.email ?? null, name: user.name ?? null, image: (user as any).image ?? null }
+      ? { id: user.id, email: user.email ?? null, name: user.name ?? null, image: (user as { image?: string | null }).image ?? null }
       : null,
   });
 }

@@ -104,10 +104,10 @@ export async function selectQuestionsForGame(
     `;
   }
 
-  return (rows as Array<any>).map((r) => ({
+  return (rows as Array<Record<string, unknown>>).map((r) => ({
     ...r,
-    options: Array.isArray(r.options) ? r.options : r.options ?? [],
-    source: r.source ?? null,
+    options: Array.isArray(r.options) ? (r.options as string[]) : ((r.options as string[] | undefined) ?? []),
+    source: (r.source as unknown) ?? null,
   })) as DbQuestion[];
 }
 

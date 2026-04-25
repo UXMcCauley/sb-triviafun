@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth/server';
 
+type UserUpdateInput = { name?: string; image?: string };
+type UpdateResult = { data?: { user?: { id: string; email?: string | null; name?: string | null; image?: string | null } } };
+
 export async function POST(request: Request) {
   const { data: session } = await auth.getSession();
   if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -14,12 +17,12 @@ export async function POST(request: Request) {
 
   const result = (await auth.updateUser({
     name: defaultUsername || undefined,
-  } as any)) as unknown as { data?: { user?: typeof session.user } };
+  } as UserUpdateInput)) as unknown as UpdateResult;
 
   const user = result?.data?.user || session.user;
   return NextResponse.json({
     user: user
-      ? { id: user.id, email: user.email ?? null, name: user.name ?? null, image: (user as any).image ?? null }
+      ? { id: user.id, email: user.email ?? null, name: user.name ?? null, image: (user as { image?: string | null }).image ?? null }
       : null,
   });
 }

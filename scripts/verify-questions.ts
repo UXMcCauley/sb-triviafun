@@ -102,7 +102,7 @@ async function main() {
   const packsDir = path.join(__dirname, '..', 'data', 'packs');
   const packFiles = fs.readdirSync(packsDir).filter((f) => f.endsWith('.json'));
 
-  let allQuestions: { pack: string; questions: Question[] }[] = [];
+  const allQuestions: { pack: string; questions: Question[] }[] = [];
 
   for (const file of packFiles) {
     const raw = fs.readFileSync(path.join(packsDir, file), 'utf-8');

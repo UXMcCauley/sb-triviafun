@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getPusherClient } from '@/lib/pusher-client';
 import type {
@@ -482,9 +483,9 @@ function PlayContent() {
               <p className="text-white/50 mt-2">Sign in to track your game history</p>
             </div>
             <div className="space-y-4">
-              <a href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
+              <Link href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
                 Sign in (Neon Auth)
-              </a>
+              </Link>
               <div>
                 <label className="text-sm text-white/60 block mb-1">Phone Number</label>
                 <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(555) 123-4567" className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-lg placeholder:text-white/20 focus:outline-none focus:border-yellow-500" />
@@ -523,9 +524,9 @@ function PlayContent() {
             </div>
             <div className="space-y-4">
               {!user && (
-                <a href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
+                <Link href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
                   Sign in (optional)
-                </a>
+                </Link>
               )}
               {user && (
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">

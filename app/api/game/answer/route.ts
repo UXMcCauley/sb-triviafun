@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       from game_players
       where game_id = ${game.id}::uuid and player_id = ${playerId}::uuid
       limit 1
-    `) as Array<{ id: string; score: number; answers: any }>;
+    `) as Array<{ id: string; score: number; answers: unknown }>;
     const player = playerRows[0];
     if (!player) {
       return NextResponse.json({ error: 'Player not found' }, { status: 404 });
