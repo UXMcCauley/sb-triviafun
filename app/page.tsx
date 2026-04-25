@@ -589,7 +589,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:items-start">
+                <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:items-stretch">
                   <div className="rounded-3xl border border-white/10 bg-white/4 p-8 min-w-0">
                     <div className="flex items-start justify-between gap-6 flex-wrap">
                       <div>
@@ -632,11 +632,8 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div
-                    className="rounded-2xl border border-white/10 bg-white/4 p-3 shrink-0 lg:sticky lg:top-4"
-                    title={`Room ${gameCode}`}
-                  >
-                    <GameQRCode gameCode={gameCode} size={96} />
+                  <div className="flex min-h-[200px] w-full items-center justify-center py-2 lg:min-h-0 lg:h-full lg:min-w-0 lg:py-0 lg:sticky lg:top-4 lg:self-stretch">
+                    <GameQRCode fit gameCode={gameCode} size={200} />
                   </div>
                 </div>
               </div>

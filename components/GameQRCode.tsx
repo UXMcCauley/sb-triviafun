@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface GameQRCodeProps {
@@ -8,50 +8,82 @@ interface GameQRCodeProps {
   size?: number;
   /** When set, encodes this URL in the QR (e.g. production URL in dev). */
   playUrlOverride?: string;
+  className?: string;
+  /**
+   * Size the QR to the largest square that fits the parent (uses ResizeObserver).
+   * Parent should have a bounded width and height (e.g. grid cell with `h-full min-h-0`).
+   */
+  fit?: boolean;
 }
 
-export default function GameQRCode({ gameCode, size = 200, playUrlOverride }: GameQRCodeProps) {
-  const [copied, setCopied] = useState(false);
-  // Deterministic during SSR/hydration; for full links set NEXT_PUBLIC_APP_URL.
+function clamp(n: number, min: number, max: number) {
+  if (!Number.isFinite(n)) return min;
+  return Math.max(min, Math.min(max, n));
+}
+
+export default function GameQRCode({
+  gameCode,
+  size = 200,
+  playUrlOverride,
+  className,
+  fit = false,
+}: GameQRCodeProps) {
   const base = playUrlOverride || process.env.NEXT_PUBLIC_APP_URL || '';
+  const shellRef = useRef<HTMLDivElement>(null);
+  const [fitPx, setFitPx] = useState(size);
 
   const url = useMemo(() => {
     const trimmedBase = base.endsWith('/') ? base.slice(0, -1) : base;
     return `${trimmedBase}/play?code=${encodeURIComponent(gameCode)}`;
   }, [base, gameCode]);
 
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore
-    }
-  };
+  useEffect(() => {
+    if (!fit) return;
+    const el = shellRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const cr = el.getBoundingClientRect();
+      const s = Math.floor(Math.min(cr.width, cr.height));
+      setFitPx(clamp(s, 64, 720));
+    };
+
+    measure();
+    const ro = new ResizeObserver(() => measure());
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [fit, gameCode]);
+
+  const px = fit ? fitPx : size;
+
+  if (fit) {
+    return (
+      <div ref={shellRef} className={['h-full min-h-0 w-full min-w-0', className || ''].filter(Boolean).join(' ')}>
+        <div className="flex h-full min-h-0 w-full items-center justify-center">
+          <QRCodeSVG
+            value={url}
+            size={px}
+            level="M"
+            bgColor="#ffffff"
+            fgColor="#000000"
+            aria-label={`Join game, room ${gameCode}`}
+            role="img"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col items-stretch gap-3 max-w-sm">
-      <div className="bg-white p-4 rounded-2xl inline-block self-center">
-        <QRCodeSVG
-          value={url}
-          size={size}
-          level="M"
-          bgColor="#ffffff"
-          fgColor="#000000"
-        />
-      </div>
-      <p className="text-xs text-white/40 text-center">Scan to open join screen with this code</p>
-      <p className="text-sm text-white/70 font-mono break-all text-center select-all leading-snug tabular-nums">
-        {url}
-      </p>
-      <button
-        type="button"
-        onClick={copy}
-        className="w-full text-sm font-semibold py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white/90 transition-colors"
-      >
-        {copied ? 'Copied!' : 'Copy join link'}
-      </button>
-    </div>
+    <QRCodeSVG
+      className={className}
+      value={url}
+      size={px}
+      level="M"
+      bgColor="#ffffff"
+      fgColor="#000000"
+      aria-label={`Join game, room ${gameCode}`}
+      role="img"
+    />
   );
 }
