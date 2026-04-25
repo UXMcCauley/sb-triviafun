@@ -249,7 +249,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="w-full px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight">
@@ -552,8 +552,8 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="w-full h-[calc(100dvh-180px)]">
-                <DisplayPageClient />
+              <div className="w-full h-[calc(100dvh-180px)] overflow-hidden">
+                <DisplayPageClient embedded />
               </div>
             </div>
           </div>

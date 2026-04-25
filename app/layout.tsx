@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   description: "Real-time multiplayer trivia you can host in minutes",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,9 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-x-hidden`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         {process.env.NODE_ENV === "development" ? (
           <Script
             src="https://mcp.figma.com/mcp/html-to-design/capture.js"

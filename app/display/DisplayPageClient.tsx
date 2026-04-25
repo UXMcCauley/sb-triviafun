@@ -14,6 +14,11 @@ import QuestionCard from '@/components/QuestionCard';
 import Leaderboard from '@/components/Leaderboard';
 import ShareLinks from '@/components/ShareLinks';
 
+type Props = {
+  /** When true, render as an embedded panel inside another page (no 100vw/100vh sizing). */
+  embedded?: boolean;
+};
+
 type Phase =
   | 'join'
   | 'intro'
@@ -61,7 +66,7 @@ function initials(name: string) {
   return parts.map((p) => p[0]?.toUpperCase()).join('') || '?';
 }
 
-export default function DisplayPageClient() {
+export default function DisplayPageClient({ embedded = false }: Props) {
   const [phase, setPhase] = useState<Phase>('join');
   const [phaseEndsAt, setPhaseEndsAt] = useState<number | null>(null);
   const [serverOffsetMs, setServerOffsetMs] = useState(0);
@@ -354,7 +359,12 @@ export default function DisplayPageClient() {
   // JOIN
   if (phase === 'join') {
     return (
-      <div className="w-screen h-screen bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex flex-col">
+      <div
+        className={[
+          embedded ? 'w-full h-full' : 'w-dvw h-dvh',
+          'bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex flex-col overflow-x-hidden',
+        ].join(' ')}
+      >
         <div className="p-6 sm:p-8">
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div className="space-y-2">
@@ -398,7 +408,12 @@ export default function DisplayPageClient() {
   }
 
   return (
-    <div className="w-screen h-screen bg-gray-950 text-white flex flex-col">
+    <div
+      className={[
+        embedded ? 'w-full h-full' : 'w-dvw h-dvh',
+        'bg-gray-950 text-white flex flex-col overflow-x-hidden',
+      ].join(' ')}
+    >
       {/* Header */}
       <div className="p-6 sm:p-8 flex items-start justify-between gap-6">
         <div className="space-y-2">
