@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getPusherClient } from '@/lib/pusher-client';
 import GameQRCode from '@/components/GameQRCode';
 import DisplayPageClient from '@/app/display/DisplayPageClient';

@@ -381,7 +381,7 @@ function PlayContent() {
   // Lobby countdown tick (server-synced)
   useEffect(() => {
     if (!lobbyCountdownEndsAt) {
-      setLobbySecondsLeft(null);
+      queueMicrotask(() => setLobbySecondsLeft(null));
       return;
     }
     const tick = () => {
@@ -398,7 +398,7 @@ function PlayContent() {
   // Phase countdown tick + phase progression (server-synced)
   useEffect(() => {
     if (!phaseEndsAt || paused) {
-      setPhaseSecondsLeft(null);
+      queueMicrotask(() => setPhaseSecondsLeft(null));
       return;
     }
 
