@@ -362,7 +362,9 @@ export default function DisplayPageClient({ embedded = false }: Props) {
       <div
         className={[
           embedded ? 'w-full h-full' : 'w-dvw h-dvh',
-          'bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex flex-col overflow-x-hidden',
+          embedded
+            ? 'bg-transparent text-white flex flex-col overflow-x-hidden'
+            : 'bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex flex-col overflow-x-hidden',
         ].join(' ')}
       >
         <div className="p-6 sm:p-8">
@@ -411,7 +413,9 @@ export default function DisplayPageClient({ embedded = false }: Props) {
     <div
       className={[
         embedded ? 'w-full h-full' : 'w-dvw h-dvh',
-        'bg-gray-950 text-white flex flex-col overflow-x-hidden',
+        embedded
+          ? 'bg-transparent text-white flex flex-col overflow-x-hidden'
+          : 'bg-gray-950 text-white flex flex-col overflow-x-hidden',
       ].join(' ')}
     >
       {/* Header */}
