@@ -1,6 +1,8 @@
 -- Neon / Postgres schema for Seinfeld Trivia
-
-create extension if not exists pgcrypto;
+--
+-- Do not install pgcrypto in the public schema (security/Neon best practice).
+-- `gen_random_uuid()` defaults use the built-in in PostgreSQL 13+; Neon runs PG 15+.
+-- If you have an old DB with `public.pgcrypto`, see db/migrations/drop_pgcrypto_if_unused.sql
 
 -- Packs
 create table if not exists packs (
