@@ -16,7 +16,20 @@ import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 import ReactionPicker from '@/components/ReactionPicker';
 
-type Phase = 'login' | 'join' | 'lobby' | 'question' | 'answered' | 'reveal' | 'waiting' | 'finished';
+type Phase =
+  | 'login'
+  | 'join'
+  | 'lobby'
+  | 'countdown'
+  | 'question-stinger'
+  | 'question-prompt'
+  | 'question-answers'
+  | 'answered'
+  | 'reveal'
+  | 'answer-scores'
+  | 'rankings'
+  | 'waiting'
+  | 'finished';
 
 interface PlayerInfo {
   id: string;
@@ -48,6 +61,8 @@ function PlayContent() {
   const [serverOffsetMs, setServerOffsetMs] = useState(0);
   const [lobbyCountdownEndsAt, setLobbyCountdownEndsAt] = useState<number | null>(null);
   const [lobbySecondsLeft, setLobbySecondsLeft] = useState<number | null>(null);
+  const [phaseEndsAt, setPhaseEndsAt] = useState<number | null>(null);
+  const [phaseSecondsLeft, setPhaseSecondsLeft] = useState<number | null>(null);
 
   const [currentQuestion, setCurrentQuestion] = useState<NewQuestionEvent | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -284,8 +299,12 @@ function PlayContent() {
     channel.bind('game-started', (data: GameStartedEvent) => {
       if (data?.startedAt && data?.countdownSeconds) {
         setLobbyCountdownEndsAt(data.startedAt + data.countdownSeconds * 1000);
+        setPhase('countdown');
+        setPhaseEndsAt(data.startedAt + data.countdownSeconds * 1000);
       } else {
         setLobbyCountdownEndsAt((Date.now() + serverOffsetMs) + 15_000);
+        setPhase('countdown');
+        setPhaseEndsAt((Date.now() + serverOffsetMs) + 15_000);
       }
     });
 
@@ -297,7 +316,8 @@ function PlayContent() {
       setWasCorrect(null);
       setReported(false);
       setLobbyCountdownEndsAt(null);
-      setPhase('question');
+      setPhase('question-stinger');
+      setPhaseEndsAt(data.startedAt + 7_000);
     });
 
     channel.bind('answer-reveal', (data: AnswerRevealEvent) => {
@@ -306,7 +326,8 @@ function PlayContent() {
       const sel = selectedAnswerRef.current;
       setWasCorrect(sel !== null ? sel === data.correctAnswerIndex : null);
       setPhase('reveal');
-      setTimeout(() => setPhase('waiting'), 5000);
+      const now = Date.now() + serverOffsetMs;
+      setPhaseEndsAt(now + 10_000);
     });
 
     channel.bind('game-paused', (data: GamePausedEvent) => { setPaused(data.paused); });
@@ -315,6 +336,7 @@ function PlayContent() {
       setPlayers(data.players);
       setWinner(data.winner);
       setPhase('finished');
+      setPhaseEndsAt(null);
       // Record stats
       if (isLoggedIn && phone) {
         const won = data.winner?.id === playerId;
@@ -347,6 +369,7 @@ function PlayContent() {
       setWinner(null);
       setReported(false);
       setPhase('lobby');
+      setPhaseEndsAt(null);
     });
 
     return () => { channel.unbind_all(); pusher.unsubscribe(`game-${gameCode}`); };
@@ -369,6 +392,73 @@ function PlayContent() {
     const id = window.setInterval(tick, 200);
     return () => window.clearInterval(id);
   }, [lobbyCountdownEndsAt, serverOffsetMs]);
+
+  // Phase countdown tick + phase progression (server-synced)
+  useEffect(() => {
+    if (!phaseEndsAt || paused) {
+      setPhaseSecondsLeft(null);
+      return;
+    }
+
+    const tick = () => {
+      const now = Date.now() + serverOffsetMs;
+      const left = Math.max(0, Math.ceil((phaseEndsAt - now) / 1000));
+      setPhaseSecondsLeft(left);
+
+      if (now < phaseEndsAt) return;
+
+      if (phase === 'countdown') {
+        setPhase('waiting');
+        setPhaseEndsAt(null);
+        return;
+      }
+
+      if (phase === 'question-stinger') {
+        setPhase('question-prompt');
+        setPhaseEndsAt(phaseEndsAt + 10_000);
+        return;
+      }
+
+      if (phase === 'question-prompt') {
+        setPhase('question-answers');
+        if (currentQuestion) {
+          setPhaseEndsAt(currentQuestion.startedAt + currentQuestion.timerDuration * 1000);
+        } else {
+          setPhaseEndsAt(now + 10_000);
+        }
+        return;
+      }
+
+      if (phase === 'question-answers') {
+        // Answer window ended; wait for host reveal.
+        setPhase('answered');
+        setPhaseEndsAt(null);
+        return;
+      }
+
+      if (phase === 'reveal') {
+        setPhase('answer-scores');
+        setPhaseEndsAt(phaseEndsAt + 15_000);
+        return;
+      }
+
+      if (phase === 'answer-scores') {
+        setPhase('rankings');
+        setPhaseEndsAt(phaseEndsAt + 15_000);
+        return;
+      }
+
+      if (phase === 'rankings') {
+        setPhase('waiting');
+        setPhaseEndsAt(null);
+        return;
+      }
+    };
+
+    tick();
+    const id = window.setInterval(tick, 200);
+    return () => window.clearInterval(id);
+  }, [currentQuestion, paused, phase, phaseEndsAt, serverOffsetMs]);
 
   const myRank = players.findIndex((p) => p.id === playerId) + 1;
   const myScore = players.find((p) => p.id === playerId)?.score || 0;
@@ -540,8 +630,23 @@ function PlayContent() {
         </div>
       )}
 
-      {/* QUESTION */}
-      {(phase === 'question' || phase === 'answered') && currentQuestion && (
+      {/* COUNTDOWN */}
+      {phase === 'countdown' && (
+        <div className="flex items-center justify-center min-h-screen p-4">
+          <div className="w-full max-w-sm text-center space-y-6 animate-fadeIn">
+            <div className="text-6xl">🎬</div>
+            <h2 className="text-3xl font-bold">Game starting</h2>
+            <p className="text-white/45">Eyes up on the TV. Thumbs ready.</p>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <p className="text-white/50 text-sm uppercase tracking-wider font-bold">Starting in</p>
+              <p className="text-6xl font-black tabular-nums text-yellow-300">{phaseSecondsLeft ?? '—'}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* QUESTION FLOW (mirrors TV) */}
+      {(phase === 'question-stinger' || phase === 'question-prompt' || phase === 'question-answers' || phase === 'answered') && currentQuestion && (
         <div className="min-h-screen flex flex-col p-4">
           <div className="flex items-center justify-between mb-4">
             <Countdown startedAt={currentQuestion.startedAt} duration={currentQuestion.timerDuration} size="sm" showPointsBar nowOffsetMs={serverOffsetMs} />
@@ -551,19 +656,35 @@ function PlayContent() {
             </div>
           </div>
           <div className="flex-1 flex flex-col justify-center">
-            <QuestionCard
-              questionText={currentQuestion.questionText}
-              options={currentQuestion.options}
-              questionIndex={currentQuestion.questionIndex}
-              totalQuestions={currentQuestion.totalQuestions}
-              category={currentQuestion.category}
-              difficulty={currentQuestion.difficulty}
-              selectedAnswer={selectedAnswer}
-              onSelect={handleSelectAnswer}
-              disabled={phase === 'answered'}
-              size="player"
-              reactions={reactionsForQuestion}
-            />
+            {phase === 'question-stinger' ? (
+              <div className="text-center space-y-4 animate-fadeIn">
+                <p className="text-white/50 text-sm uppercase tracking-wider font-bold">Up next</p>
+                <h2 className="text-5xl font-black tracking-tight">
+                  Question <span className="text-yellow-400">{currentQuestion.questionIndex + 1}</span>
+                </h2>
+                <p className="text-white/45">{currentQuestion.totalQuestions} total · lock in fast.</p>
+              </div>
+            ) : phase === 'question-prompt' ? (
+              <div className="space-y-5 animate-fadeIn">
+                <p className="text-white/40 text-sm uppercase tracking-wider font-bold">Listen up</p>
+                <h2 className="text-3xl font-black leading-tight">{currentQuestion.questionText}</h2>
+                <p className="text-white/45">Answers appear in a moment…</p>
+              </div>
+            ) : (
+              <QuestionCard
+                questionText={currentQuestion.questionText}
+                options={currentQuestion.options}
+                questionIndex={currentQuestion.questionIndex}
+                totalQuestions={currentQuestion.totalQuestions}
+                category={currentQuestion.category}
+                difficulty={currentQuestion.difficulty}
+                selectedAnswer={selectedAnswer}
+                onSelect={handleSelectAnswer}
+                disabled={phase !== 'question-answers'}
+                size="player"
+                reactions={reactionsForQuestion}
+              />
+            )}
           </div>
           <div className="mt-4 bg-white/5 border border-white/10 rounded-xl p-3">
             <p className="text-xs text-white/50 font-bold uppercase tracking-wider mb-2">Audience reactions</p>
@@ -571,7 +692,11 @@ function PlayContent() {
               onPick={(emoji) => sendReaction('question', String(currentQuestion.questionIndex), emoji)}
             />
           </div>
-          {phase === 'answered' && <div className="text-center py-4"><p className="text-white/50">Answer locked in!</p></div>}
+          {phase === 'answered' && (
+            <div className="text-center py-4 animate-fadeIn">
+              <p className="text-white/55">Answer locked in. Or time ran out. Either way: no take-backs.</p>
+            </div>
+          )}
         </div>
       )}
 
@@ -619,6 +744,39 @@ function PlayContent() {
               <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3"><span className="text-white/60">Rank</span><span className="font-bold">#{myRank || '—'}</span></div>
               <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3"><span className="text-white/60">Score</span><span className="font-mono font-bold text-yellow-300">{myScore.toLocaleString()}</span></div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ANSWER SCORES */}
+      {phase === 'answer-scores' && (
+        <div className="min-h-screen flex flex-col items-center justify-center p-4">
+          <div className="w-full max-w-sm space-y-4 animate-fadeIn">
+            <h2 className="text-3xl font-black">Answer scores</h2>
+            <p className="text-white/50">Where you landed on that one.</p>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-white/60">Rank</span>
+                <span className="font-bold text-xl">#{myRank || '—'}</span>
+              </div>
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-white/60">Score</span>
+                <span className="font-mono font-black text-yellow-300 text-xl">{myScore.toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* RANKINGS */}
+      {phase === 'rankings' && (
+        <div className="min-h-screen flex flex-col items-center justify-center p-4">
+          <div className="w-full max-w-sm space-y-4 animate-fadeIn">
+            <h2 className="text-3xl font-black">Leaderboard</h2>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+              <Leaderboard players={players} highlightId={playerId} compact reactionsByPlayerId={reactionsByPlayerId} />
+            </div>
+            <p className="text-white/35 text-sm">Next question soon. Try not to panic-scroll.</p>
           </div>
         </div>
       )}
