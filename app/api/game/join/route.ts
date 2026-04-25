@@ -5,6 +5,7 @@ import { getPusherServer } from '@/lib/pusher';
 
 export async function POST(request: Request) {
   try {
+    const serverNow = Date.now();
     const { gameCode, playerName, rejoinId } = await request.json();
 
     if (!gameCode || !playerName) {
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
       const existingPlayer = players.find((p) => p.id === rejoinId);
       if (existingPlayer) {
         return NextResponse.json({
+          serverNow,
           playerId: existingPlayer.id,
           playerName: existingPlayer.name,
           gameCode: game.game_code,
@@ -48,6 +50,7 @@ export async function POST(request: Request) {
     const existingByName = players.find((p) => p.name.toLowerCase() === normalizedRequestedName);
     if (existingByName) {
       return NextResponse.json({
+        serverNow,
         playerId: existingByName.id,
         playerName: existingByName.name,
         gameCode: game.game_code,
@@ -98,6 +101,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
+      serverNow,
       playerId: player.id,
       playerName: finalName,
       gameCode: game.game_code,

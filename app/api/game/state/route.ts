@@ -4,6 +4,7 @@ import { getShuffledQuestion } from '@/lib/game-helpers';
 
 export async function GET(request: Request) {
   try {
+    const serverNow = Date.now();
     const { searchParams } = new URL(request.url);
     const gameCode = searchParams.get('gameCode')?.toUpperCase();
 
@@ -147,6 +148,7 @@ export async function GET(request: Request) {
         : null;
 
     return NextResponse.json({
+      serverNow,
       gameCode: game.game_code,
       status: game.status,
       packIds: game.pack_ids,

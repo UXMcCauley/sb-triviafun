@@ -9,6 +9,7 @@ import type {
   GameFinishedEvent,
   GamePausedEvent,
   ReactionAddedEvent,
+  GameStartedEvent,
 } from '@/lib/models/types';
 import QuestionCard from '@/components/QuestionCard';
 import Countdown from '@/components/Countdown';
@@ -44,6 +45,9 @@ function PlayContent() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [paused, setPaused] = useState(false);
+  const [serverOffsetMs, setServerOffsetMs] = useState(0);
+  const [lobbyCountdownEndsAt, setLobbyCountdownEndsAt] = useState<number | null>(null);
+  const [lobbySecondsLeft, setLobbySecondsLeft] = useState<number | null>(null);
 
   const [currentQuestion, setCurrentQuestion] = useState<NewQuestionEvent | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -195,9 +199,22 @@ function PlayContent() {
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error || 'Failed to join'); setLoading(false); return; }
+      if (typeof data?.serverNow === 'number') {
+        setServerOffsetMs(data.serverNow - Date.now());
+      }
       setPlayerId(data.playerId);
       setGameCode(data.gameCode);
       setPhase('lobby');
+
+      // Pull initial roster + any active question metadata (also refreshes server offset).
+      fetch(`/api/game/state?gameCode=${encodeURIComponent(data.gameCode)}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((state) => {
+          if (!state) return;
+          if (typeof state?.serverNow === 'number') setServerOffsetMs(state.serverNow - Date.now());
+          if (Array.isArray(state?.players)) setPlayers(state.players);
+        })
+        .catch(() => {});
     } catch { setError('Network error'); }
     setLoading(false);
   };
@@ -254,7 +271,23 @@ function PlayContent() {
       })
       .catch(() => {});
 
-    channel.bind('game-started', () => { /* pregame countdown handled by display */ });
+    channel.bind('player-joined', (data: { players: Array<{ id: string; name: string }> }) => {
+      setPlayers((prev) => {
+        const existing = new Map(prev.map((p) => [p.id, p]));
+        for (const p of data.players || []) {
+          if (!existing.has(p.id)) existing.set(p.id, { id: p.id, name: p.name, score: 0 });
+        }
+        return [...existing.values()];
+      });
+    });
+
+    channel.bind('game-started', (data: GameStartedEvent) => {
+      if (data?.startedAt && data?.countdownSeconds) {
+        setLobbyCountdownEndsAt(data.startedAt + data.countdownSeconds * 1000);
+      } else {
+        setLobbyCountdownEndsAt((Date.now() + serverOffsetMs) + 15_000);
+      }
+    });
 
     channel.bind('new-question', (data: NewQuestionEvent) => {
       setCurrentQuestion(data);
@@ -263,6 +296,7 @@ function PlayContent() {
       setCorrectAnswer(null);
       setWasCorrect(null);
       setReported(false);
+      setLobbyCountdownEndsAt(null);
       setPhase('question');
     });
 
@@ -317,7 +351,24 @@ function PlayContent() {
 
     return () => { channel.unbind_all(); pusher.unsubscribe(`game-${gameCode}`); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameCode, phase === 'login', phase === 'join']);
+  }, [gameCode, phase === 'login', phase === 'join', serverOffsetMs]);
+
+  // Lobby countdown tick (server-synced)
+  useEffect(() => {
+    if (!lobbyCountdownEndsAt) {
+      setLobbySecondsLeft(null);
+      return;
+    }
+    const tick = () => {
+      const now = Date.now() + serverOffsetMs;
+      const left = Math.max(0, Math.ceil((lobbyCountdownEndsAt - now) / 1000));
+      setLobbySecondsLeft(left);
+      if (left <= 0) setLobbyCountdownEndsAt(null);
+    };
+    tick();
+    const id = window.setInterval(tick, 200);
+    return () => window.clearInterval(id);
+  }, [lobbyCountdownEndsAt, serverOffsetMs]);
 
   const myRank = players.findIndex((p) => p.id === playerId) + 1;
   const myScore = players.find((p) => p.id === playerId)?.score || 0;
@@ -451,12 +502,40 @@ function PlayContent() {
       {/* LOBBY */}
       {phase === 'lobby' && (
         <div className="flex items-center justify-center min-h-screen p-4">
-          <div className="text-center space-y-6">
+          <div className="w-full max-w-sm text-center space-y-6 animate-fadeIn">
             <div className="text-6xl">📺</div>
             <h2 className="text-3xl font-bold">You&apos;re in!</h2>
             <p className="text-xl text-white/60">Game <span className="font-mono text-yellow-400">{gameCode}</span></p>
-            <p className="text-white/40">Waiting for the host to start...</p>
-            <div className="animate-pulse text-4xl">⏳</div>
+            {lobbySecondsLeft !== null ? (
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p className="text-white/50 text-sm uppercase tracking-wider font-bold">Starting in</p>
+                <p className="text-6xl font-black tabular-nums text-yellow-300">{lobbySecondsLeft}</p>
+              </div>
+            ) : (
+              <>
+                <p className="text-white/40">Waiting for the host to start...</p>
+                <div className="animate-pulse text-4xl">⏳</div>
+              </>
+            )}
+
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-left">
+              <p className="text-xs text-white/50 font-bold uppercase tracking-wider">Players in room</p>
+              <div className="mt-3 space-y-2">
+                {players.length ? (
+                  [...players]
+                    .slice()
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((p) => (
+                      <div key={p.id} className="flex items-center justify-between rounded-xl bg-white/5 border border-white/10 px-3 py-2">
+                        <span className="font-semibold truncate">{p.name}</span>
+                        <span className="text-xs text-white/35 font-mono">{p.score.toLocaleString()}</span>
+                      </div>
+                    ))
+                ) : (
+                  <p className="text-sm text-white/40">Just you so far. Recruit aggressively.</p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -465,7 +544,7 @@ function PlayContent() {
       {(phase === 'question' || phase === 'answered') && currentQuestion && (
         <div className="min-h-screen flex flex-col p-4">
           <div className="flex items-center justify-between mb-4">
-            <Countdown startedAt={currentQuestion.startedAt} duration={currentQuestion.timerDuration} size="sm" showPointsBar />
+            <Countdown startedAt={currentQuestion.startedAt} duration={currentQuestion.timerDuration} size="sm" showPointsBar nowOffsetMs={serverOffsetMs} />
             <div className="text-right">
               <div className="text-sm text-white/50">Score</div>
               <div className="font-mono font-bold text-yellow-300">{myScore.toLocaleString()}</div>

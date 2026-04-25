@@ -8,25 +8,27 @@ interface CountdownProps {
   onExpire?: () => void;
   size?: 'sm' | 'lg';
   showPointsBar?: boolean;
+  nowOffsetMs?: number;
 }
 
 import { pointsIfAnsweredNow } from '@/lib/scoring';
 
-export default function Countdown({ startedAt, duration, onExpire, size = 'lg', showPointsBar }: CountdownProps) {
+export default function Countdown({ startedAt, duration, onExpire, size = 'lg', showPointsBar, nowOffsetMs = 0 }: CountdownProps) {
   const [timeLeft, setTimeLeft] = useState(duration);
   const [pointsNow, setPointsNow] = useState<number | null>(null);
 
   const calculate = useCallback(() => {
-    const elapsed = (Date.now() - startedAt) / 1000;
+    const now = Date.now() + nowOffsetMs;
+    const elapsed = (now - startedAt) / 1000;
     return Math.max(0, duration - elapsed);
-  }, [startedAt, duration]);
+  }, [startedAt, duration, nowOffsetMs]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       const remaining = calculate();
       setTimeLeft(remaining);
       if (showPointsBar) {
-        setPointsNow(pointsIfAnsweredNow({ timerSeconds: duration, startedAtMs: startedAt }));
+        setPointsNow(pointsIfAnsweredNow({ timerSeconds: duration, startedAtMs: startedAt, nowMs: Date.now() + nowOffsetMs }));
       }
       if (remaining <= 0) {
         clearInterval(interval);

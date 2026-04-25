@@ -6,6 +6,7 @@ import type {
   AnswerRevealEvent,
   GameFinishedEvent,
   GamePausedEvent,
+  GameStartedEvent,
   NewQuestionEvent,
   PlayerResult,
 } from '@/lib/models/types';
@@ -62,6 +63,7 @@ function initials(name: string) {
 export default function DisplayPageClient() {
   const [phase, setPhase] = useState<Phase>('join');
   const [phaseEndsAt, setPhaseEndsAt] = useState<number | null>(null);
+  const [serverOffsetMs, setServerOffsetMs] = useState(0);
 
   const [gameCode, setGameCode] = useState('');
   const [error, setError] = useState('');
@@ -83,7 +85,7 @@ export default function DisplayPageClient() {
 
   const [starting, setStarting] = useState(false);
 
-  const now = Date.now();
+  const now = Date.now() + serverOffsetMs;
   const secondsLeft = phaseEndsAt ? Math.max(0, Math.ceil((phaseEndsAt - now) / 1000)) : null;
 
   const isLastQuestion = useMemo(() => {
@@ -100,18 +102,22 @@ export default function DisplayPageClient() {
 
   const setTimedPhase = (p: Phase, seconds: number) => {
     setPhase(p);
-    setPhaseEndsAt(Date.now() + seconds * 1000);
+    setPhaseEndsAt(Date.now() + serverOffsetMs + seconds * 1000);
   };
 
   const fetchState = async (code: string) => {
     const res = await fetch(`/api/game/state?gameCode=${encodeURIComponent(code.toUpperCase())}`);
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Game not found');
+    if (typeof data?.serverNow === 'number') {
+      setServerOffsetMs(data.serverNow - Date.now());
+    }
     setPacks(data.packs || []);
     setPlayers(data.players || []);
     setTotalQuestions(data.totalQuestions || 0);
     setSeriesHistory(data.seriesHistory || null);
     return data as {
+      serverNow?: number;
       status: 'lobby' | 'active' | 'finished';
       currentQuestionIndex: number;
       questionStartedAt: number | null;
@@ -231,9 +237,14 @@ export default function DisplayPageClient() {
       });
     });
 
-    channel.bind('game-started', async () => {
+    channel.bind('game-started', async (data: GameStartedEvent) => {
       await fetchState(gameCode).catch(() => {});
-      setTimedPhase('countdown', 15);
+      if (data?.startedAt && data?.countdownSeconds) {
+        setPhase('countdown');
+        setPhaseEndsAt(data.startedAt + data.countdownSeconds * 1000);
+      } else {
+        setTimedPhase('countdown', 15);
+      }
     });
 
     channel.bind('new-question', (data: NewQuestionEvent) => {
@@ -287,7 +298,7 @@ export default function DisplayPageClient() {
     if (!phaseEndsAt || paused) return;
 
     tickingRef.current = window.setInterval(() => {
-      const t = Date.now();
+      const t = Date.now() + serverOffsetMs;
       if (phaseEndsAt && t >= phaseEndsAt) {
         // advance phase
         if (phase === 'countdown') {
@@ -321,7 +332,7 @@ export default function DisplayPageClient() {
       if (tickingRef.current) window.clearInterval(tickingRef.current);
       tickingRef.current = null;
     };
-  }, [currentQuestion, paused, phase, phaseEndsAt]);
+  }, [currentQuestion, paused, phase, phaseEndsAt, serverOffsetMs]);
 
   // JOIN
   if (phase === 'join') {

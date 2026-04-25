@@ -6,6 +6,8 @@ export async function POST(request: Request) {
   try {
     const { gameCode } = await request.json();
     const upperCode = gameCode.toUpperCase();
+    const startedAt = Date.now();
+    const countdownSeconds = 15;
 
     const rows = (await sql`
       select id, game_code, status, question_ids
@@ -38,6 +40,8 @@ export async function POST(request: Request) {
     const pusher = getPusherServer();
     await pusher.trigger(`game-${game.game_code}`, 'game-started', {
       totalQuestions: game.question_ids.length,
+      startedAt,
+      countdownSeconds,
     });
 
     return NextResponse.json({ success: true });

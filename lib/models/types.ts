@@ -104,6 +104,12 @@ export interface GamePausedEvent {
   paused: boolean;
 }
 
+export interface GameStartedEvent {
+  totalQuestions: number;
+  startedAt: number; // server epoch ms
+  countdownSeconds: number;
+}
+
 export interface GameFinishedEvent {
   players: { id: string; name: string; score: number }[];
   winner: { id: string; name: string; score: number };
