@@ -1,5 +1,2 @@
-import { redirect } from 'next/navigation';
-
-export default function DisplayPage() {
-  redirect('/host');
-}
+// Same route as /host — TV / projector "display" and marketing links stay on /display.
+export { default } from '../host/page';
