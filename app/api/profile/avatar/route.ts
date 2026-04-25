@@ -2,8 +2,7 @@ import crypto from 'crypto';
 import path from 'path';
 import { promises as fs } from 'fs';
 import { NextResponse } from 'next/server';
-import { sql } from '@/lib/db';
-import { getSessionUserId } from '@/lib/auth/session';
+import { auth } from '@/lib/auth/server';
 
 export const runtime = 'nodejs';
 
@@ -14,8 +13,8 @@ function isImage(mime: string) {
 }
 
 export async function POST(request: Request) {
-  const userId = await getSessionUserId();
-  if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { data: session } = await auth.getSession();
+  if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const form = await request.formData();
   const file = form.get('file');
@@ -41,18 +40,14 @@ export async function POST(request: Request) {
   await fs.writeFile(outPath, Buffer.from(arrayBuffer));
 
   const avatarUrl = `/uploads/${filename}`;
-  const rows = (await sql`
-    update users
-    set avatar_url = ${avatarUrl},
-        updated_at = now()
-    where id = ${userId}::uuid
-    returning id::text as id, default_username, avatar_url, email
-  `) as Array<{ id: string; default_username: string | null; avatar_url: string | null; email: string | null }>;
+  const { data } = await auth.updateUser({
+    image: avatarUrl,
+  } as any);
 
-  const user = rows[0];
+  const user = data?.user || session.user;
   return NextResponse.json({
     user: user
-      ? { id: user.id, defaultUsername: user.default_username, avatarUrl: user.avatar_url, email: user.email }
+      ? { id: user.id, email: user.email ?? null, name: user.name ?? null, image: (user as any).image ?? null }
       : null,
   });
 }

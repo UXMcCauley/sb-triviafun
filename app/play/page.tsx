@@ -32,7 +32,7 @@ function PlayContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [savedName, setSavedName] = useState('');
   const [playerStats, setPlayerStats] = useState<{ gamesPlayed: number; gamesWon: number; bestScore: number } | null>(null);
-  const [user, setUser] = useState<{ id: string; defaultUsername: string | null; avatarUrl: string | null; email: string | null } | null>(null);
+  const [user, setUser] = useState<{ id: string; email: string | null; name: string | null; image: string | null } | null>(null);
   const [profileUsername, setProfileUsername] = useState('');
   const [profileSaving, setProfileSaving] = useState(false);
 
@@ -63,13 +63,13 @@ function PlayContent() {
       try {
         const meRes = await fetch('/api/auth/me');
         const meData = (meRes.ok ? await meRes.json() : { user: null }) as {
-          user: { id: string; defaultUsername: string | null; avatarUrl: string | null; email: string | null } | null;
+          user: { id: string; email: string | null; name: string | null; image: string | null } | null;
         };
         if (meData?.user) {
           setUser(meData.user);
-          setProfileUsername(meData.user.defaultUsername || '');
-          if (meData.user.defaultUsername && !localStorage.getItem('seinfeld_name')) {
-            setPlayerName(meData.user.defaultUsername);
+          setProfileUsername(meData.user.name || '');
+          if (meData.user.name && !localStorage.getItem('seinfeld_name')) {
+            setPlayerName(meData.user.name);
           }
         }
       } catch {}
@@ -104,7 +104,7 @@ function PlayContent() {
       const data = await res.json();
       if (data?.user) {
         setUser(data.user);
-        if (data.user.defaultUsername) setPlayerName(data.user.defaultUsername);
+        if (data.user.name) setPlayerName(data.user.name);
       }
     } finally {
       setProfileSaving(false);
@@ -340,11 +340,8 @@ function PlayContent() {
               <p className="text-white/50 mt-2">Sign in to track your game history</p>
             </div>
             <div className="space-y-4">
-              <a
-                href={`/api/auth/google/start?returnTo=${encodeURIComponent('/play')}`}
-                className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold"
-              >
-                Continue with Google
+              <a href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
+                Sign in (Neon Auth)
               </a>
               <div>
                 <label className="text-sm text-white/60 block mb-1">Phone Number</label>
@@ -373,7 +370,7 @@ function PlayContent() {
             <div className="text-center">
               <h1 className="text-4xl font-black"><span className="text-yellow-400">Seinfeld</span> Trivia</h1>
               {isLoggedIn && <p className="text-white/50 mt-2">Welcome back, {savedName}!</p>}
-              {user && <p className="text-white/40 mt-1">Signed in as {user.email || 'Google user'}</p>}
+              {user && <p className="text-white/40 mt-1">Signed in as {user.email || user.name || 'User'}</p>}
               {playerStats && (
                 <div className="flex justify-center gap-4 mt-3">
                   <span className="text-xs text-white/40">{playerStats.gamesPlayed} played</span>
@@ -384,20 +381,17 @@ function PlayContent() {
             </div>
             <div className="space-y-4">
               {!user && (
-                <a
-                  href={`/api/auth/google/start?returnTo=${encodeURIComponent('/play')}`}
-                  className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold"
-                >
-                  Link Google (optional)
+                <a href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
+                  Sign in (optional)
                 </a>
               )}
               {user && (
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-white/10 border border-white/15 overflow-hidden flex items-center justify-center shrink-0">
-                      {user.avatarUrl ? (
+                      {user.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={user.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                        <img src={user.image} alt="Avatar" className="w-full h-full object-cover" />
                       ) : (
                         <span className="text-white/40 text-xl">👤</span>
                       )}
