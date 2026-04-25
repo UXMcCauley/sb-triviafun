@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface GameQRCodeProps {
@@ -12,9 +12,22 @@ interface GameQRCodeProps {
 
 export default function GameQRCode({ gameCode, size = 200, playUrlOverride }: GameQRCodeProps) {
   const [copied, setCopied] = useState(false);
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  const base = playUrlOverride || origin;
-  const url = `${base}/play?code=${encodeURIComponent(gameCode)}`;
+  const [base, setBase] = useState<string>(() => {
+    // Keep first render identical between SSR + client hydration.
+    // If we don't have an explicit base URL, fall back to relative URLs for SSR stability.
+    return playUrlOverride || process.env.NEXT_PUBLIC_APP_URL || '';
+  });
+
+  useEffect(() => {
+    if (playUrlOverride) return;
+    if (process.env.NEXT_PUBLIC_APP_URL) return;
+    setBase(window.location.origin);
+  }, [playUrlOverride]);
+
+  const url = useMemo(() => {
+    const trimmedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+    return `${trimmedBase}/play?code=${encodeURIComponent(gameCode)}`;
+  }, [base, gameCode]);
 
   const copy = async () => {
     try {
