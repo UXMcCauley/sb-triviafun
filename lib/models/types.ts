@@ -108,3 +108,10 @@ export interface GameFinishedEvent {
   players: { id: string; name: string; score: number }[];
   winner: { id: string; name: string; score: number };
 }
+
+export interface ReactionAddedEvent {
+  id?: string;
+  targetType: 'question' | 'player';
+  targetKey: string;
+  emoji: string;
+}
