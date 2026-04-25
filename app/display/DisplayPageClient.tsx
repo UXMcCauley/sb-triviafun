@@ -354,31 +354,43 @@ export default function DisplayPageClient() {
   // JOIN
   if (phase === 'join') {
     return (
-      <div className="min-h-screen bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex items-center justify-center p-8">
-        <div className="w-full max-w-md space-y-6">
-          <div className="text-center space-y-2">
-            <h1 className="text-5xl font-black tracking-tight">
-              <span className="text-yellow-400">TV</span> Display
-            </h1>
-            <p className="text-white/55">Enter a room code. Then keep your hands clean while the game runs itself.</p>
+      <div className="w-screen h-screen bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex flex-col">
+        <div className="p-6 sm:p-8">
+          <div className="flex items-end justify-between gap-6 flex-wrap">
+            <div className="space-y-2">
+              <h1 className="text-5xl font-black tracking-tight">
+                <span className="text-yellow-400">TV</span> Display
+              </h1>
+              <p className="text-white/55">
+                Enter a room code. Then keep your hands clean while the game runs itself.
+              </p>
+            </div>
+            <ShareLinks variant="discreet" />
           </div>
+        </div>
 
-          <div className="space-y-3">
-            <input
-              value={gameCode}
-              onChange={(e) => setGameCode(e.target.value.toUpperCase())}
-              placeholder="ABCD"
-              maxLength={4}
-              className="w-full rounded-2xl bg-white/8 border border-white/15 px-5 py-4 text-4xl font-mono tracking-widest text-center placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
-              onKeyDown={(e) => e.key === 'Enter' && handleJoin()}
-            />
-            {error ? <p className="text-red-300 text-sm text-center">{error}</p> : null}
-            <button
-              onClick={handleJoin}
-              className="w-full rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-extrabold text-xl py-4 transition active:scale-[0.99]"
-            >
-              Show game
-            </button>
+        <div className="flex-1 min-h-0 px-6 sm:px-8 pb-8">
+          <div className="rounded-3xl border border-white/10 bg-white/4 p-6 sm:p-8">
+            <div className="grid gap-3 sm:grid-cols-[260px_1fr_220px] items-center">
+              <input
+                value={gameCode}
+                onChange={(e) => setGameCode(e.target.value.toUpperCase())}
+                placeholder="ABCD"
+                maxLength={4}
+                className="w-full rounded-2xl bg-white/8 border border-white/15 px-5 py-4 text-4xl font-mono tracking-widest text-center placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                onKeyDown={(e) => e.key === 'Enter' && handleJoin()}
+              />
+              <div className="text-sm text-white/50">
+                Tip: you can create a game on the host screen and it’ll jump here automatically.
+                {error ? <p className="mt-1 text-red-300">{error}</p> : null}
+              </div>
+              <button
+                onClick={handleJoin}
+                className="w-full rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-extrabold text-xl py-4 transition active:scale-[0.99]"
+              >
+                Show game
+              </button>
+            </div>
           </div>
         </div>
       </div>
