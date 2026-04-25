@@ -3,6 +3,12 @@ export type GameSettingsV1 = {
   questionCount: number;
   timerSeconds: number;
   showWinnersTicker: boolean;
+  // Broad-stroke, UX-first config. Safe to ignore in gameplay until needed.
+  maxPlayers: number;
+  volume: number; // 0-100
+  emojiCommentsEnabled: boolean;
+  audienceEnabled: boolean;
+  publicResults: boolean;
 };
 
 export type GameSettings = GameSettingsV1;
@@ -60,14 +66,27 @@ export function validateCreateGame(body: unknown): ValidatedCreateGame {
     obj.settings?.showWinnersTicker ??
     false;
 
+  const maxPlayersRaw: unknown = obj.settings?.maxPlayers ?? 12;
+  const volumeRaw: unknown = obj.settings?.volume ?? 70;
+  const emojiCommentsEnabledRaw: unknown = obj.settings?.emojiCommentsEnabled ?? true;
+  const audienceEnabledRaw: unknown = obj.settings?.audienceEnabled ?? true;
+  const publicResultsRaw: unknown = obj.settings?.publicResults ?? false;
+
   const questionCountNum = getNumber(questionCountRaw) ?? 15;
   const timerSecondsNum = getNumber(timerSecondsRaw) ?? 15;
+  const maxPlayersNum = getNumber(maxPlayersRaw) ?? 12;
+  const volumeNum = getNumber(volumeRaw) ?? 70;
 
   const settings: GameSettingsV1 = {
     settingsVersion: 1,
     questionCount: clampInt(questionCountNum, 1, 30),
     timerSeconds: clampInt(timerSecondsNum, 5, 60),
     showWinnersTicker: Boolean(showWinnersTickerRaw),
+    maxPlayers: clampInt(maxPlayersNum, 2, 200),
+    volume: clampInt(volumeNum, 0, 100),
+    emojiCommentsEnabled: Boolean(emojiCommentsEnabledRaw),
+    audienceEnabled: Boolean(audienceEnabledRaw),
+    publicResults: Boolean(publicResultsRaw),
   };
 
   const packIds =

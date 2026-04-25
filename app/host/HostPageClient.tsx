@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { getPusherClient } from '@/lib/pusher-client';
 import type { PlayerJoinedEvent, AnswerRevealEvent, GameFinishedEvent, GamePausedEvent } from '@/lib/models/types';
 import WinnersTicker from '@/components/WinnersTicker';
@@ -25,27 +24,37 @@ interface PackInfo {
   questionCount: number;
 }
 
-export default function HostPage() {
-  const searchParams = useSearchParams();
+export type HostPageInitial = {
+  packs?: string[];
+  questions?: number;
+  timer?: number;
+  maxPlayers?: number;
+};
+
+export default function HostPageClient({ initial }: { initial: HostPageInitial }) {
   const [gameCode, setGameCode] = useState('');
   const [status, setStatus] = useState<'idle' | 'lobby' | 'active' | 'finished'>('idle');
   const [players, setPlayers] = useState<PlayerInfo[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [loading, setLoading] = useState('');
-  const [numQuestions, setNumQuestions] = useState(15);
-  const [timerDuration, setTimerDuration] = useState(15);
-  const [maxPlayers, setMaxPlayers] = useState(12);
+
+  const [numQuestions, setNumQuestions] = useState(() => initial.questions ?? 15);
+  const [timerDuration, setTimerDuration] = useState(() => initial.timer ?? 15);
+  const [maxPlayers, setMaxPlayers] = useState(() => initial.maxPlayers ?? 12);
+
   const [showWinnersTicker, setShowWinnersTicker] = useState(false);
   const [volume, setVolume] = useState(70);
   const [emojiCommentsEnabled, setEmojiCommentsEnabled] = useState(true);
   const [audienceEnabled, setAudienceEnabled] = useState(true);
   const [publicResults, setPublicResults] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+
   const [paused, setPaused] = useState(false);
   const [revealed, setRevealed] = useState(false);
+
   const [packs, setPacks] = useState<PackInfo[]>([]);
-  const [selectedPackIds, setSelectedPackIds] = useState<string[]>([]);
+  const [selectedPackIds, setSelectedPackIds] = useState<string[]>(() => initial.packs ?? []);
   const [packScrollIndex, setPackScrollIndex] = useState(0);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const [hostError, setHostError] = useState('');
@@ -57,24 +66,10 @@ export default function HostPage() {
       .then((data: PackInfo[]) => {
         setPacks(data);
         const defaults = data.filter((p) => p.isDefault).map((p) => p.id);
-        const fromQuery = (searchParams.get('packs') ?? '')
-          .split(',')
-          .map((s) => s.trim())
-          .filter(Boolean);
-        setSelectedPackIds(fromQuery.length ? fromQuery : defaults);
+        setSelectedPackIds((prev) => (prev.length ? prev : defaults));
       })
       .catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    const q = searchParams.get('questions');
-    const t = searchParams.get('timer');
-    const mp = searchParams.get('maxPlayers');
-    if (q) setNumQuestions(Number(q));
-    if (t) setTimerDuration(Number(t));
-    if (mp) setMaxPlayers(Number(mp));
-  }, [searchParams]);
 
   useEffect(() => {
     const el = packCarouselRef.current;
@@ -360,70 +355,70 @@ export default function HostPage() {
             </div>
 
             <div className="mt-6 flex items-end gap-6 flex-wrap">
-            <div>
-              <label className="text-sm text-white/50 block mb-1">Questions</label>
-              <select
-                value={numQuestions}
-                onChange={(e) => setNumQuestions(Number(e.target.value))}
-                className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
-              >
-                {[10, 15, 20, 25, 30].map((n) => (
-                  <option key={n} value={n} className="bg-gray-900">{n}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="text-sm text-white/50 block mb-1">Timer (seconds)</label>
-              <select
-                value={timerDuration}
-                onChange={(e) => setTimerDuration(Number(e.target.value))}
-                className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
-              >
-                {[10, 15, 20, 30].map((n) => (
-                  <option key={n} value={n} className="bg-gray-900">{n}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="min-w-[220px]">
-              <div className="flex items-center justify-between">
-                <label className="text-sm text-white/50 block mb-1">Max players</label>
-                <span className="text-sm font-mono text-white/70">{maxPlayers}</span>
+              <div>
+                <label className="text-sm text-white/50 block mb-1">Questions</label>
+                <select
+                  value={numQuestions}
+                  onChange={(e) => setNumQuestions(Number(e.target.value))}
+                  className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
+                >
+                  {[10, 15, 20, 25, 30].map((n) => (
+                    <option key={n} value={n} className="bg-gray-900">{n}</option>
+                  ))}
+                </select>
               </div>
-              <input
-                type="range"
-                min={2}
-                max={40}
-                step={1}
-                value={maxPlayers}
-                onChange={(e) => setMaxPlayers(Number(e.target.value))}
-                className="w-full accent-yellow-400"
-              />
+              <div>
+                <label className="text-sm text-white/50 block mb-1">Timer (seconds)</label>
+                <select
+                  value={timerDuration}
+                  onChange={(e) => setTimerDuration(Number(e.target.value))}
+                  className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
+                >
+                  {[10, 15, 20, 30].map((n) => (
+                    <option key={n} value={n} className="bg-gray-900">{n}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="min-w-[220px]">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm text-white/50 block mb-1">Max players</label>
+                  <span className="text-sm font-mono text-white/70">{maxPlayers}</span>
+                </div>
+                <input
+                  type="range"
+                  min={2}
+                  max={40}
+                  step={1}
+                  value={maxPlayers}
+                  onChange={(e) => setMaxPlayers(Number(e.target.value))}
+                  className="w-full accent-yellow-400"
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowWinnersTicker((v) => !v)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-semibold transition-all ${
+                  showWinnersTicker
+                    ? 'bg-yellow-500/15 border-yellow-500/40 text-yellow-300'
+                    : 'bg-white/5 border-white/15 text-white/50 hover:text-white/70'
+                }`}
+              >
+                <span className={`w-7 h-4 rounded-full relative transition-colors ${showWinnersTicker ? 'bg-yellow-400' : 'bg-white/20'}`}>
+                  <span className={`absolute top-0.5 w-3 h-3 rounded-full bg-black/80 transition-all ${showWinnersTicker ? 'left-3.5' : 'left-0.5'}`} />
+                </span>
+                Winners ticker
+              </button>
+
+              <button
+                onClick={createGame}
+                disabled={loading === 'create' || selectedPackIds.length === 0}
+                className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-8 py-3 rounded-xl disabled:opacity-50"
+              >
+                {loading === 'create' ? 'Creating...' : 'Create Game'}
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={() => setShowWinnersTicker((v) => !v)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-semibold transition-all ${
-                showWinnersTicker
-                  ? 'bg-yellow-500/15 border-yellow-500/40 text-yellow-300'
-                  : 'bg-white/5 border-white/15 text-white/50 hover:text-white/70'
-              }`}
-            >
-              <span className={`w-7 h-4 rounded-full relative transition-colors ${showWinnersTicker ? 'bg-yellow-400' : 'bg-white/20'}`}>
-                <span className={`absolute top-0.5 w-3 h-3 rounded-full bg-black/80 transition-all ${showWinnersTicker ? 'left-3.5' : 'left-0.5'}`} />
-              </span>
-              Winners ticker
-            </button>
-
-            <button
-              onClick={createGame}
-              disabled={loading === 'create' || selectedPackIds.length === 0}
-              className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-8 py-3 rounded-xl disabled:opacity-50"
-            >
-              {loading === 'create' ? 'Creating...' : 'Create Game'}
-            </button>
-          </div>
 
             {showAdvanced && (
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -634,3 +629,4 @@ export default function HostPage() {
     </div>
   );
 }
+
