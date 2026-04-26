@@ -254,11 +254,13 @@ export default function Home() {
       <div className="w-full px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight">
-              <span className="text-yellow-400">TriviaFun</span>
+            <h1 className="text-7xl font-ultralight tracking-tight">
+              <span className="text-white">Trivia</span>
+              <span className="text-pink-600 font-black">Fun</span>
+
             </h1>
             <p className="text-white/60 max-w-2xl">
-              Pick packs, tune the knobs, and we’ll drop you into the lobby with your room code ready.
+              Time to have a relentless nerdy brain-off with whoever agrees to hang out with you.
             </p>
             {user ? (
               <p className="text-white/35 text-sm">
