@@ -267,6 +267,32 @@ export default function Home() {
                 Signed in as <span className="text-white/55">{user.email || user.name || 'Account'}</span>
               </p>
             ) : null}
+            <div className="flex flex-wrap gap-2 pt-1">
+              <Link
+                href="/how-to-play"
+                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
+              >
+                How to play
+              </Link>
+              <Link
+                href="/packs"
+                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
+              >
+                Packs
+              </Link>
+              <Link
+                href="/account"
+                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
+              >
+                Account
+              </Link>
+              <Link
+                href="/report"
+                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
+              >
+                Report
+              </Link>
+            </div>
           </div>
         </div>
 
