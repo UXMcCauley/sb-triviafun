@@ -60,7 +60,7 @@ export default function Countdown({ startedAt, duration, onExpire, size = 'lg', 
           cy={svgSize / 2}
           r={radius}
           fill="none"
-          stroke="rgba(255,255,255,0.1)"
+          stroke="rgba(255,255,255,0.14)"
           strokeWidth={strokeWidth}
         />
         <circle
@@ -68,7 +68,7 @@ export default function Countdown({ startedAt, duration, onExpire, size = 'lg', 
           cy={svgSize / 2}
           r={radius}
           fill="none"
-          stroke={isUrgent ? '#ef4444' : '#facc15'}
+          stroke={isUrgent ? '#ff6b6b' : '#ffd54f'}
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           strokeDashoffset={circumference * (1 - progress)}
@@ -76,7 +76,9 @@ export default function Countdown({ startedAt, duration, onExpire, size = 'lg', 
           className="transition-all duration-100"
         />
       </svg>
-      <span className={`font-bold tabular-nums ${isUrgent ? 'text-red-400 animate-pulse' : 'text-white'}`}>
+      <span
+        className={`font-extrabold tabular-nums ${isUrgent ? 'animate-pulse text-red-300' : 'text-white'}`}
+      >
         {seconds}
       </span>
       </div>

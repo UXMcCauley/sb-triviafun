@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Nunito } from "next/font/google";
 import "./globals.css";
 import "./material-web";
+
+const trivia = Nunito({
+  variable: "--font-trivia",
+  subsets: ["latin"],
+  weight: ["600", "700", "800", "900"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +39,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-x-hidden`}
+      className={`${trivia.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-x-hidden`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <Script

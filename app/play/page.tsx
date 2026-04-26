@@ -17,6 +17,7 @@ import Countdown from '@/components/Countdown';
 import Leaderboard from '@/components/Leaderboard';
 import ReactionPicker from '@/components/ReactionPicker';
 import ShareLinks from '@/components/ShareLinks';
+import { TriviaFunLogo, TriviaGameSurface } from '@/components/TriviaDecor';
 
 type Phase =
   | 'login'
@@ -469,7 +470,7 @@ function PlayContent() {
   const myScore = players.find((p) => p.id === playerId)?.score || 0;
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white flex flex-col">
+    <TriviaGameSurface>
       {/* PAUSE OVERLAY */}
       {paused && phase !== 'login' && phase !== 'join' && phase !== 'lobby' && phase !== 'finished' && (
         <div className="absolute inset-0 bg-black/80 z-40 flex items-center justify-center">
@@ -479,30 +480,51 @@ function PlayContent() {
 
       {/* LOGIN — phone number */}
       {phase === 'login' && (
-        <div className="flex items-center justify-center min-h-screen p-4">
-          <div className="w-full max-w-sm space-y-6">
-            <div className="text-center">
-              <h1 className="text-4xl font-black"><span className="text-yellow-400">Seinfeld</span> Trivia</h1>
-              <p className="text-white/50 mt-2">Sign in to track your game history</p>
-            </div>
+        <div className="flex min-h-dvh flex-1 items-center justify-center p-4">
+          <div className="trivia-card-join w-full max-w-sm space-y-6 p-6 sm:p-8">
+            <TriviaFunLogo subtitle="Sign in · stat tracking" />
             <div className="space-y-4">
-              <Link href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
-                Sign in (Neon Auth)
+              <Link
+                href="/auth/sign-in"
+                className="block w-full rounded-2xl border border-white/15 bg-white/8 py-3 text-center text-sm font-extrabold text-white/90 transition hover:bg-white/12"
+              >
+                Neon Auth
               </Link>
               <div>
-                <label className="text-sm text-white/60 block mb-1">Phone Number</label>
-                <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(555) 123-4567" className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-lg placeholder:text-white/20 focus:outline-none focus:border-yellow-500" />
+                <label className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.2em] text-trivia-gold">Phone</label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="(555) 123-4567"
+                  className="trivia-input-pill py-3.5 text-left text-base"
+                />
               </div>
               <div>
-                <label className="text-sm text-white/60 block mb-1">Display Name</label>
-                <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} placeholder="Your name" maxLength={20} className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-lg placeholder:text-white/20 focus:outline-none focus:border-yellow-500" onKeyDown={(e) => e.key === 'Enter' && handleLogin()} />
+                <label className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.2em] text-trivia-cyan">Display name</label>
+                <input
+                  type="text"
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  placeholder="How we&apos;ll call you"
+                  maxLength={20}
+                  className="trivia-input-pill py-3.5 text-left text-base"
+                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+                />
               </div>
-              {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-              <button onClick={handleLogin} disabled={loading} className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl py-4 rounded-xl transition-all active:scale-95 disabled:opacity-50">
-                {loading ? 'Signing in...' : 'Sign In'}
+              {error && <p className="text-center text-sm text-red-300">{error}</p>}
+              <button type="button" onClick={handleLogin} disabled={loading} className="trivia-btn-coral w-full text-lg">
+                {loading ? 'Signing in…' : 'Sign in'}
               </button>
-              <button onClick={() => { setPhase('join'); setIsLoggedIn(false); }} className="w-full text-white/40 text-sm py-2 hover:text-white/60">
-                Skip — play as guest
+              <button
+                type="button"
+                onClick={() => {
+                  setPhase('join');
+                  setIsLoggedIn(false);
+                }}
+                className="w-full py-2 text-sm font-bold text-white/40 transition hover:text-white/65"
+              >
+                Skip — guest
               </button>
             </div>
           </div>
@@ -511,43 +533,49 @@ function PlayContent() {
 
       {/* JOIN */}
       {phase === 'join' && (
-        <div className="flex items-center justify-center min-h-screen p-4">
-          <div className="w-full max-w-sm space-y-6">
-            <div className="text-center">
-              <h1 className="text-4xl font-black"><span className="text-yellow-400">Seinfeld</span> Trivia</h1>
-              {isLoggedIn && <p className="text-white/50 mt-2">Welcome back, {savedName}!</p>}
-              {user && <p className="text-white/40 mt-1">Signed in as {user.email || user.name || 'User'}</p>}
-              {playerStats && (
-                <div className="flex justify-center gap-4 mt-3">
-                  <span className="text-xs text-white/40">{playerStats.gamesPlayed} played</span>
-                  <span className="text-xs text-green-400">{playerStats.gamesWon} won</span>
-                  <span className="text-xs text-yellow-400">Best: {playerStats.bestScore.toLocaleString()}</span>
-                </div>
-              )}
-            </div>
+        <div className="flex min-h-dvh flex-1 items-center justify-center p-4">
+          <div className="trivia-card-join w-full max-w-sm space-y-5 p-6 sm:p-8">
+            <TriviaFunLogo />
+            {isLoggedIn && <p className="text-center text-sm font-bold text-white/50">Back again, {savedName}.</p>}
+            {user && (
+              <p className="text-center text-xs text-white/40">
+                {user.email || user.name || 'Signed in'}
+              </p>
+            )}
+            {playerStats && (
+              <div className="flex justify-center gap-3 text-[11px] font-bold uppercase tracking-wider text-white/45">
+                <span>{playerStats.gamesPlayed} games</span>
+                <span className="text-trivia-mint">{playerStats.gamesWon} W</span>
+                <span className="text-trivia-gold">Hi {playerStats.bestScore.toLocaleString()}</span>
+              </div>
+            )}
+
             <div className="space-y-4">
               {!user && (
-                <Link href="/auth/sign-in" className="w-full block text-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-3 font-bold">
+                <Link
+                  href="/auth/sign-in"
+                  className="block w-full rounded-2xl border border-white/12 bg-white/6 py-2.5 text-center text-sm font-extrabold text-white/85"
+                >
                   Sign in (optional)
                 </Link>
               )}
               {user && (
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">
+                <div className="space-y-3 rounded-2xl border border-white/10 bg-trivia-navy/50 p-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-white/10 border border-white/15 overflow-hidden flex items-center justify-center shrink-0">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/8">
                       {user.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={user.image} alt="Avatar" className="w-full h-full object-cover" />
+                        <img src={user.image} alt="" className="h-full w-full object-cover" />
                       ) : (
-                        <span className="text-white/40 text-xl">👤</span>
+                        <span className="text-xl text-white/40">👤</span>
                       )}
                     </div>
-                    <label className="text-sm text-white/60">
-                      <span className="font-semibold text-white/70">Avatar</span>
+                    <label className="text-xs text-white/50">
+                      <span className="font-bold text-white/70">Avatar</span>
                       <input
                         type="file"
                         accept="image/png,image/jpeg,image/webp"
-                        className="block mt-1 text-xs text-white/40 file:mr-3 file:px-3 file:py-1.5 file:rounded-lg file:border-0 file:bg-white/10 file:text-white/70 hover:file:bg-white/20"
+                        className="mt-1 block w-full text-xs file:mr-2 file:rounded-lg file:border-0 file:bg-white/12 file:px-3 file:py-1.5 file:font-bold file:text-white/80"
                         onChange={(e) => {
                           const f = e.target.files?.[0];
                           if (f) uploadAvatar(f);
@@ -556,38 +584,53 @@ function PlayContent() {
                     </label>
                   </div>
                   <div>
-                    <label className="text-sm text-white/60 block mb-1">Default username</label>
+                    <label className="mb-1.5 block text-xs font-bold text-white/55">Default name</label>
                     <input
                       type="text"
                       value={profileUsername}
                       onChange={(e) => setProfileUsername(e.target.value)}
                       maxLength={20}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-lg placeholder:text-white/20 focus:outline-none focus:border-yellow-500"
-                      placeholder="What people call you"
+                      className="trivia-input-pill text-left text-base"
+                      placeholder="Lobby default"
                     />
                   </div>
                   <button
+                    type="button"
                     onClick={saveProfile}
                     disabled={profileSaving}
-                    className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-3 rounded-xl disabled:opacity-50"
+                    className="w-full rounded-2xl border border-white/12 bg-white/8 py-2.5 text-sm font-extrabold text-white/90 disabled:opacity-50"
                   >
                     {profileSaving ? 'Saving…' : 'Save profile'}
                   </button>
                 </div>
               )}
               <div>
-                <label className="text-sm text-white/60 block mb-1">Game Code</label>
-                <input type="text" value={gameCode} onChange={(e) => setGameCode(e.target.value.toUpperCase())} placeholder="ABCD" maxLength={4} className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-2xl text-center font-mono tracking-widest uppercase placeholder:text-white/20 focus:outline-none focus:border-yellow-500" />
+                <label className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.2em] text-trivia-gold">Room code</label>
+                <input
+                  type="text"
+                  value={gameCode}
+                  onChange={(e) => setGameCode(e.target.value.toUpperCase())}
+                  placeholder="WXYZ"
+                  maxLength={4}
+                  className="trivia-input-pill font-mono text-3xl tracking-[0.35em]"
+                />
               </div>
               {!isLoggedIn && (
                 <div>
-                  <label className="text-sm text-white/60 block mb-1">Your Name</label>
-                  <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} placeholder="Enter your name" maxLength={20} className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-lg placeholder:text-white/20 focus:outline-none focus:border-yellow-500" />
+                  <label className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.2em] text-trivia-cyan">Nickname</label>
+                  <input
+                    type="text"
+                    value={playerName}
+                    onChange={(e) => setPlayerName(e.target.value)}
+                    placeholder="Your nickname"
+                    maxLength={20}
+                    className="trivia-input-pill text-left text-lg"
+                  />
                 </div>
               )}
-              {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-              <button onClick={handleJoin} disabled={loading} className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl py-4 rounded-xl transition-all active:scale-95 disabled:opacity-50">
-                {loading ? 'Joining...' : 'Join Game'}
+              {error && <p className="text-center text-sm text-red-300">{error}</p>}
+              <button type="button" onClick={handleJoin} disabled={loading} className="trivia-btn-coral w-full text-lg">
+                {loading ? 'Joining…' : 'Join game ★'}
               </button>
             </div>
           </div>
@@ -596,38 +639,45 @@ function PlayContent() {
 
       {/* LOBBY */}
       {phase === 'lobby' && (
-        <div className="flex items-center justify-center min-h-screen p-4">
-          <div className="w-full max-w-sm text-center space-y-6 animate-fadeIn">
-            <div className="text-6xl">📺</div>
-            <h2 className="text-3xl font-bold">You&apos;re in!</h2>
-            <p className="text-xl text-white/60">Game <span className="font-mono text-yellow-400">{gameCode}</span></p>
+        <div className="flex min-h-dvh flex-1 items-center justify-center p-4">
+          <div className="trivia-card-join w-full max-w-sm animate-fadeIn space-y-6 p-6 text-center">
+            <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-white/45">You&apos;re in</p>
+            <p className="font-mono text-3xl font-extrabold tracking-widest text-trivia-gold">{gameCode}</p>
             {lobbySecondsLeft !== null ? (
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-white/50 text-sm uppercase tracking-wider font-bold">Starting in</p>
-                <p className="text-6xl font-black tabular-nums text-yellow-300">{lobbySecondsLeft}</p>
+              <div className="rounded-2xl border border-trivia-gold/30 bg-trivia-navy/60 py-4">
+                <p className="text-[11px] font-extrabold uppercase tracking-widest text-white/50">Starting in</p>
+                <p className="text-6xl font-extrabold tabular-nums text-trivia-gold">{lobbySecondsLeft}</p>
               </div>
             ) : (
-              <>
-                <p className="text-white/40">Waiting for the host to start...</p>
+              <div className="space-y-2">
+                <p className="text-sm font-bold text-white/45">Waiting for host…</p>
                 <div className="animate-pulse text-4xl">⏳</div>
-              </>
+              </div>
             )}
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-left">
-              <p className="text-xs text-white/50 font-bold uppercase tracking-wider">Players in room</p>
-              <div className="mt-3 space-y-2">
+            <div>
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-white/40">In the lobby ({players.length})</p>
+              <div className="mt-4 flex flex-wrap justify-center gap-3">
                 {players.length ? (
                   [...players]
                     .slice()
                     .sort((a, b) => a.name.localeCompare(b.name))
-                    .map((p) => (
-                      <div key={p.id} className="flex items-center justify-between rounded-xl bg-white/5 border border-white/10 px-3 py-2">
-                        <span className="font-semibold truncate">{p.name}</span>
-                        <span className="text-xs text-white/35 font-mono">{p.score.toLocaleString()}</span>
+                    .map((p, i) => (
+                      <div key={p.id} className="flex w-[4.5rem] flex-col items-center">
+                        <div
+                          className={`flex h-14 w-14 items-center justify-center rounded-full bg-trivia-navy font-extrabold text-white ring-4 ring-inset ${
+                            ['ring-trivia-gold', 'ring-trivia-cyan', 'ring-trivia-mint', 'ring-trivia-coral'][i % 4]
+                          }`}
+                        >
+                          {p.name.slice(0, 2).toUpperCase()}
+                        </div>
+                        <p className="mt-1.5 w-full truncate text-center text-xs font-extrabold text-white/90">
+                          {p.name}
+                        </p>
                       </div>
                     ))
                 ) : (
-                  <p className="text-sm text-white/40">Just you so far. Recruit aggressively.</p>
+                  <p className="text-sm text-white/40">Solo for now. Share the code.</p>
                 )}
               </div>
             </div>
@@ -807,13 +857,19 @@ function PlayContent() {
       <div className="mt-auto p-4">
         <ShareLinks gameCode={gameCode} variant="discreet" />
       </div>
-    </div>
+    </TriviaGameSurface>
   );
 }
 
 export default function PlayPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-linear-to-br from-gray-900 via-indigo-950 to-gray-900 text-white flex items-center justify-center"><div className="animate-pulse text-2xl">Loading...</div></div>}>
+    <Suspense
+      fallback={
+        <div className="flex min-h-dvh items-center justify-center bg-trivia-navy text-lg font-extrabold text-white/50">
+          <div className="animate-pulse">Loading…</div>
+        </div>
+      }
+    >
       <PlayContent />
     </Suspense>
   );

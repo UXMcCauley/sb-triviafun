@@ -261,7 +261,7 @@ export default function Home() {
   };
 
   return (
-    <div className="w-dvw min-h-dvh overflow-x-hidden bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
+    <div className="w-dvw min-h-dvh overflow-x-hidden bg-linear-to-br from-trivia-navy via-trivia-navy-mid to-trivia-navy text-white">
       <div className="w-full px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
@@ -520,7 +520,7 @@ export default function Home() {
             <div
               className={cx(
                 'h-dvh w-dvw flex flex-col px-4 py-6 sm:px-6 sm:py-8 lg:px-8',
-                'bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white',
+                'bg-linear-to-br from-trivia-navy via-trivia-navy-mid to-trivia-navy text-white',
                 transitioning && 'opacity-100',
               )}
             >
@@ -551,7 +551,7 @@ export default function Home() {
               flow === 'lobby' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none select-none',
             )}
           >
-            <div className="flex h-dvh w-dvw flex-col overflow-hidden bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
+            <div className="flex h-dvh w-dvw flex-col overflow-hidden bg-linear-to-br from-trivia-navy via-trivia-navy-mid to-trivia-navy text-white">
               <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-6 pb-4 sm:px-6 sm:pt-8 lg:px-8">
                 <div>
                   <Link href="/" className="inline-flex items-baseline gap-2 font-black tracking-tight">

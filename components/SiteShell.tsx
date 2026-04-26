@@ -19,7 +19,7 @@ export default function SiteShell({
   className?: string;
 }) {
   return (
-    <div className="w-dvw min-h-dvh overflow-x-hidden bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white">
+    <div className="w-dvw min-h-dvh overflow-x-hidden bg-linear-to-br from-trivia-navy via-trivia-navy-mid to-trivia-navy text-white">
       <div className={cx('w-full px-4 py-10 sm:px-6 lg:px-8', className)}>
         <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2 min-w-0">

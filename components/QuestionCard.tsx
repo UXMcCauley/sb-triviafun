@@ -18,10 +18,10 @@ interface QuestionCardProps {
 }
 
 const optionColors = [
-  'bg-red-600 hover:bg-red-500',
-  'bg-blue-600 hover:bg-blue-500',
-  'bg-green-600 hover:bg-green-500',
-  'bg-yellow-600 hover:bg-yellow-500',
+  'bg-[#c62828] hover:brightness-110 shadow-[0_4px_0_0_#7f1010]',
+  'bg-[#1565c0] hover:brightness-110 shadow-[0_4px_0_0_#0c3a70]',
+  'bg-[#2e7d32] hover:brightness-110 shadow-[0_4px_0_0_#1b4d1e]',
+  'bg-[#f9a825] hover:brightness-110 text-trivia-navy shadow-[0_4px_0_0_#b9770b]',
 ];
 
 const optionLabels = ['A', 'B', 'C', 'D'];
@@ -45,68 +45,117 @@ export default function QuestionCard({
 
   return (
     <div className="w-full">
-      {/* Question header */}
-      <div className="flex items-center justify-between mb-4">
-        <span className={`${isDisplay ? 'text-lg' : 'text-sm'} text-white/50 font-mono`}>
-          Question {questionIndex + 1} / {totalQuestions}
-        </span>
-        <div className="flex gap-2">
+      {isDisplay && (
+        <div className="mb-6 flex flex-wrap items-center justify-center gap-3">
+          <span className="rounded-full bg-trivia-badge px-4 py-1.5 text-xs font-extrabold tracking-[0.12em] text-white shadow-md">
+            Question {questionIndex + 1} of {totalQuestions}
+          </span>
+        </div>
+      )}
+
+      {!isDisplay && (
+        <div className="mb-3 flex items-center justify-between">
+          <span className="rounded-full bg-trivia-badge/95 px-3 py-1 text-[11px] font-extrabold tracking-wider text-white">
+            {questionIndex + 1} / {totalQuestions}
+          </span>
+          <div className="flex flex-wrap justify-end gap-1.5">
+            {category && (
+              <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-bold text-white/80">
+                {category}
+              </span>
+            )}
+            {difficulty && (
+              <span
+                className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
+                  difficulty === 'easy'
+                    ? 'bg-trivia-mint/25 text-trivia-mint'
+                    : difficulty === 'medium'
+                      ? 'bg-trivia-gold/20 text-trivia-gold'
+                      : 'bg-red-500/25 text-red-200'
+                }`}
+              >
+                {difficulty}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className={`mb-3 flex justify-end ${isDisplay ? 'pr-1' : ''}`}>
+        <ReactionCluster counts={reactions} />
+      </div>
+
+      {isDisplay && (category || difficulty) && (
+        <div className="mb-4 flex flex-wrap justify-center gap-2">
           {category && (
-            <span className={`${isDisplay ? 'text-sm px-3 py-1' : 'text-xs px-2 py-0.5'} bg-white/10 rounded-full text-white/70`}>
+            <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm font-bold text-white/80">
               {category}
             </span>
           )}
           {difficulty && (
-            <span className={`${isDisplay ? 'text-sm px-3 py-1' : 'text-xs px-2 py-0.5'} rounded-full ${
-              difficulty === 'easy' ? 'bg-green-500/20 text-green-300' :
-              difficulty === 'medium' ? 'bg-yellow-500/20 text-yellow-300' :
-              'bg-red-500/20 text-red-300'
-            }`}>
+            <span
+              className={`rounded-full px-3 py-1 text-sm font-bold ${
+                difficulty === 'easy'
+                  ? 'bg-trivia-mint/20 text-trivia-mint'
+                  : difficulty === 'medium'
+                    ? 'bg-trivia-gold/20 text-trivia-gold'
+                    : 'bg-red-500/20 text-red-200'
+              }`}
+            >
               {difficulty}
             </span>
           )}
         </div>
+      )}
+
+      <div className={isDisplay ? 'trivia-question-slab px-6 py-8 sm:px-10 sm:py-10' : 'rounded-2xl border border-white/10 bg-trivia-navy-mid/80 px-4 py-5'}>
+        <h2
+          className={`relative z-[1] font-extrabold leading-tight text-white ${
+            isDisplay ? 'text-3xl sm:text-4xl md:text-5xl' : 'text-xl sm:text-2xl'
+          }`}
+        >
+          {questionText}
+        </h2>
       </div>
 
-      <div className="mb-3 flex justify-end">
-        <ReactionCluster counts={reactions} />
-      </div>
-
-      {/* Question text */}
-      <h2 className={`${isDisplay ? 'text-4xl' : 'text-xl'} font-bold text-white mb-8 leading-tight`}>
-        {questionText}
-      </h2>
-
-      {/* Options grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div
+        className={`grid grid-cols-1 gap-3 ${isDisplay ? 'mt-8 md:grid-cols-2' : 'mt-5 md:grid-cols-2'}`}
+      >
         {options.map((option, i) => {
           let classes = optionColors[i];
 
           if (isRevealed) {
             if (i === correctAnswer) {
-              classes = 'bg-green-500 ring-4 ring-green-300';
+              classes = 'bg-emerald-500 ring-2 ring-trivia-mint/80 shadow-[0_4px_0_0_#0d4d2a]';
             } else if (i === selectedAnswer && i !== correctAnswer) {
-              classes = 'bg-red-800 opacity-60';
+              classes = 'bg-red-900/80 opacity-80';
             } else {
-              classes = 'bg-gray-700 opacity-40';
+              classes = 'bg-trivia-navy/80 opacity-45';
             }
           } else if (selectedAnswer === i) {
-            classes = `${optionColors[i]} ring-4 ring-white`;
+            classes = `${optionColors[i]} ring-2 ring-white/90 ring-offset-2 ring-offset-trivia-navy`;
           }
 
           return (
             <button
               key={i}
+              type="button"
               onClick={() => !disabled && !isRevealed && onSelect?.(i)}
               disabled={disabled || isRevealed}
-              className={`${classes} ${isDisplay ? 'p-6 text-xl' : 'p-4 text-base'} rounded-xl font-semibold text-white text-left transition-all duration-200 flex items-center gap-4 ${
-                !disabled && !isRevealed ? 'cursor-pointer active:scale-95' : 'cursor-default'
+              className={`${classes} ${
+                isDisplay ? 'rounded-2xl p-5 text-left text-lg sm:text-xl' : 'rounded-xl p-4 text-left text-base'
+              } font-extrabold text-white transition-all duration-200 ${
+                !disabled && !isRevealed ? 'cursor-pointer active:translate-y-0.5 active:shadow-none' : 'cursor-default'
               }`}
             >
-              <span className={`${isDisplay ? 'w-10 h-10 text-lg' : 'w-8 h-8 text-sm'} bg-white/20 rounded-lg flex items-center justify-center font-bold shrink-0`}>
+              <span
+                className={`mr-3 inline-flex shrink-0 items-center justify-center rounded-lg bg-black/20 font-black ${
+                  isDisplay ? 'h-10 w-10 text-lg' : 'h-8 w-8 text-sm'
+                }`}
+              >
                 {optionLabels[i]}
               </span>
-              <span>{option}</span>
+              <span className="align-middle">{option}</span>
             </button>
           );
         })}

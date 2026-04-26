@@ -116,14 +116,30 @@ html.dark {
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-trivia), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
+
+  /* Party-game palette (refs: mockups) */
+  --color-trivia-navy: #0a0e22;
+  --color-trivia-navy-mid: #12183a;
+  --color-trivia-navy-card: #141a3d;
+  --color-trivia-coral: #ff4d5a;
+  --color-trivia-coral-deep: #c93642;
+  --color-trivia-gold: #ffd54f;
+  --color-trivia-gold-dim: #c9a227;
+  --color-trivia-cyan: #4fc3f7;
+  --color-trivia-mint: #69f0ae;
+  --color-trivia-badge: #e53935;
+}
+
+html.dark body {
+  background: #0a0e22;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Animations */
@@ -144,4 +160,81 @@ body {
 
 .animate-shake {
   animation: shake 0.4s ease-in-out;
+}
+
+/* Party-game UI (TriviaFun) */
+@layer components {
+  .trivia-btn-coral {
+    border-radius: 1.25rem;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: linear-gradient(180deg, #ff636e 0%, #ff4d5a 45%, #e63d49 100%);
+    box-shadow:
+      0 4px 0 0 #9b1f2a,
+      0 10px 24px rgba(0, 0, 0, 0.45);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+  }
+  .trivia-btn-coral:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+  .trivia-btn-coral:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 0 #9b1f2a,
+      0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+  .trivia-btn-coral:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .trivia-card-join {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: color-mix(in srgb, #141a3d 92%, transparent);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  }
+  .trivia-input-pill {
+    width: 100%;
+    border-radius: 1.25rem;
+    border: 0;
+    background: #fff;
+    color: #0a0e22;
+    font-weight: 800;
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 0.65),
+      0 6px 0 rgba(0, 0, 0, 0.2);
+  }
+  .trivia-input-pill::placeholder {
+    color: rgba(10, 14, 34, 0.35);
+  }
+  .trivia-input-pill:focus {
+    outline: none;
+    box-shadow:
+      0 0 0 4px rgba(79, 195, 247, 0.35),
+      inset 0 2px 0 rgba(255, 255, 255, 0.75),
+      0 6px 0 rgba(0, 0, 0, 0.2);
+  }
+  .trivia-question-slab {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: color-mix(in srgb, #12183a 88%, #0a0e22);
+  }
+  .trivia-question-slab::after {
+    content: "";
+    position: absolute;
+    left: 4%;
+    top: 10%;
+    width: 120px;
+    height: 120px;
+    opacity: 0.06;
+    background: center / contain no-repeat
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffd54f' d='M50 4l10 32h33L68 60l11 32-29-20-28 20 10-32L7 36h34z'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
 }

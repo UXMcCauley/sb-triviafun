@@ -13,6 +13,8 @@ import type {
 import QuestionCard from '@/components/QuestionCard';
 import Leaderboard from '@/components/Leaderboard';
 import ShareLinks from '@/components/ShareLinks';
+import Countdown from '@/components/Countdown';
+import { TriviaGameSurface } from '@/components/TriviaDecor';
 
 type Props = {
   /** When true, render as an embedded panel inside another page (no 100vw/100vh sizing). */
@@ -409,32 +411,26 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
   // JOIN
   if (phase === 'join') {
     return (
-      <div
-        className={[
-          embedded ? 'w-full h-full' : 'w-dvw h-dvh',
-          embedded
-            ? 'bg-transparent text-white flex flex-col overflow-x-hidden'
-            : 'bg-linear-to-br from-gray-950 via-indigo-950 to-gray-950 text-white flex flex-col overflow-x-hidden',
-        ].join(' ')}
-      >
-        <div className="flex-1 min-h-0 px-6 sm:px-8 py-8">
-          <div className="rounded-3xl border border-white/10 bg-white/4 p-6 sm:p-8">
-            <div className="grid gap-3 sm:grid-cols-[260px_1fr_220px] items-center">
+      <TriviaGameSurface embedded={embedded} className={embedded ? 'h-full w-full' : 'min-h-dvh w-dvw'}>
+        <div className="flex min-h-0 flex-1 flex-col px-6 py-8 sm:px-8">
+          <div className="trivia-card-join p-6 sm:p-8">
+            <div className="grid items-center gap-3 sm:grid-cols-[260px_1fr_220px]">
               <input
                 value={gameCode}
                 onChange={(e) => setGameCode(e.target.value.toUpperCase())}
                 placeholder="ABCD"
                 maxLength={4}
-                className="w-full rounded-2xl bg-white/8 border border-white/15 px-5 py-4 text-4xl font-mono tracking-widest text-center placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="trivia-input-pill py-4 font-mono text-4xl tracking-widest"
                 onKeyDown={(e) => e.key === 'Enter' && handleJoin()}
               />
               <div className="text-sm text-white/50">
-                Tip: you can create a game on the host screen and it’ll jump here automatically.
+                Tip: create a game on the host screen and it’ll open here.
                 {error ? <p className="mt-1 text-red-300">{error}</p> : null}
               </div>
               <button
+                type="button"
                 onClick={handleJoin}
-                className="w-full rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-extrabold text-xl py-4 transition active:scale-[0.99]"
+                className="trivia-btn-coral w-full text-lg"
               >
                 Show game
               </button>
@@ -444,25 +440,18 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
             <ShareLinks variant="discreet" />
           </div>
         </div>
-      </div>
+      </TriviaGameSurface>
     );
   }
 
   return (
-    <div
-      className={[
-        embedded ? 'w-full h-full' : 'w-dvw h-dvh',
-        embedded
-          ? 'bg-transparent text-white flex flex-col overflow-x-hidden'
-          : 'bg-gray-950 text-white flex flex-col overflow-x-hidden',
-      ].join(' ')}
-    >
+    <TriviaGameSurface embedded={embedded} className={embedded ? 'h-full w-full' : 'min-h-dvh w-dvw'}>
       {/* Header */}
       <div className="p-6 sm:p-8 flex items-start justify-between gap-6">
         <div className="space-y-2">
           <div className="flex items-center gap-3">
-            <span className="text-2xl font-black">
-              Trivia Room <span className="text-yellow-400 font-mono tracking-widest">{gameCode}</span>
+            <span className="text-2xl font-extrabold tracking-tight">
+              Trivia Room <span className="font-mono text-trivia-gold tracking-widest">{gameCode}</span>
             </span>
             {paused ? (
               <span className="rounded-full bg-yellow-500/20 border border-yellow-500/30 px-3 py-1 text-sm font-bold text-yellow-200">
@@ -474,9 +463,9 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
         </div>
 
         {secondsLeft !== null ? (
-          <div className="rounded-2xl border border-white/10 bg-white/4 px-6 py-4 text-center">
-            <div className="text-xs text-white/40 uppercase tracking-wider font-bold">Next</div>
-            <div className="text-4xl font-black tabular-nums">{secondsLeft}</div>
+          <div className="rounded-2xl border border-white/12 bg-trivia-navy-mid/80 px-6 py-4 text-center shadow-lg">
+            <div className="text-xs font-extrabold uppercase tracking-widest text-white/45">Next</div>
+            <div className="text-4xl font-extrabold tabular-nums text-trivia-gold">{secondsLeft}</div>
           </div>
         ) : null}
       </div>
@@ -488,7 +477,7 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
             type="button"
             onClick={startGameNow}
             disabled={starting || players.length === 0 || phase === 'countdown'}
-            className="rounded-2xl bg-green-500 hover:bg-green-400 text-black font-extrabold px-5 py-3 disabled:opacity-50"
+            className="trivia-btn-coral px-6 text-sm disabled:opacity-50"
           >
             {starting ? 'Starting…' : phase === 'countdown' ? 'Starting…' : 'Start game'}
           </button>
@@ -577,15 +566,26 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
         )}
 
         {(phase === 'question-stinger' || phase === 'question-prompt' || phase === 'question-answers') && currentQuestion && (
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-8 items-start">
-            <div className="rounded-3xl border border-white/10 bg-white/4 p-10">
+          <div className="space-y-6">
+            {phase === 'question-answers' ? (
+              <div className="flex justify-center px-2">
+                <Countdown
+                  startedAt={currentQuestion.startedAt}
+                  duration={currentQuestion.timerDuration}
+                  size="lg"
+                  nowOffsetMs={serverOffsetMs}
+                />
+              </div>
+            ) : null}
+            <div className="grid grid-cols-1 items-start gap-8 xl:grid-cols-[1fr_420px]">
+            <div className="rounded-3xl border border-white/12 bg-trivia-navy-mid/40 p-8 sm:p-10">
               {phase === 'question-stinger' ? (
                 <div className="text-center py-16 space-y-4">
                   <p className="text-white/50 text-sm uppercase tracking-wider font-bold">
                     {isLastQuestion ? 'Final Question' : 'Up next'}
                   </p>
-                  <h2 className="text-7xl font-black tracking-tight">
-                    Question <span className="text-yellow-400">{currentQuestion.questionIndex + 1}</span>
+                  <h2 className="text-7xl font-extrabold tracking-tight">
+                    Question <span className="text-trivia-gold">{currentQuestion.questionIndex + 1}</span>
                   </h2>
                   <p className="text-white/50 text-xl">
                     {currentQuestion.totalQuestions} total · lock in your answer fast.
@@ -612,18 +612,23 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
               )}
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/4 p-8">
-              <h3 className="text-sm font-bold text-white/50 uppercase tracking-wider">Overall</h3>
-              <div className="mt-4">
-                <Leaderboard players={players} maxVisible={10} />
+            <div className="rounded-3xl border border-white/12 bg-trivia-navy-card/70 p-6 sm:p-8">
+              <div className="mt-4 max-h-[min(70vh,640px)]">
+                <Leaderboard
+                  players={players}
+                  maxVisible={16}
+                  variant="gameboard"
+                  capacityLabel={`${players.length}`}
+                />
               </div>
             </div>
+          </div>
           </div>
         )}
 
         {phase === 'reveal' && currentQuestion && (
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-8 items-start">
-            <div className="rounded-3xl border border-white/10 bg-white/4 p-10">
+          <div className="grid grid-cols-1 items-start gap-8 xl:grid-cols-[1fr_420px]">
+            <div className="rounded-3xl border border-white/12 bg-trivia-navy-mid/50 p-10">
               <QuestionCard
                 size="display"
                 questionText={currentQuestion.questionText}
@@ -636,8 +641,8 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
                 disabled
               />
             </div>
-            <div className="rounded-3xl border border-white/10 bg-white/4 p-8">
-              <h3 className="text-sm font-bold text-white/50 uppercase tracking-wider">Fastest correct</h3>
+            <div className="rounded-3xl border border-white/12 bg-trivia-navy-card/70 p-8">
+              <h3 className="text-xs font-extrabold uppercase tracking-widest text-white/50">Fastest correct</h3>
               <div className="mt-4 space-y-2">
                 {playerResults.filter((r) => r.correct).slice(0, 6).map((r, i) => (
                   <div key={r.id} className="flex items-center justify-between rounded-2xl bg-white/3 border border-white/10 px-4 py-3">
@@ -777,7 +782,7 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
       <div className="px-6 sm:px-8 pb-6">
         <ShareLinks gameCode={gameCode} variant="discreet" />
       </div>
-    </div>
+    </TriviaGameSurface>
   );
 }
 
