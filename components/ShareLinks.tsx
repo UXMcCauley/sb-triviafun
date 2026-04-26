@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 
 type Props = {
   gameCode?: string;
@@ -15,12 +15,11 @@ function normalizeBase(base: string) {
 
 export default function ShareLinks({ gameCode, variant = 'discreet', className }: Props) {
   // Must be deterministic during SSR/hydration; for full links set NEXT_PUBLIC_APP_URL.
-  const [base, setBase] = useState(() => process.env.NEXT_PUBLIC_APP_URL || '');
-
-  useEffect(() => {
-    if (base) return;
-    setBase(window.location.origin);
-  }, [base]);
+  const base = useSyncExternalStore(
+    () => () => {},
+    () => process.env.NEXT_PUBLIC_APP_URL || window.location.origin,
+    () => process.env.NEXT_PUBLIC_APP_URL || ''
+  );
 
   const urls = useMemo(() => {
     const b = normalizeBase(base);

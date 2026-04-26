@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState, useSyncExternalStore } from 'react';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -17,10 +17,13 @@ function getInitialTheme(): ThemeMode {
 export default function LightDarkToggle({ size = 18 }: { size?: number }) {
   const id = useId();
   const [mode, setMode] = useState<ThemeMode>(() => getInitialTheme());
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
-    setMounted(true);
     document.documentElement.classList.toggle('dark', mode === 'dark');
     document.documentElement.style.colorScheme = mode === 'dark' ? 'dark' : 'light';
   }, [mode]);

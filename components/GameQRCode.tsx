@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface GameQRCodeProps {
@@ -28,15 +28,13 @@ export default function GameQRCode({
   className,
   fit = false,
 }: GameQRCodeProps) {
-  const [origin, setOrigin] = useState(() => playUrlOverride || process.env.NEXT_PUBLIC_APP_URL || '');
+  const origin = useSyncExternalStore(
+    () => () => {},
+    () => playUrlOverride || process.env.NEXT_PUBLIC_APP_URL || window.location.origin,
+    () => playUrlOverride || process.env.NEXT_PUBLIC_APP_URL || ''
+  );
   const shellRef = useRef<HTMLDivElement>(null);
   const [fitPx, setFitPx] = useState(size);
-
-  useEffect(() => {
-    if (origin) return;
-    // Fallback for when NEXT_PUBLIC_APP_URL isn't set (keeps SSR/hydration deterministic).
-    setOrigin(window.location.origin);
-  }, [origin]);
 
   const url = useMemo(() => {
     const trimmedBase = origin.endsWith('/') ? origin.slice(0, -1) : origin;
