@@ -292,6 +292,7 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
     channel.bind('game-started', async (data: GameStartedEvent) => {
       await fetchState(gameCode).catch(() => {});
       if (data?.startedAt && data?.countdownSeconds) {
+        setServerOffsetMs(data.startedAt - Date.now());
         setPhase('countdown');
         setPhaseEndsAt(data.startedAt + data.countdownSeconds * 1000);
       } else {
@@ -300,6 +301,7 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
     });
 
     channel.bind('new-question', (data: NewQuestionEvent) => {
+      if (typeof data?.startedAt === 'number') setServerOffsetMs(data.startedAt - Date.now());
       setCurrentQuestion(data);
       setCorrectAnswer(null);
       setPlayerResults([]);
@@ -355,7 +357,8 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
         // advance phase
         if (phase === 'countdown') {
           requestAdvance().catch(() => {});
-          setTimedPhase('intro', 9999);
+          setPhase('intro');
+          setPhaseEndsAt(null);
         } else if (phase === 'question-stinger') {
           setTimedPhase('question-prompt', 10);
         } else if (phase === 'question-prompt') {
@@ -368,14 +371,17 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
           }
         } else if (phase === 'question-answers') {
           requestReveal().catch(() => {});
-          setTimedPhase('question-answers', 3);
+          // Wait for the reveal event rather than looping.
+          setPhase('reveal');
+          setPhaseEndsAt(null);
         } else if (phase === 'reveal') {
           setTimedPhase('answer-scores', 15);
         } else if (phase === 'answer-scores') {
           setTimedPhase('rankings', 15);
         } else if (phase === 'rankings') {
           requestAdvance().catch(() => {});
-          setTimedPhase('intro', 9999);
+          setPhase('intro');
+          setPhaseEndsAt(null);
         }
       }
     }, 250);

@@ -300,6 +300,7 @@ function PlayContent() {
 
     channel.bind('game-started', (data: GameStartedEvent) => {
       if (data?.startedAt && data?.countdownSeconds) {
+        setServerOffsetMs(data.startedAt - Date.now());
         setLobbyCountdownEndsAt(data.startedAt + data.countdownSeconds * 1000);
         setPhase('countdown');
         setPhaseEndsAt(data.startedAt + data.countdownSeconds * 1000);
@@ -311,6 +312,7 @@ function PlayContent() {
     });
 
     channel.bind('new-question', (data: NewQuestionEvent) => {
+      if (typeof data?.startedAt === 'number') setServerOffsetMs(data.startedAt - Date.now());
       setCurrentQuestion(data);
       setSelectedAnswer(null);
       selectedAnswerRef.current = null;

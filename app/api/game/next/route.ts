@@ -153,6 +153,9 @@ export async function POST(request: Request) {
 
     // Default: reveal answer
     const qIdx = game.current_question_index;
+    if (qIdx < 0) {
+      return NextResponse.json({ error: 'No active question to reveal' }, { status: 400 });
+    }
     const correctAnswerIndex = game.shuffled_correct_answers[qIdx];
 
     // Populate the question for source info
