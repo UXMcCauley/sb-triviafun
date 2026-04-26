@@ -6,6 +6,7 @@ import { getPusherClient } from '@/lib/pusher-client';
 import GameQRCode from '@/components/GameQRCode';
 import DisplayPageClient from '@/app/display/DisplayPageClient';
 import ShareLinks from '@/components/ShareLinks';
+import ThemePackCard from '@/components/ThemePackCard';
 
 interface PackInfo {
   id: string;
@@ -318,95 +319,17 @@ export default function Home() {
                   const isFav = Boolean(fav[pack.id]);
                   const isPinned = Boolean(fav[pack.id]?.pinned);
                   return (
-                    <button
+                    <ThemePackCard
                       key={pack.id}
-                      type="button"
-                      onClick={() => !isEmpty && togglePack(pack.id)}
+                      pack={pack}
                       disabled={isEmpty}
-                      className={cx(
-                        'group text-left rounded-2xl border transition-all',
-                        'bg-white/4 hover:bg-white/6',
-                        'shadow-[0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.35)]',
-                        isEmpty && 'opacity-40 cursor-not-allowed',
-                        isSelected ? 'border-white/35' : 'border-white/10',
-                      )}
-                      style={
-                        isSelected && !isEmpty
-                          ? { borderColor: `${pack.themeColor}80`, boxShadow: `0 0 0 1px ${pack.themeColor}40 inset` }
-                          : undefined
-                      }
-                    >
-                      <div className="p-5">
-                        <div className="flex items-start gap-3">
-                          <div
-                            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0"
-                            style={{ backgroundColor: `${pack.themeColor}26` }}
-                          >
-                            {pack.icon}
-                          </div>
-                          <div className="min-w-0">
-                            <p className="font-extrabold text-lg leading-tight truncate">{pack.name}</p>
-                            <p className="text-sm text-white/55 leading-snug line-clamp-2">{pack.tagline}</p>
-                          </div>
-                        </div>
-
-                        <p className="mt-3 text-sm text-white/45 leading-relaxed line-clamp-3">{pack.description}</p>
-
-                        <div className="mt-4 flex items-center justify-between">
-                          <span className="text-xs text-white/35">
-                            {isEmpty ? 'No questions yet' : `${pack.questionCount} questions`}
-                          </span>
-                          <div className="flex items-center gap-2">
-                            {user ? (
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  toggleFavorite(pack.id);
-                                }}
-                                className={cx(
-                                  'text-xs font-semibold rounded-full px-2 py-1 border transition',
-                                  isFav
-                                    ? 'border-yellow-400/30 bg-yellow-500/15 text-yellow-200 hover:bg-yellow-500/20'
-                                    : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10',
-                                )}
-                                aria-label={isFav ? 'Unfavorite pack' : 'Favorite pack'}
-                              >
-                                {isFav ? '★' : '☆'}
-                              </button>
-                            ) : null}
-                            {user && isFav ? (
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  togglePin(pack.id);
-                                }}
-                                className={cx(
-                                  'text-xs font-semibold rounded-full px-2 py-1 border transition',
-                                  isPinned
-                                    ? 'border-purple-400/30 bg-purple-500/15 text-purple-200 hover:bg-purple-500/20'
-                                    : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10',
-                                )}
-                                aria-label={isPinned ? 'Unpin pack' : 'Pin pack'}
-                              >
-                                {isPinned ? 'Pinned' : 'Pin'}
-                              </button>
-                            ) : null}
-                            <span
-                              className={cx(
-                                'text-xs font-semibold rounded-full px-2 py-1 border',
-                                isSelected ? 'border-white/20 bg-white/10 text-white/80' : 'border-white/10 bg-white/5 text-white/50',
-                              )}
-                            >
-                              {isSelected ? 'Selected' : 'Select'}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </button>
+                      selected={isSelected}
+                      favored={isFav}
+                      pinned={isPinned}
+                      onClick={() => togglePack(pack.id)}
+                      onToggleFavorite={user ? () => toggleFavorite(pack.id) : undefined}
+                      onTogglePin={user ? () => togglePin(pack.id) : undefined}
+                    />
                   );
                 })}
               </div>
