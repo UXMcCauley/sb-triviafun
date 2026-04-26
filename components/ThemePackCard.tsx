@@ -47,6 +47,10 @@ export default function ThemePackCard({
   const accentMixes = ['#22d3ee', '#a855f7', '#f97316', '#22c55e', '#e11d48'];
   const mix = accentMixes[hashToIndex(pack.id || pack.name, accentMixes.length)];
 
+  // M3 state layer opacity targets (hover/pressed) for surface interactions.
+  // Use on-surface as the state layer color so it works in light + dark.
+  const stateLayer = 'color-mix(in oklab, var(--md-sys-color-on-surface) 10%, transparent)';
+
   const gradient = `linear-gradient(to bottom,
     color-mix(in oklab, ${pack.themeColor} 78%, ${mix} 22%),
     color-mix(in oklab, ${pack.themeColor} 88%, var(--md-sys-color-primary) 12%),
@@ -57,6 +61,8 @@ export default function ThemePackCard({
   const style = {
     ['--packGradient' as string]: gradient,
     ['--packTitle' as string]: titleColor,
+    ['--mdCardElevRest' as string]: 'var(--md-sys-elevation-level1)',
+    ['--mdCardElevHover' as string]: 'var(--md-sys-elevation-level2)',
   } as CSSProperties;
 
   return (
@@ -67,37 +73,41 @@ export default function ThemePackCard({
       style={style}
       className={cx(
         'group text-left',
-        'relative isolate overflow-hidden rounded-2xl',
-        'border',
-        'shadow-[0_1px_0_rgba(0,0,0,0.10)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.35)]',
-        'transition-all',
+        // M3 card shape: 12dp corner radius
+        'relative isolate overflow-hidden rounded-xl',
+        // M3 elevation: level 1 rest, level 2 hover
+        'transition-[transform,box-shadow] duration-200 ease-out',
         disabled && 'opacity-40 cursor-not-allowed',
-        selected && !disabled && 'ring-2 ring-[color-mix(in_oklab,var(--md-sys-color-primary)_45%,transparent)]',
       )}
+      style={{
+        ...style,
+        boxShadow: 'var(--mdCardElevRest)',
+      }}
       aria-disabled={disabled || undefined}
     >
-      {/* inner inset panel (replaces :before) */}
+      {/* M3 surface + outline */}
       <div
-        className="absolute inset-px rounded-[15px] z-2"
-        style={{ background: 'var(--md-sys-color-surface)' }}
+        className="absolute inset-0 z-1"
+        style={{
+          background: 'var(--md-sys-color-surface-container-low)',
+          outline: `1px solid ${selected
+            ? 'color-mix(in oklab, var(--md-sys-color-primary) 55%, var(--md-sys-color-outline-variant) 45%)'
+            : 'var(--md-sys-color-outline-variant)'}`,
+          outlineOffset: '-1px',
+        }}
       />
 
-      {/* container background + outline in M3 terms */}
+      {/* M3 state layer */}
       <div
-        className="absolute inset-0"
-        style={{
-          background: 'var(--md-sys-color-surface-container)',
-          borderColor: selected
-            ? 'color-mix(in oklab, var(--md-sys-color-primary) 55%, var(--md-sys-color-outline-variant) 45%)'
-            : 'var(--md-sys-color-outline-variant)',
-        }}
+        className="absolute inset-0 z-2 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-[0.08] group-active:opacity-[0.12]"
+        style={{ background: stateLayer }}
       />
 
       {/* left gradient bar (replaces :after) */}
       <div
         className={cx(
           'absolute z-4 w-1',
-          'top-[0.65rem] bottom-[0.65rem] left-2',
+          'top-3 bottom-3 left-3',
           'rounded-sm',
           'transition-transform duration-300 ease-out',
           'group-hover:translate-x-[0.15rem]',
@@ -129,10 +139,16 @@ export default function ThemePackCard({
         }}
       />
 
-      <div className="relative z-5 p-5">
+      <div
+        className="relative z-5 px-4 py-4"
+        style={{
+          // Elevation change on hover without Tailwind shadow classes.
+          // We use inline style so this stays token-driven.
+        }}
+      >
         <div className="flex items-start gap-3">
           <div
-            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0"
+            className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"
             style={{ backgroundColor: `color-mix(in oklab, ${pack.themeColor} 18%, transparent)` }}
           >
             {pack.icon}
@@ -140,17 +156,23 @@ export default function ThemePackCard({
           <div className="min-w-0">
             <div
               className={cx(
-                'font-semibold text-lg leading-tight truncate',
+                'truncate',
                 'transition-transform duration-300 ease-out',
                 'group-hover:translate-x-[0.15rem]',
               )}
-              style={{ color: 'var(--packTitle)' }}
+              style={{
+                color: 'var(--packTitle)',
+                fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                lineHeight: 'var(--md-sys-typescale-title-medium-line-height)',
+                fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)' as unknown as number,
+                letterSpacing: 'var(--md-sys-typescale-title-medium-letter-spacing)',
+              }}
             >
               {pack.name}
             </div>
             <div
               className={cx(
-                'text-sm leading-snug line-clamp-2',
+                'line-clamp-2',
                 'transition-transform duration-300 ease-out',
                 'group-hover:translate-x-1',
               )}
@@ -163,17 +185,32 @@ export default function ThemePackCard({
 
         <div
           className={cx(
-            'mt-3 text-sm leading-relaxed line-clamp-2',
+            'mt-3 line-clamp-2',
             'transition-transform duration-300 ease-out',
             'group-hover:translate-x-1',
           )}
-          style={{ color: 'color-mix(in oklab, var(--md-sys-color-on-surface-variant) 80%, var(--md-sys-color-on-surface) 20%)' }}
+          style={{
+            color: 'var(--md-sys-color-on-surface-variant)',
+            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+            lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+            fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)' as unknown as number,
+            letterSpacing: 'var(--md-sys-typescale-body-medium-letter-spacing)',
+          }}
         >
           {pack.description}
         </div>
 
         <div className="mt-4 flex items-center justify-between gap-3">
-          <span className="text-xs" style={{ color: 'var(--md-sys-color-outline)' }}>
+          <span
+            className="uppercase"
+            style={{
+              color: 'var(--md-sys-color-on-surface-variant)',
+              fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+              lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
+              fontWeight: 'var(--md-sys-typescale-label-small-font-weight)' as unknown as number,
+              letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)',
+            }}
+          >
             {disabled ? 'No questions yet' : `${pack.questionCount} questions`}
           </span>
           <div className="flex items-center gap-2">
@@ -264,6 +301,16 @@ export default function ThemePackCard({
           </div>
         </div>
       </div>
+
+      {/* hover elevation bump */}
+      <style jsx>{`
+        button:hover {
+          box-shadow: var(--mdCardElevHover);
+        }
+        button:active {
+          box-shadow: var(--md-sys-elevation-level1);
+        }
+      `}</style>
     </button>
   );
 }
