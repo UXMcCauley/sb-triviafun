@@ -206,8 +206,14 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
       if (data.status === 'lobby') {
         setTimedPhase('intro', 9999); // stays until game-started
       } else if (data.status === 'active') {
-        // If game already active, we’ll wait for events; show stinger now.
-        setTimedPhase('question-stinger', 3);
+        // Before Q1, server stays at index -1 until /api/game/next advance runs after
+        // the start countdown. If we mount here (embedded host) we often miss the
+        // game-started Pusher event — use the same countdown + advance path.
+        if (data.currentQuestionIndex < 0) {
+          setTimedPhase('countdown', data.timerDuration ?? 15);
+        } else {
+          setTimedPhase('question-stinger', 3);
+        }
       } else {
         setPhase('finished');
         setPhaseEndsAt(null);
@@ -234,8 +240,10 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
       .then((data) => {
         if (cancelled) return;
         if (data.status === 'lobby') setTimedPhase('intro', 9999);
-        else if (data.status === 'active') setTimedPhase('question-stinger', 3);
-        else {
+        else if (data.status === 'active') {
+          if (data.currentQuestionIndex < 0) setTimedPhase('countdown', data.timerDuration ?? 15);
+          else setTimedPhase('question-stinger', 3);
+        } else {
           setPhase('finished');
           setPhaseEndsAt(null);
         }
@@ -265,8 +273,13 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
         setSeriesHistory(j.seriesHistory || null);
 
         if (j.status === 'lobby') setTimedPhase('intro', 9999);
-        else if (j.status === 'active') setTimedPhase('question-stinger', 3);
-        else setPhase('finished');
+        else if (j.status === 'active') {
+          if (typeof j.currentQuestionIndex === 'number' && j.currentQuestionIndex < 0) {
+            setTimedPhase('countdown', j.timerDuration ?? 15);
+          } else {
+            setTimedPhase('question-stinger', 3);
+          }
+        } else setPhase('finished');
       })
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed'));
   }, [embedded, hostGameCode, gameCode, injectedCode, setTimedPhase]);
@@ -359,6 +372,17 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
           requestAdvance().catch(() => {});
           setPhase('intro');
           setPhaseEndsAt(null);
+        } else if (phase === 'question-stinger') {
+          if (currentQuestion) {
+            setPhase('question-answers');
+            setPhaseEndsAt(
+              currentQuestion.startedAt + currentQuestion.timerDuration * 1000
+            );
+          } else {
+            requestAdvance().catch(() => {});
+            setPhase('intro');
+            setPhaseEndsAt(null);
+          }
         } else if (phase === 'question-answers') {
           requestReveal().catch(() => {});
           // Wait for the reveal event rather than looping.
