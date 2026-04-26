@@ -28,14 +28,20 @@ export default function GameQRCode({
   className,
   fit = false,
 }: GameQRCodeProps) {
-  const base = playUrlOverride || process.env.NEXT_PUBLIC_APP_URL || '';
+  const [origin, setOrigin] = useState(() => playUrlOverride || process.env.NEXT_PUBLIC_APP_URL || '');
   const shellRef = useRef<HTMLDivElement>(null);
   const [fitPx, setFitPx] = useState(size);
 
+  useEffect(() => {
+    if (origin) return;
+    // Fallback for when NEXT_PUBLIC_APP_URL isn't set (keeps SSR/hydration deterministic).
+    setOrigin(window.location.origin);
+  }, [origin]);
+
   const url = useMemo(() => {
-    const trimmedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+    const trimmedBase = origin.endsWith('/') ? origin.slice(0, -1) : origin;
     return `${trimmedBase}/play?code=${encodeURIComponent(gameCode)}`;
-  }, [base, gameCode]);
+  }, [origin, gameCode]);
 
   useEffect(() => {
     if (!fit) return;
