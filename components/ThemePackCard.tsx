@@ -33,6 +33,7 @@ export default function ThemePackCard({
   onToggleFavorite,
   onTogglePin,
   rightBadges,
+  arcade = false,
 }: {
   pack: ThemePackCardModel;
   disabled?: boolean;
@@ -43,6 +44,8 @@ export default function ThemePackCard({
   onToggleFavorite?: () => void;
   onTogglePin?: () => void;
   rightBadges?: ReactNode;
+  /** Bouncy scale hover + pop (host grid). */
+  arcade?: boolean;
 }) {
   const accentMixes = ['#22d3ee', '#a855f7', '#f97316', '#22c55e', '#e11d48'];
   const mix = accentMixes[hashToIndex(pack.id || pack.name, accentMixes.length)];
@@ -80,6 +83,8 @@ export default function ThemePackCard({
         'relative isolate overflow-hidden rounded-xl',
         // M3 elevation: level 1 rest, level 2 hover
         'transition-[transform,box-shadow] duration-200 ease-out',
+        arcade && 'trivia-arcade-pack rounded-2xl',
+        arcade && selected && 'ring-2 ring-trivia-gold/70 ring-offset-2 ring-offset-[#0a0e22]',
         disabled && 'opacity-40 cursor-not-allowed',
       )}
       aria-disabled={disabled || undefined}

@@ -53,7 +53,11 @@ export default function Countdown({ startedAt, duration, onExpire, size = 'lg', 
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className={`relative ${sizeClasses} flex items-center justify-center`}>
+      <div
+        className={`relative flex items-center justify-center rounded-full ${sizeClasses} ${
+          isUrgent ? 'animate-trivia-ring' : ''
+        }`}
+      >
       <svg className="absolute inset-0 -rotate-90" viewBox={`0 0 ${svgSize} ${svgSize}`}>
         <circle
           cx={svgSize / 2}

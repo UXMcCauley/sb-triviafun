@@ -9,6 +9,7 @@ import ShareLinks from '@/components/ShareLinks';
 import ThemePackCard from '@/components/ThemePackCard';
 import LightDarkToggle from '@/components/LightDarkToggle';
 import { authClient } from '@/lib/auth/client';
+import { TriviaAtmosphere, TriviaFunLogo } from '@/components/TriviaDecor';
 
 interface PackInfo {
   id: string;
@@ -261,60 +262,45 @@ export default function Home() {
   };
 
   return (
-    <div className="w-dvw min-h-dvh overflow-x-hidden bg-linear-to-br from-trivia-navy via-trivia-navy-mid to-trivia-navy text-white">
-      <div className="w-full px-4 py-10 sm:px-6 lg:px-8">
+    <div className="relative isolate w-dvw min-h-dvh overflow-x-hidden bg-trivia-navy text-white">
+      <TriviaAtmosphere />
+      <div className="relative z-10 w-full px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
-            <h1 className="text-7xl font-ultralight tracking-tight">
-              <span className="text-white">Trivia</span>
-              <span className="text-pink-600 font-black">Fun</span>
-
-            </h1>
-            <p className="text-white/60 max-w-2xl">
-              Time to have a relentless nerdy brain-off with whoever agrees to hang out with you.
+            <TriviaFunLogo
+              className="max-w-xl"
+              size="lg"
+              subtitle="Real-time room trivia"
+            />
+            <p className="max-w-2xl text-balance text-base text-white/60">
+              A relentless, joyful brain-off with people who were foolish enough to say yes to your text.
             </p>
             {user ? (
               <p className="text-white/35 text-sm">
                 Signed in as <span className="text-white/55">{user.email || user.name || 'Account'}</span>
               </p>
             ) : null}
-            <div className="flex flex-wrap gap-2 pt-1">
-              <Link
-                href="/how-to-play"
-                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
-              >
+            <div className="flex flex-wrap gap-2 pt-2">
+              <Link href="/how-to-play" className="trivia-pill-browse">
                 How to play
               </Link>
-              <Link
-                href="/packs"
-                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
-              >
+              <Link href="/packs" className="trivia-pill-browse">
                 Packs
               </Link>
-              <Link
-                href="/account"
-                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
-              >
+              <Link href="/account" className="trivia-pill-browse">
                 Account
               </Link>
-              <Link
-                href="/report"
-                className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
-              >
+              <Link href="/report" className="trivia-pill-browse">
                 Report
               </Link>
               {user ? (
-                <button
-                  type="button"
-                  onClick={signOut}
-                  className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
-                >
+                <button type="button" onClick={signOut} className="trivia-pill-browse">
                   Sign out
                 </button>
               ) : (
                 <Link
                   href="/auth/sign-in"
-                  className="rounded-full border border-yellow-400/30 bg-yellow-500/20 hover:bg-yellow-500/25 px-3 py-1.5 text-xs font-extrabold text-yellow-100"
+                  className="trivia-pill-browse border-trivia-gold/35 bg-trivia-gold/15 text-trivia-gold hover:border-trivia-gold/50"
                 >
                   Sign in
                 </Link>
@@ -350,6 +336,7 @@ export default function Home() {
                   return (
                     <ThemePackCard
                       key={pack.id}
+                      arcade
                       pack={pack}
                       disabled={isEmpty}
                       selected={isSelected}
@@ -364,7 +351,7 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="lg:sticky lg:top-6 h-fit rounded-2xl border border-white/10 bg-white/4 shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+            <aside className="trivia-card-join h-fit shadow-[0_20px_60px_rgba(0,0,0,0.35)] lg:sticky lg:top-6">
               <div className="p-6 space-y-5">
                 <div className="space-y-1">
                   <h2 className="text-lg font-extrabold">Game settings</h2>
@@ -494,13 +481,13 @@ export default function Home() {
                   onClick={createGame}
                   disabled={loadingAction === 'create' || !canCreate}
                   className={cx(
-                    'w-full text-center rounded-2xl px-5 py-3 font-extrabold transition',
+                    'w-full font-extrabold transition',
                     canCreate
-                      ? 'bg-yellow-500 hover:bg-yellow-400 text-black disabled:opacity-50'
-                      : 'bg-white/10 text-white/30 cursor-not-allowed',
+                      ? 'trivia-btn-coral trivia-sheen text-base disabled:opacity-50'
+                      : 'cursor-not-allowed rounded-2xl bg-white/8 px-5 py-3.5 text-white/35',
                   )}
                 >
-                  {loadingAction === 'create' ? 'Creating…' : 'Create game'}
+                  {loadingAction === 'create' ? 'Summoning room…' : 'Create game'}
                 </button>
 
                 <ShareLinks variant="full" className="mt-2" />
@@ -554,13 +541,11 @@ export default function Home() {
             <div className="flex h-dvh w-dvw flex-col overflow-hidden bg-linear-to-br from-trivia-navy via-trivia-navy-mid to-trivia-navy text-white">
               <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-6 pb-4 sm:px-6 sm:pt-8 lg:px-8">
                 <div>
-                  <Link href="/" className="inline-flex items-baseline gap-2 font-black tracking-tight">
-                    <span className="text-2xl sm:text-3xl">
-                      <span className="text-yellow-400">Trivia</span>Fun
-                    </span>
+                  <Link href="/" className="inline-block transition hover:opacity-90">
+                    <TriviaFunLogo className="scale-90" />
                   </Link>
                   <div className="mt-1 text-sm text-white/55">
-                    <span className="font-semibold text-white/70">
+                    <span className="font-semibold text-trivia-cyan/90">
                       {selectedPackIds.length === 1
                         ? packs.find((p) => p.id === selectedPackIds[0])?.name || 'Trivia'
                         : `${selectedPackIds.length} packs`}
@@ -570,34 +555,48 @@ export default function Home() {
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:items-stretch">
-                  <div className="rounded-3xl border border-white/10 bg-white/4 p-8 min-w-0">
-                    <div className="flex items-start justify-between gap-6 flex-wrap">
+                  <div className="trivia-card-join min-w-0 p-8">
+                    <div className="flex flex-wrap items-start justify-between gap-6">
                       <div>
-                        <h2 className="text-2xl font-black">Lobby</h2>
-                        <p className="text-white/55 mt-2">
-                          Start game opens TV mode on this device. For a projector or second machine, use the TV display URL below.
+                        <h2 className="text-2xl font-extrabold tracking-tight">The lobby</h2>
+                        <p className="mt-2 max-w-prose text-white/55">
+                          Start here for TV mode. Second screen? Use the play link on your phone or open the display URL in the rail below.
                         </p>
                       </div>
                       <button
+                        type="button"
                         onClick={startGame}
                         disabled={players.length === 0 || loadingAction === 'start'}
-                        className="rounded-2xl bg-green-500 hover:bg-green-400 text-black font-extrabold px-6 py-3 disabled:opacity-50"
+                        className="trivia-btn-coral trivia-sheen px-8 text-sm disabled:opacity-50"
                       >
-                        {loadingAction === 'start' ? 'Starting…' : 'Start game'}
+                        {loadingAction === 'start' ? 'Starting…' : 'Start the show'}
                       </button>
                     </div>
 
                     <div className="mt-8">
-                      <p className="text-sm text-white/60 mb-2">Players ({players.length})</p>
-                      <div className="flex flex-wrap gap-2">
-                        {players.map((p) => (
-                          <span key={p.id} className="bg-white/10 px-3 py-1 rounded-full">
-                            {p.name}
-                          </span>
+                      <p className="mb-3 text-xs font-extrabold uppercase tracking-widest text-white/40">
+                        In the room ({players.length})
+                      </p>
+                      <div className="flex flex-wrap justify-start gap-3">
+                        {players.map((p, i) => (
+                          <div key={p.id} className="flex w-20 flex-col items-center">
+                            <div
+                              className={`flex h-14 w-14 items-center justify-center rounded-full bg-trivia-navy text-sm font-extrabold text-white ring-4 ring-inset ${
+                                ['ring-trivia-gold', 'ring-trivia-cyan', 'ring-trivia-mint', 'ring-trivia-coral'][
+                                  i % 4
+                                ]
+                              }`}
+                            >
+                              {p.name.slice(0, 2).toUpperCase()}
+                            </div>
+                            <p className="mt-1.5 w-full truncate text-center text-[11px] font-extrabold text-white/85">
+                              {p.name}
+                            </p>
+                          </div>
                         ))}
                       </div>
                       {players.length === 0 ? (
-                        <p className="mt-3 text-sm text-white/40">Waiting for at least one player to join…</p>
+                        <p className="mt-3 text-sm text-white/40">Waiting for at least one brave soul to join…</p>
                       ) : null}
                     </div>
 

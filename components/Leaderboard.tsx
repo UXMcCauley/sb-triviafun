@@ -75,7 +75,8 @@ export default function Leaderboard({
           return (
             <div
               key={player.id}
-              className={`flex items-center justify-between gap-2 rounded-2xl border border-white/10 px-3 py-2.5 transition-all ${
+              style={{ animationDelay: `${i * 45}ms` }}
+              className={`animate-trivia-in-up flex items-center justify-between gap-2 rounded-2xl border border-white/10 px-3 py-2.5 transition-all ${
                 player.id === highlightId
                   ? 'border-trivia-gold/50 bg-trivia-gold/10 shadow-[0_0_0_1px_rgba(255,213,79,0.2)]'
                   : 'bg-trivia-navy-mid/60'

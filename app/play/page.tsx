@@ -513,7 +513,12 @@ function PlayContent() {
                 />
               </div>
               {error && <p className="text-center text-sm text-red-300">{error}</p>}
-              <button type="button" onClick={handleLogin} disabled={loading} className="trivia-btn-coral w-full text-lg">
+              <button
+                type="button"
+                onClick={handleLogin}
+                disabled={loading}
+                className="trivia-btn-coral trivia-sheen w-full text-lg"
+              >
                 {loading ? 'Signing in…' : 'Sign in'}
               </button>
               <button
@@ -629,7 +634,12 @@ function PlayContent() {
                 </div>
               )}
               {error && <p className="text-center text-sm text-red-300">{error}</p>}
-              <button type="button" onClick={handleJoin} disabled={loading} className="trivia-btn-coral w-full text-lg">
+              <button
+                type="button"
+                onClick={handleJoin}
+                disabled={loading}
+                className="trivia-btn-coral trivia-sheen w-full text-lg"
+              >
                 {loading ? 'Joining…' : 'Join game ★'}
               </button>
             </div>

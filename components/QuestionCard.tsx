@@ -142,7 +142,8 @@ export default function QuestionCard({
               type="button"
               onClick={() => !disabled && !isRevealed && onSelect?.(i)}
               disabled={disabled || isRevealed}
-              className={`${classes} ${
+              style={{ animationDelay: `${i * 70}ms` }}
+              className={`animate-trivia-in-up ${classes} ${
                 isDisplay ? 'rounded-2xl p-5 text-left text-lg sm:text-xl' : 'rounded-xl p-4 text-left text-base'
               } font-extrabold text-white transition-all duration-200 ${
                 !disabled && !isRevealed ? 'cursor-pointer active:translate-y-0.5 active:shadow-none' : 'cursor-default'

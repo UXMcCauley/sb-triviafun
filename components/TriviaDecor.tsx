@@ -1,17 +1,26 @@
 import type { ReactNode } from 'react';
 
-const STAR_LAYERS = [
-  'radial-gradient(2px 2px at 12% 18%,rgba(255,214,100,0.5),transparent 60%)',
-  'radial-gradient(1.5px 1.5px at 88% 14%,rgba(100,200,255,0.45),transparent 55%)',
-  'radial-gradient(1.5px 1.5px at 40% 82%,rgba(255,220,100,0.4),transparent 55%)',
-  'radial-gradient(1px 1px at 72% 48%,rgba(150,180,255,0.35),transparent 50%)',
-  'radial-gradient(2px 2px at 6% 88%,rgba(255,200,64,0.3),transparent 55%)',
-  'radial-gradient(1px 1px at 55% 30%,rgba(100,255,200,0.2),transparent 50%)',
-].join(', ');
+type SurfaceProps = {
+  children: ReactNode;
+  className?: string;
+  /** Inside host page — no full-bleed bg */
+  embedded?: boolean;
+};
 
-type SurfaceProps = { children: ReactNode; className?: string; /** Inside host page — no full-bleed bg */ embedded?: boolean };
+/** Blurred color blobs; pair with a navy background. */
+export function TriviaAmbientOrbs() {
+  return (
+    <>
+      <div className="trivia-ambient-orb-1" aria-hidden />
+      <div className="trivia-ambient-orb-2" aria-hidden />
+      <div className="trivia-ambient-orb-3" aria-hidden />
+    </>
+  );
+}
 
-/** Full-bleed dark game backdrop with subtle star scatters, or a transparent panel when embedded. */
+/**
+ * Full-bleed game shell: twinkling specks + orbs (when not embedded) + child content.
+ */
 export function TriviaGameSurface({ children, className = '', embedded = false }: SurfaceProps) {
   if (embedded) {
     return (
@@ -22,15 +31,15 @@ export function TriviaGameSurface({ children, className = '', embedded = false }
   }
   return (
     <div
-      className={`relative isolate min-h-dvh w-full overflow-x-hidden bg-trivia-navy text-white ${className}`}
-      style={{ backgroundImage: STAR_LAYERS }}
+      className={`trivia-surface-animated relative isolate min-h-dvh w-full overflow-x-hidden bg-trivia-navy text-white ${className}`}
     >
-      <div className="relative z-1 flex min-h-dvh w-full flex-col">{children}</div>
+      <TriviaAmbientOrbs />
+      <div className="relative z-10 flex min-h-dvh w-full flex-col">{children}</div>
     </div>
   );
 }
 
-type LogoProps = { className?: string; subtitle?: string };
+type LogoProps = { className?: string; subtitle?: string; size?: 'md' | 'lg' };
 
 const logoShadow = `
 2px 2px 0 #ff4d5a,
@@ -39,32 +48,46 @@ const logoShadow = `
 0 0 40px rgba(255, 214, 64, 0.28)`;
 
 /**
- * Stacked 3D wordmark: chunky caps, warm extrusion, star on the A (reference UI).
+ * 3D wordmark: extruded warm shadow, star on the A.
  */
-export function TriviaFunLogo({ className = '', subtitle }: LogoProps) {
+export function TriviaFunLogo({ className = '', subtitle, size = 'md' }: LogoProps) {
+  const line =
+    size === 'lg' ? 'text-[2.35rem] sm:text-4xl md:text-5xl' : 'text-[2rem] sm:text-[2.75rem]';
   return (
-    <div className={`text-center ${className}`}>
+    <div className={`animate-trivia-pop text-center ${className}`}>
       <h1
-        className="font-black uppercase leading-[0.92] tracking-tight"
+        className={`font-black uppercase leading-[0.92] tracking-tight ${line}`}
         style={{ color: '#ffffff', textShadow: logoShadow }}
       >
-        <span className="block text-[2rem] sm:text-[2.75rem]">
+        <span className="block">
           Trivi
           <span className="relative inline-block">
             a
             <span
-              className="pointer-events-none absolute -right-0.5 -top-1.5 text-base text-[#ffeb3b] drop-shadow-[0_0_6px_rgba(255,235,100,0.7)] sm:-top-2 sm:text-2xl"
+              className="animate-trivia-float pointer-events-none absolute -right-0.5 -top-1.5 text-base text-[#ffeb3b] drop-shadow-[0_0_8px_rgba(255,235,100,0.65)] sm:-top-2 sm:text-2xl"
               aria-hidden
             >
               ★
             </span>
           </span>
         </span>
-        <span className="mt-0.5 block text-[2rem] sm:text-[2.75rem]">Fun!</span>
+        <span className="mt-0.5 block">Fun!</span>
       </h1>
       {subtitle ? (
         <p className="mt-3 text-xs font-extrabold uppercase tracking-[0.2em] text-white/40">{subtitle}</p>
       ) : null}
+    </div>
+  );
+}
+
+/** Marketing / host page: orbs on top of twinkling star field (sits behind `relative` content). */
+export function TriviaAtmosphere() {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-trivia-navy trivia-surface-animated"
+      aria-hidden
+    >
+      <TriviaAmbientOrbs />
     </div>
   );
 }
