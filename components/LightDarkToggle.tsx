@@ -17,8 +17,10 @@ function getInitialTheme(): ThemeMode {
 export default function LightDarkToggle({ size = 18 }: { size?: number }) {
   const id = useId();
   const [mode, setMode] = useState<ThemeMode>(() => getInitialTheme());
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     document.documentElement.classList.toggle('dark', mode === 'dark');
     document.documentElement.style.colorScheme = mode === 'dark' ? 'dark' : 'light';
   }, [mode]);
@@ -40,15 +42,19 @@ export default function LightDarkToggle({ size = 18 }: { size?: number }) {
         } as React.CSSProperties
       }
     >
-      <md-switch
-        id={id}
-        selected={mode === 'dark'}
-        aria-label="Dark mode"
-        onClick={(e: React.MouseEvent<HTMLElement>) => {
-          e.preventDefault();
-          setTheme(mode === 'dark' ? 'light' : 'dark');
-        }}
-      />
+      {mounted ? (
+        <md-switch
+          id={id}
+          selected={mode === 'dark'}
+          aria-label="Dark mode"
+          onClick={(e: React.MouseEvent<HTMLElement>) => {
+            e.preventDefault();
+            setTheme(mode === 'dark' ? 'light' : 'dark');
+          }}
+        />
+      ) : (
+        <span aria-hidden className="inline-block" style={{ width: 42, height: 24 }} />
+      )}
     </div>
   );
 }

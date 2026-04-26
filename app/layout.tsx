@@ -42,6 +42,24 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `(function(){
   try {
+    // Polyfill for non-secure contexts (e.g. http://127.0.0.1.nip.io) where crypto.randomUUID can be missing.
+    // Neon auth client expects it during module initialization.
+    if (!globalThis.crypto) globalThis.crypto = {};
+    if (typeof globalThis.crypto.randomUUID !== 'function') {
+      globalThis.crypto.randomUUID = function(){
+        // RFC4122 v4 (good enough for client ids / state)
+        var s = '', i = 0, r;
+        for (; i < 36; i++) {
+          r = (Math.random() * 16) | 0;
+          if (i === 8 || i === 13 || i === 18 || i === 23) { s += '-'; continue; }
+          if (i === 14) { s += '4'; continue; }
+          if (i === 19) { s += ((r & 0x3) | 0x8).toString(16); continue; }
+          s += r.toString(16);
+        }
+        return s;
+      };
+    }
+
     var stored = localStorage.getItem('theme');
     var mode = (stored === 'light' || stored === 'dark')
       ? stored
