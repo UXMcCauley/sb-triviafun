@@ -17,14 +17,23 @@ export async function GET() {
   const userId = await requireUserId();
   if (!userId) return NextResponse.json({ favorites: [] });
 
-  const rows = (await sql`
-    select pack_id::text as "packId", pinned
-    from pack_favorites
-    where user_id = ${userId}::uuid
-    order by pinned desc, created_at asc
-  `) as Array<{ packId: string; pinned: boolean }>;
+  try {
+    const rows = (await sql`
+      select pack_id::text as "packId", pinned
+      from pack_favorites
+      where user_id = ${userId}::uuid
+      order by pinned desc, created_at asc
+    `) as Array<{ packId: string; pinned: boolean }>;
 
-  return NextResponse.json({ favorites: rows });
+    return NextResponse.json({ favorites: rows });
+  } catch (error) {
+    // If the favorites table doesn't exist in an environment yet, fail soft.
+    // Postgres: undefined_table = 42P01
+    const code = (error as { code?: string } | null)?.code;
+    if (code === '42P01') return NextResponse.json({ favorites: [] });
+    console.error('Favorites GET error:', error);
+    return NextResponse.json({ error: 'Failed to load favorites' }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
@@ -37,36 +46,48 @@ export async function POST(request: Request) {
 
   if (!isUuid(packId)) return NextResponse.json({ error: 'Invalid packId' }, { status: 400 });
 
-  if (action === 'favorite') {
-    await sql`
-      insert into pack_favorites (user_id, pack_id, pinned)
-      values (${userId}::uuid, ${packId}::uuid, false)
-      on conflict (user_id, pack_id) do update set pinned = pack_favorites.pinned
-    `;
-    return NextResponse.json({ ok: true });
-  }
+  try {
+    if (action === 'favorite') {
+      await sql`
+        insert into pack_favorites (user_id, pack_id, pinned)
+        values (${userId}::uuid, ${packId}::uuid, false)
+        on conflict (user_id, pack_id) do update set pinned = pack_favorites.pinned
+      `;
+      return NextResponse.json({ ok: true });
+    }
 
-  if (action === 'unfavorite') {
-    await sql`delete from pack_favorites where user_id = ${userId}::uuid and pack_id = ${packId}::uuid`;
-    return NextResponse.json({ ok: true });
-  }
+    if (action === 'unfavorite') {
+      await sql`delete from pack_favorites where user_id = ${userId}::uuid and pack_id = ${packId}::uuid`;
+      return NextResponse.json({ ok: true });
+    }
 
-  if (action === 'pin') {
-    await sql`
-      insert into pack_favorites (user_id, pack_id, pinned)
-      values (${userId}::uuid, ${packId}::uuid, true)
-      on conflict (user_id, pack_id) do update set pinned = true
-    `;
-    return NextResponse.json({ ok: true });
-  }
+    if (action === 'pin') {
+      await sql`
+        insert into pack_favorites (user_id, pack_id, pinned)
+        values (${userId}::uuid, ${packId}::uuid, true)
+        on conflict (user_id, pack_id) do update set pinned = true
+      `;
+      return NextResponse.json({ ok: true });
+    }
 
-  if (action === 'unpin') {
-    await sql`
-      update pack_favorites
-      set pinned = false
-      where user_id = ${userId}::uuid and pack_id = ${packId}::uuid
-    `;
-    return NextResponse.json({ ok: true });
+    if (action === 'unpin') {
+      await sql`
+        update pack_favorites
+        set pinned = false
+        where user_id = ${userId}::uuid and pack_id = ${packId}::uuid
+      `;
+      return NextResponse.json({ ok: true });
+    }
+  } catch (error) {
+    const code = (error as { code?: string } | null)?.code;
+    if (code === '42P01') {
+      return NextResponse.json(
+        { error: 'Favorites table not initialized (run db init/migrations)' },
+        { status: 501 }
+      );
+    }
+    console.error('Favorites POST error:', error);
+    return NextResponse.json({ error: 'Failed to update favorite' }, { status: 500 });
   }
 
   return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
