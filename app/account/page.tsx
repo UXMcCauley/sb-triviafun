@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import SiteShell from '@/components/SiteShell';
+import { authClient } from '@/lib/auth/client';
 
 interface PackInfo {
   id: string;
@@ -133,6 +134,19 @@ export default function AccountPage() {
     }
   };
 
+  const signOut = async () => {
+    setMsg(null);
+    try {
+      await authClient.signOut();
+    } catch {}
+    // Ensure cookie/session state is reflected across API routes.
+    setUser(null);
+    setFav({});
+    setDefaultUsername('');
+    setMsg({ kind: 'ok', text: 'Signed out.' });
+    setTimeout(() => setMsg(null), 1800);
+  };
+
   const fetchStats = async () => {
     setMsg(null);
     setStats(null);
@@ -166,6 +180,19 @@ export default function AccountPage() {
           <Link href="/report" className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70">
             Report / Feedback
           </Link>
+          {user ? (
+            <button
+              type="button"
+              onClick={signOut}
+              className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70"
+            >
+              Sign out
+            </button>
+          ) : (
+            <Link href="/auth/sign-in" className="rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 text-sm font-extrabold">
+              Sign in
+            </Link>
+          )}
         </div>
       }
     >

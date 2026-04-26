@@ -224,11 +224,12 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
   useEffect(() => {
     if (!embedded || !hostGameCode?.trim()) return;
     const code = hostGameCode.trim().toUpperCase();
-    setError('');
     let cancelled = false;
     queueMicrotask(() => {
+      if (!cancelled) setError('');
       if (!cancelled) setGameCode(code);
     });
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchState(code)
       .then((data) => {
         if (cancelled) return;

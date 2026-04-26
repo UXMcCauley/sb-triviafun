@@ -70,7 +70,10 @@ export default function ThemePackCard({
       type="button"
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
-      style={style}
+      style={{
+        ...style,
+        boxShadow: 'var(--mdCardElevRest)',
+      }}
       className={cx(
         'group text-left',
         // M3 card shape: 12dp corner radius
@@ -79,10 +82,6 @@ export default function ThemePackCard({
         'transition-[transform,box-shadow] duration-200 ease-out',
         disabled && 'opacity-40 cursor-not-allowed',
       )}
-      style={{
-        ...style,
-        boxShadow: 'var(--mdCardElevRest)',
-      }}
       aria-disabled={disabled || undefined}
     >
       {/* M3 surface + outline */}

@@ -8,6 +8,7 @@ import DisplayPageClient from '@/app/display/DisplayPageClient';
 import ShareLinks from '@/components/ShareLinks';
 import ThemePackCard from '@/components/ThemePackCard';
 import LightDarkToggle from '@/components/LightDarkToggle';
+import { authClient } from '@/lib/auth/client';
 
 interface PackInfo {
   id: string;
@@ -136,6 +137,14 @@ export default function Home() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ packId, action: pinned ? 'pin' : 'unpin' }),
     }).catch(() => {});
+  };
+
+  const signOut = async () => {
+    try {
+      await authClient.signOut();
+    } catch {}
+    setUser(null);
+    setFav({});
   };
 
   const sortedPacks = useMemo(() => {
@@ -294,6 +303,22 @@ export default function Home() {
               >
                 Report
               </Link>
+              {user ? (
+                <button
+                  type="button"
+                  onClick={signOut}
+                  className="rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70"
+                >
+                  Sign out
+                </button>
+              ) : (
+                <Link
+                  href="/auth/sign-in"
+                  className="rounded-full border border-yellow-400/30 bg-yellow-500/20 hover:bg-yellow-500/25 px-3 py-1.5 text-xs font-extrabold text-yellow-100"
+                >
+                  Sign in
+                </Link>
+              )}
               <div className="ml-1 inline-flex items-center">
                 <LightDarkToggle size={16} />
               </div>
