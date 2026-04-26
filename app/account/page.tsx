@@ -173,27 +173,23 @@ export default function AccountPage() {
       title="Account"
       subtitle="Profile tweaks, game stats, and your carefully curated collection of trivia packs."
       rightSlot={
-        <div className="flex flex-wrap gap-2">
-          <Link href="/packs" className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70">
+        <>
+          <Link href="/packs" className="trivia-pill-browse">
             Packs
           </Link>
-          <Link href="/report" className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70">
-            Report / Feedback
+          <Link href="/report" className="trivia-pill-browse">
+            Report
           </Link>
           {user ? (
-            <button
-              type="button"
-              onClick={signOut}
-              className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70"
-            >
+            <button type="button" onClick={signOut} className="trivia-pill-browse">
               Sign out
             </button>
           ) : (
-            <Link href="/auth/sign-in" className="rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 text-sm font-extrabold">
+            <Link href="/auth/sign-in" className="trivia-btn-coral trivia-sheen inline-block py-2.5 px-5 text-sm">
               Sign in
             </Link>
           )}
-        </div>
+        </>
       }
     >
       {msg ? (
@@ -210,7 +206,7 @@ export default function AccountPage() {
       ) : null}
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <section className="rounded-3xl border border-white/10 bg-white/4 p-6 shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+        <section className="trivia-card-join p-6">
           <h2 className="text-xl font-black">Profile</h2>
           <p className="mt-2 text-sm text-white/60">
             {loadingUser ? 'Loading…' : user ? `Signed in as ${user.email || user.name || 'Account'}` : 'Not signed in.'}
@@ -223,7 +219,7 @@ export default function AccountPage() {
                 value={defaultUsername}
                 onChange={(e) => setDefaultUsername(e.target.value)}
                 placeholder="2–20 characters"
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
                 disabled={!user || saving}
               />
             </label>
@@ -232,8 +228,10 @@ export default function AccountPage() {
               onClick={saveProfile}
               disabled={!user || saving}
               className={cx(
-                'rounded-2xl px-5 py-2 text-sm font-extrabold transition',
-                user ? 'bg-yellow-500 hover:bg-yellow-400 text-black disabled:opacity-50' : 'bg-white/10 text-white/30 cursor-not-allowed',
+                'rounded-2xl px-5 py-2.5 text-sm font-extrabold uppercase tracking-wide transition',
+                user
+                  ? 'trivia-btn-coral trivia-sheen disabled:opacity-50'
+                  : 'bg-white/10 text-white/30 cursor-not-allowed',
               )}
             >
               {saving ? 'Saving…' : 'Save'}
@@ -246,7 +244,7 @@ export default function AccountPage() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-white/10 bg-white/4 p-6 shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+        <section className="trivia-card-join p-6">
           <h2 className="text-xl font-black">Game stats</h2>
           <p className="mt-2 text-sm text-white/60">
             This is keyed by the phone number used when joining games (separate from your sign-in account).
@@ -257,13 +255,13 @@ export default function AccountPage() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="Phone number"
-              className="flex-1 rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+              className="flex-1 rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
             />
             <button
               type="button"
               onClick={fetchStats}
               disabled={loadingStats}
-              className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-5 py-2 text-sm font-extrabold text-white/75 disabled:opacity-60"
+              className="shrink-0 rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-extrabold text-white/85 transition hover:bg-white/10 disabled:opacity-60"
             >
               {loadingStats ? 'Looking…' : 'Look up'}
             </button>
@@ -293,7 +291,7 @@ export default function AccountPage() {
         </section>
       </div>
 
-      <section className="mt-6 rounded-3xl border border-white/10 bg-white/4 p-6 shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+      <section className="trivia-card-join mt-6 p-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-xl font-black">Your packs</h2>
@@ -301,7 +299,10 @@ export default function AccountPage() {
               Favorites and pins are stored per signed-in user. Purchased packs will show here once purchasing is wired.
             </p>
           </div>
-          <Link href="/packs" className="text-sm font-bold text-yellow-300 hover:text-yellow-200 underline">
+          <Link
+            href="/packs"
+            className="text-sm font-extrabold text-trivia-gold hover:text-trivia-gold/90 underline decoration-trivia-gold/30 underline-offset-2"
+          >
             Browse packs
           </Link>
         </div>
@@ -312,7 +313,7 @@ export default function AccountPage() {
               {favoritePacks.map((pack) => {
                 const pinned = Boolean(fav[pack.id]?.pinned);
                 return (
-                  <div key={pack.id} className="rounded-2xl border border-white/10 bg-white/3 p-5">
+                  <div key={pack.id} className="trivia-card-join p-5">
                     <div className="flex items-start gap-3">
                       <div
                         className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0"
@@ -350,7 +351,7 @@ export default function AccountPage() {
         )}
       </section>
 
-      <section className="mt-6 rounded-3xl border border-white/10 bg-white/3 p-6">
+      <section className="trivia-card-join mt-6 p-6">
         <h2 className="text-lg font-black">Game history (coming next)</h2>
         <p className="mt-2 text-sm text-white/60">
           We’ll add signed-in history for win/loss streaks, high games, big-loser games, and series performance. Right now the underlying

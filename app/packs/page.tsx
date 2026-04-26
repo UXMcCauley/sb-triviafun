@@ -132,29 +132,23 @@ export default function PacksPage() {
       title="Theme packs"
       subtitle="Browse packs, favorite what you love, and (soon) buy new packs without selling your soul to trivia capitalism."
       rightSlot={
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/how-to-play"
-            className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70"
-          >
+        <>
+          <Link href="/how-to-play" className="trivia-pill-browse">
             How to play
           </Link>
-          <Link
-            href="/account"
-            className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70"
-          >
+          <Link href="/account" className="trivia-pill-browse">
             Account
           </Link>
-        </div>
+        </>
       }
     >
       {toast ? (
-        <div className="mb-5 rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white/70">
+        <div className="trivia-card-join mb-5 px-4 py-3 text-sm text-white/70">
           {toast}
         </div>
       ) : null}
 
-      <div className="rounded-3xl border border-white/10 bg-white/3 p-5 mb-6">
+      <div className="trivia-card-join p-5 mb-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-sm text-white/60">
             {loading ? 'Loading packs…' : `${packs.length} packs`} ·{' '}
@@ -168,8 +162,11 @@ export default function PacksPage() {
               </span>
             )}
           </div>
-          <Link href="/" className="text-sm font-bold text-yellow-300 hover:text-yellow-200 underline">
-            Back to host setup
+          <Link
+            href="/"
+            className="text-sm font-extrabold text-trivia-gold hover:text-trivia-gold/90 underline decoration-trivia-gold/30 underline-offset-2"
+          >
+            Back to host
           </Link>
         </div>
       </div>
@@ -183,10 +180,8 @@ export default function PacksPage() {
             <div
               key={pack.id}
               className={cx(
-                'rounded-2xl border transition-all',
-                'bg-white/4 hover:bg-white/6',
-                'shadow-[0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.35)]',
-                'border-white/10',
+                'trivia-card-join transition duration-200',
+                'hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)]',
                 isEmpty && 'opacity-45',
               )}
             >
@@ -260,14 +255,14 @@ export default function PacksPage() {
         })}
       </div>
 
-      <div className="mt-10 rounded-3xl border border-white/10 bg-white/3 p-6">
+      <div className="trivia-card-join mt-10 p-6">
         <h2 className="text-lg font-black">Want a pack that doesn’t exist yet?</h2>
         <p className="mt-2 text-sm text-white/60">
           Send a suggestion (themes, difficulty, formats). Bonus points if you include example questions that won’t start a small war.
         </p>
         <div className="mt-4">
-          <Link href="/report" className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70">
-            Suggest a pack / report an issue
+          <Link href="/report" className="trivia-pill-browse">
+            Suggest a pack
           </Link>
         </div>
       </div>

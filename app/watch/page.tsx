@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getPusherClient } from '@/lib/pusher-client';
+import { TriviaGameSurface, TriviaFunLogo } from '@/components/TriviaDecor';
 import type {
   PlayerJoinedEvent,
   NewQuestionEvent,
@@ -163,10 +165,10 @@ function WatchContent() {
   }, [gameCode, phase === 'join']);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-purple-950 to-gray-900 text-white relative flex flex-col">
+    <TriviaGameSurface className="flex flex-col">
       {/* Audience badge */}
-      <div className="fixed top-4 right-4 z-50 bg-purple-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 text-sm text-purple-300 font-semibold">
-        👀 Watching
+      <div className="fixed top-4 right-4 z-50 rounded-full border border-trivia-gold/35 bg-trivia-gold/10 px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-trivia-gold shadow-[0_0_20px_rgba(255,213,79,0.12)]">
+        Audience
       </div>
 
       {/* PAUSE OVERLAY */}
@@ -174,44 +176,47 @@ function WatchContent() {
         <div className="absolute inset-0 bg-black/80 z-40 flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="text-6xl">⏸️</div>
-            <h2 className="text-3xl font-black text-yellow-400">Paused</h2>
+            <h2 className="text-3xl font-black text-trivia-gold">Paused</h2>
           </div>
         </div>
       )}
 
       {/* JOIN */}
       {phase === 'join' && (
-        <div className="flex items-center justify-center min-h-screen p-4">
-          <div className="w-full max-w-sm space-y-6">
-            <div className="text-center">
-              <h1 className="text-4xl font-black">
-                <span className="text-purple-400">Watch</span> the Game
-              </h1>
-              <p className="text-white/50 mt-2">Spectate without playing</p>
-            </div>
-
+        <div className="flex min-h-dvh flex-1 items-center justify-center p-4">
+          <div className="trivia-card-join w-full max-w-sm space-y-6 p-6 sm:p-8">
+            <TriviaFunLogo subtitle="Spectate without playing" />
             <div className="space-y-4">
               <div>
-                <label className="text-sm text-white/60 block mb-1">Game Code</label>
+                <label className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.2em] text-trivia-gold">
+                  Room code
+                </label>
                 <input
                   type="text"
                   value={gameCode}
                   onChange={(e) => setGameCode(e.target.value.toUpperCase())}
                   placeholder="ABCD"
                   maxLength={4}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-2xl text-center font-mono tracking-widest uppercase placeholder:text-white/20 focus:outline-none focus:border-purple-500"
+                  className="trivia-input-pill w-full py-3.5 text-center font-mono text-2xl tracking-[0.35em] uppercase placeholder:tracking-[0.35em] placeholder:text-black/25"
                   onKeyDown={(e) => e.key === 'Enter' && handleJoinWatch()}
                 />
               </div>
-
-              {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-
+              {error && <p className="text-center text-sm text-red-300">{error}</p>}
               <button
+                type="button"
                 onClick={handleJoinWatch}
-                className="w-full bg-purple-500 hover:bg-purple-400 text-white font-bold text-xl py-4 rounded-xl transition-all active:scale-95"
+                className="trivia-btn-coral trivia-sheen w-full py-3.5 text-lg"
               >
-                Start Watching
+                Start watching
               </button>
+              <div className="flex flex-wrap justify-center gap-2 pt-1">
+                <Link href="/" className="trivia-pill-browse">
+                  Host setup
+                </Link>
+                <Link href="/play" className="trivia-pill-browse">
+                  Play instead
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -219,15 +224,21 @@ function WatchContent() {
 
       {/* LOBBY */}
       {phase === 'lobby' && (
-        <div className="flex items-center justify-center min-h-screen p-4">
-          <div className="text-center space-y-6">
-            <h2 className="text-3xl font-bold">Game <span className="font-mono text-yellow-400">{gameCode}</span></h2>
-            <p className="text-white/60">Waiting for the game to start...</p>
+        <div className="flex min-h-dvh flex-1 items-center justify-center p-4">
+          <div className="trivia-card-join w-full max-w-md space-y-5 p-8 text-center">
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-white/40">Room</p>
+            <h2 className="font-mono text-3xl font-black text-trivia-gold tracking-widest">{gameCode}</h2>
+            <p className="text-white/55">Waiting for the show to start…</p>
             <div>
-              <p className="text-white/40 mb-2">Players joined: {players.length}</p>
+              <p className="mb-3 text-xs font-bold uppercase tracking-wider text-white/35">Players · {players.length}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {players.map((p) => (
-                  <span key={p.id} className="bg-white/10 px-3 py-1 rounded-full text-sm">{p.name}</span>
+                  <span
+                    key={p.id}
+                    className="rounded-full border border-white/12 bg-white/6 px-3 py-1.5 text-sm font-semibold text-white/90"
+                  >
+                    {p.name}
+                  </span>
                 ))}
               </div>
             </div>
@@ -237,8 +248,8 @@ function WatchContent() {
 
       {/* QUESTION */}
       {phase === 'question' && currentQuestion && (
-        <div className="min-h-screen flex flex-col p-6">
-          <div className="flex-1 flex flex-col justify-center max-w-3xl mx-auto w-full">
+        <div className="flex min-h-dvh flex-1 flex-col p-4 sm:p-6">
+          <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center">
             <QuestionCard
               questionText={currentQuestion.questionText}
               options={currentQuestion.options}
@@ -251,8 +262,8 @@ function WatchContent() {
               reactions={reactionsForQuestion}
             />
           </div>
-          <div className="max-w-3xl mx-auto w-full mt-4 bg-white/5 border border-white/10 rounded-xl p-3">
-            <p className="text-xs text-white/50 font-bold uppercase tracking-wider mb-2">React</p>
+          <div className="trivia-question-slab mt-4 p-3">
+            <p className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-trivia-gold/90">React</p>
             <ReactionPicker onPick={(emoji) => sendReaction('question', String(currentQuestion.questionIndex), emoji)} />
           </div>
           <div className="mt-4">
@@ -263,8 +274,8 @@ function WatchContent() {
 
       {/* REVEAL */}
       {phase === 'reveal' && currentQuestion && (
-        <div className="min-h-screen flex flex-col p-6">
-          <div className="flex-1 flex flex-col justify-center max-w-3xl mx-auto w-full">
+        <div className="flex min-h-dvh flex-1 flex-col p-4 sm:p-6">
+          <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center">
             <QuestionCard
               questionText={currentQuestion.questionText}
               options={currentQuestion.options}
@@ -282,8 +293,8 @@ function WatchContent() {
 
       {/* SCOREBOARD */}
       {phase === 'scoreboard' && (
-        <div className="min-h-screen flex flex-col items-center justify-center p-6 space-y-6">
-          <h2 className="text-3xl font-black text-yellow-400">Results</h2>
+        <div className="flex min-h-dvh flex-1 flex-col items-center justify-center space-y-6 p-6">
+          <h2 className="text-3xl font-black text-trivia-gold">Results</h2>
           <div className="w-full max-w-md space-y-2">
             {playerResults.map((pr, i) => (
               <div
@@ -310,33 +321,39 @@ function WatchContent() {
 
       {/* FINISHED */}
       {phase === 'finished' && (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4 space-y-6">
-          <h1 className="text-4xl font-black text-yellow-400">Game Over!</h1>
+        <div className="flex min-h-dvh flex-1 flex-col items-center justify-center space-y-6 p-4">
+          <h1 className="text-4xl font-black text-trivia-gold">Game over!</h1>
           {winner && (
             <div className="text-center">
               <p className="text-white/60">Winner</p>
               <p className="text-3xl font-bold">{winner.name} 🏆</p>
-              <p className="font-mono text-yellow-300 text-xl">{winner.score.toLocaleString()} pts</p>
+              <p className="font-mono text-xl text-trivia-gold">{winner.score.toLocaleString()} pts</p>
             </div>
           )}
           <Leaderboard players={players} compact reactionsByPlayerId={reactionsByPlayerId} />
         </div>
       )}
 
-      <div className="mt-auto p-4">
-        <ShareLinks gameCode={gameCode} variant="discreet" />
-      </div>
-    </div>
+      {phase !== 'join' ? (
+        <div className="mt-auto border-t border-white/10 bg-black/20 p-4">
+          <ShareLinks gameCode={gameCode} variant="discreet" />
+        </div>
+      ) : null}
+    </TriviaGameSurface>
   );
 }
 
 export default function WatchPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-linear-to-br from-gray-900 via-purple-950 to-gray-900 text-white flex items-center justify-center">
-        <div className="animate-pulse text-2xl">Loading...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <TriviaGameSurface>
+          <div className="flex min-h-dvh flex-1 items-center justify-center">
+            <p className="animate-pulse text-lg font-extrabold text-white/50">Loading…</p>
+          </div>
+        </TriviaGameSurface>
+      }
+    >
       <WatchContent />
     </Suspense>
   );

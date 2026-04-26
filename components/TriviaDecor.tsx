@@ -39,7 +39,7 @@ export function TriviaGameSurface({ children, className = '', embedded = false }
   );
 }
 
-type LogoProps = { className?: string; subtitle?: string; size?: 'md' | 'lg' };
+type LogoProps = { className?: string; subtitle?: string; size?: 'sm' | 'md' | 'lg'; align?: 'left' | 'center' };
 
 const logoShadow = `
 2px 2px 0 #ff4d5a,
@@ -50,21 +50,29 @@ const logoShadow = `
 /**
  * 3D wordmark: extruded warm shadow, star on the A.
  */
-export function TriviaFunLogo({ className = '', subtitle, size = 'md' }: LogoProps) {
+export function TriviaFunLogo({ className = '', subtitle, size = 'md', align = 'center' }: LogoProps) {
   const line =
-    size === 'lg' ? 'text-[2.35rem] sm:text-4xl md:text-5xl' : 'text-[2rem] sm:text-[2.75rem]';
+    size === 'lg'
+      ? 'text-[2.35rem] sm:text-4xl md:text-5xl'
+      : size === 'sm'
+        ? 'text-lg sm:text-xl'
+        : 'text-[2rem] sm:text-[2.75rem]';
+  const star =
+    size === 'sm'
+      ? 'text-[10px] -right-0.5 -top-0.5 sm:text-xs sm:-top-1'
+      : 'text-base -right-0.5 -top-1.5 sm:-top-2 sm:text-2xl';
   return (
-    <div className={`animate-trivia-pop text-center ${className}`}>
+    <div className={`animate-trivia-pop ${align === 'left' ? 'text-left' : 'text-center'} ${className}`}>
       <h1
         className={`font-black uppercase leading-[0.92] tracking-tight ${line}`}
-        style={{ color: '#ffffff', textShadow: logoShadow }}
+        style={{ color: '#ffffff', textShadow: size === 'sm' ? '2px 2px 0 #ff4d5a, 3px 3px 0 #c12f3d' : logoShadow }}
       >
         <span className="block">
           Trivi
           <span className="relative inline-block">
             a
             <span
-              className="animate-trivia-float pointer-events-none absolute -right-0.5 -top-1.5 text-base text-[#ffeb3b] drop-shadow-[0_0_8px_rgba(255,235,100,0.65)] sm:-top-2 sm:text-2xl"
+              className={`animate-trivia-float pointer-events-none absolute text-[#ffeb3b] drop-shadow-[0_0_8px_rgba(255,235,100,0.65)] ${star}`}
               aria-hidden
             >
               ★
@@ -74,7 +82,13 @@ export function TriviaFunLogo({ className = '', subtitle, size = 'md' }: LogoPro
         <span className="mt-0.5 block">Fun!</span>
       </h1>
       {subtitle ? (
-        <p className="mt-3 text-xs font-extrabold uppercase tracking-[0.2em] text-white/40">{subtitle}</p>
+        <p
+          className={`mt-3 font-extrabold uppercase tracking-[0.2em] text-white/40 ${
+            size === 'sm' ? 'text-[0.6rem]' : 'text-xs'
+          }`}
+        >
+          {subtitle}
+        </p>
       ) : null}
     </div>
   );

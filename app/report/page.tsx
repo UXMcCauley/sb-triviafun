@@ -93,17 +93,17 @@ export default function ReportPage() {
       title="Report / Feedback"
       subtitle="Bugs, incorrect questions/answers, feature requests. If it’s broken, weird, or biased, we want to know."
       rightSlot={
-        <div className="flex flex-wrap gap-2">
-          <Link href="/how-to-play" className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70">
+        <>
+          <Link href="/how-to-play" className="trivia-pill-browse">
             How to play
           </Link>
-          <Link href="/packs" className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70">
+          <Link href="/packs" className="trivia-pill-browse">
             Packs
           </Link>
-          <Link href="/account" className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70">
+          <Link href="/account" className="trivia-pill-browse">
             Account
           </Link>
-        </div>
+        </>
       }
     >
       {status ? (
@@ -119,7 +119,7 @@ export default function ReportPage() {
         </div>
       ) : null}
 
-      <div className="rounded-3xl border border-white/10 bg-white/4 p-2 shadow-[0_1px_0_rgba(255,255,255,0.08)] inline-flex flex-wrap gap-2">
+      <div className="trivia-card-join inline-flex flex-wrap gap-2 p-2">
         {([
           ['bug', 'Bug / issue'],
           ['question', 'Incorrect question / answer'],
@@ -130,8 +130,10 @@ export default function ReportPage() {
             type="button"
             onClick={() => setMode(id)}
             className={cx(
-              'rounded-2xl px-4 py-2 text-sm font-extrabold transition border',
-              mode === id ? 'bg-yellow-500 text-black border-yellow-400/30' : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/70',
+              'rounded-2xl px-4 py-2.5 text-sm font-extrabold transition border',
+              mode === id
+                ? 'border-trivia-gold/45 bg-trivia-gold/12 text-trivia-gold shadow-[0_0_0_1px_rgba(255,213,79,0.12)]'
+                : 'border-white/10 bg-white/5 text-white/70 hover:bg-white/10',
             )}
           >
             {label}
@@ -140,7 +142,7 @@ export default function ReportPage() {
       </div>
 
       {mode === 'question' ? (
-        <section className="mt-6 rounded-3xl border border-white/10 bg-white/4 p-6 shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+        <section className="trivia-card-join mt-6 p-6">
           <h2 className="text-xl font-black">Report an incorrect question/answer</h2>
           <p className="mt-2 text-sm text-white/60">
             This hooks into your existing in-game reporting endpoint. Use the room code and the question index.
@@ -153,7 +155,7 @@ export default function ReportPage() {
                 value={gameCode}
                 onChange={(e) => setGameCode(e.target.value)}
                 placeholder="ABCD"
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
               />
             </label>
 
@@ -164,7 +166,7 @@ export default function ReportPage() {
                 onChange={(e) => setQuestionIndex(e.target.value)}
                 placeholder="0"
                 inputMode="numeric"
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
               />
             </label>
 
@@ -174,7 +176,7 @@ export default function ReportPage() {
                 value={reportedBy}
                 onChange={(e) => setReportedBy(e.target.value)}
                 placeholder="Your name (or phone if that’s your canonical identity here)"
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
               />
             </label>
 
@@ -185,7 +187,7 @@ export default function ReportPage() {
                 onChange={(e) => setReason(e.target.value)}
                 placeholder="What’s wrong? Wrong correct answer? Biased wording? Bad data? Duplicate question?"
                 rows={4}
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
               />
             </label>
           </div>
@@ -195,7 +197,7 @@ export default function ReportPage() {
               type="button"
               onClick={send}
               disabled={sending || !canSend}
-              className="rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-2 text-sm font-extrabold disabled:opacity-60"
+              className="trivia-btn-coral trivia-sheen rounded-2xl px-5 py-2.5 text-sm font-extrabold disabled:opacity-60"
             >
               {sending ? 'Sending…' : 'Submit report'}
             </button>
@@ -205,7 +207,7 @@ export default function ReportPage() {
           </div>
         </section>
       ) : (
-        <section className="mt-6 rounded-3xl border border-white/10 bg-white/4 p-6 shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+        <section className="trivia-card-join mt-6 p-6">
           <h2 className="text-xl font-black">
             {mode === 'bug' ? 'Report a bug' : 'Make a suggestion'}
           </h2>
@@ -222,7 +224,7 @@ export default function ReportPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={mode === 'bug' ? '“Lobby freezes after start”' : '“Add a Seinfeld pack (obviously)”'}
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
               />
             </label>
 
@@ -237,7 +239,7 @@ export default function ReportPage() {
                     : 'What should exist, who it helps, and how we should avoid making it weird or biased…'
                 }
                 rows={6}
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
               />
             </label>
 
@@ -247,7 +249,7 @@ export default function ReportPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="If you want a follow-up"
-                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/40"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-trivia-gold/40"
               />
             </label>
           </div>
@@ -257,7 +259,7 @@ export default function ReportPage() {
               type="button"
               onClick={send}
               disabled={sending || !canSend}
-              className="rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-2 text-sm font-extrabold disabled:opacity-60"
+              className="trivia-btn-coral trivia-sheen rounded-2xl px-5 py-2.5 text-sm font-extrabold disabled:opacity-60"
             >
               {sending ? 'Sending…' : 'Send'}
             </button>
@@ -268,7 +270,7 @@ export default function ReportPage() {
         </section>
       )}
 
-      <section className="mt-6 rounded-3xl border border-white/10 bg-white/3 p-6">
+      <section className="trivia-card-join mt-6 p-6">
         <h2 className="text-lg font-black">Fairness / bias note</h2>
         <p className="mt-2 text-sm text-white/60">
           If a question is culturally narrow, ambiguous, discriminatory, or punches down, flag it. Trivia that “technically” has an answer but

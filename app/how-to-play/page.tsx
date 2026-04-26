@@ -9,7 +9,7 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-3xl border border-white/10 bg-white/4 p-6 shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+    <section className="trivia-card-join p-6 shadow-[0_1px_0_rgba(255,255,255,0.06)]">
       <h2 className="text-xl font-black">{title}</h2>
       <div className="mt-3 text-sm text-white/65 leading-relaxed space-y-3">{children}</div>
     </section>
@@ -22,20 +22,14 @@ export default function HowToPlayPage() {
       title="How to play"
       subtitle="Host a game in under a minute. Humiliate your friends with facts you’ll forget by Tuesday."
       rightSlot={
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/"
-            className="rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 text-sm font-bold text-white/70"
-          >
+        <>
+          <Link href="/" className="trivia-pill-browse">
             Host setup
           </Link>
-          <Link
-            href="/play"
-            className="rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 text-sm font-extrabold"
-          >
+          <Link href="/play" className="trivia-btn-coral trivia-sheen inline-block py-2.5 px-5 text-sm">
             Join as player
           </Link>
-        </div>
+        </>
       }
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -81,17 +75,17 @@ export default function HowToPlayPage() {
         </Card>
       </div>
 
-      <div className="mt-10 rounded-3xl border border-white/10 bg-white/3 p-6">
+      <div className="trivia-card-join mt-10 p-6">
         <h2 className="text-lg font-black">Quick links</h2>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/packs" className="text-sm font-bold text-white/75 hover:text-white underline">
-            Theme packs store
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link href="/packs" className="trivia-pill-browse">
+            Theme packs
           </Link>
-          <Link href="/account" className="text-sm font-bold text-white/75 hover:text-white underline">
+          <Link href="/account" className="trivia-pill-browse">
             Account
           </Link>
-          <Link href="/report" className="text-sm font-bold text-white/75 hover:text-white underline">
-            Report bugs / suggestions
+          <Link href="/report" className="trivia-pill-browse">
+            Report / feedback
           </Link>
         </div>
       </div>
