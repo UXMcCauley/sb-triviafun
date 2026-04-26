@@ -110,7 +110,7 @@ export default function QuestionCard({
 
       <div className={isDisplay ? 'trivia-question-slab px-6 py-8 sm:px-10 sm:py-10' : 'rounded-2xl border border-white/10 bg-trivia-navy-mid/80 px-4 py-5'}>
         <h2
-          className={`relative z-[1] font-extrabold leading-tight text-white ${
+          className={`relative z-1 font-extrabold leading-tight text-white ${
             isDisplay ? 'text-3xl sm:text-4xl md:text-5xl' : 'text-xl sm:text-2xl'
           }`}
         >

@@ -663,7 +663,7 @@ function PlayContent() {
                     .slice()
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((p, i) => (
-                      <div key={p.id} className="flex w-[4.5rem] flex-col items-center">
+                      <div key={p.id} className="flex w-18 flex-col items-center">
                         <div
                           className={`flex h-14 w-14 items-center justify-center rounded-full bg-trivia-navy font-extrabold text-white ring-4 ring-inset ${
                             ['ring-trivia-gold', 'ring-trivia-cyan', 'ring-trivia-mint', 'ring-trivia-coral'][i % 4]

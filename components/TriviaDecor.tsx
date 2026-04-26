@@ -25,7 +25,7 @@ export function TriviaGameSurface({ children, className = '', embedded = false }
       className={`relative isolate min-h-dvh w-full overflow-x-hidden bg-trivia-navy text-white ${className}`}
       style={{ backgroundImage: STAR_LAYERS }}
     >
-      <div className="relative z-[1] flex min-h-dvh w-full flex-col">{children}</div>
+      <div className="relative z-1 flex min-h-dvh w-full flex-col">{children}</div>
     </div>
   );
 }
