@@ -84,7 +84,7 @@ export default function ThemePackCard({
         // M3 elevation: level 1 rest, level 2 hover
         'transition-[transform,box-shadow] duration-200 ease-out',
         arcade && 'trivia-arcade-pack rounded-2xl',
-        arcade && selected && 'ring-2 ring-trivia-gold/70 ring-offset-2 ring-offset-[#0a0e22]',
+        arcade && selected && 'ring-2 ring-trivia-gold/70 ring-offset-2 ring-offset-trivia-navy',
         disabled && 'opacity-40 cursor-not-allowed',
       )}
       aria-disabled={disabled || undefined}
