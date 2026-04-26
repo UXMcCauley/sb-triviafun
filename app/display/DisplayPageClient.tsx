@@ -430,7 +430,7 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
               <button
                 type="button"
                 onClick={handleJoin}
-                className="trivia-btn-coral w-full text-lg"
+                className="trivia-btn-coral trivia-sheen w-full text-lg"
               >
                 Show game
               </button>
@@ -477,7 +477,7 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
             type="button"
             onClick={startGameNow}
             disabled={starting || players.length === 0 || phase === 'countdown'}
-            className="trivia-btn-coral px-6 text-sm disabled:opacity-50"
+            className="trivia-btn-coral trivia-sheen px-6 text-sm disabled:opacity-50"
           >
             {starting ? 'Starting…' : phase === 'countdown' ? 'Starting…' : 'Start game'}
           </button>
