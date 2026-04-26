@@ -6,6 +6,9 @@ type ThemeMode = 'light' | 'dark';
 
 function getInitialTheme(): ThemeMode {
   if (typeof window === 'undefined') return 'light';
+  // If the layout pre-hydration script already decided, trust it.
+  if (document?.documentElement?.classList?.contains('dark')) return 'dark';
+  if (document?.documentElement?.style?.colorScheme === 'light') return 'light';
   const stored = window.localStorage.getItem('theme');
   if (stored === 'light' || stored === 'dark') return stored;
   return window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? 'dark' : 'light';
@@ -17,6 +20,7 @@ export default function LightDarkToggle({ size = 18 }: { size?: number }) {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', mode === 'dark');
+    document.documentElement.style.colorScheme = mode === 'dark' ? 'dark' : 'light';
   }, [mode]);
 
   const setTheme = (next: ThemeMode) => {

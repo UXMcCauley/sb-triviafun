@@ -32,9 +32,28 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-x-hidden`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+  try {
+    var stored = localStorage.getItem('theme');
+    var mode = (stored === 'light' || stored === 'dark')
+      ? stored
+      : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var dark = mode === 'dark';
+    var el = document.documentElement;
+    if (dark) el.classList.add('dark'); else el.classList.remove('dark');
+    el.style.colorScheme = dark ? 'dark' : 'light';
+  } catch (e) {}
+})();`,
+          }}
+        />
         {process.env.NODE_ENV === "development" ? (
           <Script
             src="https://mcp.figma.com/mcp/html-to-design/capture.js"
