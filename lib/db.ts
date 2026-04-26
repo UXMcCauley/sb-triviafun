@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 
 function getDatabaseUrl() {
-  const url = process.env.DATABASE_URL;
+  const url = (process.env.DATABASE_URL || '').trim().replace(/^['"]|['"]$/g, '');
   if (!url) {
     throw new Error("Missing DATABASE_URL");
   }
