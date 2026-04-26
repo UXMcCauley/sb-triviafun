@@ -47,7 +47,7 @@ export default function AccountPage() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/auth/me')
+    fetch('/api/auth/me', { cache: 'no-store', credentials: 'include' })
       .then((r) => (r.ok ? r.json() : { user: null }))
       .then((data) => {
         if (cancelled) return;
