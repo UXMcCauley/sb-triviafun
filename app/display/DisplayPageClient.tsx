@@ -306,9 +306,9 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
       setCorrectAnswer(null);
       setPlayerResults([]);
       setTotalQuestions(data.totalQuestions);
-
-      // Stinger first (7s), then prompt-only (10s), then full answers for the remainder.
-      setTimedPhase('question-stinger', 7);
+      // Keep TV + players aligned: start answer window immediately.
+      setPhase('question-answers');
+      setPhaseEndsAt(data.startedAt + data.timerDuration * 1000);
     });
 
     channel.bind('answer-reveal', (data: AnswerRevealEvent) => {
@@ -359,16 +359,6 @@ export default function DisplayPageClient({ embedded = false, hostGameCode }: Pr
           requestAdvance().catch(() => {});
           setPhase('intro');
           setPhaseEndsAt(null);
-        } else if (phase === 'question-stinger') {
-          setTimedPhase('question-prompt', 10);
-        } else if (phase === 'question-prompt') {
-          if (currentQuestion) {
-            // run answer window until question timer ends
-            const answerWindow = clamp(currentQuestion.timerDuration, 5, 60);
-            setTimedPhase('question-answers', answerWindow);
-          } else {
-            setTimedPhase('question-answers', 10);
-          }
         } else if (phase === 'question-answers') {
           requestReveal().catch(() => {});
           // Wait for the reveal event rather than looping.

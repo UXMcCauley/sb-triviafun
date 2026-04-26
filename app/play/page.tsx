@@ -320,8 +320,8 @@ function PlayContent() {
       setWasCorrect(null);
       setReported(false);
       setLobbyCountdownEndsAt(null);
-      setPhase('question-stinger');
-      setPhaseEndsAt(data.startedAt + 7_000);
+      setPhase('question-answers');
+      setPhaseEndsAt(data.startedAt + data.timerDuration * 1000);
     });
 
     channel.bind('answer-reveal', (data: AnswerRevealEvent) => {
@@ -418,18 +418,19 @@ function PlayContent() {
       }
 
       if (phase === 'question-stinger') {
-        setPhase('question-prompt');
-        setPhaseEndsAt(phaseEndsAt + 10_000);
+        setPhase('question-answers');
+        if (currentQuestion) {
+          setPhaseEndsAt(currentQuestion.startedAt + currentQuestion.timerDuration * 1000);
+        } else {
+          setPhaseEndsAt(null);
+        }
         return;
       }
 
       if (phase === 'question-prompt') {
         setPhase('question-answers');
-        if (currentQuestion) {
-          setPhaseEndsAt(currentQuestion.startedAt + currentQuestion.timerDuration * 1000);
-        } else {
-          setPhaseEndsAt(now + 10_000);
-        }
+        if (currentQuestion) setPhaseEndsAt(currentQuestion.startedAt + currentQuestion.timerDuration * 1000);
+        else setPhaseEndsAt(null);
         return;
       }
 
