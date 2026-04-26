@@ -1,6 +1,8 @@
 'use client';
 
-import { createAuthClient } from '@neondatabase/neon-js/auth';
+import { createAuthClient } from '@neondatabase/auth/next';
 
-export const authClient = createAuthClient(process.env.NEXT_PUBLIC_NEON_AUTH_BASE_URL!);
+// Next.js client: talks to this app's `/api/auth/*` handler,
+// which is what sets the app-origin session cookie.
+export const authClient = createAuthClient();
 
