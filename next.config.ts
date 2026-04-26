@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: __dirname,
-  },
-  allowedDevOrigins: ["127.0.0.1.nip.io"],
+  allowedDevOrigins: [
+    "127.0.0.1.nip.io",
+    "localhost.localdomain",
+    "sb-triviafun.vercel.app",
+  ],
 };
 
 export default nextConfig;
