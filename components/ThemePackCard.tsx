@@ -47,8 +47,12 @@ export default function ThemePackCard({
   const accentMixes = ['#22d3ee', '#a855f7', '#f97316', '#22c55e', '#e11d48'];
   const mix = accentMixes[hashToIndex(pack.id || pack.name, accentMixes.length)];
 
-  const gradient = `linear-gradient(to bottom, color-mix(in oklab, ${pack.themeColor} 80%, ${mix} 20%), ${pack.themeColor}, color-mix(in oklab, ${pack.themeColor} 75%, #ffffff 25%))`;
-  const titleColor = `color-mix(in oklab, ${pack.themeColor} 88%, #ffffff 12%)`;
+  const gradient = `linear-gradient(to bottom,
+    color-mix(in oklab, ${pack.themeColor} 78%, ${mix} 22%),
+    color-mix(in oklab, ${pack.themeColor} 88%, var(--md-sys-color-primary) 12%),
+    color-mix(in oklab, ${pack.themeColor} 72%, var(--md-sys-color-tertiary) 28%)
+  )`;
+  const titleColor = `color-mix(in oklab, var(--md-sys-color-primary) 55%, ${pack.themeColor} 45%)`;
 
   const style = {
     ['--packGradient' as string]: gradient,
@@ -64,15 +68,30 @@ export default function ThemePackCard({
       className={cx(
         'group text-left',
         'relative isolate overflow-hidden rounded-2xl',
-        'bg-[#29292c] border border-white/10',
-        'shadow-[0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.35)]',
+        'border',
+        'shadow-[0_1px_0_rgba(0,0,0,0.10)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.35)]',
         'transition-all',
         disabled && 'opacity-40 cursor-not-allowed',
-        selected && !disabled && 'border-white/25',
+        selected && !disabled && 'ring-2 ring-[color-mix(in_oklab,var(--md-sys-color-primary)_45%,transparent)]',
       )}
+      aria-disabled={disabled || undefined}
     >
       {/* inner inset panel (replaces :before) */}
-      <div className="absolute inset-px rounded-[15px] bg-[#18181b] z-2" />
+      <div
+        className="absolute inset-px rounded-[15px] z-2"
+        style={{ background: 'var(--md-sys-color-surface)' }}
+      />
+
+      {/* container background + outline in M3 terms */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'var(--md-sys-color-surface-container)',
+          borderColor: selected
+            ? 'color-mix(in oklab, var(--md-sys-color-primary) 55%, var(--md-sys-color-outline-variant) 45%)'
+            : 'var(--md-sys-color-outline-variant)',
+        }}
+      />
 
       {/* left gradient bar (replaces :after) */}
       <div
@@ -93,7 +112,10 @@ export default function ThemePackCard({
           'opacity-0 group-hover:opacity-10 transition-opacity duration-300 ease-out',
           'pointer-events-none',
         )}
-        style={{ background: 'radial-gradient(circle closest-side at center, white, transparent)' }}
+        style={{
+          background:
+            'radial-gradient(circle closest-side at center, color-mix(in oklab, var(--md-sys-color-primary) 80%, white 20%), transparent)',
+        }}
       />
       <div
         className={cx(
@@ -101,7 +123,10 @@ export default function ThemePackCard({
           'opacity-0 group-hover:opacity-10 transition-opacity duration-300 ease-out',
           'pointer-events-none',
         )}
-        style={{ background: 'radial-gradient(circle closest-side at center, white, transparent)' }}
+        style={{
+          background:
+            'radial-gradient(circle closest-side at center, color-mix(in oklab, var(--md-sys-color-tertiary) 70%, white 30%), transparent)',
+        }}
       />
 
       <div className="relative z-5 p-5">
@@ -125,10 +150,11 @@ export default function ThemePackCard({
             </div>
             <div
               className={cx(
-                'text-sm text-white/55 leading-snug line-clamp-2',
+                'text-sm leading-snug line-clamp-2',
                 'transition-transform duration-300 ease-out',
                 'group-hover:translate-x-1',
               )}
+              style={{ color: 'var(--md-sys-color-on-surface-variant)' }}
             >
               {pack.tagline}
             </div>
@@ -137,16 +163,19 @@ export default function ThemePackCard({
 
         <div
           className={cx(
-            'mt-3 text-sm text-white/45 leading-relaxed line-clamp-2',
+            'mt-3 text-sm leading-relaxed line-clamp-2',
             'transition-transform duration-300 ease-out',
             'group-hover:translate-x-1',
           )}
+          style={{ color: 'color-mix(in oklab, var(--md-sys-color-on-surface-variant) 80%, var(--md-sys-color-on-surface) 20%)' }}
         >
           {pack.description}
         </div>
 
         <div className="mt-4 flex items-center justify-between gap-3">
-          <span className="text-xs text-white/35">{disabled ? 'No questions yet' : `${pack.questionCount} questions`}</span>
+          <span className="text-xs" style={{ color: 'var(--md-sys-color-outline)' }}>
+            {disabled ? 'No questions yet' : `${pack.questionCount} questions`}
+          </span>
           <div className="flex items-center gap-2">
             {typeof onToggleFavorite === 'function' ? (
               <button
@@ -159,10 +188,23 @@ export default function ThemePackCard({
                 className={cx(
                   'text-xs font-semibold rounded-full px-2 py-1 border transition',
                   favored
-                    ? 'border-yellow-400/30 bg-yellow-500/15 text-yellow-200 hover:bg-yellow-500/20'
-                    : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10',
+                    ? 'hover:opacity-90'
+                    : 'hover:opacity-90',
                 )}
                 aria-label={favored ? 'Unfavorite pack' : 'Favorite pack'}
+                style={
+                  favored
+                    ? {
+                        borderColor: 'color-mix(in oklab, var(--md-sys-color-tertiary) 45%, transparent)',
+                        background: 'color-mix(in oklab, var(--md-sys-color-tertiary-container) 55%, transparent)',
+                        color: 'var(--md-sys-color-on-tertiary-container)',
+                      }
+                    : {
+                        borderColor: 'var(--md-sys-color-outline-variant)',
+                        background: 'color-mix(in oklab, var(--md-sys-color-surface-container-high) 55%, transparent)',
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                      }
+                }
               >
                 {favored ? '★' : '☆'}
               </button>
@@ -177,11 +219,22 @@ export default function ThemePackCard({
                 }}
                 className={cx(
                   'text-xs font-semibold rounded-full px-2 py-1 border transition',
-                  pinned
-                    ? 'border-purple-400/30 bg-purple-500/15 text-purple-200 hover:bg-purple-500/20'
-                    : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10',
+                  'hover:opacity-90',
                 )}
                 aria-label={pinned ? 'Unpin pack' : 'Pin pack'}
+                style={
+                  pinned
+                    ? {
+                        borderColor: 'color-mix(in oklab, var(--md-sys-color-secondary) 45%, transparent)',
+                        background: 'color-mix(in oklab, var(--md-sys-color-secondary-container) 55%, transparent)',
+                        color: 'var(--md-sys-color-on-secondary-container)',
+                      }
+                    : {
+                        borderColor: 'var(--md-sys-color-outline-variant)',
+                        background: 'color-mix(in oklab, var(--md-sys-color-surface-container-high) 55%, transparent)',
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                      }
+                }
               >
                 {pinned ? 'Pinned' : 'Pin'}
               </button>
@@ -190,8 +243,21 @@ export default function ThemePackCard({
             <span
               className={cx(
                 'text-xs font-semibold rounded-full px-2 py-1 border',
-                selected ? 'border-white/20 bg-white/10 text-white/80' : 'border-white/10 bg-white/5 text-white/50',
+                'select-none',
               )}
+              style={
+                selected
+                  ? {
+                      borderColor: 'color-mix(in oklab, var(--md-sys-color-primary) 55%, transparent)',
+                      background: 'color-mix(in oklab, var(--md-sys-color-primary-container) 65%, transparent)',
+                      color: 'var(--md-sys-color-on-primary-container)',
+                    }
+                  : {
+                      borderColor: 'var(--md-sys-color-outline-variant)',
+                      background: 'color-mix(in oklab, var(--md-sys-color-surface-container-high) 55%, transparent)',
+                      color: 'var(--md-sys-color-on-surface-variant)',
+                    }
+              }
             >
               {selected ? 'Selected' : 'Select'}
             </span>

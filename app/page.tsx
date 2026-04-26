@@ -7,6 +7,7 @@ import GameQRCode from '@/components/GameQRCode';
 import DisplayPageClient from '@/app/display/DisplayPageClient';
 import ShareLinks from '@/components/ShareLinks';
 import ThemePackCard from '@/components/ThemePackCard';
+import LightDarkToggle from '@/components/LightDarkToggle';
 
 interface PackInfo {
   id: string;
@@ -293,6 +294,9 @@ export default function Home() {
               >
                 Report
               </Link>
+              <div className="ml-1 inline-flex items-center">
+                <LightDarkToggle size={16} />
+              </div>
             </div>
           </div>
         </div>
