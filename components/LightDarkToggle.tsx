@@ -44,7 +44,7 @@ export default function LightDarkToggle({ size = 18 }: { size?: number }) {
         id={id}
         selected={mode === 'dark'}
         aria-label="Dark mode"
-        onClick={(e: Event) => {
+        onClick={(e: React.MouseEvent<HTMLElement>) => {
           e.preventDefault();
           setTheme(mode === 'dark' ? 'light' : 'dark');
         }}
